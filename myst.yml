@@ -1,0 +1,15 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: 28bfdfac-15dd-4491-a507-b950cb024f23
+  # title:
+  # description:
+  # keywords: []
+  # authors: []
+  github: https://github.com/freemocap/freemocap.github.io
+  # To autogenerate a Table of Contents, run "myst init --write-toc"
+site:
+  template: book-theme
+  # options:
+  #   favicon: favicon.ico
+  #   logo: site_logo.png
