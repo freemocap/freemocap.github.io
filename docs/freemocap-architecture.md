@@ -74,6 +74,10 @@ ___
 ## Repo and Sub-repo Responsibilities
 
 ### FreeMoCap - Core
+- **Responsibility**: `Pipelines`
+- **Domain**: Anything that requires nodes from multiple sub-skellies
+- **Standalone**: Core Application 
+- **Emojis**: 💀✨ `:skull: :sparkles:`
 
 We can design the v2 FreeMoCap architecture as a Graph/Node structure, whereby the main functionality will derive from `Pipeline` ('Graph'? 'ProcessingGraph'? 'ProcessingPipeline'?) objects, which are worker-based graphs defining processing pipelines to perform the key tasks underlying the freemocap application, namely: Calibration, RealtimeMocap, PostHocMocap, etc. 
 
@@ -82,5 +86,24 @@ Future pipelines may include tasks like - post-processing analysis, batch proces
 Freemocap-level processing pipelines ('core-pipelines') will be composed of `Node` ('graph node',processing node', pipeline node'?) objects, with clearly defined Inputs, Dependencies (e.g. config), and Outputs
 
 Sub-skelly repos will be loosely defined according to their TASK (i.e. the task/role they play in the core pipelines) and DOMAIN (i.e. the data and task type they tend to wrangle)
+
+
+### SkellyCam
+- **Responsibility**: `Cameras` ('video group' handled as `CameraWorker` or `CameraManager` config? Or standalone class?)
+- **Domain**: Cameras, Video, Synchronization, Empirical measurement, Raw data generation
+- **Standalone**: SkellyCam-UI (simple sync video recorder)
+- **Emojis**: 💀📸 `:skull: :camera_with_flash:` 
+
+### SkellyTracker
+- **Responsibility**: Image Tracking `Tracker` objects (e.g. `MediapipeTracker`, `)
+- **Domain**: Image analysis, computer vision, convolutional neural network (i.e. processing images from a SINGLE camera, producing data that does not rely on info/data from other cameras )
+- **Standalone**: Webcam Demo (simple camera/video connection to show Tracker output)
+- **Emojis**: 💀🔭 `:skull: :telescope:`
+
+### SkellyForge
+- **Responsibility**: 3d Reconstruction (i.e. multi-camera data aggregation)
+- **Domain**: 3d geometry, signal processing (gap filling, filtering), kinematic reconstruction
+- **Standalone**: Reconstruction UI
+- **Emojis**: 💀🛠️ `:skull: :tools:`
 
 
