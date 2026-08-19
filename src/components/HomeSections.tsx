@@ -87,7 +87,7 @@ export function Hero() {
 export function ComingSoonSection() {
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionHeading}>Learn the field</h2>
+      <h2 className={styles.sectionHeading}>Coming Soon</h2>
       <div className={styles.cardGrid}>
         <Link to="/university/" className={`${styles.card} ${styles.cardMuted}`}>
           <h3 className={styles.cardTitle}>Skelly University</h3>
@@ -95,7 +95,7 @@ export function ComingSoonSection() {
             A course-based path through markerless motion capture, from your first
             recording to specialized tracks in technology, science, and art.
           </p>
-          <span className={styles.cardComingSoon}>Coming soon</span>
+          <span className={styles.cardComingSoon}>https://github.com/freemocap/university</span>
         </Link>
       </div>
     </section>

@@ -17,3 +17,8 @@
 .homepage-no-padding article {
   padding: 0;
 }
+
+/* Hover already reveals the dropdowns; the caret is redundant. */
+.navbar__item.dropdown > .navbar__link::after {
+  display: none;
+}

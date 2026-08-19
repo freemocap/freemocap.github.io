@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import yaml from 'js-yaml';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { navSections, aboutSection } from './src/data/sitePages';
 
 // Triangulation, calibration and biomechanics pages carry real equations.
 // Without a math plugin, MDX v3 reads the braces in `\varepsilon_{target}` as
@@ -23,6 +24,20 @@ const repos = yaml.load(readFileSync('./data/repos.yml', 'utf8')) as Repo[];
 // Only repos that actually have docs get a plugin instance. Today that is
 // freemocap and skellycam. The rest join by setting docs_path in repos.yml.
 const externalRepos = repos.filter((r) => r.docs_path && r.route && r.id !== 'freemocap');
+
+const sectionById = (id: string) => {
+  const section = navSections.find((s) => s.id === id);
+  if (!section) throw new Error(`No section "${id}" in src/data/sitePages.ts`);
+  return section;
+};
+
+const sectionDropdown = (section: { hubPath: string; label: string; pages: { to: string; label: string }[] }) => ({
+  type: 'dropdown' as const,
+  to: section.hubPath,
+  label: section.label,
+  position: 'left' as const,
+  items: section.pages.map((page) => ({ to: page.to, label: page.label })),
+});
 
 const config: Config = {
   title: 'FreeMoCap',
@@ -195,19 +210,32 @@ const config: Config = {
       title: 'FreeMoCap',
       logo: { alt: 'FreeMoCap', src: 'img/logo.svg' },
       items: [
-        // Start / Tutorials / How-to / Reference are one Docusaurus instance
-        // (one sidebar, versioned together) and stay contiguous so moving
-        // between them never swaps the whole sidebar out. Concepts and Build
-        // are each a separate instance with their own sidebar (see the
-        // "Instance" comments in the plugins list below); each sits on only
-        // one edge of the group so a reader crosses that seam once, not back
-        // and forth.
-        { to: '/start/', label: 'Get started', position: 'left' },
-        { to: '/tutorials/', label: 'Tutorials', position: 'left' },
-        { to: '/guides/', label: 'How-to', position: 'left' },
-        { to: '/reference/', label: 'Reference', position: 'left' },
-        { to: '/concepts/', label: 'Concepts', position: 'left' },
-        { to: '/build/', label: 'Build', position: 'left' },
+        // Start / Tutorials / How-to / Reference / About are one Docusaurus
+        // instance (one sidebar, versioned together) and stay contiguous so
+        // moving between them never swaps the whole sidebar out. Concepts
+        // and Build are each a separate instance with their own sidebar
+        // (see the "Instance" comments in the plugins list below); each
+        // sits on only one edge of the group so a reader crosses that seam
+        // once, not back and forth.
+        //
+        // Dropdown items come from src/data/sitePages.ts, the same source
+        // the footer sitemap reads, so there is one list to update per
+        // section instead of three. Docusaurus dropdown navbar items expand
+        // on hover on desktop by default; no custom JS needed.
+        sectionDropdown(sectionById('start')),
+        // The one two-level menu on the site: tiers as the first level,
+        // flyout-on-hover to each tier's pages as the second, matching the
+        // sidebar's own Tier 1/2/3 grouping. Docusaurus's stock dropdown
+        // rejects a dropdown nested inside a dropdown ("Nested dropdowns are
+        // not allowed"), so this is a custom navbar item; see
+        // src/theme/NavbarItem/TutorialsNavbarItem.tsx and the
+        // ComponentTypes swizzle beside it. Every other section stays flat.
+        { type: 'custom-tutorialsDropdown', position: 'left' },
+        sectionDropdown(sectionById('guides')),
+        sectionDropdown(sectionById('reference')),
+        sectionDropdown(aboutSection),
+        sectionDropdown(sectionById('concepts')),
+        sectionDropdown(sectionById('build')),
         { type: 'docsVersionDropdown', position: 'right' },
         { to: '/download', label: 'Download', position: 'right' },
         {
@@ -216,39 +244,6 @@ const config: Config = {
           position: 'right',
         },
       ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Use it',
-          items: [
-            { label: 'Get started', to: '/start/' },
-            { label: 'Tutorials', to: '/tutorials/' },
-            { label: 'How-to guides', to: '/guides/' },
-            { label: 'Reference', to: '/reference/' },
-          ],
-        },
-        {
-          title: 'Build it',
-          items: [
-            { label: 'Architecture', to: '/build/architecture' },
-            { label: 'The map', to: '/build/the-map' },
-            { label: 'Contributing', to: '/build/contributing' },
-            { label: 'Source code', href: 'https://github.com/freemocap' },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            { label: 'Discord', href: 'https://discord.gg/XpRQJnqZxf' },
-            { label: 'About', to: '/community/about' },
-            { label: 'Code of conduct', to: '/community/code-of-conduct' },
-            { label: 'How these docs are written', to: '/community/how-these-docs-are-written' },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} FreeMoCap Foundation. Built with <a href="https://github.com/freemocap/skellydocs">SkellyDocs</a>.`,
     },
     prism: {
       theme: prismThemes.github,

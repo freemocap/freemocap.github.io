@@ -113,7 +113,6 @@ const sidebars: SidebarsConfig = {
         'community/how-these-docs-are-written',
       ],
     },
-    'university/index',
   ],
 };
 
