@@ -20,10 +20,12 @@ First fork the reader hits, kept deliberately small (ethereum.org-style branchin
 
 ```
 FreeMoCap Docs (home)
-├── Use it            → User docs        (tutorials, how-tos, data model)   [01]
-├── Learn the field   → Education        (courses, Skelly University)       [01]
-└── Build it          → Developer / Architecture (polyrepo map, per-repo)   [02]
+├── Use it            → User docs        (tutorials, how-tos, data model)
+├── Learn the field   → Education        (courses, Skelly University)
+└── Build it          → Developer / Architecture (polyrepo map, per-repo)
 ```
+
+Each door maps to a plan doc: **Use it** and **Learn the field** → [User & Education Docs](./01-user-and-education-docs.md); **Build it** → [Developer & Architecture Docs](./02-developer-and-architecture-docs.md).
 
 Home's whole job is to route, not to explain. Three clear doors + a one-line "not sure? start here" that drops into Tier-0 first-touch.
 
@@ -80,4 +82,4 @@ Because the docs span many repos scaffolded by SkellyDocs:
 
 ## Open IA questions
 
-Parked in `99-open-questions.md`: exact URL/domain structure (one site vs. subdomains per repo), where the global map physically lives, and how education/micro-credential progress is surfaced in-nav.
+Parked in [Open Questions](./99-open-questions.md): exact URL/domain structure (one site vs. subdomains per repo), where the global map physically lives, and how education/micro-credential progress is surfaced in-nav.

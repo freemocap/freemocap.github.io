@@ -25,4 +25,4 @@ These are living planning documents, not finished docs. They capture intent, str
 
 ## How to use these docs
 
-Skim `00` for the frame, then dip into whichever plan is relevant. Nothing here is locked — mark up, disagree in-line, and move settled items into real docs work.
+Skim [the vision & principles](./00-vision-and-principles.md) for the frame, then dip into whichever plan is relevant. Nothing here is locked — mark up, disagree in-line, and move settled items into real docs work.

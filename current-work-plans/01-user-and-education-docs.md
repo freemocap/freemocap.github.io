@@ -41,9 +41,9 @@ Goal: research-grade rigor and building on top of FreeMoCap.
 - **Building analyses on the output data** (the "now what do I do with these numbers" arm — serves athletes, clinicians, researchers).
 - Custom pipelines / swapping trackers / advanced config.
 - Reproducibility, citation, and data management.
-- Bridge into the developer docs (`02`) for anyone who wants to extend the code.
+- Bridge into the [developer docs](./02-developer-and-architecture-docs.md) for anyone who wants to extend the code.
 
-> Note: tiers are a **reader-facing funnel**, not a rigid table of contents. A page can belong to a tier and also be reachable directly from a task-based index (see IA, `03`).
+> Note: tiers are a **reader-facing funnel**, not a rigid table of contents. A page can belong to a tier and also be reachable directly from a task-based index (see [Information Architecture](./03-information-architecture.md)).
 
 ## Tutorials vs. how-tos vs. reference (Diátaxis-ish)
 
@@ -54,7 +54,7 @@ Keep these distinct — it's the cheapest way to avoid the DeepLabCut mush:
 - **Reference** — information-oriented, dry, complete. (Data model spec, config options, CLI, API.)
 - **Explanation / concepts** — understanding-oriented. (What is triangulation, what is a boundary object dataset, why calibration matters.)
 
-Every user-facing page should know which of these four it is. Templates in `templates/` enforce it.
+Every user-facing page should know which of these four it is. The [templates](./templates/) enforce it.
 
 ## The output data model (special attention)
 
@@ -77,8 +77,8 @@ Design intent:
 - Hooks into a **low-key micro-credentialing program** — complete a module, get a Skelly University micro-credential. Keep it lightweight; this is community/education flavor, not accredited coursework.
 - Cross-references **Skelly University** (previously discussed) as the home for the micro-credentialing side.
 
-Open items for the education track live in `99-open-questions.md` (what counts as a credential, how progress is tracked, how much lives in-docs vs. in Skelly University).
+Open items for the education track live in [Open Questions](./99-open-questions.md) (what counts as a credential, how progress is tracked, how much lives in-docs vs. in Skelly University).
 
 ## Cross-audience routing (inside the user docs)
 
-Because the same how-to serves an artist and a clinician for different reasons, add **"if you're a…"** signposts at the top of hub pages, each linking into the same underlying content with the right framing. This is the boundary-object move: one artifact, many doorways. Details in IA (`03`).
+Because the same how-to serves an artist and a clinician for different reasons, add **"if you're a…"** signposts at the top of hub pages, each linking into the same underlying content with the right framing. This is the boundary-object move: one artifact, many doorways. Details in [Information Architecture](./03-information-architecture.md).

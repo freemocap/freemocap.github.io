@@ -22,7 +22,7 @@ FreeMoCap is a **polyrepo**. The org (`github.com/freemocap`) holds many reposit
   | **SkellyForge** | Kinematic modeling | Receives reconstructed points → builds **kinematic models** of skeletons and other objects |
   | **SkellyBlender** | Blender integration | Ports the results into **Blender** for animation |
 
-  > The pipeline reads as a chain: **SkellyCam → SkellyTracker → (triangulation/reconstruction) → SkellyForge → SkellyBlender**, with FreeMoCap core orchestrating the whole thing. (Confirm exactly where triangulation/reconstruction lives — core vs. a component — in `99-open-questions.md`.)
+  > The pipeline reads as a chain: **SkellyCam → SkellyTracker → (triangulation/reconstruction) → SkellyForge → SkellyBlender**, with FreeMoCap core orchestrating the whole thing. (Confirm exactly where triangulation/reconstruction lives — core vs. a component — in [Open Questions](./99-open-questions.md).)
 
 - **The utility menagerie** (smaller ships): simpler, smaller-scope repos — **SkellyLogs, SkellyPings, SkellyDocs**, and friends. Documented, but lighter-weight than the pantheon.
 
@@ -45,7 +45,7 @@ Every repo's docs (scaffolded by SkellyDocs) should carry the same sections, so 
 5. **API / reference** — the public surface.
 6. **Contributing** — how to develop *this* repo specifically.
 
-The "where it sits in the map" panel is what makes bottom-up and inside-out navigation work (see `03`).
+The "where it sits in the map" panel is what makes bottom-up and inside-out navigation work (see [Information Architecture](./03-information-architecture.md)).
 
 ## Project-level architecture docs
 
@@ -70,4 +70,4 @@ The developer docs must support all three reading directions:
 - **Bottom-up:** start at a sub-Skelly (often via search) → the "where it sits" panel zooms them out to the whole.
 - **Inside-out:** start at a concept or data type (e.g. "keypoint observations") → branch to whichever repos produce/consume it.
 
-Full IA in `03`.
+Full IA in [Information Architecture](./03-information-architecture.md).

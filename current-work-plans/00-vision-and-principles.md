@@ -8,9 +8,9 @@ The docs' central job is to be a good **boundary object**: a single shared resou
 
 ## The three arms of the docs
 
-1. **User docs** — tutorials and how-tos. Install, record, calibrate, understand the output data model, build analyses on top of it. Tiered from first-touch → beginner → intermediate → advanced. See `01`.
-2. **Education docs** — deeper, course-like material closer to an online university class. Optionally tied to a low-key **micro-credentialing** program (Skelly University). See `01`.
-3. **Developer / architecture docs** — how the software is built, how the polyrepo fits together, and how to contribute. This is a distinct arm, not an appendix to the user docs. See `02`.
+1. **User docs** — tutorials and how-tos. Install, record, calibrate, understand the output data model, build analyses on top of it. Tiered from first-touch → beginner → intermediate → advanced. See [User & Education Docs](./01-user-and-education-docs.md).
+2. **Education docs** — deeper, course-like material closer to an online university class. Optionally tied to a low-key **micro-credentialing** program (Skelly University). See [User & Education Docs](./01-user-and-education-docs.md).
+3. **Developer / architecture docs** — how the software is built, how the polyrepo fits together, and how to contribute. This is a distinct arm, not an appendix to the user docs. See [Developer & Architecture Docs](./02-developer-and-architecture-docs.md).
 
 ## Audiences (design for all, assume none)
 
@@ -24,7 +24,7 @@ The docs' central job is to be a good **boundary object**: a single shared resou
 | Academic researcher | Methods, accuracy, citation, extension | Advanced → developer |
 | Developer / contributor | Understand and extend the code | Developer / architecture |
 
-No one is the "default" reader. The IA (see `03`) has to make every one of these feel like the docs were written for them.
+No one is the "default" reader. The [Information Architecture](./03-information-architecture.md) has to make every one of these feel like the docs were written for them.
 
 ## Guiding principles
 
