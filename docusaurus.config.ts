@@ -245,7 +245,11 @@ const config: Config = {
         sectionDropdown(sectionById('concepts')),
         sectionDropdown(sectionById('build')),
         { type: 'docsVersionDropdown', position: 'right' },
-        { to: '/download', label: 'Download', position: 'right' },
+        // The real download page (OS/GPU detection, release selector) lives
+        // on the top-level site, not here, so this points straight at it
+        // rather than routing through an internal page first. Same pattern
+        // as the Code link below.
+        { href: 'https://freemocap.org/download', label: 'Download', position: 'right' },
         {
           href: 'https://github.com/freemocap/freemocap',
           label: 'Code',

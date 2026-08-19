@@ -41,10 +41,11 @@ function normalizeLinks(dir, repo) {
     const before = readFileSync(path, 'utf8');
     const after = before
       .replace(/\]\(\/docs\//g, `](/${repo.id}/`)
-      .replace(/\]\(\/roadmap\)/g, '](/about/roadmap)');
+      .replace(/\]\(\/roadmap\)/g, '](/about/roadmap)')
+      .replace(/\]\(\/download\)/g, '](https://freemocap.org/download)');
     if (after !== before) {
       writeFileSync(path, after);
-      count += (before.match(/\]\(\/(?:docs\/|roadmap\))/g) ?? []).length;
+      count += (before.match(/\]\(\/(?:docs\/|roadmap\)|download\))/g) ?? []).length;
     }
   }
   return count;

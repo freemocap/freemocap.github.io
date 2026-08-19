@@ -130,28 +130,20 @@ is safe to re-run when new pages join the sitemap.
    produces both. The docs have to tell people which to cite, and that is a
    project decision.
 
-3. **The download page is a placeholder.** The working one, with OS and GPU
-   detection and a release selector, already exists in
-   `freemocap/freemocap-docs/src/components/download`. Lift it wholesale.
-
-4. **`freemocap.org/download` 301s to `docs.freemocap.org/freemocap/download`**
-   (see the main site's `SITE-ARCHITECTURE.md`). That path is preserved by a
-   redirect here, so nothing breaks on cutover, but the main site's 301 should be
-   repointed at `/download` and the redirect kept as archival.
-
-5. **SkellyCam's docs use site-absolute `/docs/…` links** that only resolve on
+3. **SkellyCam's docs use site-absolute `/docs/…` links** that only resolve on
    its standalone site. `fetch-external-docs.mjs` rewrites 24 of them on fetch
    and logs the count. That bridges it; the durable fix is relative links in the
    sub-repo. Any repo joining the aggregate will have the same problem.
 
-6. **`/build/` currently lives in this repo.** The core repo's 34 pages in
+4. **`/build/` currently lives in this repo.** The core repo's 34 pages in
    `freemocap-docs/docs` are source material being consolidated (15 architecture
    pages collapse to about 6). Once that lands and the core repo owns the
    developer arm, set `docs_path` for `freemocap` in `repos.yml` and delete
    `build-docs/`.
 
-7. **`about-us` exists twice**, at `freemocap.org/about-us` and
-   `/about/about-us` here. Worth deciding which is canonical.
+There is no `/download` page on this site and there should not be one: the
+real download page (OS/GPU detection, release selector) lives at
+`freemocap.org/download`. The navbar's Download item links there directly.
 
 `/reference/coordinate-conventions` and `/concepts/coordinate-systems` were the other blocked
 pages; both are now written (millimetres, right-handed, +Z up after ground-plane calibration).

@@ -55,10 +55,10 @@ module.exports = [
   { from: v1('code-of-conduct'), to: '/about/code-of-conduct' },
 
   // The interim V2 docs site was served with baseUrl /freemocap/, so its URLs
-  // are live and linked. freemocap.org's /download 301 points at
-  // docs.freemocap.org/freemocap/download specifically (see the main site's
-  // SITE-ARCHITECTURE.md), so this one is load-bearing today, not just archival.
-  { from: '/freemocap/download', to: '/download' },
+  // are live and linked. This one used to forward to an internal /download
+  // page; there isn't one, the real download page lives on freemocap.org, so
+  // it goes straight there instead of bouncing through a page that doesn't exist.
+  { from: '/freemocap/download', to: 'https://freemocap.org/download' },
   { from: '/freemocap/docs/intro', to: '/build/' },
   { from: '/freemocap/docs/architecture/overview', to: '/build/architecture' },
   { from: '/freemocap/docs/architecture/backend-recording-structure', to: '/reference/recording-structure' },
