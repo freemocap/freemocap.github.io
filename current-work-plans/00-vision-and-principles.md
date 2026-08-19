@@ -4,7 +4,7 @@
 
 FreeMoCap is a tool for studying **human movement using computer vision and machine learning** from ordinary cameras. People arrive from wildly different directions — students, artists, athletes, clinicians, hobbyists, and high-level researchers — with wildly different backgrounds and goals.
 
-The docs' central job is to be a good **boundary object**: a single shared resource that serves all of these communities without watering down for any of them. It does that not by writing one doc for everyone, but by building excellent **funnels, routing, and entry points** so that whoever shows up, whatever their expertise, can find their path.
+FreeMoCap's  job is to be a good **boundary object** between the various fields and domains it serves, and these docs are the map to allow incoming users to navigate its complixty relative to their own interests: a single shared resource that serves all of these communities without watering down for any of them. It does that not by writing one doc for everyone, but by building excellent **funnels, routing, and entry points** so that whoever shows up, whatever their expertise, can find their path.
 
 ## The three arms of the docs
 
