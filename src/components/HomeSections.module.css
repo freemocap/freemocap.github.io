@@ -1,0 +1,214 @@
+/* Homepage layout. Restrained on purpose: funnels over walls of links, and a
+   single column of sections rather than the three-column dump that makes the
+   MyST guide hard to look at. */
+
+.hero {
+  padding: 4rem 0 3rem;
+  text-align: center;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.heroTagline {
+  font-size: 1.25rem;
+  color: var(--ifm-color-emphasis-700);
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.buttonPrimary,
+.buttonSecondary {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.buttonPrimary {
+  background: var(--ifm-color-primary);
+  color: var(--ifm-color-white, #fff);
+}
+
+.buttonPrimary:hover {
+  background: var(--ifm-color-primary-dark);
+  color: var(--ifm-color-white, #fff);
+  text-decoration: none;
+}
+
+.buttonSecondary {
+  border: 1px solid var(--ifm-color-emphasis-400);
+  color: var(--ifm-font-color-base);
+}
+
+.buttonSecondary:hover {
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.section {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.sectionHeading {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 0.75rem;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+  color: inherit;
+  transform: translateY(-2px);
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.95rem;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.cardCta {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+
+.cardCta::after {
+  content: ' \2192';
+}
+
+.cardMuted {
+  opacity: 0.75;
+  border-style: dashed;
+}
+
+.cardComingSoon {
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-600);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* The overflow list. Everything the cards did not surface, as plain links. */
+.more {
+  margin-top: 2rem;
+}
+
+.moreHeading {
+  font-size: 1rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 0.75rem;
+}
+
+.moreList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.doorwayGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+
+.doorway {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--ifm-color-primary);
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 0 0.5rem 0.5rem 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.doorway:hover {
+  text-decoration: none;
+  color: inherit;
+  background: var(--ifm-color-emphasis-200);
+}
+
+.doorway span {
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.columnGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
+}
+
+.columnTitle {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.columnList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.9;
+}
+
+.columnNote {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  .hero {
+    padding: 2.5rem 0 2rem;
+  }
+}

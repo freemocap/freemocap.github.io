@@ -1,0 +1,19 @@
+/* Site-specific overrides on top of the shared SkellyDocs theme.
+   Keep this thin. Anything that should apply to every FreeMoCap docs site
+   belongs in @freemocap/skellydocs, not here. */
+
+:root {
+  --ifm-color-primary: #00b4d8;
+  --ifm-color-primary-dark: #00a2c2;
+  --ifm-color-primary-darker: #0099b7;
+  --ifm-color-primary-darkest: #007e97;
+  --ifm-color-primary-light: #0ec6ec;
+  --ifm-color-primary-lighter: #1acbef;
+  --ifm-color-primary-lightest: #3ed4f1;
+  --ifm-code-font-size: 95%;
+}
+
+/* Home renders its own hero, so the default article padding fights it. */
+.homepage-no-padding article {
+  padding: 0;
+}

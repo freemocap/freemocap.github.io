@@ -1,0 +1,82 @@
+name: Build and deploy docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Pull each sub-repo's docs at its pinned ref. Repos with no docs site
+      # are skipped and reported; a repo that declares a docs_path and fails
+      # to produce it fails the build, because the map is then lying.
+      - name: Fetch external docs
+        run: npm run fetch
+
+      - name: Lint prose
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          files: docs concepts build-docs
+          fail_on_error: false # raise to true once the corpus is clean
+          reporter: github-pr-check
+
+      # onBrokenLinks is set to 'throw', so a dead internal link fails here.
+      # That is deliberate: it is the mechanical enforcement of "no dead ends".
+      - name: Build
+        run: npm run build:local
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: build/
+          retention-days: 7
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: build
+
+      - name: Add VPS to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ secrets.DOCS_VPS_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Install deploy key
+        run: |
+          install -m 600 /dev/stdin ~/.ssh/id_ed25519 <<< "${{ secrets.DOCS_VPS_SSH_KEY }}"
+
+      # Deploy to a timestamped directory and flip a symlink, so a failed
+      # transfer never leaves the live site half-written, and rolling back is
+      # re-pointing the symlink.
+      - name: Deploy
+        env:
+          HOST: ${{ secrets.DOCS_VPS_HOST }}
+          USER: ${{ secrets.DOCS_VPS_USER }}
+          ROOT: ${{ secrets.DOCS_VPS_ROOT }}
+        run: |
+          RELEASE="$ROOT/releases/$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA::7}"
+          ssh "$USER@$HOST" "mkdir -p '$RELEASE'"
+          rsync -az --delete build/ "$USER@$HOST:$RELEASE/"
+          ssh "$USER@$HOST" "ln -sfn '$RELEASE' '$ROOT/current' && ls -1dt '$ROOT'/releases/* | tail -n +6 | xargs -r rm -rf"
