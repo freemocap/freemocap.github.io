@@ -4,7 +4,7 @@
 
 FreeMoCap is a tool for studying **human movement using computer vision and machine learning** from ordinary cameras. People arrive from wildly different directions — students, artists, athletes, clinicians, hobbyists, and high-level researchers — with wildly different backgrounds and goals.
 
-FreeMoCap's  job is to be a good **boundary object** between the various fields and domains it serves, and these docs are the map to allow incoming users to navigate its complixty relative to their own interests: a single shared resource that serves all of these communities without watering down for any of them. It does that not by writing one doc for everyone, but by building excellent **funnels, routing, and entry points** so that whoever shows up, whatever their expertise, can find their path.
+The docs' central job is to be a good **boundary object**: a single shared resource that serves all of these communities without watering down for any of them. It does that not by writing one doc for everyone, but by building excellent **funnels, routing, and entry points** so that whoever shows up, whatever their expertise, can find their path.
 
 ## The three arms of the docs
 
@@ -44,15 +44,19 @@ These are the tie-breakers. When a structure decision is hard, defer to these.
 
 Steal from the sites Jon likes:
 
-- **ethereum.org/learn** — branching entry points; clean split between beginner/advanced and user/developer.
-- **ArchWiki** — clean, consistent, "perfect" reference feel.
-- **NumPy / SciPy** — classic scientific/academic docs credibility.
-- **Blender support** — good coverage and great UI screenshots (but bad funnels — take the screenshots, not the funnel).
+- **[ethereum.org/learn](https://ethereum.org/learn/)** — branching entry points; clean split between beginner/advanced and user/developer.
+- **[ArchWiki](https://wiki.archlinux.org/title/Main_page)** — clean, consistent, "perfect" reference feel.
+- **[NumPy](https://numpy.org/doc/stable/) / [SciPy](https://docs.scipy.org/doc/scipy/)** — classic scientific/academic docs credibility.
+- **[Blender support](https://www.blender.org/support/)** — good coverage and great UI screenshots (but bad funnels — take the screenshots, not the funnel).
+
+Also referenced as "does the job" org-style docs: **[2i2c docs](https://docs.2i2c.org/)** (simple, basic, more org-type than software).
 
 Avoid the failure modes:
 
-- **DeepLabCut** — overwhelming, inconsistent, dead ends, stale, "too many docs."
-- **MyST guide** — good coverage but no obvious start, contains loops, three-column layout is visually overwhelming.
+- **[DeepLabCut](https://deeplabcut.github.io/DeepLabCut/README.html)** — overwhelming, inconsistent, dead ends, stale, "too many docs."
+- **[MyST guide](https://mystmd.org/guide/)** — good coverage but no obvious start, contains loops, three-column layout is visually overwhelming.
+
+Style reference to follow: the **[Google developer documentation style guide](https://developers.google.com/style/)**.
 
 ## Success criteria (draft)
 
