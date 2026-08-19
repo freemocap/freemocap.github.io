@@ -89,14 +89,19 @@ export function ComingSoonSection() {
     <section className={styles.section}>
       <h2 className={styles.sectionHeading}>Coming Soon</h2>
       <div className={styles.cardGrid}>
-        <Link to="/university/" className={`${styles.card} ${styles.cardMuted}`}>
+        <a
+          href="https://github.com/freemocap/university"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.card} ${styles.cardMuted}`}
+        >
           <h3 className={styles.cardTitle}>Skelly University</h3>
           <p className={styles.cardDescription}>
             A course-based path through markerless motion capture, from your first
             recording to specialized tracks in technology, science, and art.
           </p>
           <span className={styles.cardComingSoon}>https://github.com/freemocap/university</span>
-        </Link>
+        </a>
       </div>
     </section>
   );
