@@ -22,3 +22,29 @@
 .navbar__item.dropdown > .navbar__link::after {
   display: none;
 }
+
+/* The mobile menu drawer (.navbar-sidebar) is `position: fixed; top: 0;
+   bottom: 0;`, which should stretch it to the full viewport height with no
+   explicit height needed. In this environment it was computing to ~59px,
+   the height of its own brand row, collapsing every item below that to
+   zero visible height. Setting height explicitly sidesteps whatever the
+   engine is doing wrong with the implicit stretch; it cannot make a
+   spec-compliant browser render this any differently, since the two
+   should already be equal. */
+@media (max-width: 996px) {
+  .navbar-sidebar {
+    height: 100vh;
+  }
+}
+
+/* Each expandable row in the mobile menu (navbar drawer and docs sidebar
+   alike) is two separate tap targets: the link text, which navigates, and
+   this caret button beside it, which expands. Infima already gives the
+   caret a rounded box and a background, but only on :hover, which never
+   fires on a touch device, so the split never reads as two targets on
+   mobile. Making the background permanent there is the fix. */
+@media (max-width: 996px) {
+  .menu__caret {
+    background: var(--ifm-menu-color-background-hover);
+  }
+}

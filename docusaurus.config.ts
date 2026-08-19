@@ -230,6 +230,14 @@ const config: Config = {
         // not allowed"), so this is a custom navbar item; see
         // src/theme/NavbarItem/TutorialsNavbarItem.tsx and the
         // ComponentTypes swizzle beside it. Every other section stays flat.
+        //
+        // Docusaurus renders every navbar item twice (desktop bar, mobile
+        // drawer) and passes a `mobile` prop so an item can tell which one
+        // it's in; the component itself branches on that to render a hover
+        // flyout for desktop and a real two-level tap accordion (using
+        // Docusaurus's own Collapsible primitive) for the drawer, so both
+        // keep the tier grouping. An earlier version fell back to a second,
+        // flat stock dropdown for mobile, which lost the tiers entirely.
         { type: 'custom-tutorialsDropdown', position: 'left' },
         sectionDropdown(sectionById('guides')),
         sectionDropdown(sectionById('reference')),
