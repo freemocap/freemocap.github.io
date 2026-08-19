@@ -151,7 +151,7 @@ is safe to re-run when new pages join the sitemap.
    `build-docs/`.
 
 7. **`about-us` exists twice**, at `freemocap.org/about-us` and
-   `/community/about` here. Worth deciding which is canonical.
+   `/about/about-us` here. Worth deciding which is canonical.
 
 `/reference/coordinate-conventions` and `/concepts/coordinate-systems` were the other blocked
 pages; both are now written (millimetres, right-handed, +Z up after ground-plane calibration).

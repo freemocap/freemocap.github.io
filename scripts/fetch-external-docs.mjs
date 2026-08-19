@@ -41,7 +41,7 @@ function normalizeLinks(dir, repo) {
     const before = readFileSync(path, 'utf8');
     const after = before
       .replace(/\]\(\/docs\//g, `](/${repo.id}/`)
-      .replace(/\]\(\/roadmap\)/g, '](/community/roadmap)');
+      .replace(/\]\(\/roadmap\)/g, '](/about/roadmap)');
     if (after !== before) {
       writeFileSync(path, after);
       count += (before.match(/\]\(\/(?:docs\/|roadmap\))/g) ?? []).length;

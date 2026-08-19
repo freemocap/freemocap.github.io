@@ -48,11 +48,11 @@ module.exports = [
   { from: v1('python-code-style-guide'), to: '/build/code-style' },
   { from: v1('updating-documentation'), to: '/build/writing-docs' },
 
-  // Community
-  { from: v1('about-us'), to: '/community/about' },
-  { from: v1('frequently-asked-questions-faq'), to: '/community/faq' },
-  { from: v1('privacy-policy'), to: '/community/privacy' },
-  { from: v1('code-of-conduct'), to: '/community/code-of-conduct' },
+  // About
+  { from: v1('about-us'), to: '/about/about-us' },
+  { from: v1('frequently-asked-questions-faq'), to: '/about/faq' },
+  { from: v1('privacy-policy'), to: '/about/privacy' },
+  { from: v1('code-of-conduct'), to: '/about/code-of-conduct' },
 
   // The interim V2 docs site was served with baseUrl /freemocap/, so its URLs
   // are live and linked. freemocap.org's /download 301 points at
@@ -70,10 +70,22 @@ module.exports = [
   { from: '/freemocap/docs/guides/blender-export', to: '/guides/blender-export' },
   { from: '/freemocap/docs/development/building', to: '/build/building' },
   { from: '/freemocap/docs/development/testing', to: '/build/testing' },
-  { from: '/freemocap/roadmap', to: '/community/roadmap' },
+  { from: '/freemocap/roadmap', to: '/about/roadmap' },
   { from: '/freemocap/blog', to: '/blog' },
 
   // Writerside template pages that were deleted before the migration. They had
   // redirect rules in the V1 redirection-rules.xml, so they are still reachable.
   { from: [v1('Starter'), v1('Overview'), v1('Reference'), v1('How-to'), v1('Templates'), v1('Tutorial'), v1('Section-Starting-Page')], to: '/' },
+
+  // The About section briefly lived at /community/ during V2 development.
+  // SkellyCam's fetched docs still link to /community/roadmap (its docs are
+  // a separate repo; see the site-absolute-links note in README.md), and the
+  // URL may already be shared elsewhere, so it redirects rather than 404s.
+  { from: '/community/', to: '/about/' },
+  { from: '/community/about', to: '/about/about-us' },
+  { from: '/community/faq', to: '/about/faq' },
+  { from: '/community/code-of-conduct', to: '/about/code-of-conduct' },
+  { from: '/community/privacy', to: '/about/privacy' },
+  { from: '/community/roadmap', to: '/about/roadmap' },
+  { from: '/community/how-these-docs-are-written', to: '/about/how-these-docs-are-written' },
 ];

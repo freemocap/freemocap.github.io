@@ -53,7 +53,7 @@ export default function Home() {
           more={[
             { label: 'Glossary', to: '/concepts/glossary' },
             { label: 'Accuracy and limits', to: '/concepts/accuracy-and-limits' },
-            { label: 'Frequently asked questions', to: '/community/faq' },
+            { label: 'Frequently asked questions', to: '/about/faq' },
             { label: 'Cite FreeMoCap', to: '/guides/cite-freemocap' },
           ]}
         />
@@ -184,10 +184,10 @@ export default function Home() {
             {
               title: 'Project',
               links: [
-                { label: 'About FreeMoCap', href: '/community/about' },
-                { label: 'Code of conduct', href: '/community/code-of-conduct' },
-                { label: 'How these docs are written', href: '/community/how-these-docs-are-written' },
-                { label: 'Roadmap', href: '/community/roadmap' },
+                { label: 'About FreeMoCap', href: '/about/about-us' },
+                { label: 'Code of conduct', href: '/about/code-of-conduct' },
+                { label: 'How these docs are written', href: '/about/how-these-docs-are-written' },
+                { label: 'Roadmap', href: '/about/roadmap' },
               ],
             },
           ]}

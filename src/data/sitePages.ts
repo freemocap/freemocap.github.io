@@ -137,13 +137,13 @@ export const navSections: Section[] = [
 export const aboutSection: Section = {
   id: 'about',
   label: 'About',
-  hubPath: '/community/',
+  hubPath: '/about/',
   pages: [
-    { to: '/community/about', label: 'About FreeMoCap' },
-    { to: '/community/faq', label: 'Frequently asked questions' },
-    { to: '/community/code-of-conduct', label: 'Code of conduct' },
-    { to: '/community/privacy', label: 'Privacy policy' },
-    { to: '/community/roadmap', label: 'Roadmap' },
-    { to: '/community/how-these-docs-are-written', label: 'How these docs are written' },
+    { to: '/about/about-us', label: 'About FreeMoCap' },
+    { to: '/about/faq', label: 'Frequently asked questions' },
+    { to: '/about/code-of-conduct', label: 'Code of conduct' },
+    { to: '/about/privacy', label: 'Privacy policy' },
+    { to: '/about/roadmap', label: 'Roadmap' },
+    { to: '/about/how-these-docs-are-written', label: 'How these docs are written' },
   ],
 };
