@@ -15,6 +15,16 @@
   --ifm-color-primary: #7db8b7;
 }
 
+/* @freemocap/skellydocs only defines --ifm-background-color for
+   [data-theme='dark'] (#0a0818), with no light-mode value anywhere,
+   including its own :root. Site defaults to dark mode, which is why
+   nobody had hit this: in light mode the page background renders
+   transparent instead of white, text is unaffected. Standard Infima
+   light default, not a brand color decision. */
+[data-theme='light'] {
+  --ifm-background-color: #ffffff;
+}
+
 /* Home renders its own hero, so the default article padding fights it. */
 .homepage-no-padding article {
   padding: 0;
