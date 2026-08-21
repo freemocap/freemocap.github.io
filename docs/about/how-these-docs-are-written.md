@@ -3,20 +3,80 @@ title: How these docs are written
 type: explanation
 sidebar_position: 11
 provenance: ai-generated
-reviewed: 2026-08-19
+reviewed: 2026-08-21
 reviewed_against: none
 draft: false
 ---
 
 # How these docs are written
 
-:::warning This page is a stub
-Nothing here has been written yet. It exists so the structure is navigable and
-so links to it resolve.
+Most of this site is drafted with AI assistance, and that's tracked
+explicitly rather than hidden. Every page carries provenance metadata in
+its frontmatter, this page explains what it means and how content
+actually gets written.
 
-**Planned source:** NEW. The provenance policy. Every banner links here.
-:::
+## The frontmatter
 
-## What goes here
+Every page has:
 
-See the V2 documentation plan, section 5, for this page's role in the sitemap.
+- **`provenance`**: `ai-generated` (drafted by an AI from source material)
+  or `human-checked` (a person has verified it, even if an AI did the
+  initial pass).
+- **`reviewed`**: the date it was last actually looked at, not when the
+  file was created.
+- **`reviewed_against`**: what it was checked against, `none` for new
+  synthesis, a specific source document, or a note like `v1 (ported, not
+  yet re-checked against v2)` when a page is a faithful port of older
+  documentation that hasn't been walked through against the current
+  software yet.
+- **`draft`**: whether the page is considered ready to read, independent
+  of provenance, a `human-checked` page can still be a draft.
+
+A page marked `ai-generated` with `reviewed_against: v1 (ported...)`, for
+example, means: an AI adapted real, human-written FreeMoCap documentation
+into this site's format, and nobody has yet confirmed the underlying
+software still matches what that documentation describes.
+
+## Where the content actually comes from
+
+Not from nowhere, and not invented to fill a gap. Three real sources,
+depending on the page:
+
+1. **Ported from FreeMoCap's V1 documentation** (a Writerside project),
+   for pages describing something that hasn't fundamentally changed
+   between V1 and V2, calibration mechanics, capture environment advice,
+   and similar.
+2. **Adapted from the current software's own architecture and guide
+   docs**, pulled from the `freemocap` organization's repositories at
+   the same pinned release this site already builds against. Several of
+   those source docs are themselves AI-drafted (some explicitly marked
+   as such, one confirmed human-authored), which is worth knowing before
+   treating them as more authoritative than they are.
+3. **New synthesis from primary sources**, most notably Cherian, A.
+   *Open-Source Development and Validation of a Low-Cost Markerless
+   System for Quantitative Motion Analysis* (PhD dissertation,
+   Northeastern University, 2026), the validation study behind
+   [accuracy, validity, and limits](/concepts/accuracy-and-limits) and
+   several other `/concepts/` pages.
+
+## What gets left as a stub, on purpose
+
+A page with no real source behind it stays a stub rather than getting
+filled with something plausible-sounding. That's shown up a few
+concrete ways across this site: a tutorial for batch processing wasn't
+written because the feature doesn't exist in the codebase yet, a page
+on building a custom pipeline stays deliberately shallow because the
+real depth is internal architecture documentation aimed at a different
+audience, and a roadmap page stays empty because the project doesn't
+have one to publish yet. A stub is a more honest state than invented
+content.
+
+## Style checking
+
+Prose is checked with [Vale](https://vale.sh) against Google's style
+guide plus a small FreeMoCap-specific vocabulary
+(`.vale/styles/FreeMoCap/` in the site's repository), banning things
+like em dashes and marketing-speak ("seamless," "cutting-edge," and
+similar). Not everything it flags gets fixed, false positives on
+correct proper nouns and technical terms are common in a domain-specific
+corpus, so warnings get judged rather than blindly satisfied.

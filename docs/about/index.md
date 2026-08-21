@@ -3,20 +3,19 @@ title: About
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-19
+reviewed: 2026-08-21
 reviewed_against: none
 draft: false
 ---
 
 # About
 
-:::warning This page is a stub
-Nothing here has been written yet. It exists so the structure is navigable and
-so links to it resolve.
+- [About FreeMoCap](/about/about-us)
+- [Frequently asked questions](/about/faq)
+- [How these docs are written](/about/how-these-docs-are-written)
+- [Code of conduct](/about/code-of-conduct)
+- [Privacy policy](/about/privacy)
+- [Roadmap](/about/roadmap)
 
-**Planned source:** NEW.
-:::
-
-## What goes here
-
-See the V2 documentation plan, section 5, for this page's role in the sitemap.
+Looking for how to cite the software or the validation study instead?
+See [cite FreeMoCap](/guides/cite-freemocap).

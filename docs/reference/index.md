@@ -3,20 +3,31 @@ title: Reference
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-19
+reviewed: 2026-08-21
 reviewed_against: none
 draft: false
 ---
 
 # Reference
 
-:::warning This page is a stub
-Nothing here has been written yet. It exists so the structure is navigable and
-so links to it resolve.
+Precise, terse specs, for when you already know what you're looking for.
+For explanations of why things are built this way, see
+[concepts](/concepts/).
 
-**Planned source:** NEW.
-:::
+## Data
 
-## What goes here
+- [Recording folder structure](/reference/recording-structure)
+- [Array shapes and units](/reference/data-arrays)
+- [Coordinate conventions](/reference/coordinate-conventions)
+- [Keypoint names and indices by model](/reference/skeleton-models)
 
-See the V2 documentation plan, section 5, for this page's role in the sitemap.
+## System
+
+- [System requirements](/reference/system-requirements)
+- [Configuration options](/reference/configuration)
+- [Command line interface](/reference/cli)
+
+## APIs
+
+- [REST API](/reference/rest-api)
+- [WebSocket API](/reference/websocket-api)
