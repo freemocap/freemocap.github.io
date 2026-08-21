@@ -22,3 +22,8 @@ reprojection
 triangulation
 parquet
 Zenodo
+intrinsics
+extrinsics
+realtime
+posthoc
+addon

@@ -4,3 +4,7 @@ build/
 external/
 .DS_Store
 HANDOFF.md
+
+# Fetched by `vale sync` per .vale.ini's Packages config; CI's vale-action
+# manages its own copy and doesn't read this one.
+.vale/styles/Google/
