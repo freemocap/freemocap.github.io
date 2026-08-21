@@ -2,15 +2,17 @@
    Keep this thin. Anything that should apply to every FreeMoCap docs site
    belongs in @freemocap/skellydocs, not here. */
 
+/* Both colors below are taken directly from freemocap.org's main.css,
+   nothing computed. --accent-green (darker) for light mode, where it
+   needs to read against white. --accent-teal (lighter) for dark mode,
+   where it needs to read against near-black. */
 :root {
-  --ifm-color-primary: #00b4d8;
-  --ifm-color-primary-dark: #00a2c2;
-  --ifm-color-primary-darker: #0099b7;
-  --ifm-color-primary-darkest: #007e97;
-  --ifm-color-primary-light: #0ec6ec;
-  --ifm-color-primary-lighter: #1acbef;
-  --ifm-color-primary-lightest: #3ed4f1;
+  --ifm-color-primary: #6aa3a2;
   --ifm-code-font-size: 95%;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #7db8b7;
 }
 
 /* Home renders its own hero, so the default article padding fights it. */
