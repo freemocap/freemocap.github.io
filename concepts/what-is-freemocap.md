@@ -3,20 +3,77 @@ title: What is FreeMoCap?
 type: explanation
 sidebar_position: 2
 provenance: ai-generated
-reviewed: 2026-08-19
+reviewed: 2026-08-20
 reviewed_against: none
 draft: false
 ---
 
 # What is FreeMoCap?
 
-:::warning This page is a stub
-Nothing here has been written yet. It exists so the structure is navigable and
-so links to it resolve.
+Marker-based motion capture, the systems that track reflective dots on a
+suit using an array of infrared cameras, is the gold standard for measuring
+how a body moves. It's also expensive, tied to a dedicated lab space, and
+run by people trained to place markers on the right anatomical landmarks.
+That combination has kept quantitative motion analysis mostly inside
+well-funded research labs, out of reach for most clinicians, educators,
+independent researchers, and creators.
 
-**Planned source:** Port from V1 index.md and V2 intro.mdx.
-:::
+FreeMoCap is an attempt to close that gap: a free, open-source, markerless
+motion capture system that works with ordinary webcams. Point a few cameras
+at someone moving, and FreeMoCap turns the video into a 3D skeleton, no
+suit, no markers, no specialized room required.
 
-## What goes here
+## Why "markerless" matters
 
-See the V2 documentation plan, section 5, for this page's role in the sitemap.
+Something similar happened once before. In 2010, Microsoft released the
+Kinect, a $150 gaming peripheral that could sense depth and track a body in
+real time, technology that had previously cost tens of thousands of
+dollars. Microsoft never intended it for research. Within six days of
+release, an open-source bounty got the Kinect's drivers reverse-engineered,
+and a community of hobbyists, artists, and eventually biomechanics
+researchers started using it for things it was never designed to do. The
+Kinect itself is long discontinued, but the pattern it demonstrated held:
+pairing low-cost hardware with open software is what actually moves a
+technology from a handful of labs into general use.
+
+FreeMoCap follows the same pattern with modern computer vision. Deep
+learning-based pose estimation (the kind of model that can find a wrist or
+a knee in a 2D image without any physical marker) has advanced enough that
+several cameras and some software are now sufficient to reconstruct
+biomechanically meaningful 3D movement.
+
+## What it does
+
+FreeMoCap covers the complete pipeline from raw video to usable data:
+
+- **Synchronized recording** across one or more webcams
+- **Calibration**, so the system knows where each camera sits in space
+- **Pose estimation**, detecting joint positions in each 2D video frame
+- **3D reconstruction**, triangulating those 2D detections into a 3D skeleton over time
+
+The architecture is modular by design: you can swap which pose estimation
+model runs underneath (MediaPipe, RTMPose, ViTPose, and others are
+supported), export into Blender for animation, or pull the raw coordinate
+data into Python for analysis. It's released under the AGPL license, so the
+full pipeline is inspectable and modifiable, not a black box.
+
+## Who it's for
+
+FreeMoCap was built around three requirements: the data it produces should
+be usable for real biomechanical analysis, the system should be flexible
+enough to extend when an out-of-the-box pose estimation model isn't enough
+for a given task or body, and the barrier to entry should be a few
+consumer webcams rather than a dedicated lab. In practice that's brought in
+a mix of researchers, clinicians, animators, and hobbyists, everyone from
+someone validating gait metrics against a marker-based reference to someone
+recording a friend's dance moves to rig a character in Blender.
+
+It is not a drop-in replacement for marker-based motion capture. For how
+FreeMoCap's accuracy actually compares, and where it falls short, see
+[Accuracy, validity, and limits](/concepts/accuracy-and-limits).
+
+## Next steps
+
+- [Install FreeMoCap](/start/install) and make your first recording
+- [What is markerless motion capture?](/concepts/markerless-mocap), the broader technique FreeMoCap belongs to
+- [How FreeMoCap works](/concepts/how-it-works), a closer look at the pipeline
