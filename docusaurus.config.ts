@@ -86,7 +86,13 @@ const config: Config = {
           editUrl: 'https://github.com/freemocap/freemocap.github.io/tree/main/',
           lastVersion: 'current',
           versions: {
-            current: { label: '2.0 (alpha)', path: '', banner: 'unreleased' },
+            // banner: 'none', not 'unreleased': the 'unreleased' banner's
+            // text points readers at "the latest version," but there is no
+            // other version yet, lastVersion is 'current' too, so it was
+            // telling readers to go see the exact page they were already
+            // on. Revert to 'unreleased' when 1.x (below) actually exists
+            // as something distinct to point to.
+            current: { label: '2.0 (alpha)', path: '', banner: 'none' },
             // The frozen 1.x version is cut from the reviewed V1 port with:
             //     npm run docusaurus docs:version 1.x
             // Run that ONCE, after the port is reviewed and before the V2
