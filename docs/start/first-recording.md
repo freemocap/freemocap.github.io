@@ -15,6 +15,5 @@ Single-camera recordings are MUCH simpler and faster than multi-camera recording
 Once that is established, you'll have a great baseline understanding of the complete process before moving to the more complex task of creating a multi-camera calibration and recording.
 :::
  
-👉 [Single Camera Recording (Recommended for first-timers)](/tutorials/single-camera)
-
-👉 [Multi-Camera Calibration & Recording](/tutorials/calibrate)
+- [Single Camera Recording (Recommended for first-timers)](/tutorials/single-camera)
+- [Multi-Camera Calibration & Recording](/tutorials/calibrate)

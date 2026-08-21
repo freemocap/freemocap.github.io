@@ -257,14 +257,14 @@ If all goes well, a GUI Window with Skelly's face should pop up, looking somethi
 
 ![freemocap-gui-welcome-screen.png](/img/v1/freemocap-gui-welcome-screen.png)
 
-## Congrats, you're in! 😎
+## Congrats, you're in!
 
 After following these steps, you should have FreeMoCap installed and ready to use!
 
-You're ready to get 👉 [Your first recording!](/start/first-recording)
+You're ready to get [Your first recording!](/start/first-recording)
 
 :::note
-**Installation problem?** 😅
+**Installation problem?**
 
 First thing - Did you make a [Python environment](#detailed-pip-installation-instructions)?
 
