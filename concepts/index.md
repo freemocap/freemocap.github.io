@@ -3,20 +3,37 @@ title: Concepts
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-19
+reviewed: 2026-08-20
 reviewed_against: none
 draft: false
 ---
 
 # Concepts
 
-:::warning This page is a stub
-Nothing here has been written yet. It exists so the structure is navigable and
-so links to it resolve.
+These pages explain what FreeMoCap does and why it's built the way it is. If
+you want to *do* something, the [tutorials](/tutorials/) are a better
+starting point; come back here when you want to understand what's actually
+happening underneath.
 
-**Planned source:** NEW.
-:::
+## The big picture
 
-## What goes here
+- [What is FreeMoCap?](/concepts/what-is-freemocap)
+- [What is markerless motion capture?](/concepts/markerless-mocap)
+- [How FreeMoCap works](/concepts/how-it-works)
 
-See the V2 documentation plan, section 5, for this page's role in the sitemap.
+## The pipeline, in detail
+
+- [Cameras and synchronization](/concepts/cameras-and-sync)
+- [Why calibration matters](/concepts/calibration)
+- [Image tracking and pose models](/concepts/tracking)
+- [Triangulation and 3D reconstruction](/concepts/triangulation)
+- [Coordinate systems and units](/concepts/coordinate-systems)
+
+## Your data
+
+- [The FreeMoCap output data model](/concepts/data-model)
+- [Accuracy, validity, and limits](/concepts/accuracy-and-limits)
+
+## Reference
+
+- [Glossary](/concepts/glossary)
