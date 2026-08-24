@@ -28,6 +28,39 @@
   font-size: 0.9em;
 }
 
+.voltronIntro {
+  max-width: 40rem;
+  margin: 2.5rem auto 2rem;
+  text-align: center;
+}
+
+.voltronCaption {
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 0.75rem;
+}
+
+.voltronImage {
+  width: 100%;
+  max-width: 32rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.voltronText {
+  max-width: 48rem;
+  margin: 0 auto 2rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.voltronFullImage {
+  display: block;
+  width: 14rem;
+  height: auto;
+  margin: 0 auto 2.5rem;
+  border-radius: 0.4rem;
+}
+
 .links {
   display: flex;
   gap: 1.5rem;

@@ -36,6 +36,35 @@ export default function Developers() {
 
           <PolyrepoTree repos={repos} />
 
+          <figure className={styles.voltronIntro}>
+            <figcaption className={styles.voltronCaption}>Sort of like this:</figcaption>
+            <img
+              src="/img/developers/skellyvoltron.jpg"
+              alt="The FreeMoCap Skelly components drawn as Voltron's five pilots: Skelly Core in the center, with SkellyCam, SkellyTracker, SkellyForge, and SkellyBlender at the four corners."
+              className={styles.voltronImage}
+            />
+          </figure>
+
+          <p className={styles.voltronText}>
+            Like the Defender of the Universe, the head and body are the primary core, but it does not function
+            without the arms and legs. Splitting a codebase this way trades a single build for independent,
+            freely-releasable pieces, at the cost of needing an explicit way (like the tiers and data contracts
+            above) to track which versions of each actually work together.
+          </p>
+
+          <p className={styles.voltronText}>
+            In practice, each entry in FreeMoCap's own repo map connects to a
+            specific git tag instead of a branch, so a change merged into one repo can't break the others
+            until someone deliberately moves the pin forward. This allows a manifest to decide what's actually
+            compatible rather than memory.
+          </p>
+
+          <img
+            src="/img/developers/voltron-full-skelly.png"
+            alt="Image of a fully assembled Voltron."
+            className={styles.voltronFullImage}
+          />
+
           <div className={styles.links}>
             <Link to="/build/">Architecture docs</Link>
             <Link to="/build/repo-directory">Full repository directory</Link>
