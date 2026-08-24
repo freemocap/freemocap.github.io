@@ -42,6 +42,30 @@
   text-decoration: none;
 }
 
+/* Pushed to the row's far edge (same flex row as the label and list,
+   not a new one), with the same minimal box the navbar item uses (see
+   .navbar-developer-docs-item in src/css/custom.css), so the two read as
+   the same distinct, contributor-facing counterpart to "Get started"
+   rather than one more plain link in its list. */
+.developerDocsLink,
+.developerDocsLink:hover {
+  margin-left: auto;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.developerDocsLink:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));

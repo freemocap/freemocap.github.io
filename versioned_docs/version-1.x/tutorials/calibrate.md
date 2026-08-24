@@ -1,0 +1,84 @@
+---
+title: Calibrate your cameras
+type: tutorial
+provenance: human-checked
+reviewed: 2026-08-19
+reviewed_against: v1 (ported, not yet re-checked against v2)
+---
+> This calibration process describes the use of an anipose-based calibration method. We will soon be updating our method to use a more flexible and interactive interface.
+
+<details>
+<summary>Video Guidance</summary>
+
+[Check out this video for more information and directed guidance in the calibration process](https://youtu.be/GxKmyKdnTy0?t=1615)
+
+</details>
+
+## Preparing the Charuco Board
+To perform a multi-camera calibration, you'll need to print out a [Charuco board image](https://github.com/freemocap/freemocap/blob/main/freemocap/assets/charuco/charuco_board_5x3.png). 
+
+For smaller spaces, a simple printout from a standard printer should work just fine. Make sure to mount the printout on something rigid like cardboard - the calibration process requires a *flat* charuco board. 
+
+For larger spaces, you might need to print this on a larger poster board so that it can be seen well by the cameras.
+
+If you do not have access to a poster printer, you can assemble a larger board using [these PDF template]( https://github.com/freemocap/freemocap/tree/main/freemocap/assets/charuco/charuco-pdf-tiles)
+ (just be sure to be accurate when cutting and assembling the pieces!)
+
+### Charuco Board Types
+We support two configurations of Charuco board, based on the number of rows and columns of squares on the board.
+
+We generally recommend using the 5x3 board for most applications. It has fewer squares so it will print larger for a given paper size, so it will be trackable from farther distances, which allows calibration of larger spaces.
+
+<table>
+    <tr>
+        <th>5x3 Charuco Board (5 columns, 3 rows)</th>
+        <th>7x5 Charuco Board (7 columns, 5 rows)</th>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="charuco_board_5x3_annotated.png" alt="5x3 Charuco board" width="300"/>
+            <br/>
+            <b>Download:</b><br/>
+            <a href="https://github.com/freemocap/freemocap/blob/d82c830b45ba894d8ae7683b1c9cb2fc22d9ae9f/freemocap/assets/charuco/charuco_board_5x3.png">PNG</a> | 
+            <a href="https://github.com/freemocap/freemocap/blob/b0a0531f159369d39f02405a52020d482b8a2444/freemocap/assets/charuco/charuco_board_5x3.svg">SVG</a> | 
+            <a href="https://github.com/freemocap/freemocap/blob/b0a0531f159369d39f02405a52020d482b8a2444/freemocap/assets/charuco/charuco_board_5x3_annotated.png">Annotated</a>
+        </td>
+        <td align="center">
+            <img src="charuco_board_7x5.png" alt="7x5 Charuco board" width="300"/>
+            <br/>
+            <b>Download:</b><br/>
+            <a href="https://github.com/freemocap/freemocap/blob/b0a0531f159369d39f02405a52020d482b8a2444/freemocap/assets/charuco/charuco_board_7x5.png">PNG</a> | 
+            <a href="https://github.com/freemocap/freemocap/blob/b0a0531f159369d39f02405a52020d482b8a2444/freemocap/assets/charuco/charuco_board_7x5.svg">SVG</a> 
+        </td>
+    </tr>
+</table>
+
+## Setting up Cameras
+To get a multiple camera recording, you'll need multiple cameras set up and connected to your computer. There's detailed instructions on multiple camera setups in the [Mocap Tips and Tricks](/tutorials/capture-environment), but for now it will suffice to have two or more (three or more is best) cameras connected directly to your camera. We don't recommend using a USB hub to connect cameras. The cameras should be set up so they all see the subject at the same time, and have a 40-60 degree angle between each camera from the subject's viewpoint.
+
+## Using the Charuco board to set the recording origin
+By checking the `Use initial board position` checkbox, you can use the Charuco board to define the axes of the 3D world, so that the reconstructed data comes in with the person oriented 'up' and standing on the ground.
+See [the ground plane calibration page](/tutorials/ground-plane) for more information.
+
+## Recording Calibration Videos
+In the camera view section of the GUI, select the calibration videos option:
+
+![image](/img/v1/freemocap_calibration_window_w_text_overlay.png)
+
+Begin the recording, and then move until your Charuco board can be seen in the overlapping fields of view of at least two cameras at a time. Move the Charuco board up and down so that you are "painting" each camera's view with images of the board. Make sure that every camera has shared views of the board with at least one other camera. We will be using the corresponding views of the board with the other cameras to help localize the camera positions relative to each other, which is necessary for the 3D triangulation step later.
+
+For more information about how to use the board to get a high quality calibration, [see this video](https://www.youtube.com/watch?v=GxKmyKdnTy0&t=1786s) (it uses a different version of this software, but the same principles apply).
+
+## Processing the Calibration
+Once you have given each camera a good view of the board shared with another camera, click "Stop Recording," and it will begin the calibration process automatically. 
+
+> Be sure to keep an eye on the terminal that launched the GUI for helpful output, as the log at the bottom of the  GUI screen does not capture all of the outputs yet. 
+> *Note: The terminal only launches in this way on Windows*.
+
+## Recording Motion Capture Videos
+
+Once you have completed the calibration process, you are are ready to record motion capture videos!
+
+Select "Record Motion Capture Videos" from the camera view section of the GUI, and then click "Record." Perform your movement, and then click "Stop." The software will automatically process the videos and generate a Blender scene with the output data!
+
+To manually process/re-process the videos, use the `Process Motion Capture Videos` button in the `Processing` tab of the GUI.

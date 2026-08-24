@@ -61,6 +61,9 @@ export default function Footer(): React.JSX.Element {
               </li>
             ))}
           </ul>
+          <Link className={styles.developerDocsLink} to="/developers">
+            Developer Docs
+          </Link>
         </div>
         <div className={styles.grid}>
           {gridSections.map((section) => (

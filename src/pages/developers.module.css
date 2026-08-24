@@ -1,0 +1,38 @@
+.hero {
+  padding: 3rem 0 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: var(--ifm-color-emphasis-700);
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.section {
+  padding: 2.5rem 0;
+}
+
+.intro {
+  max-width: 48rem;
+  margin: 0 auto 2rem;
+}
+
+.intro p {
+  color: var(--ifm-color-emphasis-800);
+}
+
+.intro code {
+  font-size: 0.9em;
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}

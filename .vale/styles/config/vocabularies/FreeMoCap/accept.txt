@@ -6,6 +6,7 @@ SkellyBlender
 SkellyDocs
 SkellyLogs
 SkellyPings
+SkellySync
 ChArUco
 ArUco
 MediaPipe
@@ -27,3 +28,5 @@ extrinsics
 realtime
 posthoc
 addon
+repos
+websocket

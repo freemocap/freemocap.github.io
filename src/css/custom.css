@@ -30,9 +30,44 @@
   padding: 0;
 }
 
-/* Hover already reveals the dropdowns; the caret is redundant. */
+/* Hover already reveals the dropdowns; the caret is redundant everywhere
+   except the version switcher (restored back below), which otherwise
+   reads as a plain label with nothing marking it as a control. */
 .navbar__item.dropdown > .navbar__link::after {
   display: none;
+}
+
+/* Infima's own default caret (a small CSS border-triangle, not an
+   invented style), restored for just this one dropdown. */
+.navbar__item.dropdown > .navbar__link.navbar-version-dropdown-item::after {
+  display: inline-block;
+}
+
+/* Non-interactive section labels inside a dropdown menu (Developer
+   Docs' Core / Pantheon / Utility / More groups). Infima has no stock
+   pattern for this, every existing dropdown is a flat list. */
+.dropdown__menu .dropdown__header {
+  padding: 0.3rem 0.8rem 0.2rem;
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-500);
+}
+
+/* Mobile drawer equivalent of the header rule above. Every repo is a
+   real link now (see DeveloperDocsNavbarItem.tsx), so there's no muted
+   variant on either surface: distinguishing "has docs" from "doesn't
+   yet" wasn't worth the inconsistency it kept introducing, and every
+   repo gets at least a stub page instead. */
+.menu__list-item--header {
+  padding: 0.5rem 0.75rem 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-500);
 }
 
 /* The mobile menu drawer (.navbar-sidebar) is `position: fixed; top: 0;
@@ -59,4 +94,57 @@
   .menu__caret {
     background: var(--ifm-menu-color-background-hover);
   }
+}
+
+/* Sets the Developer Docs navbar item apart as a different kind of
+   section (contributor-facing, not part of the reader IA) with a
+   minimal box around it, rather than a plain text link like its
+   neighbors. */
+.navbar-developer-docs-item {
+  padding: 0.3rem 0.7rem;
+  margin: 0 0.3rem;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 0.4rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.navbar-developer-docs-item:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* DocItem/Layout renders the breadcrumb nav and the version badge as
+   adjacent siblings with nothing between them, each on its own row. This
+   docks the badge onto the breadcrumb row instead (a positioning context
+   on their shared <article>, not a full swizzle of the layout component
+   just to nest them in one flex row). */
+article {
+  position: relative;
+}
+
+/* Stock badge rendered stark white-on-black, its own loud row above the
+   provenance banner, duplicating the version indicator already in the
+   navbar. Restyled to the same quiet gray used for secondary UI chrome
+   elsewhere (Infima's own emphasis scale, not an invented color) and
+   moved into the breadcrumb row, right-aligned, since it is a redundant
+   safeguard rather than primary navigation. */
+/* Reserves room for the docked badge (below) so a long breadcrumb trail
+   wraps within its own box instead of running underneath it; the badge
+   is absolutely positioned and so isn't part of document flow that would
+   otherwise push breadcrumb text out of the way on its own. */
+.theme-doc-breadcrumbs {
+  padding-right: 9rem;
+}
+
+.theme-doc-version-badge {
+  position: absolute;
+  /* Centered against the breadcrumb row's own height, not article's:
+     article is the positioning context but spans the full page, so a
+     percentage top would center against page height instead. */
+  top: 0.3rem;
+  right: 0;
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-800);
+  font-weight: 500;
 }

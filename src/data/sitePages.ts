@@ -140,6 +140,10 @@ export const aboutSection: Section = {
   hubPath: '/about/',
   pages: [
     { to: '/about/about-us', label: 'About FreeMoCap' },
+    // /concepts/ is still its own unversioned Docusaurus instance (see
+    // docusaurus.config.ts), it just isn't its own top-level navbar
+    // dropdown anymore. "Key Concepts" here is the doorway into it.
+    { to: '/concepts/', label: 'Key Concepts' },
     { to: '/about/faq', label: 'Frequently asked questions' },
     { to: '/about/code-of-conduct', label: 'Code of conduct' },
     { to: '/about/privacy', label: 'Privacy policy' },

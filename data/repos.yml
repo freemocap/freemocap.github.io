@@ -42,7 +42,11 @@
   repo: https://github.com/freemocap/skellycam
   docs_path: skellycam-docs/docs
   ref: main
-  route: /skellycam/
+  # Not the bare instance root: SkellyCam's own docs have no page with
+  # slug: /, only intro.mdx (sidebar_position: 1), so /skellycam/ alone
+  # 404s. Confirmed by the first real /developers build, which is the
+  # first thing that ever turned this route into an actual link.
+  route: /skellycam/intro
   consumes: []
   produces: [synchronized_frame_packages]
 
@@ -94,7 +98,7 @@
   repo: https://github.com/freemocap/skellylogs
   docs_path: null
   ref: main
-  route: null
+  route: /skellylogs/
   consumes: []
   produces: []
 
@@ -107,7 +111,7 @@
   repo: https://github.com/freemocap/skellypings
   docs_path: null
   ref: main
-  route: null
+  route: /skellypings/
   consumes: []
   produces: []
 
@@ -120,6 +124,19 @@
   repo: https://github.com/freemocap/skellydocs
   docs_path: null
   ref: main
-  route: null
+  route: /skellydocs/
+  consumes: []
+  produces: []
+
+- id: skellysync
+  name: SkellySync
+  tier: utility
+  emoji: "💀🔄"
+  responsibility: Synchronizes videos of the same event via audio cross-correlation
+  domain: Synchronization
+  repo: https://github.com/freemocap/skellysync
+  docs_path: null # no docs site yet
+  ref: main
+  route: /skellysync/
   consumes: []
   produces: []

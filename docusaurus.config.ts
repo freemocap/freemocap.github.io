@@ -1,25 +1,16 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
-import { readFileSync } from 'node:fs';
-import yaml from 'js-yaml';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import { navSections, aboutSection } from './src/data/sitePages';
+import { loadRepos } from './data/repos';
 
 // Triangulation, calibration and biomechanics pages carry real equations.
 // Without a math plugin, MDX v3 reads the braces in `\varepsilon_{target}` as
 // a JSX expression and the build fails.
 const mathPlugins = { remarkPlugins: [remarkMath], rehypePlugins: [rehypeKatex] };
 
-type Repo = {
-  id: string;
-  name: string;
-  tier: string;
-  docs_path: string | null;
-  route: string | null;
-};
-
-const repos = yaml.load(readFileSync('./data/repos.yml', 'utf8')) as Repo[];
+const repos = loadRepos(__dirname);
 
 // Only repos that actually have docs get a plugin instance. Today that is
 // freemocap and skellycam. The rest join by setting docs_path in repos.yml.
@@ -96,20 +87,20 @@ const config: Config = {
           editUrl: 'https://github.com/freemocap/freemocap.github.io/tree/main/',
           lastVersion: 'current',
           versions: {
-            // banner: 'none', not 'unreleased': the 'unreleased' banner's
-            // text points readers at "the latest version," but there is no
-            // other version yet, lastVersion is 'current' too, so it was
-            // telling readers to go see the exact page they were already
-            // on. Revert to 'unreleased' when 1.x (below) actually exists
-            // as something distinct to point to.
+            // banner: 'none', permanently, not just until 1.x exists.
+            // Docusaurus's 'unreleased' banner links to lastVersion (set
+            // below this block to 'current'), so as long as current IS
+            // lastVersion, that banner is self-referential regardless of
+            // how many older versions exist. Confirmed live: with 1.x cut
+            // and this set to 'unreleased', the banner read "see the
+            // latest version (2.0 (alpha))" while standing on 2.0 (alpha).
+            // A prior session's comment here assumed cutting 1.x alone
+            // would fix it; it does not, this is why.
             current: { label: '2.0 (alpha)', path: '', banner: 'none' },
-            // The frozen 1.x version is cut from the reviewed V1 port with:
-            //     npm run docusaurus docs:version 1.x
-            // Run that ONCE, after the port is reviewed and before the V2
-            // rewrites begin, then add:
-            //     '1.x': { label: '1.x (legacy)', path: '1.x', banner: 'unmaintained' }
-            // Cutting it now would snapshot a version identical to current,
-            // which would tell readers something untrue.
+            // Cut from the V1 port with: npm run docusaurus docs:version 1.x
+            // 'unmaintained' is correct here, non-circular: it points at
+            // lastVersion ('current'), which is a different, newer version.
+            '1.x': { label: '1.x (legacy)', path: '1.x', banner: 'unmaintained' },
           },
         },
         blog: {
@@ -177,7 +168,7 @@ const config: Config = {
         routeBasePath: repo.id,
         sidebarPath: './sidebars/external.ts',
         ...mathPlugins,
-        editUrl: `${(repo as any).repo}/tree/main/${repo.docs_path}/`,
+        editUrl: `${repo.repo}/tree/main/${repo.docs_path}/`,
       },
     ]),
 
@@ -187,6 +178,10 @@ const config: Config = {
       '@docusaurus/plugin-client-redirects',
       { redirects: require('./data/redirects') },
     ],
+
+    // Exposes data/repos.yml to page components via usePluginData('repos-data-plugin').
+    // The /developers polyrepo tree is the only consumer so far.
+    require.resolve('./src/plugins/repos-data'),
 
     // Webpack 5 enforces full file extensions on ESM imports; tsup/esbuild
     // strips .js in unbundled output. Carried over from freemocap-docs.
@@ -257,10 +252,38 @@ const config: Config = {
         { type: 'custom-tutorialsDropdown', position: 'left' },
         sectionDropdown(sectionById('guides')),
         sectionDropdown(sectionById('reference')),
+        // Concepts and Build are still separate Docusaurus instances (see
+        // the comments at their plugin registrations below for why: per-
+        // instance versioning, and Build standing in for a future fetched
+        // instance), but that's an internal-only reason and doesn't need
+        // two more top-level dropdowns exposing it. Concepts is reachable
+        // as "Key Concepts" inside the About dropdown (see aboutSection in
+        // src/data/sitePages.ts); Build is reachable through Developer
+        // Docs below, which is already its front door (the polyrepo tree's
+        // core box, plus the "Architecture docs" link).
         sectionDropdown(aboutSection),
-        sectionDropdown(sectionById('concepts')),
-        sectionDropdown(sectionById('build')),
-        { type: 'docsVersionDropdown', position: 'right' },
+        // Custom, not sectionDropdown, like Tutorials: Core/Pantheon/
+        // Utility/More is a grouped, headered list, which Docusaurus's
+        // stock flat dropdown can't render; see
+        // src/theme/NavbarItem/DeveloperDocsNavbarItem.tsx. className
+        // gives it the boxed look that sets it apart as a different kind
+        // of section (contributor-facing, not part of the reader-facing
+        // IA); see .navbar-developer-docs-item in src/css/custom.css.
+        {
+          type: 'custom-developerDocsDropdown',
+          position: 'left',
+          className: 'navbar-developer-docs-item',
+        },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          // Subtle only: this is the one dropdown that keeps Infima's own
+          // small caret (every other one hides it, see the ::after rule
+          // in custom.css), since it's the only item in the bar that
+          // looks like a plain label otherwise, with nothing marking it
+          // as a switcher.
+          className: 'navbar-version-dropdown-item',
+        },
         // The real download page (OS/GPU detection, release selector) lives
         // on the top-level site, not here, so this points straight at it
         // rather than routing through an internal page first. Same pattern

@@ -327,8 +327,7 @@ export function Hero() {
     <header className={styles.hero}>
       <h1 className={styles.heroTitle}>FreeMoCap</h1>
       <p className={styles.heroTagline}>
-        Free and open-source research-grade markerless motion capture with
-        ordinary webcams.
+        User documentation for the FreeMoCap project.
       </p>
       <div className={styles.heroButtons}>
         <Link className={styles.buttonPrimary} to="/start/">
