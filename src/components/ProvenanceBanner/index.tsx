@@ -22,19 +22,19 @@ const DISCLAIMERS: Record<string, string> = {
     'This page is adapted from real, human-written FreeMoCap documentation.',
 };
 
+export type HistoryEntry = { date: string; against?: string };
+
 export default function ProvenanceBanner({
   provenance,
-  reviewed,
-  reviewedAgainst,
+  history = [],
 }: {
   provenance: string;
-  reviewed?: string;
-  reviewedAgainst?: string;
+  history?: HistoryEntry[];
 }): ReactNode {
   const label = LABELS[provenance] ?? `Provenance: ${provenance}`;
   const disclaimer = DISCLAIMERS[provenance] ?? '';
   const issueUrl = `https://github.com/${REPO}/issues/new?labels=documentation`;
-  const hasCheck = Boolean(reviewedAgainst) && reviewedAgainst !== 'none';
+  const hasCheck = history.some((entry) => entry.against && entry.against !== 'none');
 
   return (
     <details className={styles.banner}>
@@ -50,20 +50,18 @@ export default function ProvenanceBanner({
           <a href={issueUrl}>open an issue</a> or use the <em>Edit this page</em>{' '}
           link below to submit a fix.
         </p>
-        {(reviewed || hasCheck) && (
+        {history.length > 0 && (
           <dl className={styles.meta}>
-            {reviewed && (
-              <>
-                <dt>Last reviewed</dt>
-                <dd>{reviewed}</dd>
-              </>
-            )}
-            {hasCheck && (
-              <>
-                <dt>Checked against</dt>
-                <dd>{reviewedAgainst}</dd>
-              </>
-            )}
+            {history.map((entry, i) => (
+              <React.Fragment key={`${entry.date}-${i}`}>
+                <dt>{entry.date}</dt>
+                <dd>
+                  {entry.against && entry.against !== 'none'
+                    ? entry.against
+                    : 'not checked against a specific version'}
+                </dd>
+              </React.Fragment>
+            ))}
           </dl>
         )}
         <a className={styles.moreInfo} href={EXPLAINER_URL}>

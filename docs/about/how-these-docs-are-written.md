@@ -22,20 +22,28 @@ Every page has:
 - **`provenance`**: `ai-generated` (drafted by an AI from source material)
   or `human-checked` (a person has verified it, even if an AI did the
   initial pass).
-- **`reviewed`**: the date it was last actually looked at, not when the
-  file was created.
-- **`reviewed_against`**: what it was checked against, `none` for new
-  synthesis, a specific source document, or a note like `v1 (ported, not
-  yet re-checked against v2)` when a page is a faithful port of older
-  documentation that hasn't been walked through against the current
-  software yet.
+- **`history`**: the audit log, a list of every time someone actually
+  checked this page, newest first. Each entry has a **`date`** and an
+  **`against`**, what it was checked against: `none` for new synthesis
+  with nothing yet to compare it to, a specific source document, or a
+  note like `v1 (ported, not yet re-checked against v2)` when a page is a
+  faithful port of older documentation that hasn't been walked through
+  against the current software yet. A page that's only ever been checked
+  once still gets one entry, not a bare date, so a second check later is
+  just another entry rather than an overwrite that loses the first one.
+  Pages written before this log existed still carry the single older
+  `reviewed` / `reviewed_against` pair instead of a `history` array; the
+  banner reads that the same way it would read a one-entry log, so
+  nothing about how they render actually changed, they just haven't been
+  converted to the list format because there's nothing yet to list.
 - **`draft`**: whether the page is considered ready to read, independent
   of provenance, a `human-checked` page can still be a draft.
 
-A page marked `ai-generated` with `reviewed_against: v1 (ported...)`, for
-example, means: an AI adapted real, human-written FreeMoCap documentation
-into this site's format, and nobody has yet confirmed the underlying
-software still matches what that documentation describes.
+A page marked `ai-generated` whose latest check was against `v1
+(ported...)`, for example, means: an AI adapted real, human-written
+FreeMoCap documentation into this site's format, and nobody has yet
+confirmed the underlying software still matches what that documentation
+describes.
 
 ## Where the content actually comes from
 
