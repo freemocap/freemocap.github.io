@@ -13,10 +13,30 @@
 :root {
   --ifm-color-primary: #4e7f7e;
   --ifm-code-font-size: 95%;
+  /* Infima auto-derives 6 shades (dark/darker/darkest/light/lighter/
+     lightest) from a single base color at build time; overriding just
+     --ifm-color-primary above doesn't touch them, so anything using a
+     derived shade (hover states, subtle tints) was still rendering
+     skellydocs' original purple (#8b5cf6 etc.), a wrong hue, not just a
+     contrast problem. Computed at the same ~8% HSL lightness step
+     Infima's own generator uses, from the real #4e7f7e base. */
+  --ifm-color-primary-dark: #3e6665;
+  --ifm-color-primary-darker: #2f4c4c;
+  --ifm-color-primary-darkest: #1f3333;
+  --ifm-color-primary-light: #5e9897;
+  --ifm-color-primary-lighter: #75aaa9;
+  --ifm-color-primary-lightest: #8ebab9;
 }
 
 [data-theme='dark'] {
   --ifm-color-primary: #7db8b7;
+  /* Same derived-shades gap as above, for dark mode's teal base. */
+  --ifm-color-primary-dark: #63aaa8;
+  --ifm-color-primary-darker: #509392;
+  --ifm-color-primary-darkest: #427978;
+  --ifm-color-primary-light: #97c6c6;
+  --ifm-color-primary-lighter: #b2d5d4;
+  --ifm-color-primary-lightest: #cce3e3;
 }
 
 /* @freemocap/skellydocs only defines --ifm-background-color for
@@ -43,6 +63,33 @@
   --sk-text-dim: #5c5c5c;
   --sk-accent: #16875a;
   --sk-purple: #7f56f8;
+
+  /* Infima's own light-mode emphasis scale (--ifm-color-emphasis-0
+     through -1000) is what almost everything in this codebase reaches
+     for: card/button/pill/tooltip borders at 200-400, secondary text
+     (dropdown section headers, card descriptions, tags, footer links)
+     at 500-700. The stock scale is too light across that whole range
+     to read as "the entire light mode is too gray" (2026-08-25):
+     borders as low as 1.17:1 against white (not just below AA, below
+     even the 3:1 non-text minimum), text at 500 as low as 1.77:1.
+     Recomputed the full ramp for real: 100 stays a light background-only
+     tint (never used as a border in this codebase); 200-400 (border use)
+     now clear 3:1+; 500-700 (text use) clear 4.5:1+, pushed well past
+     minimum since "technically passes AA" still read as too gray in
+     practice; 800/900/1000 were already fine and are essentially
+     unchanged. --ifm-footer-link-color and others defined by Infima in
+     terms of this scale inherit the fix automatically. */
+  --ifm-color-emphasis-0: #ffffff;
+  --ifm-color-emphasis-100: #e1e1e1;
+  --ifm-color-emphasis-200: #949494;
+  --ifm-color-emphasis-300: #868686;
+  --ifm-color-emphasis-400: #7b7b7b;
+  --ifm-color-emphasis-500: #727272;
+  --ifm-color-emphasis-600: #5d5d5d;
+  --ifm-color-emphasis-700: #494949;
+  --ifm-color-emphasis-800: #2b2b2b;
+  --ifm-color-emphasis-900: #1c1e21;
+  --ifm-color-emphasis-1000: #000000;
 }
 
 /* Home renders its own hero, so the default article padding fights it. */

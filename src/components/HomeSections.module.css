@@ -267,7 +267,10 @@
 }
 
 .cardMuted {
-  opacity: 0.75;
+  /* opacity: 0.75 used to compound with the card's own border/text
+     colors, e.g. taking the already-fixed emphasis-200 border back down
+     to 2.19:1 in light mode. The dashed border alone already reads as
+     "different/reserved," doesn't need opacity on top of it too. */
   border-style: dashed;
 }
 
