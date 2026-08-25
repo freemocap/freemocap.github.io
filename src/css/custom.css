@@ -27,6 +27,22 @@
    light default, not a brand color decision. */
 [data-theme='light'] {
   --ifm-background-color: #ffffff;
+
+  /* Same root cause as above, wider: the whole --sk-* design-token set
+     (consumed ~50 places in skellydocs' theme.module.css, plus locally
+     in ProvenanceBanner) is defined once in that package's :root with
+     no light-mode variant at all, calibrated for a dark background
+     (near-white text, a light mint accent). Against white these are
+     unreadable: --sk-text 1.23:1, --sk-text-dim 2.17:1, --sk-accent
+     1.52:1, --sk-purple 2.72:1. --sk-text/--sk-text-dim darkened to
+     match freemocap.org's text-primary/text-muted; --sk-accent/
+     --sk-purple are semantic (a "checked" badge, a link color) so kept
+     their own hue, just darkened enough to pass (4.5:1+), same
+     treatment as the accent colors above, not flattened to black. */
+  --sk-text: #000000;
+  --sk-text-dim: #5c5c5c;
+  --sk-accent: #16875a;
+  --sk-purple: #7f56f8;
 }
 
 /* Home renders its own hero, so the default article padding fights it. */

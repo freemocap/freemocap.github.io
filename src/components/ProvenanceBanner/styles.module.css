@@ -54,8 +54,11 @@
 }
 
 .unchecked {
+  /* opacity: 0.6 used to compound with --sk-text-dim to render this as
+     an almost-invisible 1.55:1 in light mode. The de-emphasis is the
+     dim color itself (vs .checked's full accent), doesn't need an
+     opacity layered on top too. */
   color: var(--sk-text-dim, inherit);
-  opacity: 0.6;
   background: rgba(148, 163, 184, 0.08);
 }
 
