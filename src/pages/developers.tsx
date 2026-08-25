@@ -28,21 +28,24 @@ export default function Developers() {
 
       <main className="container">
         <section className={styles.section}>
+          
+          <PolyrepoTree repos={repos} />
+          
           <div className={styles.intro}>
             <p>
-              FreeMoCap is a polyrepo where <a href="https://github.com/freemocap/freemocap" target="_blank" rel="noopener noreferrer">freemocap/freemocap</a> is the application, which composes a set of independent libraries rather than containing them. Each one owns exactly one stage of the pipeline: <code>SkellyCam</code> produces synchronized frame packages, <code>SkellyTracker</code> turns those into keypoint observations, <code>SkellyForge</code> turns those into reconstructed points and kinematic models, and <code>SkellyBlender</code> turns those into an animated scene. These are organized into a core layer for the application, a pantheon of supporting repos in parallel below that, and a suite of utility repos that support the whole pipeline, as shown in the tree diagram below. Support repositories in the pantheon layer communicate through the data contract, while utility repos are infrastructure handling logging, docs tooling, telemetry, sync, etc. from which any part of the pipeline can draw.
+              FreeMoCap is a polyrepo where <a href="https://github.com/freemocap/freemocap" target="_blank" rel="noopener noreferrer">freemocap/freemocap</a> is the application, which composes a set of independent libraries rather than containing them. Each one owns a stage of the pipeline: <code>SkellyCam</code> produces synchronized frame packages, <code>SkellyTracker</code> turns those into keypoint observations, <code>SkellyForge</code> turns those into reconstructed points and kinematic models, and <code>SkellyBlender</code> turns those into an animated scene. These are organized into a core layer for the application, a pantheon of supporting repos in parallel below that, and a suite of utility repos that support the whole pipeline, as shown in the tree diagram below. Support repositories in the pantheon layer communicate through the data contract, while utility repos are infrastructure handling logging, docs tooling, telemetry, sync, etc. from which any part of the pipeline can draw.
             </p>
           </div>
 
-          <PolyrepoTree repos={repos} />
+          
 
           <figure className={styles.voltronIntro}>
-            <figcaption className={styles.voltronCaption}>Sort of like this:</figcaption>
             <img
               src="/img/developers/skellyvoltron.jpg"
               alt="The FreeMoCap Skelly components drawn as Voltron's five pilots: Skelly Core in the center, with SkellyCam, SkellyTracker, SkellyForge, and SkellyBlender at the four corners."
               className={styles.voltronImage}
             />
+            <figcaption className={styles.voltronCaption}>Sort of like this.</figcaption>
           </figure>
 
           <p className={styles.voltronText}>

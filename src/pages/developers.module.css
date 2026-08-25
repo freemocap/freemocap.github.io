@@ -37,7 +37,7 @@
 .voltronCaption {
   font-size: 0.95rem;
   color: var(--ifm-color-emphasis-700);
-  margin-bottom: 0.75rem;
+  margin-top: 0.35rem;
 }
 
 .voltronImage {
