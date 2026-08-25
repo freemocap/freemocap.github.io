@@ -19,6 +19,10 @@ This list is expected to grow substantially once the Discord
 `#help-requests` channel gets exported and clustered into topics, that's
 the highest-value source for what belongs here next.
 
+## Quick answers
+
+- [Frequently asked questions](/guides/faq)
+
 ## Setup
 
 - [Connect and configure cameras](/guides/camera-setup)
