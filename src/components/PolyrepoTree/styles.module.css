@@ -54,7 +54,7 @@
   stroke-dasharray: 4 3;
 }
 
-.emoji {
+.icon {
   pointer-events: none;
   user-select: none;
 }
@@ -66,8 +66,11 @@
   user-select: none;
 }
 
-.boxLink {
+.boxLink,
+.boxLink:hover,
+.boxLink:focus {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .boxLink:hover .box {

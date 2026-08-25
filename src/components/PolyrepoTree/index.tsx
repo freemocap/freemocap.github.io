@@ -36,31 +36,38 @@ function Box({
   y,
   w,
   h,
-  emoji,
+  repoId,
   name,
   route,
   variant,
   fontSize,
+  iconSize,
 }: {
   x: number;
   y: number;
   w: number;
   h: number;
-  emoji: string;
+  repoId: string;
   name: string;
   route: string;
   variant: 'core' | 'pantheon' | 'utility';
   fontSize: number;
+  iconSize: number;
 }): ReactNode {
   const cx = x + w / 2;
-  const cy = y + h / 2;
+  const iconTop = y + h * 0.08;
   return (
     <Link to={route} className={styles.boxLink}>
       <rect x={x} y={y} width={w} height={h} rx={variant === 'utility' ? 8 : 12} className={[styles.box, styles[variant]].join(' ')} />
-      <text x={cx} y={cy - fontSize * 0.35} textAnchor="middle" className={styles.emoji} fontSize={fontSize * 1.3}>
-        {emoji}
-      </text>
-      <text x={cx} y={cy + fontSize * 1.15} textAnchor="middle" className={styles.label} fontSize={fontSize}>
+      <image
+        href={`/img/logos/${repoId}.svg`}
+        x={cx - iconSize / 2}
+        y={iconTop}
+        width={iconSize}
+        height={iconSize}
+        className={styles.icon}
+      />
+      <text x={cx} y={y + h - 10} textAnchor="middle" className={styles.label} fontSize={fontSize}>
         {name}
       </text>
       <title>{name}</title>
@@ -106,11 +113,12 @@ export default function PolyrepoTree({ repos }: { repos: Repo[] }): ReactNode {
             y={CORE_Y}
             w={CORE_BOX.w}
             h={CORE_BOX.h}
-            emoji={core.emoji}
+            repoId={core.id}
             name={core.name}
             route={core.route!}
             variant="core"
             fontSize={16}
+            iconSize={56}
           />
         )}
 
@@ -121,11 +129,12 @@ export default function PolyrepoTree({ repos }: { repos: Repo[] }): ReactNode {
             y={PANTHEON_Y}
             w={PANTHEON_BOX.w}
             h={PANTHEON_BOX.h}
-            emoji={repo.emoji}
+            repoId={repo.id}
             name={repo.name}
             route={repo.route!}
             variant="pantheon"
             fontSize={13}
+            iconSize={46}
           />
         ))}
 
@@ -136,11 +145,12 @@ export default function PolyrepoTree({ repos }: { repos: Repo[] }): ReactNode {
             y={UTILITY_Y}
             w={UTILITY_BOX.w}
             h={UTILITY_BOX.h}
-            emoji={repo.emoji}
+            repoId={repo.id}
             name={repo.name}
             route={repo.route!}
             variant="utility"
             fontSize={11}
+            iconSize={34}
           />
         ))}
       </svg>
