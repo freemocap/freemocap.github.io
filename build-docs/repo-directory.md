@@ -3,20 +3,25 @@ title: All repositories
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-reviewed: 2026-08-19
-reviewed_against: none
+reviewed: 2026-08-24
+reviewed_against: "generated live from data/repos.yml, not hand-written"
 draft: false
 ---
 
+import RepoDirectory from '@site/src/components/RepoDirectory';
+
 # All repositories
 
-:::warning This page is a stub
-Nothing here has been written yet. It exists so the structure is navigable and
-so links to it resolve.
+Every repository in the FreeMoCap polyrepo, grouped by tier, generated live
+from `data/repos.yml` at page-load time. This is the complete list,
+including the utility tier that [the polyrepo map](/build/the-map) and
+[data contracts](/build/data-contracts) pages leave out because those two
+are specifically about the data-flow pipeline, not the whole org.
 
-**Planned source:** GENERATED from data/repos.yml.
-:::
+<RepoDirectory />
 
-## What goes here
+A repo without a "docs" link here doesn't have its own documentation site
+plugged into this build yet; its GitHub link still works, and its stub page
+under `/developers` links out to the repository directly in the meantime.
 
-See the V2 documentation plan, section 5, for this page's role in the sitemap.
+[← Architecture overview](/build/architecture)
