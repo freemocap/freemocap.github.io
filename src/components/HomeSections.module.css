@@ -39,12 +39,20 @@
 }
 
 .buttonPrimary {
-  background: #6aa3a2;
+  /* Was #6aa3a2 (2.85:1 against white text, fails WCAG AA), hardcoded
+     here independent of --ifm-color-primary so custom.css's 2026-08-25
+     fix didn't reach it. Same darkened value used there and on
+     freemocap.org's equivalent buttons (4.51:1). */
+  background: #4e7f7e;
   color: var(--ifm-color-white, #fff);
 }
 
 .buttonPrimary:hover {
-  background: #578d8c;
+  /* Was #578d8c, actually lighter than the corrected rest color above,
+     which inverted the hover-darkens convention. Same ~8pt lightness
+     step darker than the new rest color, matching freemocap.org's
+     --accent-green-fill-hover. */
+  background: #3f6665;
   color: var(--ifm-color-white, #fff);
   text-decoration: none;
 }

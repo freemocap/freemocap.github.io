@@ -2,12 +2,16 @@
    Keep this thin. Anything that should apply to every FreeMoCap docs site
    belongs in @freemocap/skellydocs, not here. */
 
-/* Both colors below are taken directly from freemocap.org's main.css,
-   nothing computed. --accent-green (darker) for light mode, where it
-   needs to read against white. --accent-teal (lighter) for dark mode,
-   where it needs to read against near-black. */
+/* Both colors below are taken directly from freemocap.org's main.css.
+   Light mode originally used the base --accent-green (#6aa3a2), which
+   is only 2.85:1 against white, below WCAG AA. Updated 2026-08-25 to
+   --accent-green-fill (#4e7f7e, 4.51:1), the same darkened value
+   freemocap.org now uses wherever accent-green needs to read as text/
+   links against a light background, not a value computed fresh here.
+   Dark mode's --accent-teal (#7db8b7) was already fine (8.87:1 against
+   this theme's near-black) and is unchanged. */
 :root {
-  --ifm-color-primary: #6aa3a2;
+  --ifm-color-primary: #4e7f7e;
   --ifm-code-font-size: 95%;
 }
 
