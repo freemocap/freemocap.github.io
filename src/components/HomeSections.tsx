@@ -327,7 +327,7 @@ export function Hero() {
     <header className={styles.hero}>
       <h1 className={styles.heroTitle}>FreeMoCap</h1>
       <p className={styles.heroTagline}>
-        User documentation for the FreeMoCap project.
+        User documentation for the <a href="https://freemocap.org" target="_blank" rel="noopener noreferrer">FreeMoCap</a> project.
       </p>
       <div className={styles.heroButtons}>
         <Link className={styles.buttonPrimary} to="/start/">

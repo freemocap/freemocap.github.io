@@ -23,7 +23,7 @@ export default function Developers() {
     >
       <header className={heroStyles.hero}>
         <h1 className={heroStyles.heroTitle}>FreeMoCap</h1>
-        <p className={styles.tagline}>Developer documentation for the FreeMoCap project.</p>
+        <p className={styles.tagline}>Developer documentation for the <a href="https://freemocap.org" target="_blank" rel="noopener noreferrer">FreeMoCap</a> project.</p>
       </header>
 
       <main className="container">
