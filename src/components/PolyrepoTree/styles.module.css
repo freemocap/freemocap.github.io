@@ -42,7 +42,7 @@
 
 .pantheon {
   fill: var(--ifm-color-emphasis-100);
-  stroke: var(--ifm-color-emphasis-400);
+  stroke: var(--fmc-border-strong, var(--ifm-color-emphasis-400));
 }
 
 /* Dashed because it's infrastructure outside the pipeline (see the
@@ -50,13 +50,21 @@
    repo here is a real link, same as core and pantheon. */
 .utility {
   fill: transparent;
-  stroke: var(--ifm-color-emphasis-300);
+  stroke: var(--fmc-border-strong, var(--ifm-color-emphasis-300));
   stroke-dasharray: 4 3;
 }
 
 .icon {
   pointer-events: none;
   user-select: none;
+}
+
+/* Default SVG mask blends by luminance*alpha, which would let the
+   skull's own dark linework mask out unevenly (dark pixels contribute
+   less than light ones even at full opacity). alpha ignores luminance
+   entirely and masks purely on transparency, a true shape silhouette. */
+.alphaMask {
+  mask-type: alpha;
 }
 
 .label {

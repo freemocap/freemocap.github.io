@@ -64,17 +64,30 @@ function Box({
           skull by blending toward whatever's behind it. .core/.pantheon's
           fill is var(--ifm-color-emphasis-100) (theme-reactive) and .utility
           is transparent, so in light mode that blend target is near-white
-          and the skull washes out. This rect gives every logo the same
-          fixed dark backdrop the composites were originally tuned against,
-          so the muting looks the same regardless of site theme. Fully-opaque
-          images (freemocap) render straight over it with zero visible
-          effect. */}
+          and the skull washes out. A plain rect behind the image fixed the
+          wash-out but showed as a visible black square around the skull
+          (2026-08-25 feedback: looked bad, mask it to the logo's own shape
+          instead). Using the same logo image as an alpha mask on the rect
+          means the dark fill only shows through exactly where the logo
+          itself has non-transparent pixels, no visible box. Fully-opaque
+          images (freemocap) mask in as a full square, same as before, zero
+          visible difference since the image already covers it completely. */}
+      <mask id={`logo-mask-${repoId}`} className={styles.alphaMask}>
+        <image
+          href={`/img/logos/${repoId}.svg`}
+          x={cx - iconSize / 2}
+          y={iconTop}
+          width={iconSize}
+          height={iconSize}
+        />
+      </mask>
       <rect
         x={cx - iconSize / 2}
         y={iconTop}
         width={iconSize}
         height={iconSize}
         fill="#0a0818"
+        mask={`url(#logo-mask-${repoId})`}
       />
       <image
         href={`/img/logos/${repoId}.svg`}
