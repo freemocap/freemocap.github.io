@@ -8,10 +8,9 @@ import Link from '@docusaurus/Link';
 import { translate } from '@docusaurus/Translate';
 import HomeBreadcrumbItem from '@theme/DocBreadcrumbs/Items/Home';
 import DocBreadcrumbsStructuredData from '@theme/DocBreadcrumbs/StructuredData';
+import { type Repo } from '@site/src/utils/repo';
 
 import styles from './styles.module.css';
-
-type Repo = { id: string; docs_path: string | null };
 
 // TODO move to design system folder
 function BreadcrumbsItemLink({
@@ -56,35 +55,56 @@ function BreadcrumbsItem({
 
 type ExtraCrumb = { label: string; href: string };
 
-// "build" and any per-repo instance with real docs (data/repos.yml, via
-// the repos-data plugin, not a hardcoded id list, so a repo joining this
-// set later doesn't need this file touched) get "Developer Docs"
-// prepended: it's their real parent in the nav, but a separate,
-// independently-sidebarred instance (see docusaurus.config.ts), so
-// without this a reader landing on one of these pages only sees that
-// instance's own local trail, with no way back except the navbar or the
-// Home icon.
+// "build" and every per-repo instance (data/repos.yml, via the repos-data
+// plugin, not a hardcoded id list, so a repo joining this set later doesn't
+// need this file touched) get "Developer Docs" prepended: it's their real
+// parent in the nav, but a separate, independently-sidebarred instance (see
+// docusaurus.config.ts's externalRepos/stubRepos), so without this a reader
+// landing on one of these pages only sees that instance's own local trail,
+// with no way back except the navbar or the Home icon. Every non-freemocap
+// repo has an instance one way or another now (a real fetched one via
+// externalRepos, or a locally-authored stand-in via stubRepos), so this no
+// longer needs to distinguish which kind, just whether the id matches one.
 //
-// Concepts doesn't need this: sidebars/concepts.ts mirrors the main
+// A second crumb carries the repo's own display name (data/repos.yml's
+// `name`, e.g. "SkellyForge"), so "Developer Docs / Data models" (which repo
+// is that?) becomes "Developer Docs / SkellyForge / Data models". "build"
+// maps to the `freemocap` repos.yml entry, its plugin id and repo id differ
+// (see docusaurus.config.ts's "build" instance) everywhere else they match.
+// Skipped on the repo's own hub page (useSidebarBreadcrumbs()'s own leading
+// crumb already points at repo.route there), so the hub doesn't repeat its
+// own name: "Developer Docs / SkellyForge / SkellyForge" would be noise, not
+// signal.
+//
+// Concepts doesn't need any of this: sidebars/concepts.ts mirrors the main
 // sidebar (see sharedDocsTree.ts) and nests concepts pages for real
 // under About > Key Concepts there, so useSidebarBreadcrumbs() below
 // already produces that chain on its own.
-function useExtraCrumbs(): ExtraCrumb[] {
+function useExtraCrumbs(
+  breadcrumbs: ReturnType<typeof useSidebarBreadcrumbs>,
+): ExtraCrumb[] {
   const activePlugin = useActivePlugin();
   const repos = usePluginData('repos-data-plugin') as Repo[];
   if (!activePlugin) {
     return [];
   }
-  const isDeveloperDocsInstance =
-    activePlugin.pluginId === 'build' ||
-    repos.some((repo) => repo.id === activePlugin.pluginId && Boolean(repo.docs_path));
-  return isDeveloperDocsInstance ? [{ label: 'Developer Docs', href: '/developers' }] : [];
+  const repoId = activePlugin.pluginId === 'build' ? 'freemocap' : activePlugin.pluginId;
+  const repo = repos.find((r) => r.id === repoId);
+  if (!repo) {
+    return [];
+  }
+  const crumbs: ExtraCrumb[] = [{ label: 'Developer Docs', href: '/developers' }];
+  const onRepoHub = breadcrumbs?.[0]?.href === repo.route;
+  if (!onRepoHub && repo.route) {
+    crumbs.push({ label: repo.name, href: repo.route });
+  }
+  return crumbs;
 }
 
 export default function DocBreadcrumbs(): ReactNode {
   const breadcrumbs = useSidebarBreadcrumbs();
   const homePageRoute = useHomePageRoute();
-  const extraCrumbs = useExtraCrumbs();
+  const extraCrumbs = useExtraCrumbs(breadcrumbs);
 
   if (!breadcrumbs) {
     return null;

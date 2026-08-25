@@ -7,8 +7,9 @@ import { type Repo } from '@site/src/utils/repo';
 
 // Same data as the /developers polyrepo tree (data/repos.yml via the
 // repos-data plugin), grouped the same way. Every repo gets a real link:
-// the ones without docs of their own yet route to a short stub page
-// (src/pages/<id>/) rather than being greyed out or left unclickable.
+// the ones without docs of their own yet route to a locally-authored
+// stand-in docs instance (stub-docs/<id>/, see docusaurus.config.ts's
+// stubRepos) rather than being greyed out or left unclickable.
 const MORE_LINKS = [
   { label: 'Architecture docs', to: '/build/' },
   { label: 'Full repository directory', to: '/build/repo-directory' },

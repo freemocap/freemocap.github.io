@@ -12,9 +12,21 @@ const mathPlugins = { remarkPlugins: [remarkMath], rehypePlugins: [rehypeKatex] 
 
 const repos = loadRepos(__dirname);
 
-// Only repos that actually have docs get a plugin instance. Today that is
-// freemocap and skellycam. The rest join by setting docs_path in repos.yml.
+// Only repos with real fetched docs get an externalRepos instance. Today
+// that is skellycam. A repo joins this set by setting docs_path in
+// repos.yml; nothing else needs to change, see the stubRepos comment below.
 const externalRepos = repos.filter((r) => r.docs_path && r.route && r.id !== 'freemocap');
+
+// Everyone else (besides freemocap, which stands apart as the "build"
+// instance below) gets a locally-authored stand-in instance instead of a
+// bare src/pages/<id> page, sourced from this repo's own stub-docs/<id>/
+// rather than external/<id>/ (that folder is gitignored, populated only by
+// the fetch script, so hand-written content can't live there). Shares
+// sidebars/external.ts with the real externalRepos instances below, same
+// routeBasePath convention, so the day a repo's docs_path goes from null to
+// real, moving it from this list to externalRepos is a one-line change:
+// delete stub-docs/<id>/, nothing about the sidebar or route needs to move.
+const stubRepos = repos.filter((r) => !r.docs_path && r.route && r.id !== 'freemocap');
 
 const sectionById = (id: string) => {
   const section = navSections.find((s) => s.id === id);
@@ -169,6 +181,23 @@ const config: Config = {
         sidebarPath: './sidebars/external.ts',
         ...mathPlugins,
         editUrl: `${repo.repo}/tree/main/${repo.docs_path}/`,
+      },
+    ]),
+
+    // One instance per repo with no docs source yet (see stubRepos above).
+    // Same routeBasePath/sidebarPath shape as externalRepos, so a reader
+    // can't tell these apart from a real fetched instance by navigation
+    // alone. editUrl points back at this repo, not the sub-repo, since the
+    // content actually lives here in stub-docs/, not in the sub-repo.
+    ...stubRepos.map((repo) => [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: repo.id,
+        path: `stub-docs/${repo.id}`,
+        routeBasePath: repo.id,
+        sidebarPath: './sidebars/external.ts',
+        ...mathPlugins,
+        editUrl: 'https://github.com/freemocap/freemocap.github.io/tree/main/',
       },
     ]),
 

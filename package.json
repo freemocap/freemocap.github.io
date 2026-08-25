@@ -11,7 +11,7 @@
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "typecheck": "tsc",
-    "lint:prose": "vale docs concepts build-docs src",
+    "lint:prose": "vale docs concepts build-docs stub-docs",
     "docusaurus": "docusaurus"
   },
   "dependencies": {
