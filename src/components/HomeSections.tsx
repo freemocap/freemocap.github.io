@@ -355,8 +355,8 @@ export function ComingSoonSection() {
         >
           <h3 className={styles.cardTitle}>Skelly University</h3>
           <p className={styles.cardDescription}>
-            A course-based path through markerless motion capture, from your first
-            recording to specialized tracks in technology, science, and art.
+            A course-based path through markerless motion capture from first
+            recording to specialized tracks in technology, science, and art. Will offer microcertification.
           </p>
           <span className={styles.cardComingSoon}>https://github.com/freemocap/university</span>
         </a>

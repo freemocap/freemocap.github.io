@@ -248,7 +248,7 @@ const config: Config = {
     docs: { sidebar: { autoCollapseCategories: true } },
     navbar: {
       title: 'FreeMoCap',
-      logo: { alt: 'FreeMoCap', src: 'img/logo.svg' },
+      logo: { alt: 'FreeMoCap', src: 'img/logos/skelly-docs-site-logo.png' },
       items: [
         // Start / Tutorials / How-to / Reference / About are one Docusaurus
         // instance (one sidebar, versioned together) and stay contiguous so
