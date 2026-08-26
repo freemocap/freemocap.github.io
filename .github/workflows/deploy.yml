@@ -47,9 +47,13 @@ jobs:
           path: build/
           retention-days: 7
 
+  # Manual only, same as freemocap_dot_org's own deploy_site.yml: merging to
+  # main builds and lints (job above) but never ships anything by itself.
+  # Going live is always a deliberate "Run workflow" click from the Actions
+  # tab, not a side effect of a merge.
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -58,25 +62,16 @@ jobs:
           name: site
           path: build
 
-      - name: Add VPS to known hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H "${{ secrets.DOCS_VPS_HOST }}" >> ~/.ssh/known_hosts
-
-      - name: Install deploy key
-        run: |
-          install -m 600 /dev/stdin ~/.ssh/id_ed25519 <<< "${{ secrets.DOCS_VPS_SSH_KEY }}"
-
-      # Deploy to a timestamped directory and flip a symlink, so a failed
-      # transfer never leaves the live site half-written, and rolling back is
-      # re-pointing the symlink.
-      - name: Deploy
-        env:
-          HOST: ${{ secrets.DOCS_VPS_HOST }}
-          USER: ${{ secrets.DOCS_VPS_USER }}
-          ROOT: ${{ secrets.DOCS_VPS_ROOT }}
-        run: |
-          RELEASE="$ROOT/releases/$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA::7}"
-          ssh "$USER@$HOST" "mkdir -p '$RELEASE'"
-          rsync -az --delete build/ "$USER@$HOST:$RELEASE/"
-          ssh "$USER@$HOST" "ln -sfn '$RELEASE' '$ROOT/current' && ls -1dt '$ROOT'/releases/* | tail -n +6 | xargs -r rm -rf"
+      # Same server as freemocap_dot_org (Plesk, one box hosting both
+      # subscriptions), but its own FTP user scoped to the docs.freemocap.org
+      # subdomain's document root, so this account has no reach into the
+      # main site's files. That user's home directory is already the
+      # subdomain root, so server-dir is just "/".
+      - name: Deploy to docs.freemocap.org
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 198.71.57.235
+          username: ${{ secrets.DOCS_FTP_USERNAME }}
+          password: ${{ secrets.DOCS_FTP_PASSWORD }}
+          local-dir: build/
+          server-dir: /
