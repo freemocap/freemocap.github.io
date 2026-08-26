@@ -3,8 +3,11 @@ title: How these docs are written
 type: explanation
 sidebar_position: 11
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: none
+history:
+  - date: "2026-08-25"
+    against: "this site's own repo state: provenance/reviewed/history frontmatter across docs/, concepts/, build-docs/, stub-docs/; src/theme/DocItem/Content/index.tsx and src/components/ProvenanceBanner (newest-first ordering, the reviewed/reviewed_against fallback, the 'none' handling); .vale.ini and .vale/styles/FreeMoCap (Google package, Dashes/Hype/Spelling rules); skellydocs' AiGeneratedBanner and GenerationType, plus the AiGeneratedBanner tags in polyrepo-clones/freemocap/freemocap-docs (*.mdx, incl. posthoc-mocap.mdx tagged human-generated); the v2.0.0-alpha.21 pin in polyrepo-clones/freemocap/pyproject.toml; the current state of tutorials/batch-processing.md, tutorials/custom-pipeline.md, and about/roadmap.md"
+  - date: "2026-08-21"
+    against: "none"
 draft: false
 ---
 
@@ -70,14 +73,16 @@ depending on the page:
 ## What gets left as a stub, on purpose
 
 A page with no real source behind it stays a stub rather than getting
-filled with something plausible-sounding. That's shown up a few
-concrete ways across this site: a tutorial for batch processing wasn't
-written because the feature doesn't exist in the codebase yet, a page
-on building a custom pipeline stays deliberately shallow because the
-real depth is internal architecture documentation aimed at a different
-audience, and a roadmap page stays empty because the project doesn't
-have one to publish yet. A stub is a more honest state than invented
-content.
+filled with something plausible-sounding. That's shown up a few concrete
+ways across this site: the batch processing page exists to explain that
+the feature doesn't exist in the codebase yet, not to walk through steps
+for it, a page on building a custom pipeline stays deliberately shallow
+because the real depth is internal architecture documentation aimed at a
+different audience, and the roadmap page points at the organization's
+live GitHub planning boards instead of summarizing plans into prose,
+because there's no fixed written roadmap to publish. A stub, or a page
+that just says the thing doesn't exist yet, is a more honest state than
+invented content.
 
 ## Style checking
 

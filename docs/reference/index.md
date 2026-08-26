@@ -3,8 +3,11 @@ title: Reference
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: none
+history:
+  - date: "2026-08-25"
+    against: "link inventory: all nine /reference/ targets exist as draft:false pages under docs/reference/ with titles matching their labels here, and /concepts/ resolves to concepts/index.md; cross-checked against navSections in src/data/sitePages.ts"
+  - date: "2026-08-21"
+    against: "none"
 draft: false
 ---
 

@@ -3,8 +3,11 @@ title: Set up GPU acceleration
 type: how-to
 sidebar_position: 10
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: freemocap-docs guides/gpu-setup.mdx and skellytracker's GPU_SETUP_GUIDE.md (v2.0.0-alpha.21 / skellytracker main, not yet re-checked against the running app)
+history:
+  - date: "2026-08-25"
+    against: "install extras re-checked against skellytracker pyproject.toml (main); provider auto-detect order and execution provider names against ort_session_utils.py; TRT engine cache path and first-run compile time against ort_session_utils.py; OOM recovery against freemocap realtime_skeleton_inference_node.py (v2.0.0-alpha.21); startup provider logging against freemocap app/app.py; both cited sources re-read (skellytracker GPU_SETUP_GUIDE.md, freemocap-docs gpu-setup.mdx)"
+  - date: "2026-08-21"
+    against: "freemocap-docs guides/gpu-setup.mdx and skellytracker's GPU_SETUP_GUIDE.md (v2.0.0-alpha.21 / skellytracker main, not yet re-checked against the running app)"
 draft: false
 ---
 

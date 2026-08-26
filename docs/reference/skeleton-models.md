@@ -3,9 +3,12 @@ title: Keypoint names and indices by model
 type: reference
 sidebar_position: 13
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap tracker_definitions.py, SkellyTracker core detector YAMLs, and SkellyForge skellymodels source, read directly
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "Re-checked FreeMoCap tracker_definitions.py, tracker_schema_message.py, websocket_server.py, posthoc_mocap_task.py, playback_router.py, pyproject.toml, and skeleton_from_mediapipe_observations.py plus SkellyTracker rtmpose_wholebody.yaml, mediapipe body/hand/face-contour YAMLs, rtmpose_wholebody_detector.py and tracker_mapping.py plus SkellyForge mediapipe/rtmpose/canonical_body/canonical_hand YAMLs, tracking_model_info.py, human.py and actor.py, all read directly"
+  - date: "2026-08-24"
+    against: "FreeMoCap tracker_definitions.py, SkellyTracker core detector YAMLs, and SkellyForge skellymodels source, read directly"
 ---
 
 # Keypoint names and indices by model
@@ -34,7 +37,7 @@ the source for output-file columns, not for the frontend schema.
 ## System 1: TrackerDefinition (the frontend schema)
 
 A `TrackerDefinition` is deliberately small: `name`, `tracked_points`
-(ordered tuple of names), `connections` (tuple of name pairs). Two are
+(ordered tuple of names), `connections` (tuple of name pairs). Three are
 built at import time:
 
 - **`rtmpose_wholebody`** loads directly from
@@ -42,6 +45,10 @@ built at import time:
 - **`mediapipe_wholebody`** has no single YAML; FreeMoCap composes it in
   code from three SkellyTracker files (body, hand, face contour),
   prefixing hand points with `right_hand_` / `left_hand_`.
+- **`mediapipe_body`** loads directly from
+  `skellytracker/core/detectors/keypoint_detectors/mediapipe/body/mediapipe_body.yaml`.
+  It is defined but not used anywhere else in FreeMoCap; the two
+  schemas below are the ones the rest of this page covers.
 
 The websocket server sends all active schemas in one
 `TrackerSchemasMessage` when a client connects; it also includes

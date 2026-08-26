@@ -3,8 +3,11 @@ title: "CSS design tokens"
 type: reference
 sidebar_position: 7
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs
+history:
+  - date: "2026-08-26"
+    against: "Re-read polyrepo-clones/skellydocs/src/css/custom.css and theme.module.css on main (package 0.3.17); all 10 --sk-* token names/defaults, Infima-level overrides, header comment, and font import re-verified"
+  - date: "2026-08-24"
+    against: "SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs"
 draft: false
 ---
 

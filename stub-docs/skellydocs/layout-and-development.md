@@ -3,9 +3,12 @@ title: "Layout and development"
 type: reference
 sidebar_position: 9
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "SkellyDocs source re-read directly on main: package.json, tsup.config.ts, .release-it.json, scripts/copy-css.mjs, scripts/rebuild-dogfood.mjs, src/index.ts, src/bin/create-skellydocs.ts, src/css/, src/theme/, templates/, .github/workflows/publish.yml, README.md, CLAUDE.md"
+  - date: "2026-08-24"
+    against: "SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs"
 ---
 
 # Layout and development

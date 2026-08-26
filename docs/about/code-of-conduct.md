@@ -2,8 +2,11 @@
 title: Code of conduct
 type: explanation
 provenance: human-checked
-reviewed: 2026-08-19
-reviewed_against: v1 (ported, not yet re-checked against v2)
+history:
+  - date: "2026-08-25"
+    against: "polyrepo-clones/freemocap/CODE_OF_CONDUCT.md at v2.0.0-alpha.21 (verbatim match)"
+  - date: "2026-08-19"
+    against: "v1 (ported, not yet re-checked against v2)"
 ---
 In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to make participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 

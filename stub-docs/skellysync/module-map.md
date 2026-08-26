@@ -3,8 +3,11 @@ title: "Module map"
 type: reference
 sidebar_position: 6
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellySync source read directly (package code, README, the pyproject config, CI workflows)
+history:
+  - date: "2026-08-26"
+    against: "full recursive find across core_processes/, gui/, system/, utils/: every path in the table confirmed to exist exactly as listed, including core_processes/debugging/ and core_processes/video_functions/ subfolders and gui/widgets/run_button_widget.py; confirmed run_button_widget.py is not referenced anywhere else in the repo and pyproject.toml has no SkellyLogs dependency"
+  - date: "2026-08-24"
+    against: "SkellySync source read directly (package code, README, the pyproject config, CI workflows)"
 draft: false
 ---
 

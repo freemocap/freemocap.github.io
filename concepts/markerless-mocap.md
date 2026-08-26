@@ -3,9 +3,12 @@ title: What is markerless motion capture?
 type: explanation
 sidebar_position: 3
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "Link targets confirmed to exist (what-is-freemocap, how-it-works, accuracy-and-limits under concepts/); FreeMoCap deep-learning tracker claim confirmed against pinned v2.0.0-alpha.21 (skellytracker MediaPipe/RTMPose/YOLOX detectors, skellytracker dependency in freemocap pyproject.toml); dissertation-sourced historical and third-party-system claims not re-verifiable locally (PDF not machine-readable)"
+  - date: "2026-08-20"
+    against: "none"
 ---
 
 # What is markerless motion capture?

@@ -3,8 +3,11 @@ title: Analyze your data in Python
 type: tutorial
 sidebar_position: 40
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "skellyforge/skellymodels/models/trajectory.py (as_array, as_dataframe docstrings) and managers/actor.py (create_summary_dataframe, save_out_numpy_data), confirming parquet columns, .npy shape, and the mediapipe_body_3d_xyz example filename all match current source verbatim"
+  - date: "2026-08-20"
+    against: "none"
 draft: false
 ---
 

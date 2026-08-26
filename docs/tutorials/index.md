@@ -3,8 +3,11 @@ title: Tutorials
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "Cross-checked the three tiers against tutorialTiers in src/data/sitePages.ts (navbar flyout and footer) and sidebars/sharedDocsTree.ts (sidebar TOC); verified all 14 child pages exist under docs/tutorials/ with titles matching their link text and no slug overrides; confirmed the /tutorials/ and /concepts/ routes resolve via docusaurus.config.ts routeBasePath settings"
+  - date: "2026-08-21"
+    against: "none"
 draft: false
 ---
 

@@ -3,8 +3,11 @@ title: "Exports"
 type: reference
 sidebar_position: 4
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)
+history:
+  - date: "2026-08-26"
+    against: "Re-checked every claim against polyrepo-clones/freemocap_blender_addon @ main (package v2026.04.1041): core_functions/export_3d_model/export_3d_model.py sequence and format branches, blender_ui/operators/_export_3d_model.py versus core_functions/main_controller.py rename_root_bone flags, blender_ui/properties/subclasses/export_3d_model_properties.py panel options and defaults, data_models/parameter_models/video_config.py profiles, export_video helpers and operators/_export_video.py cleanup, and .blend saving via wm.save_as_mainfile"
+  - date: "2026-08-24"
+    against: "freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)"
 draft: false
 ---
 
@@ -18,7 +21,7 @@ Always written by the automatic pipeline and by a manual Load Data run, saved as
 
 The **Export 3D Model** panel exposes: destination folder, format (`fbx` or `bvh` only), bones naming convention (`default`, `metahuman`, `daz_g8.1`), rest pose type (same three choices), restore-defaults-after-export (default on), and an FBX subsection (leaf bones, off by default, plus primary/secondary bone axis enums).
 
-The export sequence in `export_3d_model.py` is deliberately reversible. It optionally renames the armature object to `root` (the manual operator passes `rename_root_bone=True`; the automatic pipeline does not), swaps in the selected rest pose and renames bones per the naming-convention mapping tables, then poses the armature by markers at frame 0 before exporting. A code comment explains why: the FBX exporter treats whatever pose the armature holds at export time as its rest pose, so frame 0 is forced to the expected rest configuration first. FBX export selects the armature and its child meshes and calls `export_scene.fbx` with all-bones baked animation; BVH export calls `export_anim.bvh` across the scene frame range. With restore enabled it then undoes everything: inverse bone renaming, original rest pose, mesh realignment, removal of the temporary DAZ correction constraints and forearm twist bones, recreation of the Metahuman `thumb.carpal` bones, and restoration of the original armature name.
+The export sequence in `export_3d_model.py` is deliberately reversible. It optionally renames the armature object to `root` (the manual operator passes `rename_root_bone=True`; the automatic pipeline does not), swaps in the selected rest pose, poses the armature by markers at frame 0, then renames bones per the naming-convention mapping tables before exporting. A code comment explains why: the FBX exporter treats whatever pose the armature holds at export time as its rest pose, so frame 0 is forced to the expected rest configuration first. FBX export selects the armature and its child meshes and calls `export_scene.fbx` with all-bones baked animation; BVH export calls `export_anim.bvh` across the scene frame range. With restore enabled it then undoes everything: inverse bone renaming, original rest pose, mesh realignment, removal of the temporary DAZ correction constraints and forearm twist bones, recreation of the Metahuman `thumb.carpal` bones, and restoration of the original armature name.
 
 ## glTF is not available
 

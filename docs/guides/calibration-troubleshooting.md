@@ -2,8 +2,11 @@
 title: Fix a calibration problem
 type: how-to
 provenance: human-checked
-reviewed: 2026-08-19
-reviewed_against: v1 (ported, not yet re-checked against v2)
+history:
+  - date: "2026-08-25"
+    against: "polyrepo-clones pulled 2026-08-25: freemocap anipose calibration solver (bundle_adjust.py, freemocap_anipose.py, charuco_board_ops.py), skellytracker CharucoBoardDefinition, and shared/charuco board images"
+  - date: "2026-08-19"
+    against: "v1 (ported, not yet re-checked against v2)"
 ---
 Camera calibration is a smooth process once you get the hang of it, but it can take some trial and error to get your set up right. The following tips will help you smooth out the road bumps, and at the bottom is a list of common error messages you may see in the logging console, along with common solutions. 
 
@@ -44,16 +47,17 @@ ValueError: not enough values to unpack (expected 2, got 0)
 ```
 This issue comes up when one or more cameras do not have any shared views of the charuco with other cameras. This can due to the physical setup of your cameras. Make sure each camera can clearly see the charuco board at the same time as another camera. This issue can also happen if a camera is not properly detecting a charuco board due to an issue like a mirrored view, glare, or a charuco board that's too small in the cameras view.
 
+The traceback above comes from older releases of FreeMoCap. Current versions raise clearer errors for the same underlying problems, for example `No valid calibration points for camera {N} (need >= 7)` when a camera has essentially no usable views of the board, or `Expected {N} pairs, got {M}. Graph may be disconnected!` when the shared views between cameras do not connect all of them into one group.
+
 ## Charuco Board Definition
 
-We highly recommend printing or displaying [this image](https://github.com/freemocap/freemocap/blob/main/freemocap/assets/charuco/charuco_board_image.png) for the charuco board. There is also a [high definition version](https://github.com/freemocap/freemocap/blob/main/freemocap/assets/charuco/charuco_board_image_highRes.png) for printing larger boards. Freemocap will not be able to detect charuco baords that do not match this exact layout.
+We highly recommend printing or displaying [this image](https://github.com/freemocap/freemocap/blob/main/shared/charuco/charuco_board_image.png) for the charuco board. There is also a [high definition version](https://github.com/freemocap/freemocap/blob/main/shared/charuco/charuco_board_image_highRes.png) for printing larger boards. FreeMoCap will not be able to detect charuco boards that do not match this exact layout.
 
-If you have a need to define the freemocap charuco board programatically, the definition we use is:
+If you have a need to define the freemocap charuco board programatically, the definition we use is a single shared `CharucoBoardDefinition` model, defined in SkellyTracker at `skellytracker/core/detectors/keypoint_detectors/charuco/charuco_board_definition.py` and used by both the charuco detector and the calibration solver. The default board is the letter-size 5x3 layout (5 squares wide, 3 squares tall, with 54 mm squares). Its fields are:
 ```
-    aruco_marker_dict: Dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_250)
-
-    number_of_squares_width: int = 7
-    number_of_squares_height: int = 5
-    black_square_side_length: int = 1
-    aruco_marker_length_proportional: float = 0.8
+    squares_x: int
+    squares_y: int
+    square_length_mm: float
+    marker_length_ratio: float = 0.8
+    aruco_dictionary_enum: int = cv2.aruco.DICT_4X4_250
 ```

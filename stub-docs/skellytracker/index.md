@@ -3,8 +3,11 @@ title: SkellyTracker
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "skellytracker/core/ package structure and __init__.py's beartype_this_package() call, confirmed directly; the Tracker/Session/DetectionStage architecture claims cross-checked against tracker/tracker.py"
+  - date: "2026-08-24"
+    against: "SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone"
 draft: false
 ---
 

@@ -3,8 +3,11 @@ title: Export to FBX and BVH
 type: how-to
 sidebar_position: 14
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: freemocap_blender_addon source (main, not yet re-checked against the running app)
+history:
+  - date: "2026-08-25"
+    against: "freemocap_blender_addon main (export_3d_model.py, export_3d_model_properties.py, export_3d_model_panel.py, bone_naming_mapping.py) and the freemocap v2.0.0-alpha.21 blender export path"
+  - date: "2026-08-21"
+    against: "freemocap_blender_addon source (main, not yet re-checked against the running app)"
 draft: false
 ---
 

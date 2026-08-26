@@ -3,9 +3,12 @@ title: What is FreeMoCap?
 type: explanation
 sidebar_position: 2
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "polyrepo-clones pulled 2026-08-26 (freemocap pinned at v2.0.0-alpha.21): corrected the supported-pose-model parenthetical, ViTPose is not a built-in detector (skellytracker KEYPOINT_DETECTOR_REGISTRY/OBJECT_DETECTOR_REGISTRY register only mediapipe_pose/hand/face, rtmpose body/face/hand/wholebody, aruco, charuco, yolox_person; freemocap.spec lists skellytracker.trackers.vitpose_tracker under its legacy/unused excludes); confirmed MediaPipe and RTMPose as the two built-in skeleton models via freemocap core/tracking/tracker_factory.py and freemocap-docs backend-mocap.mdx; confirmed Blender export (freemocap.spec bundles freemocap_blender_addon plus run_blender_export.py, freemocap-docs guides/blender-export.mdx) and raw .npy output access; confirmed AGPLv3 via the LICENSE file and README badge; verified all three link targets resolve (/concepts/accuracy-and-limits, /start/install through the docs instance routeBasePath '/', /concepts/markerless-mocap, /concepts/how-it-works); Kinect history and the three-design-requirements framing trace to the Cherian dissertation and general history, neither cloned locally, left as written"
+  - date: "2026-08-20"
+    against: "none"
 ---
 
 # What is FreeMoCap?
@@ -52,10 +55,11 @@ FreeMoCap covers the complete pipeline from raw video to usable data:
 - **3D reconstruction**, triangulating those 2D detections into a 3D skeleton over time
 
 The architecture is modular by design: you can swap which pose estimation
-model runs underneath (MediaPipe, RTMPose, ViTPose, and others are
-supported), export into Blender for animation, or pull the raw coordinate
-data into Python for analysis. It's released under the AGPL license, so the
-full pipeline is inspectable and modifiable, not a black box.
+model runs underneath (MediaPipe and RTMPose are built in, and the detector
+registry is designed so further models can be integrated), export into
+Blender for animation, or pull the raw coordinate data into Python for
+analysis. It's released under the AGPL license, so the full pipeline is
+inspectable and modifiable, not a black box.
 
 ## Who it's for
 

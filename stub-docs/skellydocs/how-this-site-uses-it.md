@@ -3,8 +3,11 @@ title: "How this site uses it"
 type: reference
 sidebar_position: 2
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs
+history:
+  - date: "2026-08-26"
+    against: "SkellyDocs main re-read directly (package.json v0.3.17, tsup.config.ts, src/index.ts, src/css/custom.css, templates/docusaurus.config.ts.hbs, skellydocs-docs/); this site's docusaurus.config.ts, package.json, src/css/custom.css, and external/skellycam/ re-checked for every claim"
+  - date: "2026-08-24"
+    against: "SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs"
 draft: false
 ---
 

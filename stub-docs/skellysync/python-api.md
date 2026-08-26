@@ -3,8 +3,11 @@ title: "Python API"
 type: reference
 sidebar_position: 3
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellySync source read directly (package code, README, the pyproject config, CI workflows)
+history:
+  - date: "2026-08-26"
+    against: "skelly_synchronize/skelly_synchronize.py: both synchronize_videos_from_audio and synchronize_videos_from_brightness signatures confirmed to match exactly (param names, types, defaults, order); video_functions/video_utilities.py's multiprocessing.Pool(processes=min(len(video_info_dict), cpu_count()-1)) confirmed"
+  - date: "2026-08-24"
+    against: "SkellySync source read directly (package code, README, the pyproject config, CI workflows)"
 draft: false
 ---
 

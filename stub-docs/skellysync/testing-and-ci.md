@@ -3,8 +3,11 @@ title: "Testing and CI"
 type: reference
 sidebar_position: 7
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellySync source read directly (package code, README, the pyproject config, CI workflows)
+history:
+  - date: "2026-08-26"
+    against: ".github/workflows/ (lint-with-black.yml, publish_to_pypi_when_new_tag_is_pushed_to_main.yml, python-testing.yml, all confirmed to exist exactly) and pyproject.toml (current_version = \"v2025.04.1037\" and description = \"Basic template of a python repository\", both confirmed verbatim)"
+  - date: "2026-08-24"
+    against: "SkellySync source read directly (package code, README, the pyproject config, CI workflows)"
 draft: false
 ---
 

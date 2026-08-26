@@ -3,8 +3,11 @@ title: "How FreeMoCap uses SkellyTracker"
 type: reference
 sidebar_position: 9
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "freemocap/core/tracking/tracker_factory.py (BBoxSmoothingConfig(alpha=0.4), KeypointResetPolicyConfig(max_consecutive_misses=10), _REDETECT_SECONDS = 5.0, all exact), core/pipeline/realtime/camera_node_config.py (confidence_threshold=0.0025, exact, vs. posthoc's 0.004 confirmed separately), realtime_skeleton_inference_node.py (batch_size = min(max_batch_size=8, num_cameras), exact), and confirmed skellycam's pyproject.toml has no skellytracker dependency anywhere"
+  - date: "2026-08-24"
+    against: "SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone"
 draft: false
 ---
 

@@ -3,9 +3,12 @@ title: "The Load Data pipeline"
 type: reference
 sidebar_position: 3
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "polyrepo-clones/freemocap_blender_addon (package v2026.04.1041, ref main) re-read end to end: main_controller.py, load_data/freemocap_data_paths/handler, recording_framerate.py, create_rig, add_capture_cameras, ground plane and empties/meshes code, panel and property definitions; claimed freemocap-core data_source guard searched for and not found"
+  - date: "2026-08-24"
+    against: "freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)"
 ---
 
 # The Load Data pipeline
@@ -16,7 +19,7 @@ The path property self-populates: `get_test_recording_path()` returns `~/freemoc
 
 ## Input files
 
-Read from `output_data/`: `mediapipe_body_3d_xyz.npy`, `mediapipe_right_hand_3d_xyz.npy`, `mediapipe_left_hand_3d_xyz.npy` (each hand file falls back to an older `mediapipe_*_hand_right_hand.npy`-style name), `mediapipe_face_3d_xyz.npy`, and `mediapipe_body_total_body_center_of_mass.npy`. A `*calibration.toml` at the recording root is picked up by glob and is optional. All coordinates arrive in millimeters and are divided by 1000 to meters on load. If the calibration metadata carries a groundplane flag, the later gravity-alignment stage is skipped. Trajectory names come from `MediapipeTrajectoryNames`; constructing the data model with any other `data_source` raises `NotImplementedError`, matching the app-side guard.
+Read from `output_data/`: `mediapipe_body_3d_xyz.npy`, `mediapipe_right_hand_3d_xyz.npy`, `mediapipe_left_hand_3d_xyz.npy` (each hand file falls back to an older-style name, `mediapipe_right_hand_right_hand.npy` and `mediapipe_left_hand_left_hand.npy` respectively), `mediapipe_face_3d_xyz.npy`, and `mediapipe_body_total_body_center_of_mass.npy`. A `*calibration.toml` at the recording root is picked up by glob and is optional. All coordinates arrive in millimeters and are divided by 1000 to meters on load. If the calibration metadata carries a groundplane flag, the later gravity-alignment stage is skipped. Trajectory names come from `MediapipeTrajectoryNames`; constructing the data model with any other `data_source` raises `NotImplementedError`.
 
 ## Stages
 
@@ -24,7 +27,7 @@ Read from `output_data/`: `mediapipe_body_3d_xyz.npy`, `mediapipe_right_hand_3d_
 
 | Stage | Effect |
 |---|---|
-| `load_freemocar_data` (method name aside, spelled `load_freemocap_data`) | Loads the npy files preceding, marks the `original_from_file` processing stage, sets scene start/end frames, and sets scene framerate |
+| `load_freemocap_data` | Loads the npy files preceding, marks the `original_from_file` processing stage, sets scene start/end frames, and sets scene framerate |
 | `calculate_virtual_trajectories` | Adds derived joint-center trajectories to the body component |
 | `put_data_in_inertial_reference_frame` | Runs `put_skeleton_on_ground`; skipped entirely when the calibration already recorded an applied groundplane |
 | `enforce_rigid_bones` | Enforces rigid body constraints on the trajectory data |
@@ -36,23 +39,23 @@ The Blender phase then builds the scene:
 
 | Stage | Effect |
 |---|---|
-| `create_empties` | Creates a keyframed empty per tracked point under an `empties_parent` |
+| `create_empties` | Creates a keyframed empty per body and hand trajectory (face trajectories get none) under an `empties_parent` |
 | `add_rig` | Builds the armature (see below) and bakes its animation with `nla.bake` |
 | `save_bone_and_joint_data_from_rig` | Writes `saved_data/<recording>_bone_and_joint_data.csv` from the finished rig |
 | `attach_rigid_body_mesh_to_rig` | Per-bone rigid meshes under `rigid_body_meshes_parent` |
 | `attach_skelly_mesh_to_rig` | Attaches the Skelly mesh, fitted to body dimensions stored in handler metadata |
-| `create_center_of_mass_mesh` | Center of mass sphere driven by its empty (a companion trails helper exists in the same module but is not called by the pipeline) |
-| `add_videos` | Loads the recording's videos as image planes under `videos_parent` |
+| `create_center_of_mass_mesh` | Center of mass sphere driven by its empty (a companion trails helper exists alongside it but is not called by the pipeline) |
+| `add_videos` | Loads the recording's videos (`annotated_videos/` preferred, falling back to `synchronized_videos/`) as image planes under `videos_parent` |
 | `add_capture_cameras` | Rebuilds each calibrated camera (see below) |
 | `setup_scene` | Material-preview shading, hides plumbing empties, deletes the default cube, adds the ground plane |
 | `export_3d_model` | FBX and BVH into a `3d_models/` subfolder of the recording |
 | `save_blender_file` | Saves `<recording>.blend` into the recording folder |
 
-Finally the new data parent empty is registered into the addon's UI collection (so it becomes scopeable) and a per-stage timing summary is printed.
+Finally the new data parent empty is registered into the addon's UI collection (so it becomes scopeable), the `.blend` file is saved, and a per-stage timing summary is printed.
 
 ## Deriving the framerate
 
-`utilities/recording_framerate.py` sets the scene rate instead of guessing. It globs `synchronized_videos/timestamps/*_timestamps.csv`, takes the median of a frame-duration column across at least 10 samples, converts to fps, and rejects results outside a plausible 1 to 1000 fps band. When nothing usable is found it returns `None` (its docstring explains that silently substituting a plausible-looking number caused the original bug) and the caller falls back to the configured 30 fps, setting `config.reduce_shakiness.recording_fps` and printing an explicit warning that exported timing and velocity smoothing may be wrong.
+`utilities/recording_framerate.py` sets the scene rate instead of guessing. It looks for `*_timestamps.csv` files under `synchronized_videos/timestamps/`, takes the median of a frame-duration column across at least 10 samples, converts to fps, and rejects results outside a plausible 1 to 1000 fps band. When nothing usable is found it returns `None` (its docstring explains that silently substituting a plausible-looking number caused the original bug). When a rate is found, the caller sets the scene framerate and stores it in `config.reduce_shakiness.recording_fps`; when it is `None`, the configured 30 fps default stays in place and an explicit warning is printed that exported timing and velocity-based smoothing may be incorrect.
 
 ## Rig construction
 

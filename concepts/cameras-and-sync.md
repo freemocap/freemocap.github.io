@@ -3,8 +3,11 @@ title: Cameras and synchronization
 type: explanation
 sidebar_position: 5
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "polyrepo-clones pulled 2026-08-26: skellycam README and package description (synchronized acquisition from cheap USB webcams, frame-perfect two-phase grab/retrieve orchestration); searched skellycam and freemocap clones for any built-in light-based or audio-based synchronization of external cameras and found none, so that attribution was corrected to the self-sync then import workflow documented in guides/posthoc-mocap and faq; posthoc synchronized_videos import path confirmed in freemocap-docs guides/posthoc-mocap.mdx and skellycam playback_router.py; single-camera support consistent with tutorials/single-camera and tutorials/hardware; dissertation-sourced numbers (six roughly $20 webcams at 1280x720 and 30 FPS, OpenCap iPhone pricing, Theia3D hardware cost) are not verifiable locally and were left as written"
+  - date: "2026-08-20"
+    against: "none"
 draft: false
 ---
 
@@ -35,9 +38,15 @@ accuracy end up reinforcing each other here rather than trading off.
 ## Beyond USB webcams
 
 $20 webcams aren't a requirement, they're what the validation study happened to use.
-SkellyCam accommodates other hardware in two ways: light or audio-based
-synchronization for external cameras like GoPros or smartphones, or direct import of
-video that's already synchronized by some other means. A study that needs a higher
+For hardware beyond directly connected USB webcams, the pipeline accommodates external
+cameras like GoPros or smartphones by importing video that has already been
+synchronized by some other means: record however you like, synchronize the videos
+yourself (audio sync works well when every camera records sound, or a camera flash at
+the start gives you a visual sync point), then place them in a recording folder's
+`synchronized_videos/` directory and process after the fact (see
+[process a recording after the fact](/guides/posthoc-mocap)). There's no built-in
+light-based or audio-based synchronization tool for external cameras in the current
+build; that step happens outside the software. A study that needs a higher
 frame rate for athletic movement, or non-USB cameras for an outdoor recording, isn't
 locked out of the pipeline.
 

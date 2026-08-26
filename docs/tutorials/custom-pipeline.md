@@ -3,8 +3,11 @@ title: Build a custom pipeline
 type: tutorial
 sidebar_position: 41
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: freemocap-docs architecture docs (v2.0.0-alpha.21, not yet re-checked against the running app)
+history:
+  - date: "2026-08-26"
+    against: "freemocap/core/pipeline/ directory structure at v2.0.0-alpha.21: confirmed shared abcs/ (source_node_abc.py, aggregator_node_abc.py, base_node_abc.py) with realtime/ (camera_node.py, realtime_aggregator_node.py) and posthoc/ (video_node.py, posthoc_aggregation_node.py) matching the described source-to-aggregator shape for both pipelines"
+  - date: "2026-08-20"
+    against: "freemocap-docs architecture docs (v2.0.0-alpha.21, not yet re-checked against the running app)"
 draft: false
 ---
 

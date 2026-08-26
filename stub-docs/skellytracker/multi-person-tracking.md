@@ -3,8 +3,11 @@ title: "Multi-person tracking"
 type: reference
 sidebar_position: 6
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "core/temporal_processing/multi_person_config.py: iou_weight=0.5, keypoint_weight=0.5, max_age=10, min_hits=3 all confirmed exact"
+  - date: "2026-08-24"
+    against: "SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone"
 draft: false
 ---
 

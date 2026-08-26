@@ -3,8 +3,11 @@ title: Why calibration matters
 type: explanation
 sidebar_position: 7
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "polyrepo-clones pulled 2026-08-26: freemocap pyceres_calibration_pipeline.py, helpers/postprocessing.py, helpers/initialization.py, shared/groundplane_math.py, shared/groundplane_alignment.py, shared/camera_model.py, shared/compare_calibrations.py, calibration_task_config.py, posthoc_calibration_task.py, anipose_calibration_helpers.py, plus skellytracker charuco_board_definition.py"
+  - date: "2026-08-20"
+    against: "none"
 draft: false
 ---
 

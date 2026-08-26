@@ -2,8 +2,11 @@
 title: Optimize your capture space
 type: tutorial
 provenance: human-checked
-reviewed: 2026-08-19
-reviewed_against: v1 (ported, not yet re-checked against v2)
+history:
+  - date: "2026-08-26"
+    against: "polyrepo-clones pulled 2026-08-26: skellycam camera_config.py (DEFAULT_EXPOSURE=-7) and opencv_apply_config.py, freemocap-ui exposure slider range (EXPOSURE_MIN=-13, EXPOSURE_MAX=-4), skellycam RotationTypes portrait rotation support, link target /tutorials/calibrate"
+  - date: "2026-08-19"
+    against: "v1 (ported, not yet re-checked against v2)"
 ---
 While FreeMoCap can record anywhere that's big enough to capture your entire body on video, some places and set ups will give better results than others. The tips below will help you configure your space to get the best recordings, whether you're working with high-end gear or simple webcams. 
 
@@ -56,6 +59,6 @@ Cameras can be rotated 90° to portrait orientation to capture a standing human 
 
 Ideally, the person should occupy as much of the camera screen as possible, providing more information for the software to track the person. Most testing has been done on low-quality webcams, although successful recordings have been made with GoPros, DSLRs, and mobile phones.
 
-In multi-camera situations, separate the cameras enough to provide different points of view on the subject. If multiple cameras are positioned too close together, they won't add much information to the scene. Separating them by a sufficient angle improves triangulation. Just make sure each camera can share a view of the Charuco board with another camera during calibration.
+In multi-camera situations, separate the cameras enough to provide different points of view on the subject. If multiple cameras are positioned too close together, they won't add much information to the scene. Separating them by a sufficient angle improves triangulation. Just make sure each camera can share a view of the ChArUco board with another camera during calibration.
 
 High-quality recordings can be ensured by adjusting camera settings for optimal image results, mainly by setting the appropriate exposure for the lighting conditions and having good lighting. A successful calibration is also necessary, which you can read about in our [Multi-Camera Calibration Tutorial](/tutorials/calibrate).

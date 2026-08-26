@@ -3,8 +3,11 @@ title: "How other repos use it"
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyPings source read directly (client package, server, infra, maintainer scripts, pyprojects); consumer integration verified in FreeMoCap and SkellyCam clones including their CI workflows and lockfiles
+history:
+  - date: "2026-08-26"
+    against: "Re-checked every claim against the SkellyPings clone (telemetry_client.py, server/main.py, root pyproject.toml) and the FreeMoCap and SkellyCam clones (pyproject.toml, uv.lock pins, telemetry wrappers, telemetry_config, routers.py, app.py lifespan and system-info banner, Electron api.ts and tour telemetry, build_info.py files, installer workflows); confirmed no SkellyPings references in SkellyTracker, SkellyForge, SkellySync, SkellyDocs, or the Blender addon"
+  - date: "2026-08-24"
+    against: "SkellyPings source read directly (client package, server, infra, maintainer scripts, pyprojects); consumer integration verified in FreeMoCap and SkellyCam clones including their CI workflows and lockfiles"
 draft: false
 ---
 
@@ -23,8 +26,4 @@ draft: false
 
 - Same pattern, independently: `skellypings` is a git-sourced dependency whose `uv.lock` currently pins a different commit (`4c5bffc9`) than FreeMoCap's.
 - `skellycam/system/telemetry/telemetry.py` is a near-identical wrapper (`app_name="skellycam"`, user ID file under SkellyCam's base folder, same `app_opened` system-specs payload), initialized and shut down in the lifespan of `skellycam/app.py`. Unlike FreeMoCap it defines no HTTP tracking route, only the startup event flows through it.
-- Its own `skellycam/system/telemetry/build_info.py` carries the same server URL and placeholder secret, overwritten by its installer build workflow from the shared org-level `SKELLYPINGS_SECRET` secret.
-
-## Other repos
-
-- **SkellyTracker**, **SkellyForge**, **SkellySync**, **SkellyDocs**, and the Blender addon contain no references to SkellyPings in their sources.
+- Its own `skellycam/system/telemetry/build_info.py` carries the same server URL and placeholder secret, but unlike FreeMoCap's workflow, SkellyCam's installer build workflow (`.github/workflows/build-installers-pyinstaller.yml`) writes the real `SKELLYPINGS_SECRET` secret to `skellycam/build_info.py` (a top-level package path nothing imports) instead of to `skellycam/system/telemetry/build_info.py`, the module the wrapper actually reads. Shipped SkellyCam installers therefore still sign telemetry with `"not-configured"`, which fails HMAC verification on the server, so SkellyCam's events arrive as unverified telemetry regardless of how the secret is configured.

@@ -2,8 +2,11 @@
 title: Install FreeMoCap
 type: tutorial
 provenance: human-checked
-reviewed: 2026-08-19
-reviewed_against: v1 (ported, not yet re-checked against v2)
+history:
+  - date: "2026-08-25"
+    against: "freemocap clone pinned at v2.0.0-alpha.21: pyproject.toml (requires-python >=3.11, cuda/cpu extras, [project.scripts], uv git sources), README.md quickstart/install-from-source, .python-version, build-installers-pyinstaller.yml build matrix and R2 routing, freemocap-ui/electron-builder.json targets, freemocap-docs src/components/download/downloads.ts asset names"
+  - date: "2026-08-19"
+    against: "v1 (ported, not yet re-checked against v2)"
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,14 +17,14 @@ import TabItem from '@theme/TabItem';
 >
 >    **1. Create a Python environment (`python3.12` recommended)**
 >
->    **2. Enter command: `pip install freemocap`**
+>    **2. Enter command: `pip install freemocap[cuda]` (Windows/Linux with an NVIDIA GPU), or `pip install freemocap[cpu]`**
 >
 >    **3. Enter command: `freemocap`**
 >
 >    ...and you're off to the races!
 
-FreeMoCap offers two easy ways of installing our software: through `pip`, Python's package manager, 
-or by using our dedicated PyApp installers, which manage the environment creation and installation for you, 
+FreeMoCap offers two easy ways of installing our software: through `pip`, Python's package manager,
+or by using our dedicated installers, which bundle everything FreeMoCap needs and manage the installation for you,
 acting like a dedicated executable or app. Both ways of installing FreeMoCap give you the same features,
 so choose whichever is easiest for you. And of course, our source code is always directly available on our
 [GitHub](https://github.com/freemocap/freemocap).
@@ -104,9 +107,15 @@ Recommended for beginners and non-programmers
 :::
 
 Type the text below into the Terminal and press `Enter`:
+
 ```Bash
-pip install freemocap
+# Windows/Linux with an NVIDIA GPU:
+pip install freemocap[cuda]
+
+# macOS, or Windows/Linux without a supported NVIDIA GPU:
+pip install freemocap[cpu]
 ```
+
 A bunch of text should stream by for while, and when it is done, enter the command: 
 
 ```Bash
@@ -117,9 +126,13 @@ With any luck, the GUI window should pop up!
 
 Keep an eye on the Terminal window, as it will provide useful information as the software runs.
 
-> This command downloads a pre-compiled copy of `freemocap` hosted on [PyPi](https://pypi.org/project/freemocap/).
+> These commands download a pre-compiled copy of `freemocap` hosted on [PyPi](https://pypi.org/project/freemocap/).
+> You must pick one of the two extras: `[cuda]` adds GPU-accelerated pose tracking (via `skellytracker`) for Windows and
+> Linux machines with an NVIDIA GPU, while `[cpu]` adds the CPU-only version of that tracker for everyone else.
+> A plain `pip install freemocap` will succeed, but will install without its tracker, so always use one of the two
+> commands above.
 > 
-> The pip package manager automatically fetches the latest stable binary distribution, which is often in the Wheel format (.whl). A "Wheel: is a built-package format that can speed up the installation process, as it does not require compiling the software from source.
+> The pip package manager automatically fetches the latest stable binary distribution, which is often in the Wheel format (.whl). A "Wheel" is a built-package format that can speed up the installation process, as it does not require compiling the software from source.
 
 </TabItem>
 <TabItem value="install-from-source-code" label="Install from Source Code">
@@ -128,7 +141,7 @@ Keep an eye on the Terminal window, as it will provide useful information as the
 Recommended for developers
 :::
 
-To install FreeMoCap from the source code for development purposes, you will need to clone the repository from GitHub and install it in editable mode using pip. Here is the step-by-step procedure to do so:
+To install FreeMoCap from the source code for development purposes, you will need to clone the repository from GitHub and install its dependencies with [`uv`](https://github.com/astral-sh/uv), since they are pulled directly from other GitHub repositories. Here is the step-by-step procedure to do so:
 
 1. Open a Terminal.
 2. Clone the FreeMoCap repository using git:
@@ -139,33 +152,41 @@ git clone https://github.com/freemocap/freemocap.git
 ```Bash
 cd freemocap
 ```
-4. Install the package in editable mode with the following command:
-```Bash 
-pip install -e .
+4. Create a virtual environment and install the dependencies (this automatically picks the GPU-accelerated tracker on Windows/Linux, or the CPU-only one on macOS):
+```Bash
+uv venv
+uv sync
 ```
 
-5. Run the software by entering the command: 
+5. Start the Python backend by entering the command: 
 
 ```Bash
-freemocap
+uv run python freemocap/__main__.py
 ```
 
-... or the equivalent
+... then, in a second terminal, start the Electron GUI:
+
 ```Bash
-python freemocap/__main__.py
+cd freemocap-ui
+npm install
+npm run dev
 ```
 
-> Installing the package in editable mode (-e flag) means that changes you make to the source code will immediately affect the installed package without needing a re-installation. This is especially useful for developers who are modifying the code and testing their changes frequently.
+> FreeMoCap pulls its sub-repos (`skellytracker`, `skellycam`, etc.) directly from GitHub via `uv`, so the older recipe
+> of creating a `conda` environment and running `pip install -e .` will not work here, please use `uv` instead.
+> Running from source this way means changes you make to the source code immediately affect the running application
+> without needing a re-installation. This is especially useful for developers who are modifying the code and testing
+> their changes frequently.
 
 </TabItem>
 </Tabs>
 
 </details>
 
-## Detailed PyApp Installation Instructions
+## Detailed Desktop Installer Instructions
 
-:::warning
-The PyApp installers cannot run on Windows 11, please use pip installation on Windows 11 instead.
+:::note
+The installer filenames below follow our current release naming, which is still settling down during the alpha. If a specific link doesn't resolve, just grab the matching file straight from our [Releases Page](https://github.com/freemocap/freemocap/releases).
 :::
 
 <details>
@@ -173,14 +194,13 @@ The PyApp installers cannot run on Windows 11, please use pip installation on Wi
 
 To begin, download the latest release from our [Releases Page](https://github.com/freemocap/freemocap/releases)
 
-You'll find one zip file for each major operating system: Windows, Mac, and Linux. 
-Make sure you choose the release for your system. 
+You'll find more than one file for each major operating system. Pick your architecture first, then choose between the GPU (CUDA) and CPU-only variants:
 
-The Windows release does not work on Windows 11. If you are on Windows 11, please follow the pip instructions above.
+- **Windows**: an `.exe` installer for Intel/AMD (x64) machines, in both GPU (CUDA) and CPU-only versions.
+- **Mac**: a `.dmg` installer (or a portable `.zip`) for Apple Silicon Macs only. There is no Intel Mac build yet.
+- **Linux**: an `.AppImage` (or `.deb`) for x64 machines, in both GPU (CUDA) and CPU-only versions.
 
-The Mac release works on both Intel and Arm macs.
-
-The Linux release is made on Ubuntu, but should work on any major distribution. Please let us know if it won't run on your distro.
+The Linux GPU (CUDA) build is too large to host on GitHub, so it downloads from our content-delivery network instead of appearing directly on the Releases Page. If you do not have an NVIDIA GPU, choose the CPU-only variant.
 
 </details>
 
@@ -196,23 +216,21 @@ for example your Desktop or Applications folder.
 <summary>Step 2 - Run (and Wait!)</summary>
 
 :::note
-This step requires an **internet connection** and **3 gb of free space** the first time you run it.
+This step requires an **internet connection** the first time you run it, and takes up a few gigabytes of disk space.
 It also takes a while, so be patient and let the installer do its thing.
 
-Don't worry, once you've run FreeMoCap through the installer successfully once, it won't require internet again.
-And, it will run much faster.
+Don't worry, once you've run FreeMoCap through the installer successfully once, subsequent launches are much faster.
 :::
 
 Now, just double-click the installer to run it, and wait for the window to open. The first time you open the installer,
-it will download FreeMoCap for you. Be patient, as this will take 5-10 minutes depending on your internet connection. 
+it will set up FreeMoCap on your machine. Be patient, as this can take several minutes depending on your machine.
 
-Don't exit out of FreeMoCap during its initial download, or it won't install correctly. 
-If the download does get corrupted, you can run the "Restore" command from `Step 3` below to fix the installation.
+If the installation does get interrupted or corrupted, you can delete the installed copy and run the installer again.
 
-As an application/executable downloaded from the internet, FreeMoCap will likely be flagged by your system's security settings.
-You will likely need to approve FreeMoCap through your system settings to run it for the first time.
+As an application/executable downloaded from the internet, FreeMoCap may be flagged by your system's security settings.
+You may need to approve FreeMoCap through your system settings to run it for the first time.
 
-*On a Mac*, the first time you open the app, it will tell you it is from an unidentified developer and ask if you would like to move it to the trash. 
+*On a Mac*, the first time you open the app, it may tell you it is from an unidentified developer and ask if you would like to move it to the trash. 
 Close out of that window, right-click the app, click Open, and choose to open the file. 
 Once you have done this once, you can open the app as normal in the future. 
 For more information, see the [official Apple documentation](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
@@ -220,36 +238,15 @@ For more information, see the [official Apple documentation](https://support.app
 </details>
 
 <details>
-<summary>Step 3 - OPTIONAL: Delete, Update, or Restore the Installer</summary>
+<summary>Step 3 - OPTIONAL: Updating or Removing the App</summary>
 
-The installer has a handful of management command that can be run in a terminal by using the path to the executable as the start of the command (referred to below as `{EXECUTABLE_PATH}`). 
-On Mac, you need to add `/Contents/MacOS/freemocap_app` to the `freemocap.app` path to get the below commands to work.
-
-<br/>
-
-To delete the installed version of FreeMoCap, you can run 
-```Bash
-{EXECUTABLE_PATH} self remove
-``` 
-This will delete all of the data associated with the executable (but not your freemocap_data folder), 
-and then you can manually delete the executable or app.
+The installed app keeps itself up to date: when we publish a new release, FreeMoCap notices and offers to update itself, no manual commands required.
 
 <br/>
 
-To update the installed version of FreeMoCap, you can run 
-```Bash
-{EXECUTABLE_PATH} self update
-``` 
-This will update to the latest release of FreeMoCap.
+To remove FreeMoCap, uninstall it with your operating system's usual mechanism (Add/Remove Programs on Windows, drag the app to the Trash on Mac, or remove the `.AppImage`/`.deb` package on Linux).
 
-<br/>
-
-If you have installed FreeMoCap through the installer but it will not successfully run, something may have happened during the installation process. 
-You can try running 
-```Bash
-{EXECUTABLE_PATH} self restore
-```
-which will delete the associated installation files and reinstall them. Ensure you give enough time for the installer to fully download when restoring.
+This will delete the application itself (but not your `freemocap_data` folder, which holds your recordings).
 
 </details>
 

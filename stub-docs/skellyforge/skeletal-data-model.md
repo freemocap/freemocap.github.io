@@ -3,9 +3,12 @@ title: "The skeletal data model"
 type: reference
 sidebar_position: 4
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyForge source read directly (full package tree, the pyproject config, README, tracker_info YAMLs); integration points verified in the FreeMoCap clone
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "Line-by-line recheck against SkellyForge main clone: all six tracker_info YAMLs, tracking_model_info.py, models package (AnatomicalStructure, Aspect, Trajectory, Error), managers (Actor, Animal, Human, Board), skellymodels/biomechanics calculations plus its top-level duplicate under skellyforge/biomechanics, and the three bvh_exporter modules; FreeMoCap-side integration claims rechecked against the v2.0.0-alpha.21 clone"
+  - date: "2026-08-24"
+    against: "SkellyForge source read directly (full package tree, the pyproject config, README, tracker_info YAMLs); integration points verified in the FreeMoCap clone"
 ---
 
 # The skeletal data model

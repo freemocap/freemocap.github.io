@@ -3,8 +3,11 @@ title: Cite FreeMoCap
 type: how-to
 sidebar_position: 15
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: CITATION.cff (freemocap/freemocap) cross-checked against the live Zenodo API, 2026-08-21
+history:
+  - date: "2026-08-25"
+    against: "Software citation re-checked against the cloned freemocap CITATION.cff (including the prepared-but-not-yet-pushed DOI and name-order corrections), dissertation entry against the site's own accuracy-and-limits source attribution and the 2026-08-20 planning notes, and both link targets against their live pages"
+  - date: "2026-08-21"
+    against: "CITATION.cff (freemocap/freemocap) cross-checked against the live Zenodo API, 2026-08-21"
 draft: false
 ---
 
@@ -43,10 +46,15 @@ note the commit or tag, rather than implying a Zenodo-versioned release
 that doesn't exist yet.
 
 :::note If you're checking against CITATION.cff yourself
-The `CITATION.cff` file in the `freemocap/freemocap` repository has the
-right author list but a placeholder DOI (`10.5281/zenodo.1234`) that was
-never filled in. The DOI above is the real one, verified directly
-against Zenodo's own API.
+Older copies of the `CITATION.cff` file in the `freemocap/freemocap`
+repository carry a placeholder DOI (`10.5281/zenodo.1234`) that was
+never filled in, and two author names' given and family fields were
+swapped in those same copies. A corrected version adopting the concept
+DOI above has been prepared in the repository but had not landed in the
+public repo as of 2026-08-25, so you may still run into the older file.
+Either way, the DOI and author list above are the correct ones, so use
+this page's citation if the copy of the file you're reading disagrees
+with it.
 :::
 
 ## Citing the validation study

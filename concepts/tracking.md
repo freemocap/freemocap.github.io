@@ -3,9 +3,12 @@ title: Image tracking and pose models
 type: explanation
 sidebar_position: 6
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "polyrepo-clones as of 2026-08-26 (freemocap pinned at v2.0.0-alpha.21): corrected 'default backend is MediaPipe' to RTMPose, per camera_node_config.py and mocap_task_config.py (detector_type defaults to 'rtmpose' in both realtime and posthoc configs) and freemocap-docs backend-mocap.mdx ('It is the default skeleton detector for both realtime and posthoc pipelines'); confirmed YOLOX person detection precedes RTMPose keypoint estimation in both configs and that MediaPipe runs through MediaPipeSession/PoseLandmarker (dropped the '(BlazePose)' parenthetical, no such reference in any clone); confirmed swappable-detector design via skellytracker Tracker/detector registry and freemocap tracker_factory.py; all four link targets resolve; validation-study backend comparisons (MediaPipe vs RTMPose vs ViTPose vs DeepLabCut) are Cherian-dissertation-sourced, not locally cloned, left as written"
+  - date: "2026-08-20"
+    against: "none"
 ---
 
 # Image tracking and pose models
@@ -37,9 +40,11 @@ pose estimation algorithm that can't be swapped out at all.
 **SkellyTracker** is FreeMoCap's answer to the integration problem: a standardized
 interface that decouples pose estimation from the rest of the pipeline. Any tracker
 that implements the interface can be used interchangeably, without changing anything
-downstream. The default backend is MediaPipe, a free, CNN-based model (BlazePose)
-chosen specifically for practicality: it's lightweight enough to run on a CPU, with no
-GPU required, and simple to install and call from Python.
+downstream. The default backend is RTMPose, a top-down pose estimation model run via
+ONNX Runtime, with a YOLOX person detector locating each subject before its keypoints
+are estimated. MediaPipe remains available as the other skeleton detector, kept for
+practicality: it's lightweight enough to run on a CPU, with no GPU required, and
+simple to install and call from Python.
 
 Because backends are swappable without touching the rest of the pipeline, different
 pose estimation algorithms can be compared directly, using the same cameras,

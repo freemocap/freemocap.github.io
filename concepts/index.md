@@ -3,8 +3,11 @@ title: Concepts
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "Link audit only: verified all 11 concept link targets exist as files under concepts/ with no slug overrides and titles matching their link text; confirmed the /tutorials/ route resolves via the docs instance routeBasePath in docusaurus.config.ts and docs/tutorials/index.md"
+  - date: "2026-08-20"
+    against: "none"
 draft: false
 ---
 

@@ -3,8 +3,11 @@ title: "The telemetry client"
 type: reference
 sidebar_position: 3
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyPings source read directly (client package, server, infra, maintainer scripts, pyprojects); consumer integration verified in FreeMoCap and SkellyCam clones including their CI workflows and lockfiles
+history:
+  - date: "2026-08-26"
+    against: "Full re-read of polyrepo-clones/skellypings (skellypings package init and telemetry_client.py, pyproject.toml, README, server main.py): confirmed constructor parameters and defaults, the eight event fields, the telemetry-flush daemon thread, the 15 minute backoff cap, the events endpoint with a 10 second timeout, X-Telemetry-Signature HMAC-SHA256 signing, the 500 event buffer cap with oldest dropped, the 5 consecutive failure disable cutoff covering both auth errors and generic exceptions while other HTTP statuses keep retrying, and the atexit registered shutdown with a 5 second join"
+  - date: "2026-08-24"
+    against: "SkellyPings source read directly (client package, server, infra, maintainer scripts, pyprojects); consumer integration verified in FreeMoCap and SkellyCam clones including their CI workflows and lockfiles"
 draft: false
 ---
 

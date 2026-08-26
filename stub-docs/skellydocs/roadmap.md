@@ -3,9 +3,12 @@ title: "The roadmap"
 type: reference
 sidebar_position: 5
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "skellydocs main re-read: RoadmapPage.tsx, RoadmapContent.tsx, RoadmapEntry.tsx, githubUtils.ts (CACHE_TTL_MS, ETag/304/403 handling, extractExcerpt), collectLinkedUrls.ts, types.ts, and package.json (0.3.17); props, fetch params, filter/sort/view UI, dedupe, and excerpt rules all confirmed"
+  - date: "2026-08-24"
+    against: "SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs"
 ---
 
 # The roadmap

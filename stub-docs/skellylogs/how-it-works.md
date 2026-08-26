@@ -3,9 +3,12 @@ title: "How it works"
 type: reference
 sidebar_position: 2
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "SkellyLogs source re-checked line-by-line (configure_logging.py, logger_builder.py, log_levels.py, package_log_quieters.py, handlers/, filters/, formatters/, log_format_string.py)"
+  - date: "2026-08-24"
+    against: "SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones"
 ---
 
 # How it works

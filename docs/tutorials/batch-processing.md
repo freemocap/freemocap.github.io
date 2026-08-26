@@ -3,9 +3,12 @@ title: Process many recordings at once
 type: tutorial
 sidebar_position: 42
 provenance: ai-generated
-reviewed: 2026-08-25
-reviewed_against: "FreeMoCap source v2.0.0-alpha.21, no batch-processing code path found; GitHub issue #462 (closed, 2023), referencing a since-removed experimental/batch_process/batch_process.py script from the V1 era; no open issue, discussion, or roadmap item found requesting it for V2"
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "freemocap v2.0.0-alpha.21 clone: full router set in api/routers.py plus mocap/calibration/posthoc routers (single-directory requests only), FreemocapApplication.create_posthoc_mocap_pipeline taking one RecordingInfo, PosthocPipelineManager keeping independent pipelines in a dict (so looping the REST call works), sole CLI entry point freemocap.__main__:run_main with no argument parsing, no experimental/ directory in the tree (only stale .flake8 exclude and per-file-ignore lines still naming ./experimental/batch_process/batch_process.py), no batch flow in freemocap-ui, site-local docs/about/roadmap.md containing no batch entry, and all three internal links resolving"
+  - date: "2026-08-25"
+    against: "FreeMoCap source v2.0.0-alpha.21, no batch-processing code path found; GitHub issue #462 (closed, 2023), referencing a since-removed experimental/batch_process/batch_process.py script from the V1 era; no open issue, discussion, or roadmap item found requesting it for V2"
 ---
 
 # Process many recordings at once

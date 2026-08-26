@@ -3,8 +3,11 @@ title: How-to guides
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: none
+history:
+  - date: "2026-08-25"
+    against: "link inventory against the site tree (all 12 /guides targets plus /tutorials/ and /concepts/ hubs) and freemocap v2.0.0-alpha.21 (tracker_factory.py, mocap_task_config.py, mocap-detector-settings.tsx) for the YOLOX experimental label"
+  - date: "2026-08-21"
+    against: "none"
 draft: false
 ---
 
@@ -31,7 +34,7 @@ the highest-value source for what belongs here next.
 ## Processing and export
 
 - [Process a recording after the fact](/guides/posthoc-mocap)
-- [Use YOLO cropping (experimental)](/guides/yolo-cropping)
+- [Use YOLO cropping](/guides/yolo-cropping)
 - [Export to Blender](/guides/blender-export)
 - [Export to FBX and BVH](/guides/export-formats)
 

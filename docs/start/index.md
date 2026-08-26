@@ -3,9 +3,12 @@ title: Get started with FreeMoCap
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "link inventory against this site's tree (all four /start/ step pages plus /guides/installation-troubleshooting and /guides/calibration-troubleshooting exist), install.md's top-of-page short-version commands, and the Discord invite URL cross-checked against this site's own navbar/footer links and the freemocap_blender_addon README"
+  - date: "2026-08-20"
+    against: "none"
 ---
 
 # Get started with FreeMoCap

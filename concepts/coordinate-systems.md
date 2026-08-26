@@ -3,9 +3,12 @@ title: Coordinate systems and units
 type: explanation
 sidebar_position: 9
 provenance: ai-generated
-reviewed: 2026-08-19
-reviewed_against: none
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "freemocap v2.0.0-alpha.21 source read directly (posthoc_mocap_task.py, skeleton_from_mediapipe_observations.py, groundplane_math.py, anipose_calibration_helpers.py, run_anipose_calibration.py, calibration_result.py, calibration_task_config.py, core/kinematics package), skellyforge human.py, actor.py, biomechanics calculations, and bvh_exporter"
+  - date: "2026-08-19"
+    against: "none"
 ---
 
 Every camera in a FreeMoCap recording sees the world from its own point of view, with its own
@@ -49,17 +52,27 @@ subject stands upright with their feet at `Z = 0`. Walk through it in
 **Default calibration** skips the board and pins the world frame to camera 0's own view: depth as
 one axis, image-right and image-down as the other two. It is still right-handed, but it is not
 Z-up, and nothing in it knows which way gravity points. Reconstructed subjects typically come in
-lying on their side rather than standing.
+lying on their side rather than standing. (When such a recording runs through the posthoc
+pipeline, FreeMoCap does make a best-effort attempt to stand the skeleton up afterward, but that
+is inferred from the subject's own body, not a measured ground plane.)
 
 Both are legitimate calibration paths. The difference is whether up, in your data, means anything
 outside a single camera's point of view.
 
-## A second frame, for rotations
+## Rotations: none, for now
 
-Once a skeleton is fit to the tracked points, each segment also gets an orientation, expressed
-relative to the subject's own anatomy rather than to the world: +Z is still up, but +X is the
-direction the subject faces and +Y is their own left side. That frame does not depend on which way
-the calibration board was pointed.
+FreeMoCap's skeleton output is positions, not orientations. Each frame stores 3D millimetre
+coordinates for the tracked keypoints, the virtual markers appended to them, and derived
+quantities such as center of mass. No per-segment or per-joint rotation track is computed or
+saved by the pipeline today, so there is no anatomical segment frame to document here yet.
+
+The rotations FreeMoCap does carry belong to the cameras, not to body segments: camera
+orientations are held as quaternions in memory (scalar-first `w, x, y, z`) and stored as Rodrigues
+rotation vectors in the saved calibration TOML. If you need joint angles, SkellyForge contains a
+BVH exporter that derives Euler-angle rotations from bone directions between parent and child
+joints, but nothing in the FreeMoCap application calls it, so a normal recording produces no BVH
+file. [Coordinate conventions](/reference/coordinate-conventions) has the terse version of all of
+this.
 
 ## See also
 

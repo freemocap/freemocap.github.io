@@ -3,8 +3,11 @@ title: "The websocket log queue"
 type: reference
 sidebar_position: 5
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones
+history:
+  - date: "2026-08-26"
+    against: "SkellyLogs websocket_log_queue_handler.py, configure_logging.py, logger_builder.py, log_levels.py, formatter/filter modules, and tests re-read on pinned ref main; queue consumption re-verified in the FreeMoCap and SkellyCam websocket servers and the freemocap-ui message type guard"
+  - date: "2026-08-24"
+    against: "SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones"
 draft: false
 ---
 
@@ -20,7 +23,7 @@ This is the piece the rest of the polyrepo actually builds on.
 
 **Production side**, `WebSocketQueueHandler.emit()`:
 
-- Hard floor of `MIN_LOG_LEVEL_FOR_WEBSOCKET = LogLevels.TRACE.value` (5): nothing below TRACE ever reaches the websocket, even if the configured level is lower. Consumers may apply a stricter gate on top (and do, see below).
+- Hard floor of `MIN_LOG_LEVEL_FOR_WEBSOCKET = LogLevels.TRACE.value` (5): nothing below TRACE ever reaches the websocket, even if the configured level is lower. Consumers may apply a stricter gate on top when draining the queue (see below).
 - Uses **non-blocking** `put_nowait()`; if the 1000-entry queue is full the record is silently dropped. The code comment explains why: blocking the calling thread, possibly a camera frame-grab loop, to wait for the websocket relay to drain is never acceptable.
 - Builds the payload from explicit field extraction rather than splatting `record.__dict__`, specifically to avoid pickling failures from unpicklable args (`cv2.VideoCapture`, camera configs), unknown fields (`taskName` on Python 3.12+), and traceback frame locals. `args` are emptied because interpolation already happened during formatting.
 

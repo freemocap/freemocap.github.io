@@ -3,8 +3,11 @@ title: Coordinate conventions
 type: reference
 sidebar_position: 12
 provenance: ai-generated
-reviewed: 2026-08-19
-reviewed_against: none
+history:
+  - date: "2026-08-25"
+    against: "freemocap v2.0.0-alpha.21 source read directly (groundplane_math.py, groundplane_alignment.py, pyceres postprocessing.py, anipose_calibration_helpers.py, camera_extrinsics.py, calibration_result.py, calibration_task_config.py, skeleton_from_mediapipe_observations.py), CharucoBoardDefinition in skellytracker, SkellyForge human.py and bvh_exporter"
+  - date: "2026-08-19"
+    against: "none"
 draft: false
 ---
 
@@ -18,8 +21,8 @@ For the reasoning behind these choices, see [Coordinate systems and units](/conc
 | Units | millimetres (mm) |
 | Handedness | right-handed, always |
 | Up axis | +Z, after ground-plane calibration (see below) |
-| Rotation encoding | quaternion, `w, x, y, z` (scalar-first) |
-| Identity rotation | the T-pose |
+| Rotation encoding | camera orientations are held as quaternions, `w, x, y, z` (scalar-first), in memory; the saved calibration TOML stores them as Rodrigues rotation vectors |
+| Identity rotation | `(1, 0, 0, 0)`, meaning no rotation (camera 0 sits here once pinned to the origin) |
 
 ## World origin and orientation
 
@@ -35,20 +38,28 @@ the board.
 
 **Default calibration** (no ground-plane board). The origin is the optical center of camera 0, and
 the world axes are camera 0's own: +Z outward from the lens, +X right, +Y down the image. This is
-right-handed, but it is not Z-up. Reconstructed subjects typically come in lying on their side rather
-than standing upright.
+right-handed, but it is not Z-up. Reconstructed subjects come in oriented to the camera rather than
+to the room, typically lying on their side. When such a recording is run through the posthoc
+pipeline, FreeMoCap makes a best-effort attempt to stand the skeleton up automatically (SkellyForge's
+`put_skeleton_on_ground`, which builds an up direction from the feet to the neck at a still frame),
+but that is inferred from the subject's own body, not a measured ground plane, and it currently keys
+off MediaPipe-style foot marker names (`left_foot_index`, `right_foot_index`), so RTMPose recordings
+skip it. Ground-plane calibration remains the reliable way to get a physically meaningful Z-up.
 
 ## Segment and rotation data
 
-Joint and segment rotations are independent of the world's horizontal orientation. They are built
-from the subject's own landmarks (an "up" direction from hips to neck, a "lateral" direction across
-the shoulders), so they resolve to the same anatomical meaning regardless of which way the
-calibration board was facing:
+As of this version, FreeMoCap's skeleton output is positions, not orientations: each frame stores
+3D millimetre coordinates for the tracked keypoints and virtual markers (see
+[output arrays](/reference/data-arrays)), plus derived quantities such as center of mass. No
+per-segment or per-joint rotation track (Euler or quaternion) is computed or saved by the pipeline,
+so there is no anatomical segment frame to document here yet.
 
-- **+Z** up, **+X** anterior (the direction the subject faces), **+Y** the subject's own left.
-- Right-handed, same as the world frame.
-- Quaternions are `wxyz` (scalar-first). Identity, `(1, 0, 0, 0)`, is the T-pose: a segment whose
-  current orientation matches its T-pose reference resolves to no rotation at all.
+The quaternion convention in the table above therefore applies to cameras, not body segments.
+Identity, `(1, 0, 0, 0)`, simply means no rotation.
+
+If you need joint angles, SkellyForge contains a BVH exporter that derives Euler-angle rotations
+(rotation order ZXY) from bone directions between parent and child joints, but nothing in the
+FreeMoCap application calls it today, so a normal recording produces no BVH file.
 
 ## Exporting to other tools
 
@@ -59,8 +70,13 @@ export carries over unchanged.
 
 ## Further detail
 
-This page states FreeMoCap's declared convention, not the full specification. For how the world
-transform is derived from each calibration method, and how segment rotations compose parent to
-child, see the [`current-work-plans`](https://github.com/freemocap/freemocap/tree/aaba062914a7e3b97ca2ee4c2a71684f1cd85a56/current-work-plans)
+This page states FreeMoCap's declared convention, not the full specification. In the core repo the
+behavior described above is implemented in
+`freemocap/core/tasks/calibration/shared/groundplane_math.py` (stable-window detection, the Kabsch
+fit of the known board model, and the +Z-toward-the-cameras orientation),
+`freemocap/core/tasks/calibration/shared/groundplane_alignment.py` (applying the transform to
+camera extrinsics), and `pyceres_calibration/helpers/postprocessing.py` (pinning camera 0 to the
+origin). For the design rationale behind these choices, see the
+[`current-work-plans`](https://github.com/freemocap/freemocap/tree/aaba062914a7e3b97ca2ee4c2a71684f1cd85a56/current-work-plans)
 directory in the core repo, particularly
 [`00-foundation/conventions.md`](https://github.com/freemocap/freemocap/blob/aaba062914a7e3b97ca2ee4c2a71684f1cd85a56/current-work-plans/00-foundation/conventions.md).

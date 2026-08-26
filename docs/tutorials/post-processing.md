@@ -3,8 +3,11 @@ title: Filter and fill your data
 type: tutorial
 sidebar_position: 33
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "skellyforge main (post_processing filters/interpolation incl. FilterConfig and InterpolationConfig defaults, butter.py, linear_interp.py) plus freemocap clone pinned to v2.0.0-alpha.21 (skeleton_from_mediapipe_observations.py, charuco_model_from_observations.py, posthoc_mocap_task.py, triangulator.py and TriangulationConfig)"
+  - date: "2026-08-20"
+    against: "none"
 draft: false
 ---
 
@@ -21,12 +24,14 @@ possible.
 ## Filling Gaps
 
 Not every frame produces a usable 3D point for every keypoint. If too few
-cameras had a confident detection, or every tested camera subset had too
-much reprojection error, [reconstruction](/concepts/triangulation) leaves
-that point out rather than guessing. SkellyForge fills those gaps by
-interpolation. How many gaps you get in the first place comes down to
-capture quality: more occlusion, more cameras losing track of a keypoint,
-more gaps to fill. See
+cameras had a confident detection, [reconstruction](/concepts/triangulation)
+leaves that point out rather than guessing. A point whose tested camera
+subsets had too much reprojection error is a different case: the
+outlier-rejection path returns a weighted average over those subsets rather
+than dropping the point, so high error alone does not create a gap.
+SkellyForge fills those gaps by interpolation. How many gaps you get in the
+first place comes down to capture quality: more occlusion, more cameras
+losing track of a keypoint, more gaps to fill. See
 [optimize your capture space](/tutorials/capture-environment) to reduce
 how often this happens.
 

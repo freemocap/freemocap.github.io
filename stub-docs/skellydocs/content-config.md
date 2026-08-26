@@ -3,8 +3,11 @@ title: "The content config and landing page"
 type: reference
 sidebar_position: 4
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs
+history:
+  - date: "2026-08-26"
+    against: "skellydocs/src/types.ts (SkellyDocsConfig, HeroConfig, CoreFeature, GuaranteesConfig) and src/theme/IndexPage.tsx (HeroSection/FeaturesSection/GuaranteesSection exports, children prop, numbered customization-levels comment); every field in the table matches the type definitions verbatim"
+  - date: "2026-08-24"
+    against: "SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs"
 draft: false
 ---
 

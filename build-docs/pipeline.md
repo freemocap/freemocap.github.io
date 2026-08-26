@@ -3,9 +3,12 @@ title: Follow one recording end to end
 type: explanation
 sidebar_position: 4
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap-docs/docs/architecture/backend-pipeline-architecture.mdx and tracking-integration.mdx, cross-checked against FreeMoCap/core/pipeline/realtime/*.py and FreeMoCap/core/tracking/tracker_factory.py in the FreeMoCap clone (v2.0.0-alpha.21)
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "re-checked every concrete claim against freemocap source at v2.0.0-alpha.21: core/pipeline/abcs/*.py, core/pipeline/realtime/*.py (incl. exact line counts), core/pipeline/posthoc/*.py, core/tracking/tracker_factory.py and tracker_definitions.py, core/tasks/mocap/posthoc_mocap_task.py, realtime_filtering/*, rigid_body/skeleton_rigidifier.py and online_segment_lengths.py, api/websocket/websocket_server.py and tracker_schema_message.py"
+  - date: "2026-08-24"
+    against: "FreeMoCap-docs/docs/architecture/backend-pipeline-architecture.mdx and tracking-integration.mdx, cross-checked against FreeMoCap/core/pipeline/realtime/*.py and FreeMoCap/core/tracking/tracker_factory.py in the FreeMoCap clone (v2.0.0-alpha.21)"
 ---
 
 # Follow one recording end to end
@@ -75,7 +78,7 @@ RealtimeKeypointFilter    One Euro smoothing + velocity-decay gap fill
 RealtimePointGate          rejects points whose velocity implies teleportation
     │
 RealtimeSkeletonRigidifier  maps to canonical landmarks, estimates bone
-    │                       lengths online (best-K by reprojection error,
+    │                       lengths online (rolling-window median,
     │                       seeded from anthropometry), enforces them with
     │                       one closed-form forward pass, body plus both hands
     │
@@ -123,8 +126,8 @@ The posthoc mocap task specifically (`run_posthoc_mocap_aggregator_task`): colle
 each camera's per-frame observations into an `ObservationBuffer`, resolves
 which calibration file to use (an explicit path if given, otherwise the most
 recent successful calibration, copied into the recording folder), triangulates
-into `output_data/`, writes `tracker_schema.json` from the active tracker
-definition, and optionally kicks off Blender export. See
+into `output_data/`, writes `tracker_schema.json` from
+`RTMPOSE_WHOLEBODY_DEFINITION`, and optionally kicks off Blender export. See
 [SkeletonModels and output arrays](/reference/data-arrays) for what actually
 ends up in those output files, and [Calibration](/build/backend) for how the
 calibration file itself gets produced.
@@ -139,7 +142,7 @@ construction, and session creation only happen in one place:
 | Builder | Session | Produces |
 |---|---|---|
 | `build_charuco_tracker(board_def)` | `CpuSession` | ChArUco board detector, used for calibration markers |
-| `build_skeleton_onnx_session(...)` | `OnnxSession` | Shared RTMPose/YOLOX session, batch size equals camera count |
+| `build_skeleton_onnx_session(...)` | `OnnxSession` | Shared RTMPose/YOLOX session, batch size = min(camera count, `max_batch_size`) |
 | `build_skeleton_tracker(...)` | (the session preceding) | Body-pose tracker: YOLOX crop into RTMPose |
 | `build_mediapipe_tracker(...)` | `MediaPipeSession` | MediaPipe body, hands, and face tracker |
 

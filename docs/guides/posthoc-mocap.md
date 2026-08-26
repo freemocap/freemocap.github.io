@@ -3,9 +3,12 @@ title: Process a recording after the fact
 type: how-to
 sidebar_position: 12
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: freemocap-docs guides/posthoc-mocap.mdx (v2.0.0-alpha.21, human-authored source, not yet re-checked against the running app)
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "freemocap v2.0.0-alpha.21 working tree: freemocap-ui mocap-setup-modal.tsx, mocap-processing-directory.tsx, calibration-module.tsx, mocap-detector-settings.tsx, mocap-blender-settings.tsx, mocap-triangulation-settings.tsx, mocap-postprocess-settings.tsx, ProcessMocapPanel.tsx, SidePanelContent.tsx, useMocap.ts, store/slices/mocap, freemocap api/http/mocap/mocap_router.py, core/tasks/mocap/mocap_task_config.py, posthoc_mocap_task.py, skeleton_from_mediapipe_observations.py, calibration_paths.py, core/pipeline/posthoc/video_node.py, video_group_helper.py"
+  - date: "2026-08-21"
+    against: "freemocap-docs guides/posthoc-mocap.mdx (v2.0.0-alpha.21, human-authored source, not yet re-checked against the running app)"
 ---
 
 # Process a recording after the fact
@@ -58,7 +61,8 @@ recording_folder/
    confidence threshold, see
    [choose a tracking model](/tutorials/choose-a-tracker).
    RTMPose doesn't have a working Blender export yet, you'll still get
-   3D data either way, but Blender export currently requires MediaPipe.
+   3D data either way, but the Blender export toggle stays disabled
+   until you switch back to MediaPipe.
 5. **Configure Blender export**, if you want it. Turn off **Export to
    Blender after mocap processing** if you only need the data files, or
    leave it on and optionally enable auto-opening the finished `.blend`
@@ -82,37 +86,44 @@ recording_folder/
 │   ├── *.parquet
 │   └── per_camera_weights.npy
 ├── tracker_schema.json
-└── camera_calibration.toml
+└── <name>_camera_calibration.toml
 ```
 
 `annotated_videos/` has your camera footage with detected 2D keypoints
 drawn on top, the fastest way to sanity-check tracking by eye.
 `output_data/` has the reconstructed 3D data itself, see
 [find and read your output](/tutorials/find-your-data) for what each
-file is. Reload the recording in Playback afterward to inspect the
+file is. `tracker_schema.json` records the keypoint structure the
+tracker used, and the calibration TOML is copied into the recording
+folder so the calibration behind these results is preserved alongside
+them. Reload the recording in Playback afterward to inspect the
 synchronized videos alongside the reconstructed skeleton.
 
 ## Reprocessing
 
 You can reprocess a recording with a different detector or
-configuration at any time. Earlier annotated videos may get renamed with
-a `.prev` suffix when new ones are generated; other output files can be
-overwritten outright. Copy anything you want to keep before reprocessing
-a recording that matters.
+configuration at any time. Earlier annotated videos are briefly renamed
+with a `.prev` suffix while new annotations are drawn on top of them,
+then those `.prev` copies are deleted once processing finishes; other
+output files can be overwritten outright. Copy anything you want to
+keep before reprocessing a recording that matters.
 
-## Current alpha limitation
+## Current alpha limitations
 
-The 3D reconstruction settings shown under **Point Gate**, **One Euro
-Filter**, and **FABRIK** aren't wired into post-hoc processing yet,
-changing them won't affect post-hoc output in this build. What *is*
-passed through: the recording directory, the calibration, the detector
-and its settings, and the Blender export settings.
+Everything this dialog shows is passed into post-hoc processing: the
+recording directory, the calibration, the detector and its model and
+confidence settings, the 3D Triangulation options, the Post Processing
+(Butterworth low-pass filter) options, and the Blender export settings.
+The realtime-only tuning controls (Point Gate, One Euro Filter, FABRIK)
+don't appear in this dialog and don't affect post-hoc output.
 
 ## Troubleshooting
 
 **Video frame counts don't match.** Check `synchronized_videos/` for
 stray files left over from another session. Every video in that folder
-should be from the same recording and have the same frame count.
+should be from the same recording and have the same frame count; the
+error lists the frame count of every video it found, so the odd one out
+is usually easy to spot.
 
 **Calibration or camera-ID error.** The calibration has to have been
 created with the exact same cameras used in the recording, camera IDs

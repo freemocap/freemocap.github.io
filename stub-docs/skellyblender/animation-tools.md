@@ -3,8 +3,11 @@ title: "Animation tools"
 type: reference
 sidebar_position: 5
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)
+history:
+  - date: "2026-08-26"
+    against: "Re-checked every claim against polyrepo-clones/freemocap_blender_addon (main): animation_panel.py section list and the commented-out Set Bone Rotation Limits block, retarget_animation_properties.py fields, limit_markers_range_of_motion_properties.py toggles and hand track-marker enums, foot_locking_properties.py fgm parameters, ui_utilities.find_matching_bone_in_target_list, and operator registration in blender_ui/operators/__init__.py"
+  - date: "2026-08-24"
+    against: "freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)"
 draft: false
 ---
 

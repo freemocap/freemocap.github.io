@@ -3,8 +3,11 @@ title: "Configuration"
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)
+history:
+  - date: "2026-08-26"
+    against: "Re-checked every claim against polyrepo-clones/freemocap_blender_addon at main (package v2026.04.1041): parameter_models.py dataclass defaults, default_parameters.json, load_parameters_config.py JSON loading path, MainController config reads (reduce_shakiness.recording_fps override from get_recording_framerate, add_rig.keep_symmetry/add_fingers_constraints/use_limit_rotation), and repo-wide search of all three MainController construction sites confirming no other config section is read anywhere"
+  - date: "2026-08-24"
+    against: "freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)"
 draft: false
 ---
 

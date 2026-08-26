@@ -3,8 +3,11 @@ title: "Custom log levels"
 type: reference
 sidebar_position: 3
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones
+history:
+  - date: "2026-08-26"
+    against: "skellylogs/log_levels.py (LogLevels enum) read directly, every value in the table (LOOP 3, TRACE 5, DEBUG 10, INFO 20, SUCCESS 22, API 25, WARNING 30, ERROR 40) confirmed exact; log_test_messages.py confirmed to exist"
+  - date: "2026-08-24"
+    against: "SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones"
 draft: false
 ---
 

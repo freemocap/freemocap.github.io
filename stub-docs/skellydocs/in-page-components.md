@@ -3,9 +3,12 @@ title: "In-page components"
 type: reference
 sidebar_position: 6
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "Re-read Tip.tsx, LinkedIssues.tsx, AiGeneratedBanner.tsx, CoreFeatureHeader.tsx, types.ts, githubUtils.ts, theme.module.css, CLAUDE.md, and package.json in polyrepo-clones/skellydocs (package 0.3.17, ref main); cross-checked banner defaults against skellydocs-docs/docusaurus.config.ts and skellydocs-docs/docs/ai-generated-banner.mdx"
+  - date: "2026-08-24"
+    against: "SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs"
 ---
 
 # In-page components

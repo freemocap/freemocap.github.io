@@ -3,9 +3,12 @@ title: How FreeMoCap works
 type: explanation
 sidebar_position: 4
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "polyrepo-clones pulled 2026-08-26: freemocap-docs architecture docs (intro.mdx, overview.mdx, backend-overview.mdx, backend-pipeline-architecture.mdx, backend-calibration.mdx, backend-mocap.mdx, tracking-integration.mdx) and guides/posthoc-mocap.mdx inside polyrepo-clones/freemocap, confirming the four-stage description (ChArUco calibration solving intrinsics/extrinsics, synchronized multi-camera recording via SkellyCam, per-camera 2D pose estimation via SkellyTracker, DLT triangulation into 3D); verified all six linked /concepts/ targets exist on this site; the three-design-requirements framing is attributed to the Cherian dissertation, which is not cloned locally, so that framing was left as written"
+  - date: "2026-08-20"
+    against: "none"
 ---
 
 # How FreeMoCap works

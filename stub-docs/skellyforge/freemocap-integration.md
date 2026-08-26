@@ -3,8 +3,11 @@ title: "How FreeMoCap uses SkellyForge"
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyForge source read directly (full package tree, the pyproject config, README, tracker_info YAMLs); integration points verified in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "spot-checked the most load-bearing claims directly: Point3d (skellyforge/data_models/trajectory_3d.py), RealtimeSkeletonRigidifier's docstring (freemocap/core/tasks/mocap/rigid_body/skeleton_rigidifier.py, confirms the enforce_rigid_bones streaming-counterpart claim near-verbatim), CanonicalBodyModelInfo/CanonicalHandModelInfo (skellymodels/models/tracking_model_info.py), interpolate_trajectory/filter_trajectory (post_processing/), and MocapTaskConfig.filter_config: FilterConfig (mocap_task_config.py); all confirmed accurate"
+  - date: "2026-08-24"
+    against: "SkellyForge source read directly (full package tree, the pyproject config, README, tracker_info YAMLs); integration points verified in the FreeMoCap clone"
 draft: false
 ---
 

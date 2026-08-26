@@ -3,19 +3,22 @@ title: "How the rest of the polyrepo uses it"
 type: reference
 sidebar_position: 9
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "SkellyLogs source re-read on current main (configure_logging.py, handlers/websocket_log_queue_handler.py, log_levels.py, default_paths.py, logger_builder.py); consumer claims re-verified in freemocap v2.0.0-alpha.21, skellycam main, skellyforge main, and skellytracker/skellysync/skellypings/freemocap_blender_addon sources"
+  - date: "2026-08-24"
+    against: "SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones"
 ---
 
 # How the rest of the polyrepo uses it
 
 ## FreeMoCap
 
-- Declares `skellylogs` as a dependency in `pyproject.toml`, sourced from `git+https://github.com/freemocap/skellylogs`; both `freemocap` and `skellycam` lockfiles pin the same commit (`9114990`).
+- Declares `skellylogs` as a dependency in `pyproject.toml`, sourced from `git+https://github.com/freemocap/skellylogs`; both `freemocap` and `skellycam` lockfiles pin the same commit (`9114990350d7fb36747526286671c17abd7e523e`).
 - `freemocap/__init__.py` and `freemocap/core/__init__.py` both run `configure_logging(LogLevels.TRACE)` at import time, making `TRACE` the effective global verbosity for the whole app.
-- `core/pipeline/abcs/pipeline_ipc.py`: every realtime pipeline's `PipelineIPC` dataclass carries a `ws_queue` field set to `get_websocket_log_queue()`, so all pipeline child processes inherit the shared log queue and their records reach the frontend alongside the main process's.
-- `api/websocket/websocket_server.py`: the server's `_logs_relay` asyncio task is the consumer described preceding, it drains the queue with `get_nowait()`, drops records below `MIN_LOG_LEVEL_FOR_WEBSOCKET` (its default `ws_log_level`), tolerates `EOFError`/`OSError` from partial pickles left by dying child processes, and sends each dict to the client as JSON. App code leans on the custom levels throughout (`logger.api(...)` for route registration and lifecycle events, `logger.trace(...)` for per-frame backpressure chatter, `logger.success(...)` on startup/shutdown).
+- `core/pipeline/abcs/pipeline_ipc.py`: every realtime pipeline's `PipelineIPC.create()` sets the dataclass's `ws_queue` field to `get_websocket_log_queue()`, so all pipeline child processes inherit the shared log queue and their records reach the frontend alongside the main process's.
+- `api/websocket/websocket_server.py`: the server's `_logs_relay` asyncio task is the consumer described preceding, it drains the queue with `get_nowait()`, drops records below `MIN_LOG_LEVEL_FOR_WEBSOCKET` (its default `ws_log_level`), tolerates `EOFError`/`OSError` from partial pickles left by dying child processes, and sends each dict to the client as JSON via its reusable msgspec encoder. App code leans on the custom levels throughout (`logger.api(...)` for route registration and lifecycle events, `logger.trace(...)` for per-frame backpressure chatter, `logger.success(...)` on startup/shutdown).
 - `app/app.py` reports the installed `skellylogs` version in the startup "System info" log banner next to the other Skelly packages.
 
 ## SkellyCam
@@ -29,4 +32,5 @@ draft: false
 ## Other repos
 
 - **SkellyForge** does not depend on SkellyLogs. It carries its own vendored copy of the same design under `skellyforge/system/logging_configuration/` (matching `configure_logging`, `LogLevels`, `DeltaTimeFilter`, color helpers, and a simpler `QueueHandler`-based websocket handler), and its `pyproject.toml` lists neither `skellylogs` nor a git source for it.
-- **SkellyTracker**, **SkellySync**, **SkellyPings**, and the Blender addon contain no references to SkellyLogs in their sources.
+- **SkellyTracker**, **SkellySync**, and **SkellyPings** contain no references to SkellyLogs in their sources.
+- **freemocap_blender_addon** has no import or dependency on SkellyLogs either, but its `utilities/git_source_manager.py` (a generic git-source dependency cache, imported by the addon's `__init__.py`) names the SkellyLogs repo in its module docstring example and its `__main__` self-test block as a sample entry.

@@ -3,8 +3,11 @@ title: Get a calibration you can trust
 type: tutorial
 sidebar_position: 30
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "re-read against the page's own linked pages (all 5 internal links confirmed to resolve); page is calibration-methodology advice with no separately checkable code claims"
+  - date: "2026-08-20"
+    against: "none"
 draft: false
 ---
 

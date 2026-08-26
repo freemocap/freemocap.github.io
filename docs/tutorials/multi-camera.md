@@ -3,9 +3,12 @@ title: Record with multiple cameras
 type: tutorial
 sidebar_position: 20
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "Cross-checked against sibling pages and polyrepo-clones pulled 2026-08-26: intro and next-steps links all resolve (concepts/cameras-and-sync, tutorials/capture-environment, tutorials/calibrate, tutorials/better-calibration); camera-count guidance consistent with tutorials/hardware.md and tutorials/calibrate.md; six-webcam validation setup consistent with concepts/cameras-and-sync.md and concepts/accuracy-and-limits.md; shared ChArUco board visibility during calibration confirmed in tutorials/calibrate.md and freemocap v2.0.0-alpha.21 calibration source (api/http/calibration/calibration_router.py, core/tasks/calibration, freemocap-docs backend-calibration.mdx); mixed portrait/landscape placement consistent with tutorials/capture-environment.md and skellycam RotationTypes portrait rotation support; no camera-count cap or minimum enforced in skellycam camera group code. The Cherian dissertation and external systems papers (Theia3D, OpenCap) are not available locally, so their specific numeric claims were left as written"
+  - date: "2026-08-20"
+    against: "none"
 ---
 
 # Record with multiple cameras

@@ -3,9 +3,12 @@ title: REST API
 type: reference
 sidebar_position: 15
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: freemocap-docs architecture docs (v2.0.0-alpha.21, not yet re-checked against the running app)
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "freemocap v2.0.0-alpha.21 source (app/app.py route registration, api/routers.py, api/server_constants.py, api/http routers for calibration/mocap/realtime/playback/blender/app), skellycam camera_router, and freemocap-docs architecture/api-boundary.mdx plus notes/api-notes.mdx"
+  - date: "2026-08-21"
+    against: "freemocap-docs architecture docs (v2.0.0-alpha.21, not yet re-checked against the running app)"
 ---
 
 # REST API
@@ -26,7 +29,7 @@ Broadly, one route group per concern:
 |---|---|
 | Cameras (`/skellycam/camera/*`) | Detecting, connecting to, and configuring cameras |
 | Recording (`/skellycam/camera/group/all/record/*`) | Starting and stopping a recording |
-| Calibration (`/freemocap/calibration/*`) | Running the calibration solver on a calibration recording |
+| Calibration (`/freemocap/calibration/*`) | Capturing a calibration recording and running the calibration solver on it |
 | Mocap (`/freemocap/mocap/*`) | Starting, stopping, and post-processing a mocap recording |
 | Realtime pipeline (`/freemocap/realtime/*`) | Creating or tearing down a live processing pipeline |
 | Playback (`/freemocap/playback/*`) | Listing recordings and serving their videos, timestamps, and data back out |
@@ -39,7 +42,7 @@ request and response shapes, lives in the `freemocap` repository's own
 architecture docs
 ([API Boundary](https://github.com/freemocap/freemocap/blob/main/freemocap-docs/docs/architecture/api-boundary.mdx)),
 kept closer to the actual code than anything ported here could stay.
-That page also documents the planned API redesign, worth reading before
+That page also points to the planned API redesign, worth reading before
 building against routes that are expected to change shape.
 
 ## Next steps

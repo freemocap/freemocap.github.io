@@ -3,9 +3,12 @@ title: "Output arrays: shapes, dtypes, units"
 type: reference
 sidebar_position: 11
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap core pipeline and SkellyForge skellymodels source, read directly
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "FreeMoCap v2.0.0-alpha.21 posthoc mocap task, playback router, recording_structure, recording_status, and SkellyForge skellymodels (actor.py, trajectory.py, aspect.py, anatomical_calculations.py, tracker_info YAMLs), read directly"
+  - date: "2026-08-24"
+    against: "FreeMoCap core pipeline and SkellyForge skellymodels source, read directly"
 ---
 
 # Output arrays: shapes, dtypes, units
@@ -103,8 +106,10 @@ The parquet embeds its own schema in pandas attributes: `model_info`
 (the full parsed tracker config, including ordered marker names),
 `metadata.created_at`, and `metadata.created_with` (`skelly_models`).
 `Actor.from_parquet()` reads those attributes to rebuild the in-memory
-structure without being told the tracker; loading a file that lacks them
-requires passing a `ModelInfo` explicitly.
+structure without being told the tracker. A file lacking the embedded
+attributes cannot be loaded today: `from_parquet` reads the actor name
+out of those attributes even when a `ModelInfo` is passed explicitly,
+so such a file raises regardless.
 
 **Caveat on `reprojection_error`:** the column exists and is populated
 whenever the in-memory aspect carries error data, but in the current
@@ -149,9 +154,10 @@ the producing detector prefixed into each filename:
 ```
 
 Older recordings may carry `*_right_hand_right_hand.npy`-style names;
-the readiness check accepts those as equivalents. Recordings processed
-before multi-detector support used flat `mediapipe_*` names regardless
-of detector.
+the readiness check accepts those as equivalents. Before multi-detector
+support, the readiness check itself demanded flat `mediapipe_*`
+filenames regardless of which detector produced the recording, so
+RTMPose recordings always failed the pre-flight check.
 
 For what point names sit behind each column index, and a known
 body/hand/face ordering hazard in RTMPose recordings, see

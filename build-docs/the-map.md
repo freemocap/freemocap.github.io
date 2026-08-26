@@ -3,8 +3,11 @@ title: The polyrepo map
 type: explanation
 sidebar_position: 3
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: "generated live from data/repos.yml's consumes/produces fields, not hand-written"
+history:
+  - date: "2026-08-26"
+    against: "DataFlowDiagram component (edge/order/terminal-output logic derived from consumes/produces), src/plugins/repos-data and docusaurus.config.ts wiring, data/repos.yml tier/consumes/produces values for all 9 repos, the four linked routes (/developers, /build/data-contracts, /build/repo-directory, /build/architecture), and the freemocap-composes-every-shown-repo claim against pyproject.toml at pinned tag v2.0.0-alpha.21"
+  - date: "2026-08-24"
+    against: "generated live from data/repos.yml's consumes/produces fields, not hand-written"
 draft: false
 ---
 

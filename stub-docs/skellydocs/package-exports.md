@@ -3,9 +3,12 @@ title: "What the package exports"
 type: reference
 sidebar_position: 3
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "skellydocs main re-read: full src/index.ts export list, all 12 shared types in src/types.ts, every theme component source (IndexPage with HeroSection/FeaturesSection/GuaranteesSection, RoadmapPage, RoadmapContent, RoadmapEntry, Tip, LinkedIssues, AiGeneratedBanner, CoreFeatureHeader, collectLinkedUrls), package.json version 0.3.17 and its css subpath exports map, plus consumption verified in this site's docusaurus.config.ts and external/skellycam/content.config.tsx"
+  - date: "2026-08-24"
+    against: "SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs"
 ---
 
 # What the package exports

@@ -3,8 +3,11 @@ title: Frequently asked questions
 type: reference
 sidebar_position: 16
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: research/github-discussions-qa-raw.md (FreeMoCap/FreeMoCap Discussions Q&A) cross-checked against FreeMoCap and SkellyTracker source, main branches
+history:
+  - date: "2026-08-25"
+    against: "live polyrepo code: freemocap v2.0.0-alpha.21 realtime pipeline (realtime_aggregator_node.py, realtime_skeleton_inference_node.py, realtime_pipeline_config.py, camera_node_config.py), skellytracker MultiPersonTracker plus its 12-multi-person-tracking design doc, charuco_board_definition.py, freemocap_blender_addon __init__.py bl_info, skellysync README, absence of glTF/grayscale handling in cloned source, and this site's linked pages"
+  - date: "2026-08-24"
+    against: "research/github-discussions-qa-raw.md (FreeMoCap/FreeMoCap Discussions Q&A) cross-checked against FreeMoCap and SkellyTracker source, main branches"
 draft: false
 ---
 
@@ -102,12 +105,12 @@ assuming it's undocumented, see [request a feature](/guides/request-a-feature).
 
 ## Which Blender versions are supported?
 
-The Blender addon repository doesn't pin a minimum Blender version
-anywhere we could find, so there's no authoritative compatibility list to
-quote. Install a current Blender from
-[`blender.org`](https://www.blender.org); if the addon fails to load or run
-on an old version, updating Blender is the first thing to try. For what
-the export step produces and common failures, see
+The Blender addon does declare a minimum: its `bl_info` metadata sets
+`'blender': (3, 0, 0)`, i.e. Blender 3.0 or newer. Treat that as a floor
+rather than a tested compatibility list, and install a current Blender
+from [`blender.org`](https://www.blender.org); if the addon fails to load
+or run on an old version, updating Blender is the first thing to try. For
+what the export step produces and common failures, see
 [export to Blender](/guides/blender-export).
 
 ## Can I use cameras that aren't connected to the same computer, like GoPros or phones?

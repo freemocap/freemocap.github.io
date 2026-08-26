@@ -3,8 +3,11 @@ title: Build with FreeMoCap
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: "none, this page is a hub linking to already-written pages, not sourced content itself"
+history:
+  - date: "2026-08-26"
+    against: "hub pass: every link target resolved against the local site tree (build-docs/* files, src/pages/developers.tsx, sidebars/build.ts, the build docs instance in docusaurus.config.ts, and the repos.yml generation claims behind the-map/data-contracts/repo-directory); the Design proposals blurb re-checked against the centroidal-kinematics proposal sources and the real implementation in polyrepo-clones/freemocap (core/kinematics/, freemocap/tests/kinematics/, freemocap-ui/src/components/viewport3d/) at v2.0.0-alpha.21"
+  - date: "2026-08-24"
+    against: "none, this page is a hub linking to already-written pages, not sourced content itself"
 draft: false
 ---
 
@@ -44,5 +47,6 @@ specifically about the `freemocap` app itself.
 
 ## Design proposals
 
-- [Design proposals](/build/proposals): in-progress design work, not yet
-  implemented.
+- [Design proposals](/build/proposals): in-progress design work, part of
+  which has already landed in the current code; the linked page tracks
+  exactly what is built versus still proposed.

@@ -2,8 +2,11 @@
 title: Python code style
 type: reference
 provenance: human-checked
-reviewed: 2026-08-19
-reviewed_against: v1 (ported, not yet re-checked against v2)
+history:
+  - date: "2026-08-26"
+    against: "freemocap v2.0.0-alpha.21: .pre-commit-config.yaml (black 22.6.0 hook), .flake8, CONTRIBUTING.md, pyproject.toml/poe_tasks.toml (ruff, pytest), CI workflow, and source spot-checks for docstring/type-hint/naming conventions"
+  - date: "2026-08-19"
+    against: "v1 (ported, not yet re-checked against v2)"
 ---
 # Python Code Style Guide  
 This style guide aims to maintain code readability, quality, and maintainability. 

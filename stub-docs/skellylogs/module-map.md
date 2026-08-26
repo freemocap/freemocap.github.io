@@ -3,8 +3,11 @@ title: "Module map"
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones
+history:
+  - date: "2026-08-26"
+    against: "Line-by-line check of every table row against polyrepo-clones/skellylogs on main: public API exports in __init__.py, module/class/function names, configure_logging level registration and child-process guard and atexit cleanup, LoggerBuilder dictConfig(version=1, disable_existing_loggers=False), LOG_FORMAT_STRING/COLOR_LOG_FORMAT_STRING/LOG_POINTER_STRING, SKELLYLOGS_LOG_DIR env var, DEFAULT_NOISY_PACKAGES, hashed PID/TID colors, CustomFormatter millisecond timestamps, ColoredConsoleHandler stdout stream, WebSocketQueueHandler/LogRecordModel/MIN_LOG_LEVEL_FOR_WEBSOCKET placement, tests layout, shared conftest reset fixture, and pyproject.toml pytest-as-dependency-group-only setup"
+  - date: "2026-08-24"
+    against: "SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones"
 draft: false
 ---
 

@@ -3,9 +3,12 @@ title: Configuration options
 type: reference
 sidebar_position: 14
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap source v2.0.0-alpha.21 (system/default_paths.py, system/telemetry/telemetry_config.py, system/telemetry/telemetry.py, build_info.py, server_constants.py, __init__.py) plus the Electron frontend's main/base-folder.ts and services/python-server.ts
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "FreeMoCap source v2.0.0-alpha.21 re-checked (system/default_paths.py, system/telemetry/telemetry_config.py, system/telemetry/telemetry.py, build_info.py, api/server_constants.py, __init__.py, app/app.py, __main__.py) plus Electron main/base-folder.ts, main/api.ts, main/ipc.ts, services/python-server.ts and the SkellyPings client/server"
+  - date: "2026-08-24"
+    against: "FreeMoCap source v2.0.0-alpha.21 (system/default_paths.py, system/telemetry/telemetry_config.py, system/telemetry/telemetry.py, build_info.py, server_constants.py, __init__.py) plus the Electron frontend's main/base-folder.ts and services/python-server.ts"
 ---
 
 # Configuration options
@@ -90,10 +93,12 @@ Its schema:
 { "baseDataFolder": "/Users/me/Documents/mocap-data" }
 ```
 
-Setting the key relocates the data folder (applied on the next server start, via
-`FREEMOCAP_BASE_FOLDER`); removing the key reverts to `~/freemocap_data`. An
-unreadable file falls back to the default with a logged error rather than
-failing startup.
+Setting the key relocates the data folder via `FREEMOCAP_BASE_FOLDER`: Electron
+persists it, then restarts the Python server it owns so the change takes effect
+immediately (when the server is running standalone and Electron does not own
+it, the change applies at its next start instead). Removing the key reverts to
+`~/freemocap_data`. An unreadable file falls back to the default with a logged
+error rather than failing startup.
 
 ## Build-time constants (not user-configurable)
 

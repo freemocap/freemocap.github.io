@@ -3,8 +3,11 @@ title: SkellyBlender
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)
+history:
+  - date: "2026-08-26"
+    against: "Re-read freemocap_blender_addon (ref main): pyproject.toml (bumpver pattern vYYYY.0M.BUILD[-TAG], current_version v2026.04.1041, dependencies=[], requires-python >=3.10), package __init__.py (bl_info author ajc27, addon version (1, 1, 7), minimum Blender (3, 0, 0)), README.md (ajc27-git credit, Zenodo DOI badge, AGPLv3), core_functions/main_controller.py load_data() stage order and outputs (empties, rig, rigid body meshes, Skelly mesh, center of mass mesh, video planes, capture cameras, checkerboard ground plane, FBX/BVH export, saved .blend), create_freemocap_empties.py, add_capture_cameras.py (reads the recording's .toml calibration), export_3d_model.py default formats ['fbx', 'bvh'], export_video.py composited render pipeline, blender_ui/operators/__init__.py operator registry, .github/workflows, and confirmed there is no test suite; pantheon tier confirmed against the site's data/repos.yml"
+  - date: "2026-08-24"
+    against: "freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)"
 draft: false
 ---
 

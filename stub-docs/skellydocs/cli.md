@@ -3,9 +3,12 @@ title: "The CLI"
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "SkellyDocs CLI (src/bin/create-skellydocs.ts), tsup.config.ts, all Handlebars templates under templates/, scripts/rebuild-dogfood.mjs, and the dogfood site's package.json re-read against main (package 0.3.17)"
+  - date: "2026-08-24"
+    against: "SkellyDocs source read directly (package at 0.3.17, main); consumer usage verified in this site's package.json, Docusaurus config, custom.css, and fetched SkellyCam docs"
 ---
 
 # The CLI
@@ -22,7 +25,7 @@ Prompts for:
 - Project board URL (GitHub Projects, Linear, etc.)
 - Path to a logo file (validated to exist; skipped means a placeholder skeleton logo)
 
-It then scaffolds `<projectName>-docs/` containing a complete site: `package.json` (pinning `@freemocap/skellydocs` to the CLI's own version), `docusaurus.config.ts` (dark mode by default, mermaid enabled, the webpack fix plugin, the package CSS, and a "Built with SkellyDocs" footer), `content.config.tsx` pre-filled with example features and guarantees, `sidebars.ts`, `tsconfig.json`, starter `intro.mdx` and `ai-generated-banner.mdx` docs, a welcome blog post, `src/pages/index.tsx` and `roadmap.tsx` wrappers wired to the config, and the logo. The `editUrl` is constructed per forge, and the site `url`/`baseUrl` are derived from the answers.
+It then scaffolds `<projectName>-docs/` containing a complete site: `package.json` (writing `@freemocap/skellydocs` as a caret range on the CLI's own version), `docusaurus.config.ts` (dark mode by default, mermaid enabled, the webpack fix plugin, the package CSS, and a "Built with SkellyDocs" footer), `content.config.tsx` pre-filled with example features and guarantees, `sidebars.ts`, starter `intro.mdx` and `ai-generated-banner.mdx` docs, a welcome blog post, `src/pages/index.tsx` and `roadmap.tsx` wrappers wired to the config, and the logo. The `editUrl` is constructed per forge, and the site `url`/`baseUrl` are derived from the answers.
 
 One special case: scaffolding *inside* the SkellyDocs repo itself wires the dependency as `file:..` instead of a version. That is exactly how the `skellydocs-docs/` dogfood site is produced.
 

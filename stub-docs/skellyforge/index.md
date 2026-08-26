@@ -3,8 +3,11 @@ title: SkellyForge
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyForge source read directly (full package tree, the pyproject config, README, tracker_info YAMLs); integration points verified in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "Re-read SkellyForge (ref main): pyproject.toml (requires-python >=3.10, AGPLv3+ classifier, deps numpy/scipy/pandas/toml/pyyaml/pyarrow, bumpver current_version v2024.12.1009, console script skellyforge = skellyforge.__main__:run), __init__.py/__main__.py placeholder check, undeclared tqdm imports in apply_filter.py and apply_interpolation.py, post_processing butter.py and linear_interp.py, biomechanics calculate_center_of_mass.py and enforce_rigid_bones.py, skellymodels bvh_exporter.py, Actor save_out_numpy/csv/parquet methods, tracker_info YAMLs and ModelInfo loaders, subpackage tree sizes; shared-model claim re-verified against skellyforge.skellymodels imports in the FreeMoCap clone; all 8 Contents links resolved"
+  - date: "2026-08-24"
+    against: "SkellyForge source read directly (full package tree, the pyproject config, README, tracker_info YAMLs); integration points verified in the FreeMoCap clone"
 draft: false
 ---
 

@@ -3,9 +3,12 @@ title: The FreeMoCap output data model
 type: explanation
 sidebar_position: 10
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "freemocap v2.0.0-alpha.21 pipeline source (skeleton_from_mediapipe_observations.py, triangulator.py, outlier_rejection.py, triangulation_config.py, recording_structure.py, playback_router.py) and SkellyForge skellymodels (actor.py, aspect.py, trajectory.py, error.py, anatomical_structure.py, tracking_model_info.py, anatomical_calculations.py, tracker_info YAMLs), read directly; cross-checked against docs/reference/data-arrays.md"
+  - date: "2026-08-20"
+    against: "none"
 ---
 
 # The FreeMoCap output data model
@@ -47,26 +50,29 @@ do: 2D keypoints from each camera view are triangulated into 3D using
 direct linear transformation. Because any individual camera can produce a
 bad detection (occlusion, clutter, an unusual pose), triangulation first
 tries all available cameras, checks the reprojection error, and falls back
-to testing camera subsets if that error is too high, using whichever
-subset reconstructs best. The resulting 3D trajectories then go through a
-separate post-processing step (gap interpolation for frames where no
-triangulation solution was found, then Butterworth filtering to reduce
-noise) before they reach you as output. That reprojection error survives
-the whole pipeline and travels with your data as a quality signal (see
-below), it's the closest thing to a built-in confidence score the output
-has.
+to testing camera subsets if that error is too high, blending the subsets
+that reconstruct best into an exponentially-weighted average. The
+resulting 3D trajectories then go through a separate post-processing step
+(gap interpolation for frames where no triangulation solution was found,
+then Butterworth filtering to reduce noise) before they reach you as
+output. Reprojection error drives those rejection decisions, and the
+per-camera confidence weights it produces are saved alongside your data
+as `per_camera_weights.npy`; how much of it reaches the output files
+themselves is covered below.
 
 ## The shape of the data
 
 - The canonical array shape is **`(num_frames, num_markers, 3)`**, checked
   at construction. The last dimension is always exactly 3 (x, y, z).
-- The primary data store is a single file,
-  `freemocap_data_by_frame.parquet`, in **tidy long format** rather than a
-  wide array: one row per keypoint per frame, with columns `frame`,
-  `keypoint`, `x`, `y`, `z`, `model`, `trajectory`, and
-  `reprojection_error`. It's self-describing, it embeds its own model
-  metadata, so it can round-trip back into the same in-memory structure
-  without a separate schema file.
+- The primary data store is a single parquet file in **tidy long format**
+  rather than a wide array: one row per keypoint per trajectory per frame,
+  with columns `frame`, `keypoint`, `x`, `y`, `z`, `model`, `trajectory`,
+  and `reprojection_error`. A finished recording writes it as
+  `output_data/freemocap_data_by_frame.parquet`; the recording-layout code
+  declares `{recording_name}_data.parquet` at the recording root as its
+  eventual location, and consumers accept either name. It's
+  self-describing, it embeds its own model metadata, so it can round-trip
+  back into the same in-memory structure without a separate schema file.
 - Individual `.npy` arrays follow a `{tracker}_{aspect}_{trajectory}.npy`
   naming pattern, for example `mediapipe_body_3d_xyz.npy`: which tracker
   produced it, which body part or aspect, and which trajectory variant.
@@ -81,18 +87,26 @@ underlying tracker actually detected. If you're indexing into the array by
 position rather than by name, this is the detail that will silently
 produce a confusing result.
 
-**`reprojection_error` isn't just diagnostic output, it's per-frame,
-per-keypoint.** Low reprojection error is a reasonable proxy for "this
-point was probably tracked well in this frame"; consistently high error on
-a specific joint is a sign to check camera coverage for that body region
-rather than assume the number itself is wrong.
+**The parquet's `reprojection_error` column is reserved, not populated
+(yet).** The column is designed to be per-frame, per-keypoint, and low
+error would be a reasonable proxy for "this point was probably tracked
+well in this frame" (consistently high error on a specific joint is a
+sign to check camera coverage for that body region). In the current
+pipeline, however, nothing attaches reprojection error to the skeleton
+before saving, so the column comes out all NaN in practice. What survives
+today is the per-camera confidence weighting in `per_camera_weights.npy`
+and the error-driven choices the pipeline already made for you. Treat the
+column as a placeholder until the pipeline wires it up.
 
-**Two trajectory variants exist**: `3d_xyz` (the raw triangulated result)
-and `rigid_3d_xyz` (the same data with bone lengths enforced to stay
-constant). Which one is the right one to use, and to cite, for a given
-analysis is still an open question the FreeMoCap project hasn't formally
-settled; check [the reference page](/reference/data-arrays) for the
-current guidance before publishing numbers based on either one.
+**Multiple trajectory variants exist**: `3d_xyz` (the raw triangulated
+result) and `rigid_3d_xyz` (the same data with bone lengths enforced to
+stay constant) are the two position variants you'll usually choose
+between; the body aspect additionally carries center-of-mass trajectories
+(`total_body_center_of_mass` and `segment_center_of_mass`). Which position
+variant is the right one to use, and to cite, for a given analysis is
+still an open question the FreeMoCap project hasn't formally settled;
+check [the reference page](/reference/data-arrays) for the current
+guidance before publishing numbers based on either one.
 
 ## Why it's built this way
 

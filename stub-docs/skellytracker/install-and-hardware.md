@@ -3,8 +3,11 @@ title: "Install extras and hardware"
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "pyproject.toml's [project.optional-dependencies] section, re-read directly: mediapipe, onnx, onnx-cpu (with its Apple Silicon CoreML EP comment) extras confirmed exactly as described"
+  - date: "2026-08-24"
+    against: "SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone"
 draft: false
 ---
 

@@ -3,8 +3,11 @@ title: "Temporal processing"
 type: reference
 sidebar_position: 5
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "core/temporal_processing/ (bbox_policy.py, keypoint_reset_policy.py, keypoint_filtering.py, temporal_processing_config.py) confirmed to exist exactly as described; keypoint_filtering.py's own comment (\"else 1.0 frame units\") confirms the hardcoded-timestep caveat"
+  - date: "2026-08-24"
+    against: "SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone"
 draft: false
 ---
 

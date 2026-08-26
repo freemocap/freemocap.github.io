@@ -3,8 +3,11 @@ title: "Files created"
 type: reference
 sidebar_position: 5
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellySync source read directly (package code, README, the pyproject config, CI workflows)
+history:
+  - date: "2026-08-26"
+    against: "Re-checked every artifact claim against skellysync main: skelly_synchronize.py, system/paths_and_file_names.py, file_extensions.py, correlation_functions.py, core_processes/debugging/debug_plots.py and debug_output.py, audio_utilities.py, normalize_framerates.py, video_functions (ffmpeg_functions.py, deffcode_functions.py), utils/path_handling_utilities.py, gui/skelly_synchronize_gui.py, tests/test_all_files_created.py, and README.md"
+  - date: "2026-08-24"
+    against: "SkellySync source read directly (package code, README, the pyproject config, CI workflows)"
 draft: false
 ---
 

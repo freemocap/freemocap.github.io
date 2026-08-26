@@ -3,8 +3,11 @@ title: "Output format"
 type: reference
 sidebar_position: 7
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones
+history:
+  - date: "2026-08-26"
+    against: "skellylogs/log_format_string.py (LOG_FORMAT_STRING, COLOR_LOG_FORMAT_STRING) and logging_color_helpers.py (get_hashed_color) read directly, format string structure and hashed-color behavior both confirmed"
+  - date: "2026-08-24"
+    against: "SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones"
 draft: false
 ---
 

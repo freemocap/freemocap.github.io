@@ -2,8 +2,11 @@
 title: Contributing to FreeMoCap
 type: how-to
 provenance: human-checked
-reviewed: 2026-08-19
-reviewed_against: v1 (ported, not yet re-checked against v2)
+history:
+  - date: "2026-08-26"
+    against: "polyrepo-clones/freemocap (v2.0.0-alpha.21): .github/ISSUE_TEMPLATE/bug_report.md and feature_request.md filenames vs template= query params, CONTRIBUTING.md (GitHub Flow steps), test.yml workflow (pytest + ruff via GitHub Actions), freemocap-docs/ Docusaurus setup replacing the v1 Writerside claims, docs site link targets (/guides/report-a-bug, /guides/request-a-feature, /build/code-style), and Discord invite URL"
+  - date: "2026-08-19"
+    against: "v1 (ported, not yet re-checked against v2)"
 ---
 Welcome to the FreeMoCap contributing guide! 
 
@@ -68,8 +71,8 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 ## Contributing to Documentation
 
-Our documentation is written with [Writerside](https://www.jetbrains.com/writerside/), although it can be edited with any markdown and xml editors. We use the same Github Flow methodology for our documentation as we do for our code contributions. You can make changes to the documentation through pull requests at the [documentation repo](https://github.com/freemocap/documentation).
+The repository's own documentation lives in the `freemocap-docs/` directory of the [freemocap repo](https://github.com/freemocap/freemocap) and is written with [Docusaurus](https://docusaurus.io/). It can be edited with any markdown editor. We use the same Github Flow methodology for our documentation as we do for our code contributions. You can make changes to the documentation through pull requests against the freemocap repo.
 
 ## Getting Help  and Asking Questions
 
-If you encounter issues or have questions - ask for help on our Discord server or by creating a new issue on Github. We'll do our best to assist you and provide the information you need.
+If you encounter issues or have questions - ask for help on our [Discord server](https://discord.gg/freemocap) or by creating a new issue on Github. We'll do our best to assist you and provide the information you need.

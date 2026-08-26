@@ -3,8 +3,11 @@ title: Accuracy, validity, and limits
 type: explanation
 sidebar_position: 11
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "current polyrepo code: freemocap v2.0.0-alpha.21 detector defaults (camera_node_config.py sets detector_type='rtmpose'; backend-mocap.mdx states RTMPose is the default skeleton detector for realtime and posthoc) and skellytracker's built-in detector registry (mediapipe, rtmpose, yolox, aruco, charuco; no ViTPose anywhere in the clone); link targets (choose-a-tracker, capture-environment, glossary, data-model, cite-freemocap) all resolve. Dissertation-sourced numbers (Qualisys reference, ICC values, mm/degree errors, ViTPose scaling bias, 30 Hz collection, DeepLabCut case, CTSIB-M first) are not verifiable locally and were left as written"
+  - date: "2026-08-20"
+    against: "none"
 draft: false
 ---
 
@@ -83,7 +86,8 @@ detect real alignment changes."
 The three pose estimation backends have different failure modes, not just
 different accuracy levels:
 
-- **MediaPipe** (the default, runs without a GPU) applies temporal
+- **MediaPipe** (runs without a GPU; FreeMoCap's current V2 pipeline
+  defaults to RTMPose instead) applies temporal
   smoothing that introduces slight lag during fast movements, visible as
   speed-dependent deviations in gait kinematics, but that same smoothing
   is what made it the only backend sensitive enough for the balance study.
@@ -94,7 +98,9 @@ different accuracy levels:
   than the reference, concentrated in the vertical axis), plausibly a
   consequence of its vision-transformer architecture lacking the spatial
   assumptions built into MediaPipe's and RTMPose's CNN-based models,
-  though that explanation hasn't been confirmed.
+  though that explanation hasn't been confirmed. It is also not one of
+  SkellyTracker's built-in detectors (MediaPipe, RTMPose, YOLOX, ArUco,
+  and ChArUco), so running it today means integrating it yourself.
 
 None of these is strictly "more accurate" than the others. Which one to
 use depends on the task; see

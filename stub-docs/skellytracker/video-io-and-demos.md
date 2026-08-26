@@ -3,8 +3,11 @@ title: "Video IO, annotation, and demos"
 type: reference
 sidebar_position: 7
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "core/io/process_video.py (process_video, process_video_list, process_folder all confirmed to exist), core/annotation/keypoint_annotator.py (confirmed to exist), and __main__.py's argparse definitions (--list, --tracker, --camera, --rotate all confirmed exact)"
+  - date: "2026-08-24"
+    against: "SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone"
 draft: false
 ---
 

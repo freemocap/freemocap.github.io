@@ -3,8 +3,11 @@ title: Open your recording in Blender
 type: tutorial
 sidebar_position: 22
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: freemocap-docs architecture docs (v2.0.0-alpha.21, not yet re-checked against the running app)
+history:
+  - date: "2026-08-26"
+    against: "freemocap-ui BlenderSection.tsx, blender-thunks.ts, server-urls.ts, and api/http/blender/blender_router.py + core/blender/export_to_blender.py at v2.0.0-alpha.21: found the manual export button's real label and a real bug (blenderExport always omits the required detector argument, confirmed against the endpoint's own signature)"
+  - date: "2026-08-20"
+    against: "freemocap-docs architecture docs (v2.0.0-alpha.21, not yet re-checked against the running app)"
 draft: false
 ---
 
@@ -38,11 +41,20 @@ addon-install step to do yourself.
 
 ## Exporting
 
-From the recording you want to export, click **Export to Blender**.
-FreeMoCap detects your Blender install, runs the export, and writes a
-`.blend` file into that recording's folder. You can have it open
+From the recording you want to export, click **Process Recording with
+Blender**. FreeMoCap detects your Blender install, runs the export, and
+writes a `.blend` file into that recording's folder. You can have it open
 automatically in Blender's GUI when it's done, or open the `.blend` file
 yourself later.
+
+:::note Currently broken in the pinned version
+This specific manual export button (as opposed to the "Export to Blender
+after mocap processing" toggle that runs automatically during processing)
+calls an endpoint that's currently missing a required argument
+(`detector`) at `v2.0.0-alpha.21`, and fails with an error every time it's
+used. The automatic in-pipeline export path is unaffected. This is a real
+bug in the app, not something wrong with your setup.
+:::
 
 ## What actually ends up in the scene
 

@@ -3,8 +3,11 @@ title: "In-viewport analysis tools"
 type: reference
 sidebar_position: 6
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)
+history:
+    - date: "2026-08-26"
+      against: "Re-checked every claim against polyrepo-clones/freemocap_blender_addon @ main: Data View Settings panel label and scoping (blender_ui/sub_panels/visualizer_panel.py), the nine visibility toggles and their regex-driven scene graph patterns, motion path target enum and properties plus add/clear-one/clear-all operators, COM vertical projection colors, base of support z threshold/radius/color, joint angle properties, data overlay properties and SpaceView3D.draw_handler_add viewport rendering"
+    - date: "2026-08-24"
+      against: "freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)"
 draft: false
 ---
 

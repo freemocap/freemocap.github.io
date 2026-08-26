@@ -3,8 +3,11 @@ title: All repositories
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: "generated live from data/repos.yml, not hand-written"
+history:
+  - date: "2026-08-26"
+    against: "data/repos.yml's 9-repo list, tiers, routes, and GitHub URLs cross-checked against the 9 polyrepo clones; RepoDirectory, PolyrepoTree, and DataContractsTable components, the repos-data-plugin, and the stub/external docs-instance wiring in docusaurus.config.ts; the-map.md and data-contracts.md confirmed to leave out the utility tier"
+  - date: "2026-08-24"
+    against: "generated live from data/repos.yml, not hand-written"
 draft: false
 ---
 
@@ -21,7 +24,8 @@ are specifically about the data-flow pipeline, not the whole org.
 <RepoDirectory />
 
 A repo without a "docs" link here doesn't have its own documentation site
-plugged into this build yet; its GitHub link still works, and its stub page
-under `/developers` links out to the repository directly in the meantime.
+plugged into this build yet; its GitHub link still works, and its box on
+the developer docs homepage at `/developers` points at whatever page this
+build serves for that repo in the meantime.
 
 [← Architecture overview](/build/architecture)

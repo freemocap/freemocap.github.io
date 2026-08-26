@@ -3,8 +3,11 @@ title: "Architecture"
 type: reference
 sidebar_position: 2
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "tracker/tracker.py (process_image's exact signature including timestamp_ms: int | None = None, create(), close(), reset_temporal_state()) and sessions/onnx_session.py (SessionCreationError on explicit-unavailable provider, _ARENA_VRAM_FRACTION = 0.85, gc.collect() on close, provider order trt/cuda/coreml/cpu) all confirmed to match exactly"
+  - date: "2026-08-24"
+    against: "SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone"
 draft: false
 ---
 

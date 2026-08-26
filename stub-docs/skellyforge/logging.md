@@ -3,9 +3,12 @@ title: "Logging"
 type: reference
 sidebar_position: 6
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyForge source read directly (full package tree, the pyproject config, README, tracker_info YAMLs); integration points verified in the FreeMoCap clone
 draft: false
+history:
+  - date: "2026-08-26"
+    against: "SkellyForge main clone re-read end to end (__init__.py, system/logging_configuration/ including configure_logging.py, log_levels.py, logger_builder.py, handlers/, filters/, formatters/, package_log_quieters.py) plus pyproject.toml and README; no-skellylogs-dependency claim checked via full-clone search; multiprocessing-skip and serialization claims cross-checked against the skellylogs clone"
+  - date: "2026-08-24"
+    against: "SkellyForge source read directly (full package tree, the pyproject config, README, tracker_info YAMLs); integration points verified in the FreeMoCap clone"
 ---
 
 # Logging

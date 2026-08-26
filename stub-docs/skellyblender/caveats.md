@@ -3,8 +3,11 @@ title: "Caveats"
 type: reference
 sidebar_position: 11
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)
+history:
+  - date: "2026-08-26"
+    against: "freemocap_blender_addon/core_functions/export_3d_model/export_3d_model.py: confirmed glTF is commented out of the default formats list and its code path carries an explicit \"output appears broken\" TODO, matching the page's claim exactly; other bullets (keyboard shortcut mismatch, comment/constant lag) match CODE-BUGS-FOUND.md entries already independently confirmed"
+  - date: "2026-08-24"
+    against: "freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)"
 draft: false
 ---
 

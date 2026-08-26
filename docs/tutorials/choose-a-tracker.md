@@ -3,8 +3,11 @@ title: Choose a tracking model
 type: tutorial
 sidebar_position: 32
 provenance: ai-generated
-reviewed: 2026-08-20
-reviewed_against: none
+history:
+  - date: "2026-08-26"
+    against: "skellytracker/core/detectors/detector_base_classes.py (confirmed a real, current extensible detector interface exists) and skellyforge/pipelines/dlc_pipeline.py (confirmed dead code, broken imports, already tracked in CODE-BUGS-FOUND.md)"
+  - date: "2026-08-20"
+    against: "none"
 draft: false
 ---
 
@@ -46,13 +49,21 @@ version, by task:
 ## When the Built-In Options Aren't Enough
 
 If none of the standard backends track your subject reliably, SkellyTracker's
-standardized interface means a custom-trained model (DeepLabCut, for
-example) can be integrated without rewriting the rest of the pipeline.
-That's exactly what FreeMoCap's prosthetics validation case required:
-off-the-shelf models, trained mostly on able-bodied people, didn't
-generalize to a prosthetic limb, and a custom-trained model did. See
+standardized detector interface (`core/detectors/detector_base_classes.py`)
+means a custom-trained model can, in principle, be integrated without
+rewriting the rest of the pipeline. That's exactly what FreeMoCap's
+prosthetics validation case required: off-the-shelf models, trained mostly
+on able-bodied people, didn't generalize to a prosthetic limb, and a
+custom-trained model did. See
 [Image tracking and pose models](/concepts/tracking) for how that
 integration works.
+
+A concrete example worth knowing about before you go looking for one:
+SkellyForge's own DeepLabCut pipeline (`skellyforge/pipelines/
+dlc_pipeline.py`) is currently dead code, it imports a SkellyTracker
+module that no longer exists post-polyrepo-split. It's not a working
+reference implementation to copy, treat SkellyTracker's own base detector
+classes as the real starting point for a new custom integration instead.
 
 ## Next steps
 

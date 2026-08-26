@@ -3,9 +3,12 @@ title: See what you made
 type: tutorial
 sidebar_position: 4
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: this site's own find-your-data.md and blender.md
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "freemocap v2.0.0-alpha.21 polyrepo clone (system/default_paths.py, core/pipeline/posthoc/video_node.py, core/blender/export_to_blender.py, core/tasks/mocap/posthoc_mocap_task.py, core/tasks/mocap/mocap_task_config.py, freemocap-ui BlenderSection.tsx), plus site link targets"
+  - date: "2026-08-21"
+    against: "this site's own find-your-data.md and blender.md"
 ---
 
 # See what you made

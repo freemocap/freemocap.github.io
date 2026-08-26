@@ -3,7 +3,11 @@ title: About FreeMoCap
 type: explanation
 provenance: human-checked
 reviewed: 2026-08-19
-reviewed_against: v1 (ported, not yet re-checked against v2)
+history:
+  - date: "2026-08-25"
+    against: "re-checked against polyrepo-clones/freemocap (v2.0.0-alpha.21): output formats (skeleton_from_mediapipe_observations.py, recording_structure.py, export_to_blender.py), single-camera and imported-video paths (posthoc_mocap_task.py, project_single_camera.py, mocap_router.py, ImportVideosModal.tsx), Discord link in README.md"
+  - date: "2026-08-19"
+    against: "v1 (ported, not yet re-checked against v2)"
 ---
 
 **The Free Motion Capture Project (FreeMoCap) aims to provide research-grade markerless motion capture software to everyone for free.**
@@ -32,7 +36,7 @@ FreeMoCap (free motion capture) is a [free open source ](https://www.gnu.org/phi
 
 ## Features and Capabilities
 
-FreeMoCap features a complete GUI-based interface that can create high-quality kinematic data from single cameras, multiple cameras, or imported videos. It also produces data outputs in the form of numpy arrays, CSVs, a Blender output scene, and a preloaded Jupyter notebook that is set up for analyzing the data that was just produced. This is especially useful for classroom settings or immediate opportunities for exploratory data analysis the moment the data is done processing. The software is designed to work with minimal-cost, low-quality USB webcams, as well as asynchronous recording methods such as GoPros. Support for research-grade cameras like FLIR or IP cameras like White Matter is planned.
+FreeMoCap features a complete GUI-based interface that can create high-quality kinematic data from single cameras, multiple cameras, or imported videos. It also produces data outputs in the form of numpy arrays, CSVs, parquet files (the primary mocap data store), and a Blender output scene. The software is designed to work with minimal-cost, low-quality USB webcams. Externally recorded videos can also be imported and processed, provided they are synchronized (the import check requires all videos in a group to share the same frame count).
 
 ## Community Involvement and Support
 

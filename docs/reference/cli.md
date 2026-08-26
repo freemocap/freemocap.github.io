@@ -3,14 +3,17 @@ title: Command line interface
 type: reference
 sidebar_position: 17
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap source v2.0.0-alpha.21 (the pyproject config, __main__.py, server_constants.py, core/kinematics/segment_lengths.py, utilities/update_1_4_path_names.py, the Electron frontend's services)
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "Re-checked the freemocap v2.0.0-alpha.21 tree (pyproject.toml, __main__.py, api/server_constants.py, app/app.py, system/default_paths.py and package layout, core/kinematics/segment_lengths.py, utilities/update_1_4_path_names.py) plus the freemocap-ui Electron and renderer sources (python-server.ts, api.ts, useServerPanel.ts, server-urls.ts, README.md); corrected the sentinel fallback and port-consumption description"
+  - date: "2026-08-24"
+    against: "FreeMoCap source v2.0.0-alpha.21 (the pyproject config, __main__.py, server_constants.py, core/kinematics/segment_lengths.py, utilities/update_1_4_path_names.py, the Electron frontend's services)"
 ---
 
 # Command line interface
 
-FreeMoCap V2 ships exactly one installed command and one runnable diagnostic
+The `freemocap` package ships exactly one installed command and one runnable diagnostic
 module. There is no general-purpose argument parser: the main entry point takes
 no options at all, because the desktop (Electron) app is the intended
 user interface and the command exists to start the backend server.
@@ -44,10 +47,14 @@ What starting it does, in order:
 
 The sentinel line exists so the Electron shell can discover which port the
 Python server actually bound to. The Electron `PythonServer.start()` launches
-the executable as a subprocess, reads its stdout until a line beginning with
-`FREEMOCAP_PORT=` appears (timing out after 30 seconds), and uses that port for
-all subsequent HTTP and websocket traffic. If no sentinel arrives, the UI falls
-back to the same default, `53117`.
+the executable as a subprocess and reads its stdout until a line beginning with
+`FREEMOCAP_PORT=` appears, timing out after 30 seconds; if no sentinel arrives,
+starting the server fails with an error instead of falling back. Note that in
+the current code the discovered port is stored on the Electron side but never
+consumed: the renderer builds every HTTP and websocket URL from its own
+host/port settings, which default to the same `53117`. Because the backend
+always forces that preferred port, the sentinel effectively acts as a readiness
+signal today rather than as the source of the port.
 
 The relevant constants live in `freemocap/api/server_constants.py` and are not
 configurable:

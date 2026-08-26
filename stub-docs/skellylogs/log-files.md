@@ -3,8 +3,11 @@ title: "Log files"
 type: reference
 sidebar_position: 6
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones
+history:
+  - date: "2026-08-26"
+    against: "skellylogs/system/default_paths.py: get_log_file_path(), SKELLYLOGS_LOG_DIR_ENV_VAR, and the ~/skellylogs_data/logs/ default all confirmed to match exactly"
+  - date: "2026-08-24"
+    against: "SkellyLogs source and README read directly; consumer usage verified in FreeMoCap and SkellyCam clones"
 draft: false
 ---
 

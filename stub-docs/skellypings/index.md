@@ -3,8 +3,11 @@ title: SkellyPings
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyPings source read directly (client package, server, infra, maintainer scripts, pyprojects); consumer integration verified in FreeMoCap and SkellyCam clones including their CI workflows and lockfiles
+history:
+  - date: "2026-08-26"
+    against: "SkellyPings source on current main re-read (root pyproject.toml, server/pyproject.toml, skellypings/__init__.py, skellypings/telemetry_client.py, server/main.py, README.md, infra/); consumer git-dependency integration re-confirmed in freemocap and skellycam pyprojects and uv.locks; all seven Contents links confirmed to existing stub-docs/skellypings files"
+  - date: "2026-08-24"
+    against: "SkellyPings source read directly (client package, server, infra, maintainer scripts, pyprojects); consumer integration verified in FreeMoCap and SkellyCam clones including their CI workflows and lockfiles"
 draft: false
 ---
 

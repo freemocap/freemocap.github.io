@@ -3,9 +3,12 @@ title: Connect and configure cameras
 type: how-to
 sidebar_position: 11
 provenance: ai-generated
-reviewed: 2026-08-21
-reviewed_against: freemocap-docs guides/camera-setup.mdx (v2.0.0-alpha.21, not yet re-checked against the running app)
 draft: false
+history:
+  - date: "2026-08-25"
+    against: "freemocap-docs docs/guides/camera-setup.mdx plus live code: freemocap-ui camera config tree and calibration settings, skellycam camera_config.py and opencv_apply_config.py, skellytracker charuco_board_definition.py, freemocap shared/charuco"
+  - date: "2026-08-21"
+    against: "freemocap-docs guides/camera-setup.mdx (v2.0.0-alpha.21, not yet re-checked against the running app)"
 ---
 
 # Connect and configure cameras
@@ -51,32 +54,44 @@ Set through the Camera Config Tree in the sidebar:
 | Setting | Recommendation |
 |---|---|
 | Resolution | 720p is a good balance of quality and bandwidth |
-| Framerate | 30 FPS minimum, 60 FPS for fast movement |
 | Exposure | Manual, fixed |
-| Focus | Manual, fixed on the capture volume |
-| White balance | Manual, fixed |
 
-Fixed exposure and focus matter more than they might seem to. If
-auto-exposure changes mid-recording, the detected feature positions
-shift with the brightness change, and your
-[calibration](/concepts/calibration) can drift as a result. This is a
-common, non-obvious cause of a calibration that looked fine and then
-didn't.
+Two settings you may see recommended elsewhere are not currently in the
+app. Framerate has no control in the config panel, and SkellyCam leaves
+it at the camera's own default (applying a configured framerate is
+disabled in its capture code), so choose cameras that hold the rate you
+need rather than trying to set it here. Focus and white balance have no
+controls either, so if your camera supports locking them, do it through
+the camera's own driver or on-device menu before recording.
+
+Fixed exposure matters more than it might seem to. If auto-exposure
+changes mid-recording, the detected feature positions shift with the
+brightness change, and your [calibration](/concepts/calibration) can
+drift as a result. This is a common, non-obvious cause of a calibration
+that looked fine and then didn't. One caveat: on Linux, SkellyCam
+currently forces auto-exposure regardless of the mode you pick (because
+of a cross-platform mismatch in exposure units), so the manual setting
+is ignored there.
 
 ## Synchronization
 
-Cameras aren't hardware-genlocked, FreeMoCap synchronizes them in
-software by aligning frame timestamps after the fact. For the most
-reliable sync: use cameras that hold a consistent framerate (not
-variable frame rate), and keep individual recording sessions under about
-30 minutes to limit how much drift can accumulate.
+Cameras aren't hardware-genlocked, synchronization is done in software.
+SkellyCam's orchestrator runs a two-phase grab/retrieve cycle, where all
+cameras latch each frame before any of them decodes it, so every camera
+produces the same number of frames across a recording, and each frame
+gets a high-resolution timestamp that's saved with the recording for
+posthoc analysis. For the most reliable sync: use cameras that hold a
+consistent framerate (not variable frame rate), and keep individual
+recording sessions under about 30 minutes to limit how much drift can
+accumulate.
 
 ## Calibration board
 
 Calibration uses a printed [ChArUco board](/concepts/calibration). Print
-it on something rigid so it stays flat, board files are in the
-software's repository. The board's physical dimensions need to match
-whatever's configured in the calibration settings.
+it on something rigid so it stays flat, printable board files ship in
+`shared/charuco/` in the freemocap repository. The board's physical
+dimensions need to match whatever's configured in the calibration
+settings (board preset and square length, in millimeters).
 
 ## Next steps
 

@@ -3,8 +3,11 @@ title: "Built-in detectors"
 type: reference
 sidebar_position: 4
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone
+history:
+  - date: "2026-08-26"
+    against: "yolox_person_detector.py (score_threshold=0.7, nms_threshold=0.45, max_detections=1, all exact) and rtmpose_wholebody_detector.py (confidence_threshold=0.004, exact). This page's own body/right-hand/left-hand/face permutation claim is the missing precision on the already-tracked RTMPose ordering bug in CODE-BUGS-FOUND.md: SkellyTracker does permute from native COCO-wholebody order to this schema order, it's specifically that post-permutation order skellyforge's YAML fails to account for, not a raw pass-through"
+  - date: "2026-08-24"
+    against: "SkellyTracker source read directly (core package, README, CLAUDE.md, the pyproject config); FreeMoCap integration verified against FreeMoCap/core/tracking and FreeMoCap/core/pipeline in the FreeMoCap clone"
 draft: false
 ---
 

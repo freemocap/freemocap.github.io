@@ -3,23 +3,40 @@ title: Building and packaging
 type: how-to
 sidebar_position: 11
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap-docs/docs/development/building.mdx, cross-checked against FreeMoCap/__init__.py, the frontend's package.json, FreeMoCap.spec, and .github/workflows/ in the FreeMoCap clone (v2.0.0-alpha.21)
+history:
+  - date: "2026-08-26"
+    against: "freemocap.spec, freemocap/__init__.py, pyproject.toml ([tool.bumpver] and project scripts/extras), freemocap-ui/package.json, freemocap-ui/electron-builder.json, freemocap-ui/src/i18n/i18n.ts (locale count), and all four .github/workflows/*.yml trigger definitions in the v2.0.0-alpha.21 clone; runtime model cache paths checked in the skellytracker clone"
+  - date: "2026-08-24"
+    against: "FreeMoCap-docs/docs/development/building.mdx, cross-checked against FreeMoCap/__init__.py, the frontend's package.json, FreeMoCap.spec, and .github/workflows/ in the FreeMoCap clone (v2.0.0-alpha.21)"
 draft: false
 ---
 
 # Building and packaging
 
-FreeMoCap ships as an Electron desktop app with a bundled, frozen Python
-backend, not a Python package you `pip install` and a separate frontend you
-run independently. A release looks like:
+FreeMoCap ships to users as an Electron desktop app with a bundled, frozen
+Python backend. The repository is also set up as an installable Python
+package (its `pyproject.toml` defines a `freemocap` console script and
+`cuda`/`cpu` extras for pip users), but the user-facing release artifacts
+are these installers:
 
 ```
-freemocap-setup.exe (or .dmg / .AppImage)
-├── freemocap-ui/          Electron + React frontend
-├── freemocap_server.exe   PyInstaller-frozen Python backend
-└── resources/             ONNX models, ChArUco boards, other assets
+FreeMoCap_2.0.0-alpha.21_x64_installer.exe
+│   (NSIS on Windows; .dmg and .zip on Apple Silicon macOS,
+│    .AppImage and .deb on Linux)
+├── FreeMoCap(.exe)     Electron launcher
+└── resources/
+    ├── app.asar        Electron + React frontend (dist/, dist-electron/)
+    └── app.asar.unpacked/
+        ├── freemocap_server/   PyInstaller onedir bundle: the
+        │                       freemocap_server(.exe) launcher beside its
+        │                       _internal/ tree of DLLs and data files
+        └── freemocap-logo.png
 ```
+
+Model weights are not in the installer. RTMPose and YOLOX ONNX models and
+MediaPipe `.task` files are downloaded at first use and cached under the home
+directory (`~/.cache/skellytracker/models` and
+`~/.freemocap/skellytracker-models`, respectively).
 
 ## PyInstaller for the backend
 
@@ -34,10 +51,18 @@ The entry point is `freemocap/__main__.py`; the bundle carries OpenCV, SciPy,
 pandas, MediaPipe, ONNX Runtime (both GPU and CPU execution providers), the
 NVIDIA CUDA libraries it needs, and the other Skelly packages (SkellyCam,
 SkellyTracker, SkellyForge) as real dependencies rather than expecting them
-preinstalled. Development-only tooling (pytest, tkinter, IPython) and unused
-packages (numba, scikit-learn, MediaPipe's own dev tools) are explicitly
-excluded to keep the bundle smaller. Output is `freemocap_server.exe` on
-Windows, with equivalent unsuffixed binaries on macOS and Linux.
+preinstalled. CUDA collection is gated on `FREEMOCAP_BUILD_VARIANT=cuda`
+(the default); CPU-variant builds skip the NVIDIA packages entirely.
+Development-only tooling (pytest, tkinter, IPython) and unused packages
+(numba, scikit-learn, MediaPipe's own dev tools) are explicitly excluded to
+keep the bundle smaller. Output is a onedir bundle named `freemocap_server`
+(`freemocap_server.exe` on Windows, equivalent unsuffixed launchers on macOS
+and Linux): a launcher executable beside an `_internal/` tree of DLLs and
+data files, not a single self-contained file. The spec also adds
+`run_blender_export.py` and the `freemocap_blender_addon` package source to
+the bundle as loose data files, because Blender executes them with its own
+Python interpreter, which cannot load them from PyInstaller's embedded
+archive.
 
 ## Electron Builder for the frontend
 
@@ -62,18 +87,20 @@ Build and deploy workflows live in `.github/workflows/`:
 
 | Workflow | Purpose |
 |---|---|
-| `build-installers-pyinstaller.yml` | Builds platform-specific installers on push to `main` |
-| `deploy-docs.yml` | Builds and deploys this documentation site to GitHub Pages |
-| `test.yml` | Runs backend and frontend tests on pull requests |
-| `test-bucket.yml` | An additional test workflow, not covered elsewhere in these docs; check its own definition for scope |
+| `build-installers-pyinstaller.yml` | Builds the platform-specific installers (CPU and CUDA variants) on pushes to `development` and on `v*` tags, then assembles a draft GitHub Release on tag pushes |
+| `deploy-docs.yml` | Builds and deploys the repository's own docs site (`freemocap-docs/`) to GitHub Pages, not the freemocap.github.io site this page belongs to |
+| `test.yml` | Backend tests and a frontend typecheck on pull requests to `main` and `development` |
+| `test-bucket.yml` | Manual smoke test that uploads a file to the Cloudflare R2 release bucket |
 
 ## Versioning
 
-Both halves currently report the same version, confirmed directly rather
-than from a docs snapshot: `v2.0.0-alpha.21` in `freemocap/__init__.py` (
-backend, managed by `bumpver`) and `2.0.0-alpha.21` in
-`freemocap-ui/package.json` (frontend). The two are bumped independently, so
-they can and do drift apart between releases; don't assume they'll always
-match. `electron-updater` handles auto-updates for installed releases.
+Both halves currently report the same version: `v2.0.0-alpha.21` in
+`freemocap/__init__.py` (backend) and `2.0.0-alpha.21` in
+`freemocap-ui/package.json` (frontend). There is one canonical version
+string, `current_version` under `[tool.bumpver]` in `pyproject.toml`, and a
+bump (e.g. `uv run poe bump-alpha`) rewrites the Python and Electron version
+strings together in a single commit and tag, so the two move in lockstep
+across releases; they can only diverge if someone edits one of the files by
+hand. `electron-updater` handles auto-updates for installed releases.
 
 [← Architecture overview](/build/architecture)

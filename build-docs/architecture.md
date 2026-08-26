@@ -3,8 +3,11 @@ title: Architecture overview
 type: explanation
 sidebar_position: 2
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap source (FreeMoCap, SkellyCam, SkellyTracker clones, main branch, read directly) and FreeMoCap-docs/docs/architecture/overview.mdx + backend-overview.mdx
+history:
+  - date: "2026-08-26"
+    against: "FreeMoCap source at pinned tag v2.0.0-alpha.21: app/app.py, app/freemocap_application.py, api/routers.py, api/server_constants.py, api/websocket/websocket_server.py, __main__.py, core/pipeline/, core/tracking/, core/blender/export_to_blender.py, pyproject.toml, freemocap-ui/src/constants/server-urls.ts, freemocap-ui/electron/main/api.ts; skellytracker Tracker API cross-checked; consolidated against freemocap-docs/docs/architecture/overview.mdx and backend-overview.mdx"
+  - date: "2026-08-24"
+    against: "FreeMoCap source (FreeMoCap, SkellyCam, SkellyTracker clones, main branch, read directly) and FreeMoCap-docs/docs/architecture/overview.mdx + backend-overview.mdx"
 draft: false
 ---
 
@@ -35,9 +38,12 @@ Each of those sibling projects has its own documentation site:
 Other organization repos show up as smaller dependencies rather than
 architectural pillars. The backend imports `skellyforge` (skeleton model
 definitions, filtering and interpolation used during mocap processing),
-installs `freemocap_blender_addon` into Blender for export, and sends
-anonymous usage telemetry through `skellypings`. SkellySync has no imports in
-the FreeMoCap backend today.
+streams logs through `skellylogs`, and sends anonymous usage telemetry through
+`skellypings`. Blender export runs `freemocap_blender_addon` inside a headless
+Blender subprocess, loading the addon straight from the backend's Python
+environment, so installing it into Blender itself is optional (and the addon
+currently supports MediaPipe-processed recordings only). SkellySync has no
+imports in the FreeMoCap backend today.
 
 ```mermaid
 graph TD

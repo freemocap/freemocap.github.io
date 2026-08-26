@@ -3,8 +3,11 @@ title: SkellySync
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellySync source read directly (package code, README, the pyproject config, CI workflows)
+history:
+  - date: "2026-08-26"
+    against: "skelly_synchronize.py's two entry-point signatures and pyproject.toml, re-confirmed directly; no other polyrepo repo's pyproject/package.json references skellysync"
+  - date: "2026-08-24"
+    against: "SkellySync source read directly (package code, README, the pyproject config, CI workflows)"
 draft: false
 ---
 

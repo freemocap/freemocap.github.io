@@ -3,8 +3,11 @@ title: Roadmap
 type: explanation
 sidebar_position: 10
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap org project boards 32 and 34, counts snapshotted 2026-08-24 as provided; the FreeMoCap, SkellyCam, and SkellyTracker doc sources, and the SkellyDocs source, read for how roadmap pages work
+history:
+  - date: "2026-08-25"
+    against: "polyrepo-clones: board pointers in skellytracker-docs and freemocap-docs content.config.tsx and skellycam community.mdx (projects/32 and 34, plus the unresolved TODO(verify) comment), skellydocs RoadmapPage/RoadmapContent and collectLinkedUrls fetch behavior, freemocap-ui and skellycam-ui EXTERNAL_URLS roadmap links, repo-name search for SkellyViewer/SkellyCalibrate/SkellyMetrics; live board counts and the freemocap_foundation notes file are not locally clonable"
+  - date: "2026-08-24"
+    against: "FreeMoCap org project boards 32 and 34, counts snapshotted 2026-08-24 as provided; the FreeMoCap, SkellyCam, and SkellyTracker doc sources, and the SkellyDocs source, read for how roadmap pages work"
 draft: false
 ---
 
@@ -35,10 +38,11 @@ is the second org-level board. The SkellyCam documentation describes it as the
 main roadmap for the FreeMoCap project and all its sub-projects, and the
 FreeMoCap docs site uses it as its project board link.
 
-Each sub-project's own docs site also generates a roadmap-style page from that
-repository's GitHub issues labeled `roadmap`, plus issues pinned through the
-site's feature cards, with a link out to the relevant board. The desktop app
-links to a roadmap page under `docs.freemocap.org` as well.
+Each sub-project's own docs site also generates a roadmap-style page from items
+in that repository carrying the `roadmap` label (both issues and pull requests
+are fetched), plus issues linked from the site's feature and guarantee cards,
+with a link out to the relevant board. The desktop apps link to roadmap pages
+under `docs.freemocap.org` as well.
 
 ## A snapshot, already stale
 
@@ -63,7 +67,7 @@ FreeMoCap Planning & Operations ([view](https://github.com/orgs/freemocap/projec
 | ----------- | ----- |
 | Backlog     | 26    |
 | TODO        | 4     |
-| In Progress | 8     |
+| In Progress | 8    |
 | Blocked     | 1     |
 | Done        | 25    |
 

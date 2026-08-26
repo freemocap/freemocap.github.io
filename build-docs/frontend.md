@@ -3,8 +3,11 @@ title: Frontend architecture
 type: explanation
 sidebar_position: 6
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: FreeMoCap-docs/docs/architecture/frontend-component-architecture.mdx, frontend-state-management.mdx, frontend-styling-system.mdx, frontend-backend-communication.mdx, cross-checked against the frontend's src/store/store.ts and src/store/slices/ in the FreeMoCap clone (v2.0.0-alpha.21)
+history:
+  - date: "2026-08-26"
+    against: "re-checked against freemocap-ui source at v2.0.0-alpha.21: src/store/store.ts slice list, src/store/persistence-listener.ts and camera-config-listener.ts debounces, src/services/server/ServerContextProvider.tsx and server-context.ts subscription API, BasePanelLayout.tsx and BaseContentRouter.tsx, src/styles/App.css and color.css, i18n/locales and assets/icons counts"
+  - date: "2026-08-24"
+    against: "FreeMoCap-docs/docs/architecture/frontend-component-architecture.mdx, frontend-state-management.mdx, frontend-styling-system.mdx, frontend-backend-communication.mdx, cross-checked against the frontend's src/store/store.ts and src/store/slices/ in the FreeMoCap clone (v2.0.0-alpha.21)"
 draft: false
 ---
 
@@ -44,13 +47,14 @@ causes real bugs, not just style complaints:
 |---|---|---|
 | Redux | config that survives navigation, anything persisted to `localStorage`, state several unrelated components read | Triggers re-renders app-wide; fine for state that changes occasionally |
 | React Context | State shared by one subtree (playback, auto-update) | Avoids prop drilling without going global |
-| `useRef` | Data that changes at frame rate: camera frames, keypoints, rigid body poses, overlay data | Refs don't trigger re-renders; putting 60fps data in Redux would re-render every subscribed component 60 times a second |
+| `useRef` | Data that changes at frame rate: camera frames, keypoints, skeleton frames, overlay data | Refs don't trigger re-renders; putting 60fps data in Redux would re-render every subscribed component 60 times a second |
 
 `ServerContextProvider` is where this rule matters most: streaming data lives
 in refs and reaches consumers through a subscription pattern
-(`subscribeToKeypointsRaw`, `subscribeToKeypointsFiltered`,
-`subscribeToRigidBodies`) rather than Redux dispatch, so the Three.js scene
-can update every frame without React re-rendering anything.
+(`subscribeToKeypoints`, `subscribeToSkeleton`, `subscribeToCenterOfMass`,
+`subscribeToXcom`, `subscribeToBodyKinematics`) rather than Redux dispatch,
+so the Three.js scene can update every frame without React re-rendering
+anything.
 
 ### Redux store
 
@@ -67,16 +71,17 @@ docs at all. It holds `isConnected`, `serverPid`, `cameraGroups`, and
 `realtimePipelines`, populated from an `AppStateMessage` described in its own
 source comments as an "authoritative server-state snapshot, pushed on
 connect and on change," which the `cameras` and `realtime` slices also
-listen for to reconcile their own state. Whether this fully replaces or
-complements the plain `ServerContext.isConnected` boolean the architecture
-docs describe was not confirmed here; worth checking before relying on either
-in new code.
+listen for to reconcile their own state. This complements rather than
+replaces the plain `ServerContext.isConnected` boolean the architecture docs
+describe: `ServerContextProvider` keeps that boolean in React state and also
+mirrors every websocket state change into the slice via `wsConnectionChanged`,
+so both track the same connection.
 
 Two listener middlewares run on every dispatch: one debounced persistence
-layer (300 ms) that writes a selected subset of state to `localStorage`
+layer (300 ms) that writes a selected subset of state to `localStorage`
 (recording config, calibration config, mocap config, Blender settings, the
 active recording's identity, not camera state or anything ephemeral), and
-one debounced auto-apply layer (350 ms) that pushes camera config changes to
+one debounced auto-apply layer (350 ms) that pushes camera config changes to
 the backend automatically when they change.
 
 ## Styling: hand-rolled utility classes, not a framework

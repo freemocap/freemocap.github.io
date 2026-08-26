@@ -3,8 +3,11 @@ title: "How synchronization works"
 type: reference
 sidebar_position: 4
 provenance: ai-generated
-reviewed: 2026-08-24
-reviewed_against: SkellySync source read directly (package code, README, the pyproject config, CI workflows)
+history:
+  - date: "2026-08-26"
+    against: "Re-read SkellySync main: skelly_synchronize.py, correlation_functions.py, audio_utilities.py, video_functions/video_utilities.py, video_functions/ffmpeg_functions.py, normalize_framerates.py, utils/get_video_files.py, system/paths_and_file_names.py"
+  - date: "2026-08-24"
+    against: "SkellySync source read directly (package code, README, the pyproject config, CI workflows)"
 draft: false
 ---
 
@@ -25,6 +28,6 @@ draft: false
 1. Same collection step; normalize framerates only if they differ.
 2. For each video, compute the mean grayscale value of every frame (`find_brightness_across_frames`, cached beside the video as `<stem>_brightness.npy`).
 3. Take the first and second differences of that array; their product is a combined "how sudden and how large" metric, and the first frame where it crosses `brightness_ratio_threshold` is that video's sync point. If nothing crosses the threshold, the code falls back to the frame with the fastest detected change.
-4. Lags (frame index divided by fps) feed the same normalize-trim-write pipeline as preceding. There is no audio handling in this mode.
+4. Lags (frame index divided by fps) are passed to the trim step unnormalized, unlike the audio path, so each video is simply cut from its own sync-point frame onward. There is no audio handling in this mode.
 
-In both modes a post-trim frame-count check logs whether all synchronized videos came out the same length.
+In both modes a post-trim frame-count check requires all synchronized videos to come out the same length: the common count is logged, and unequal frame counts raise an exception instead.
