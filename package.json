@@ -2,6 +2,7 @@
   "name": "freemocap-docs-site",
   "version": "0.0.0",
   "private": true,
+  "license": "AGPL-3.0-or-later",
   "description": "FreeMoCap documentation. The aggregator site served at docs.freemocap.org.",
   "scripts": {
     "fetch": "node scripts/fetch-external-docs.mjs",
