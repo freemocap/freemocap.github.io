@@ -3,8 +3,7 @@
 The aggregator site served at [docs.freemocap.org](https://docs.freemocap.org).
 
 One Docusaurus site composed from several sources, so the whole map shares one
-shell, one search index, and one version switcher. Built against the plan in
-`v2-docs-sitemap.md`.
+shell, one search index, and one version switcher.
 
 ## Quick start
 
@@ -23,7 +22,7 @@ Four content sources, mounted as separate Docusaurus docs instances:
 
 | Route | Folder | Versioned | Owner |
 |---|---|---|---|
-| `/` | `docs/` | yes | this repo. Start, tutorials, guides, reference, community |
+| `/` | `docs/` | yes | this repo. Start, tutorials, guides, reference, about |
 | `/concepts/` | `concepts/` | **no** | this repo |
 | `/build/` | `build-docs/` | yes | this repo, for now (see below) |
 | `/skellycam/` | `external/skellycam/docs` | independently | `freemocap/skellycam` |
@@ -43,9 +42,10 @@ directory, the data contracts table, and the "where it sits" panel on each
 repo's docs home. Do not hand-write any of those; change this file.
 
 `docs_path: null` means the repo has no docs site yet. Today that is
-SkellyTracker, SkellyForge, SkellyBlender, and all three utilities. The fetch
-script skips them and says so; the build does not care. Adding SkellyForge docs
-later is a one-line change here.
+SkellyTracker, SkellyForge, SkellyBlender, and all four utilities (SkellyLogs,
+SkellyPings, SkellyDocs, SkellySync). The fetch script skips them and says so;
+the build does not care. Adding SkellyForge docs later is a one-line change
+here.
 
 `ref` pins a git tag. The site builds against pins, not `main`, so a sub-repo
 merging a broken doc cannot break the docs site.
@@ -102,13 +102,18 @@ CI runs it non-blocking. Raise `fail_on_error` to `true` once the corpus is clea
 
 ## Deploy
 
-`.github/workflows/deploy.yml` builds and rsyncs to the VPS, into a timestamped
-release directory with a symlink flip, keeping the last five. A failed transfer
-never leaves the live site half-written and rolling back is re-pointing the
-symlink.
+Every push and pull request runs the `build` job in
+`.github/workflows/deploy.yml`: fetch external docs, lint prose, build.
+Nothing ships anywhere as a result of that alone.
 
-Required secrets: `DOCS_VPS_HOST`, `DOCS_VPS_USER`, `DOCS_VPS_ROOT`,
-`DOCS_VPS_SSH_KEY`.
+Publishing is a separate, manual step: trigger `workflow_dispatch` on that
+same workflow from the Actions tab ("Run workflow"). The `deploy` job then
+downloads the `build` job's artifact and pushes it to docs.freemocap.org via
+`SamKirkland/FTP-Deploy-Action`, using a dedicated FTP account scoped to that
+subdomain's own document root. Merging a PR never triggers a deploy by
+itself.
+
+Required repository secrets: `DOCS_FTP_USERNAME`, `DOCS_FTP_PASSWORD`.
 
 `onBrokenLinks` is set to `throw`. Do not downgrade it. It is the mechanical
 enforcement of the no-dead-ends principle, and it is what caught the SkellyCam
@@ -123,16 +128,19 @@ is safe to re-run when new pages join the sitemap.
 
 ## Known issues and things a human has to decide
 
-1. **`/guides/` is a stub list** until the Discord `#help-requests` export lands.
-   The how-to library should be derived from questions people actually ask.
+1. **V2's data model is still stabilizing during alpha.** `reference/
+   data-arrays.md`, `reference/recording-structure.md`,
+   `tutorials/find-your-data.md`, `tutorials/analyze-in-python.md`, and all of
+   `/build/` carry an in-flux banner (`inFlux` frontmatter field) rather than
+   being held back: real content today, expected to change before beta.
 
-2. **Which trajectory is canonical**, `3d_xyz` or `rigid_3d_xyz`. The code
-   produces both. The docs have to tell people which to cite, and that is a
-   project decision.
+2. **Curriculum tier reconciliation.** The tutorial tiers (1/2/3) and Skelly
+   University's own module numbering (1000/2000/3000) don't map cleanly onto
+   each other yet. Known, deliberately unresolved.
 
 3. **SkellyCam's docs use site-absolute `/docs/…` links** that only resolve on
-   its standalone site. `fetch-external-docs.mjs` rewrites 24 of them on fetch
-   and logs the count. That bridges it; the durable fix is relative links in the
+   its standalone site. `fetch-external-docs.mjs` rewrites them on fetch and
+   logs the count. That bridges it; the durable fix is relative links in the
    sub-repo. Any repo joining the aggregate will have the same problem.
 
 4. **`/build/` currently lives in this repo.** The core repo's 34 pages in
@@ -141,18 +149,17 @@ is safe to re-run when new pages join the sitemap.
    developer arm, set `docs_path` for `freemocap` in `repos.yml` and delete
    `build-docs/`.
 
-There is no `/download` page on this site and there should not be one: the
-real download page (OS/GPU detection, release selector) lives at
-`freemocap.org/download`. The navbar's Download item links there directly.
+5. **The legacy ground-plane calibration videos aren't in this repo.**
+   `docs/tutorials/ground-plane.md` links to two `<video>` tags pointing at
+   `static/img/v1/*.mp4` (about 24MB), sourced from the legacy docs repo at
+   `freemocap/documentation` under
+   `docs/Writerside/images/assets/images/calibration/`. Either copy them into
+   `static/img/v1/` or move them to a CDN and update those two tags; committing
+   24MB of video into a docs repo is worth avoiding if there's an easy
+   alternative.
 
-`/reference/coordinate-conventions` and `/concepts/coordinate-systems` were the other blocked
-pages; both are now written (millimetres, right-handed, +Z up after ground-plane calibration).
-
-## A note on the handoff archive
-
-`static/img/v1/*.mp4` (24MB of ground-plane calibration video) is excluded from
-the handoff archive to keep it transferable. The files are in the legacy docs
-repo at `freemocap/documentation` under `docs/Writerside/images/assets/images/calibration/`.
-Copy them into `static/img/v1/` before deploying, or move them to a CDN and
-update the two `<video>` tags in `docs/tutorials/ground-plane.md`. Committing
-24MB of video into a docs repo is worth avoiding if there is an easy alternative.
+There is no `docs.freemocap.org/download`, and there should never be one: the
+real download page (OS/GPU detection, release selector) lives on the main
+site, at `freemocap.org/download` (which itself redirects, 301, to
+`freemocap.org/download.html`). This site's navbar Download item links
+directly to `freemocap.org/download`, never to a page on this domain.
