@@ -3,6 +3,7 @@ title: Frontend architecture
 type: explanation
 sidebar_position: 6
 provenance: ai-generated
+inFlux: "This frontend architecture page is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
 history:
   - date: "2026-08-26"
     against: "re-checked against freemocap-ui source at v2.0.0-alpha.21: src/store/store.ts slice list, src/store/persistence-listener.ts and camera-config-listener.ts debounces, src/services/server/ServerContextProvider.tsx and server-context.ts subscription API, BasePanelLayout.tsx and BaseContentRouter.tsx, src/styles/App.css and color.css, i18n/locales and assets/icons counts"

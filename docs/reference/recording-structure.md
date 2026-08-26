@@ -3,6 +3,7 @@ title: Recording folder structure
 type: reference
 sidebar_position: 10
 provenance: ai-generated
+inFlux: "V2's output data model is still being finalized during alpha; the folder and file layout on this page is expected to change before the stable release."
 draft: false
 history:
   - date: "2026-08-25"

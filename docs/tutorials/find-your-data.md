@@ -3,6 +3,7 @@ title: Find and read your output
 type: tutorial
 sidebar_position: 21
 provenance: ai-generated
+inFlux: "V2's output data model is still being finalized during alpha; where and how your data is laid out is expected to change before the stable release."
 draft: false
 history:
   - date: "2026-08-26"

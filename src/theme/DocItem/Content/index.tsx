@@ -3,6 +3,7 @@ import { useDoc } from '@docusaurus/plugin-content-docs/client';
 import ProvenanceBanner, {
   type HistoryEntry,
 } from '@site/src/components/ProvenanceBanner';
+import InFluxBanner from '@site/src/components/InFluxBanner';
 import Content from '@theme-original/DocItem/Content';
 import type ContentType from '@theme/DocItem/Content';
 import type { WrapperProps } from '@docusaurus/types';
@@ -45,9 +46,11 @@ export default function ContentWrapper(props: Props): ReactNode {
   const { frontMatter } = useDoc();
   const fm = frontMatter as Record<string, unknown>;
   const provenance = fm.provenance;
+  const inFlux = fm.inFlux;
 
   return (
     <>
+      {typeof inFlux === 'string' && <InFluxBanner note={inFlux} />}
       {typeof provenance === 'string' && (
         <ProvenanceBanner provenance={provenance} history={readHistory(fm)} />
       )}

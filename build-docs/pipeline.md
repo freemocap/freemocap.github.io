@@ -3,6 +3,7 @@ title: Follow one recording end to end
 type: explanation
 sidebar_position: 4
 provenance: ai-generated
+inFlux: "This pipeline walkthrough is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
 draft: false
 history:
   - date: "2026-08-26"

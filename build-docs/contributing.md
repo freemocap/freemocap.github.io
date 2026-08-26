@@ -2,6 +2,7 @@
 title: Contributing to FreeMoCap
 type: how-to
 provenance: human-checked
+inFlux: "This contributing guide is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
 history:
   - date: "2026-08-26"
     against: "polyrepo-clones/freemocap (v2.0.0-alpha.21): .github/ISSUE_TEMPLATE/bug_report.md and feature_request.md filenames vs template= query params, CONTRIBUTING.md (GitHub Flow steps), test.yml workflow (pytest + ruff via GitHub Actions), freemocap-docs/ Docusaurus setup replacing the v1 Writerside claims, docs site link targets (/guides/report-a-bug, /guides/request-a-feature, /build/code-style), and Discord invite URL"

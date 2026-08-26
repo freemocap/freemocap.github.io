@@ -2,6 +2,7 @@
 title: Contributing to the docs
 type: how-to
 provenance: human-checked
+inFlux: "This page is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
 history:
   - date: "2026-08-26"
     against: "polyrepo-clones/freemocap (v2.0.0-alpha.21): freemocap-docs/ Docusaurus v3 site (package.json scripts, docusaurus.config.ts), .github/workflows/deploy-docs.yml triggers and paths, CONTRIBUTING.md GitHub Flow and PR steps, the single legacy Writerside mention left in README.md, and data/redirects.js mapping the old /documentation/*.html URLs to their live equivalents"

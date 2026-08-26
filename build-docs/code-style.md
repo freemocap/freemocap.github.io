@@ -2,6 +2,7 @@
 title: Python code style
 type: reference
 provenance: human-checked
+inFlux: "This code style page is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
 history:
   - date: "2026-08-26"
     against: "freemocap v2.0.0-alpha.21: .pre-commit-config.yaml (black 22.6.0 hook), .flake8, CONTRIBUTING.md, pyproject.toml/poe_tasks.toml (ruff, pytest), CI workflow, and source spot-checks for docstring/type-hint/naming conventions"

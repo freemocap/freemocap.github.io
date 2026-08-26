@@ -3,6 +3,7 @@ title: Data contracts between components
 type: reference
 sidebar_position: 5
 provenance: ai-generated
+inFlux: "This data contracts table is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
 history:
   - date: "2026-08-26"
     against: "data/repos.yml consumes/produces fields cross-checked against source: freemocap core/tasks/mocap/posthoc_mocap_task.py, core/blender/export_to_blender.py, pubsub/pubsub_topics.py, core/pipeline/realtime/realtime_aggregator_node.py, system/telemetry/telemetry.py; skellytracker core/data_primitives/observation.py; skellycam core/ipc/shared_memory/camera_shared_memory_ring_buffer.py; skellyforge package layout; freemocap_blender_addon freemocap_data_handler loader and saver; DataContractsTable component and repos-data-plugin"

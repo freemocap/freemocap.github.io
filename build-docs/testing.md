@@ -2,6 +2,7 @@
 title: Testing
 type: how-to
 provenance: human-checked
+inFlux: "This testing page is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
 history:
   - date: "2026-08-26"
     against: "freemocap v2.0.0-alpha.21: freemocap-ui/electron/main/services/menu-builder.ts and src/hooks/useMenuActions.ts (Data > Load Test Data action, freemocap_test_data recording name, 7x5/58mm board config), freemocap/tests/pipelines/conftest.py (test recording contents, canonical path, auto-download URL and cache), MocapPanel.tsx, BlenderSection.tsx and RecordingBrowser.tsx/ImportVideosModal.tsx (current button labels, posthoc stage toggles, MediaPipe-only Blender export)"

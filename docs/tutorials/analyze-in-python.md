@@ -3,6 +3,7 @@ title: Analyze your data in Python
 type: tutorial
 sidebar_position: 40
 provenance: ai-generated
+inFlux: "V2's output data model is still being finalized during alpha; the column names and array shapes this page describes are expected to change before the stable release."
 history:
   - date: "2026-08-26"
     against: "skellyforge/skellymodels/models/trajectory.py (as_array, as_dataframe docstrings) and managers/actor.py (create_summary_dataframe, save_out_numpy_data), confirming parquet columns, .npy shape, and the mediapipe_body_3d_xyz example filename all match current source verbatim"

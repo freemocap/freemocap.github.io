@@ -3,6 +3,7 @@ title: The FreeMoCap output data model
 type: explanation
 sidebar_position: 10
 provenance: ai-generated
+inFlux: "V2's output data model is still being finalized during alpha; specifics on this page are expected to change before the stable release."
 draft: false
 history:
   - date: "2026-08-26"
