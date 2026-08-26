@@ -3,7 +3,7 @@ title: All repositories
 type: reference
 sidebar_position: 8
 provenance: ai-generated
-inFlux: "This repo directory is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
+inFlux: "Repo directory section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
 history:
   - date: "2026-08-26"
     against: "data/repos.yml's 9-repo list, tiers, routes, and GitHub URLs cross-checked against the 9 polyrepo clones; RepoDirectory, PolyrepoTree, and DataContractsTable components, the repos-data-plugin, and the stub/external docs-instance wiring in docusaurus.config.ts; the-map.md and data-contracts.md confirmed to leave out the utility tier"

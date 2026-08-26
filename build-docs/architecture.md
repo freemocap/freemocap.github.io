@@ -3,7 +3,7 @@ title: Architecture overview
 type: explanation
 sidebar_position: 2
 provenance: ai-generated
-inFlux: "This architecture overview lives here only as a stand-in for the core freemocap repo's own developer docs, which are still being consolidated there; expect this page to move once that lands."
+inFlux: "Architecture section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
 history:
   - date: "2026-08-26"
     against: "FreeMoCap source at pinned tag v2.0.0-alpha.21: app/app.py, app/freemocap_application.py, api/routers.py, api/server_constants.py, api/websocket/websocket_server.py, __main__.py, core/pipeline/, core/tracking/, core/blender/export_to_blender.py, pyproject.toml, freemocap-ui/src/constants/server-urls.ts, freemocap-ui/electron/main/api.ts; skellytracker Tracker API cross-checked; consolidated against freemocap-docs/docs/architecture/overview.mdx and backend-overview.mdx"

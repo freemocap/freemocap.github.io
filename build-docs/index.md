@@ -3,7 +3,7 @@ title: Build with FreeMoCap
 type: hub
 sidebar_position: 1
 provenance: ai-generated
-inFlux: "This whole Build with FreeMoCap section is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move and be restructured once that lands."
+inFlux: "Build section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
 history:
   - date: "2026-08-26"
     against: "hub pass: every link target resolved against the local site tree (build-docs/* files, src/pages/developers.tsx, sidebars/build.ts, the build docs instance in docusaurus.config.ts, and the repos.yml generation claims behind the-map/data-contracts/repo-directory); the Design proposals blurb re-checked against the centroidal-kinematics proposal sources and the real implementation in polyrepo-clones/freemocap (core/kinematics/, freemocap/tests/kinematics/, freemocap-ui/src/components/viewport3d/) at v2.0.0-alpha.21"

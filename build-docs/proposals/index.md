@@ -3,7 +3,7 @@ title: Design proposals
 type: hub
 sidebar_position: 20
 provenance: ai-generated
-inFlux: "This design proposals hub is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
+inFlux: "Design proposals section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
 history:
   - date: "2026-08-26"
     against: "freemocap clone at pinned tag v2.0.0-alpha.21: freemocap-docs/docs/proposals/centroidal-kinematics/ contents (page and plan counts, Lee & Goswami and Sanyal & Goswami citations in 05-bibliography.mdx), freemocap/core/kinematics/inertial/ and online/streaming_kinematics.py, freemocap/core/pipeline/realtime/realtime_aggregator_node.py (CoM/XCoM active, StreamingKinematics.update commented out), freemocap-ui/src/components/viewport3d/renderers/BodyKinematicsRenderer.tsx lane, freemocap.github.io/data/repos.yml (docs_path: null)"

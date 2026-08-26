@@ -3,7 +3,7 @@ title: Building and packaging
 type: how-to
 sidebar_position: 11
 provenance: ai-generated
-inFlux: "This building and packaging page is a stand-in for the core freemocap repo's own developer docs, still being consolidated there; expect it to move once that lands."
+inFlux: "Building and packaging section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
 history:
   - date: "2026-08-26"
     against: "freemocap.spec, freemocap/__init__.py, pyproject.toml ([tool.bumpver] and project scripts/extras), freemocap-ui/package.json, freemocap-ui/electron-builder.json, freemocap-ui/src/i18n/i18n.ts (locale count), and all four .github/workflows/*.yml trigger definitions in the v2.0.0-alpha.21 clone; runtime model cache paths checked in the skellytracker clone"

@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 export default function InFluxBanner({ note }: { note: string }): ReactNode {
   return (
     <div className={styles.banner}>
-      <strong>Actively changing:</strong> {note}
+      <strong>This page is in flux.</strong> {note}
     </div>
   );
 }
