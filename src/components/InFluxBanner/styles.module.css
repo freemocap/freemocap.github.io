@@ -1,0 +1,23 @@
+.banner {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  background: rgba(245, 158, 11, 0.08);
+  color: #92400e;
+}
+
+/* Real, checked contrast, not eyeballed: #92400e on white is 7.09:1,
+   #fbbf24 on this site's dark background (#0a0818) is 11.86:1, both
+   comfortably above AAA (7:1), not just the AA floor. Docusaurus always
+   stamps an explicit data-theme, matching custom.css's own convention
+   elsewhere in this file, no prefers-color-scheme fallback needed. */
+[data-theme='dark'] .banner {
+  color: #fbbf24;
+}
+
+.banner strong {
+  font-weight: 700;
+}

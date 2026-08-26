@@ -1,0 +1,230 @@
+/* Site-specific overrides on top of the shared SkellyDocs theme.
+   Keep this thin. Anything that should apply to every FreeMoCap docs site
+   belongs in @freemocap/skellydocs, not here. */
+
+/* Light mode primary started as the base --accent-green (#6aa3a2, only
+   2.85:1 against white), then --accent-green-fill (#4e7f7e, 4.51:1,
+   freemocap.org's own fix for the same problem). Both were still
+   reported as "too light green" for hyperlinks specifically, hyperlinks
+   apparently want to read as confidently dark, not just past the AA
+   floor, so darkened further to #375a59 (7.58:1), same hue throughout.
+   Dark mode's --accent-teal (#7db8b7) was already fine (8.87:1 against
+   this theme's near-black) and is unchanged. */
+:root {
+  --ifm-color-primary: #375a59;
+  --ifm-code-font-size: 95%;
+  /* Infima auto-derives 6 shades (dark/darker/darkest/light/lighter/
+     lightest) from a single base color at build time; overriding just
+     --ifm-color-primary above doesn't touch them, so anything using a
+     derived shade (hover states, subtle tints) was still rendering
+     skellydocs' original purple (#8b5cf6 etc.), a wrong hue, not just a
+     contrast problem. Computed at the same ~8% HSL lightness step
+     Infima's own generator uses, from the real base. */
+  --ifm-color-primary-dark: #284140;
+  --ifm-color-primary-darker: #182727;
+  --ifm-color-primary-darkest: #090e0e;
+  --ifm-color-primary-light: #467372;
+  --ifm-color-primary-lighter: #568d8b;
+  --ifm-color-primary-lightest: #68a3a1;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #7db8b7;
+  /* Same derived-shades gap as above, for dark mode's teal base. */
+  --ifm-color-primary-dark: #63aaa8;
+  --ifm-color-primary-darker: #509392;
+  --ifm-color-primary-darkest: #427978;
+  --ifm-color-primary-light: #97c6c6;
+  --ifm-color-primary-lighter: #b2d5d4;
+  --ifm-color-primary-lightest: #cce3e3;
+}
+
+/* @freemocap/skellydocs only defines --ifm-background-color for
+   [data-theme='dark'] (#0a0818), with no light-mode value anywhere,
+   including its own :root. Site defaults to dark mode, which is why
+   nobody had hit this: in light mode the page background renders
+   transparent instead of white, text is unaffected. Standard Infima
+   light default, not a brand color decision. */
+[data-theme='light'] {
+  --ifm-background-color: #ffffff;
+
+  /* Same root cause as above, wider: the whole --sk-* design-token set
+     (consumed ~50 places in skellydocs' theme.module.css, plus locally
+     in ProvenanceBanner) is defined once in that package's :root with
+     no light-mode variant at all, calibrated for a dark background
+     (near-white text, a light mint accent). Against white these are
+     unreadable: --sk-text 1.23:1, --sk-text-dim 2.17:1, --sk-accent
+     1.52:1, --sk-purple 2.72:1. --sk-text/--sk-text-dim darkened to
+     match freemocap.org's text-primary/text-muted; --sk-accent/
+     --sk-purple are semantic (a "checked" badge, a link color) so kept
+     their own hue, just darkened enough to pass (4.5:1+), same
+     treatment as the accent colors above, not flattened to black. */
+  --sk-text: #000000;
+  --sk-text-dim: #5c5c5c;
+  --sk-accent: #16875a;
+  --sk-purple: #7f56f8;
+
+  /* Infima's own light-mode emphasis scale (--ifm-color-emphasis-0
+     through -1000). First pass (2026-08-25) redefined the whole ramp,
+     including 100-400, to fix borders (cards/buttons/pills/tooltips
+     were as low as 1.17:1 against white). That broke things using the
+     SAME low-mid levels for backgrounds instead of borders: Infima's
+     own navbar search input background is --ifm-color-emphasis-200,
+     and darkening 200 for border use turned its background dark while
+     its (already-dark) text color stayed dark too, unreadable
+     dark-on-dark. Confirmed the same conflict exists in Infima's stock
+     BackToTopButton and ColorModeToggle (both background: emphasis-200)
+     before trusting this again. So: 0-400 are back to Infima's stock
+     light values, left alone, since they're a mix of border and
+     background consumers this site doesn't fully control (some are
+     this project's own components, some are Infima/skellydocs
+     internals). Genuinely visible borders get their own dedicated
+     --fmc-border-strong variable below instead, applied only where
+     this project's own CSS explicitly opts in. 500-900 are text-only
+     everywhere (grepped Infima's stock theme, skellydocs, and this
+     site's own components for any background/fill use before trusting
+     that too), kept darkened; 700 pushed further after "cards" text
+     was flagged again even at 9:1, past-AA apparently isn't the bar
+     here, confidently dark reads as the actual requirement. */
+  --ifm-color-emphasis-0: #ffffff;
+  --ifm-color-emphasis-100: #f5f6f7;
+  --ifm-color-emphasis-200: #ebedf0;
+  --ifm-color-emphasis-300: #dadde1;
+  --ifm-color-emphasis-400: #ccd0d5;
+  --ifm-color-emphasis-500: #727272;
+  --ifm-color-emphasis-600: #5d5d5d;
+  --ifm-color-emphasis-700: #333333;
+  --ifm-color-emphasis-800: #2b2b2b;
+  --ifm-color-emphasis-900: #1c1e21;
+  --ifm-color-emphasis-1000: #000000;
+
+  /* Dedicated, not shared with Infima's own internals: for borders that
+     specifically need to read as clearly visible (3:1+), used only by
+     this project's own components (HomeSections, PolyrepoTree), opted
+     into explicitly rather than inherited through the general scale. */
+  --fmc-border-strong: #767676;
+}
+
+/* Home renders its own hero, so the default article padding fights it. */
+.homepage-no-padding article {
+  padding: 0;
+}
+
+/* Hover already reveals the dropdowns; the caret is redundant everywhere
+   except the version switcher (restored back below), which otherwise
+   reads as a plain label with nothing marking it as a control. */
+.navbar__item.dropdown > .navbar__link::after {
+  display: none;
+}
+
+/* Infima's own default caret (a small CSS border-triangle, not an
+   invented style), restored for just this one dropdown. */
+.navbar__item.dropdown > .navbar__link.navbar-version-dropdown-item::after {
+  display: inline-block;
+}
+
+/* Non-interactive section labels inside a dropdown menu (Developer
+   Docs' Core / Pantheon / Utility / More groups). Infima has no stock
+   pattern for this, every existing dropdown is a flat list. */
+.dropdown__menu .dropdown__header {
+  padding: 0.3rem 0.8rem 0.2rem;
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-500);
+}
+
+/* Mobile drawer equivalent of the header rule above. Every repo is a
+   real link now (see DeveloperDocsNavbarItem.tsx), so there's no muted
+   variant on either surface: distinguishing "has docs" from "doesn't
+   yet" wasn't worth the inconsistency it kept introducing, and every
+   repo gets at least a stub page instead. */
+.menu__list-item--header {
+  padding: 0.5rem 0.75rem 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-500);
+}
+
+/* The mobile menu drawer (.navbar-sidebar) is `position: fixed; top: 0;
+   bottom: 0;`, which should stretch it to the full viewport height with no
+   explicit height needed. In this environment it was computing to ~59px,
+   the height of its own brand row, collapsing every item below that to
+   zero visible height. Setting height explicitly sidesteps whatever the
+   engine is doing wrong with the implicit stretch; it cannot make a
+   spec-compliant browser render this any differently, since the two
+   should already be equal. */
+@media (max-width: 996px) {
+  .navbar-sidebar {
+    height: 100vh;
+  }
+}
+
+/* Each expandable row in the mobile menu (navbar drawer and docs sidebar
+   alike) is two separate tap targets: the link text, which navigates, and
+   this caret button beside it, which expands. Infima already gives the
+   caret a rounded box and a background, but only on :hover, which never
+   fires on a touch device, so the split never reads as two targets on
+   mobile. Making the background permanent there is the fix. */
+@media (max-width: 996px) {
+  .menu__caret {
+    background: var(--ifm-menu-color-background-hover);
+  }
+}
+
+/* Sets the Developer Docs navbar item apart as a different kind of
+   section (contributor-facing, not part of the reader IA) with a
+   minimal box around it, rather than a plain text link like its
+   neighbors. */
+.navbar-developer-docs-item {
+  padding: 0.3rem 0.7rem;
+  margin: 0 0.3rem;
+  border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-400));
+  border-radius: 0.4rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.navbar-developer-docs-item:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* DocItem/Layout renders the breadcrumb nav and the version badge as
+   adjacent siblings with nothing between them, each on its own row. This
+   docks the badge onto the breadcrumb row instead (a positioning context
+   on their shared <article>, not a full swizzle of the layout component
+   just to nest them in one flex row). */
+article {
+  position: relative;
+}
+
+/* Stock badge rendered stark white-on-black, its own loud row above the
+   provenance banner, duplicating the version indicator already in the
+   navbar. Restyled to the same quiet gray used for secondary UI chrome
+   elsewhere (Infima's own emphasis scale, not an invented color) and
+   moved into the breadcrumb row, right-aligned, since it is a redundant
+   safeguard rather than primary navigation. */
+/* Reserves room for the docked badge (below) so a long breadcrumb trail
+   wraps within its own box instead of running underneath it; the badge
+   is absolutely positioned and so isn't part of document flow that would
+   otherwise push breadcrumb text out of the way on its own. */
+.theme-doc-breadcrumbs {
+  padding-right: 9rem;
+}
+
+.theme-doc-version-badge {
+  position: absolute;
+  /* Centered against the breadcrumb row's own height, not article's:
+     article is the positioning context but spans the full page, so a
+     percentage top would center against page height instead. */
+  top: 0.3rem;
+  right: 0;
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-800);
+  font-weight: 500;
+}

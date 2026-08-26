@@ -1,0 +1,19 @@
+extends: existence
+message: "'%s' asserts rather than describes. Say what the thing does instead."
+level: warning
+ignorecase: true
+tokens:
+  - powerful
+  - seamless
+  - seamlessly
+  - cutting-edge
+  - state-of-the-art
+  - revolutionary
+  - game-changing
+  - blazingly fast
+  - effortless
+  - effortlessly
+  - unlock
+  - leverage
+  - robust
+  - delve

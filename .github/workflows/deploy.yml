@@ -1,0 +1,77 @@
+name: Build and deploy docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Pull each sub-repo's docs at its pinned ref. Repos with no docs site
+      # are skipped and reported; a repo that declares a docs_path and fails
+      # to produce it fails the build, because the map is then lying.
+      - name: Fetch external docs
+        run: npm run fetch
+
+      - name: Lint prose
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          files: docs concepts build-docs
+          fail_on_error: false # raise to true once the corpus is clean
+          reporter: github-pr-check
+
+      # onBrokenLinks is set to 'throw', so a dead internal link fails here.
+      # That is deliberate: it is the mechanical enforcement of "no dead ends".
+      - name: Build
+        run: npm run build:local
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: build/
+          retention-days: 7
+
+  # Manual only, same as freemocap_dot_org's own deploy_site.yml: merging to
+  # main builds and lints (job above) but never ships anything by itself.
+  # Going live is always a deliberate "Run workflow" click from the Actions
+  # tab, not a side effect of a merge.
+  deploy:
+    needs: build
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: build
+
+      # Same server as freemocap_dot_org (Plesk, one box hosting both
+      # subscriptions), but its own FTP user scoped to the docs.freemocap.org
+      # subdomain's document root, so this account has no reach into the
+      # main site's files. That user's home directory is already the
+      # subdomain root, so server-dir is just "/".
+      - name: Deploy to docs.freemocap.org
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 198.71.57.235
+          username: ${{ secrets.DOCS_FTP_USERNAME }}
+          password: ${{ secrets.DOCS_FTP_PASSWORD }}
+          local-dir: build/
+          server-dir: /
