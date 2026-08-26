@@ -6,9 +6,24 @@ import styles from './styles.module.css';
 
 const BOX_W = 170;
 const BOX_H = 84;
-const GAP = 110; // horizontal space between boxes, filled by the arrow + label
+const MIN_GAP = 110; // horizontal space between boxes, filled by the arrow + label
+const LABEL_PADDING = 24; // clearance on each side of the label text within its gap
+const MONO_CHAR_W = 6.6; // approx width of one character at .edgeLabel's 11px monospace
 const ROW_Y = 40;
 const CANVAS_H = 190;
+// The first/last box's stroke is centered on its rect path, so without this
+// margin their outer edge sits exactly on the viewBox boundary and half the
+// stroke gets clipped by the SVG's default overflow:hidden.
+const CANVAS_PAD = 4;
+
+// Data-contract names (synchronized_frame_packages, keypoint_observations, ...)
+// are long and can't be truncated without losing meaning, so the gap between
+// two boxes has to grow to fit whatever label lands in it, not the other way
+// around; a fixed gap made adjacent labels overlap into unreadable text.
+function gapFor(label: string | undefined): number {
+  if (!label) return MIN_GAP;
+  return Math.max(MIN_GAP, label.length * MONO_CHAR_W + LABEL_PADDING * 2);
+}
 
 type Edge = { from: Repo; to: Repo; label: string };
 
@@ -54,8 +69,16 @@ function buildChain(repos: Repo[]): { order: Repo[]; edges: Edge[]; terminalOutp
 export default function DataFlowDiagram(): ReactNode {
   const repos = usePluginData('repos-data-plugin') as Repo[];
   const { order, edges, terminalOutputs } = buildChain(repos);
-  const width = order.length * BOX_W + (order.length - 1) * GAP;
   const centerY = ROW_Y + BOX_H / 2;
+
+  // Each edge gets its own gap sized to its label, so box x-positions are
+  // cumulative rather than a uniform grid.
+  const gaps = order.slice(0, -1).map((repo, i) => {
+    const edge = edges.find((e) => e.from.id === repo.id && e.to.id === order[i + 1].id);
+    return gapFor(edge?.label);
+  });
+  const boxX = order.map((_, i) => CANVAS_PAD + i * BOX_W + gaps.slice(0, i).reduce((a, g) => a + g, 0));
+  const width = order.length * BOX_W + gaps.reduce((a, g) => a + g, 0) + CANVAS_PAD * 2;
 
   return (
     <div className={styles.wrap}>
@@ -69,8 +92,8 @@ export default function DataFlowDiagram(): ReactNode {
         {order.map((repo, i) => {
           if (i === order.length - 1) return null;
           const edge = edges.find((e) => e.from.id === repo.id && e.to.id === order[i + 1].id);
-          const x1 = i * (BOX_W + GAP) + BOX_W;
-          const x2 = (i + 1) * (BOX_W + GAP);
+          const x1 = boxX[i] + BOX_W;
+          const x2 = boxX[i + 1];
           const midX = (x1 + x2) / 2;
           return (
             <g key={`edge-${repo.id}`}>
@@ -85,7 +108,7 @@ export default function DataFlowDiagram(): ReactNode {
         })}
 
         {order.map((repo, i) => {
-          const x = i * (BOX_W + GAP);
+          const x = boxX[i];
           const cx = x + BOX_W / 2;
           const cy = ROW_Y + BOX_H / 2;
           return (
