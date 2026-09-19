@@ -312,17 +312,17 @@ export function TierPicker() {
     },
     {
       label: 'Beginner',
-      description: 'Optimize your capture and understand your output data.',
+      description: 'Set up your cameras and record with one, then several.',
       to: '#beginner',
     },
     {
       label: 'Intermediate',
-      description: 'Explore the architecture and how the pieces fit together.',
+      description: 'Dial in your calibration, choose a tracker, and process your data.',
       to: '#intermediate',
     },
     {
       label: 'Advanced',
-      description: 'Specialize in a track: Technology, Science, or Art.',
+      description: 'Specialization tracks.',
       to: '#advanced',
       tracks: SPECIALIZATION_TRACKS,
     },

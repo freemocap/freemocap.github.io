@@ -23,6 +23,14 @@ export const tutorialTiers: Tier[] = [
     ],
   },
   {
+    // Was two tiers (a 5-page "Tier 2: Intermediate" and a 3-page "Tier 3:
+    // Advanced"). Merged into one so this sidebar's own Intermediate
+    // category is the same 8 pages, same order, as the homepage's
+    // Intermediate tile grid (src/pages/index.tsx) — that tile grid
+    // combined both for the same reason: the two tiers' page counts never
+    // lined up with any tile-count target on their own, and homepage
+    // "Advanced" already means something unrelated (specialization
+    // tracks from freemocap/university, not further tutorials).
     label: 'Tier 2: Intermediate',
     pages: [
       { to: '/tutorials/better-calibration', label: 'Get a calibration you can trust' },
@@ -30,11 +38,6 @@ export const tutorialTiers: Tier[] = [
       { to: '/tutorials/choose-a-tracker', label: 'Choose a tracking model' },
       { to: '/tutorials/post-processing', label: 'Filter and fill your data' },
       { to: '/tutorials/capture-environment', label: 'Optimize your capture space' },
-    ],
-  },
-  {
-    label: 'Tier 3: Advanced',
-    pages: [
       { to: '/tutorials/analyze-in-python', label: 'Analyze your data in Python' },
       { to: '/tutorials/custom-pipeline', label: 'Build a custom pipeline' },
       { to: '/tutorials/batch-processing', label: 'Process many recordings at once' },

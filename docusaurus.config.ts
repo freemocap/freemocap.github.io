@@ -265,7 +265,7 @@ const config: Config = {
         sectionDropdown(sectionById('start')),
         // The one two-level menu on the site: tiers as the first level,
         // flyout-on-hover to each tier's pages as the second, matching the
-        // sidebar's own Tier 1/2/3 grouping. Docusaurus's stock dropdown
+        // sidebar's own Tier 1/2 grouping. Docusaurus's stock dropdown
         // rejects a dropdown nested inside a dropdown ("Nested dropdowns are
         // not allowed"), so this is a custom navbar item; see
         // src/theme/NavbarItem/TutorialsNavbarItem.tsx and the
