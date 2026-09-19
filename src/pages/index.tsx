@@ -2,41 +2,38 @@ import Layout from '@theme/Layout';
 import {
   FiActivity,
   FiArrowRight,
-  FiBook,
+  FiBarChart2,
   FiBox,
   FiCheckSquare,
   FiCode,
-  FiCompass,
   FiCpu,
   FiDatabase,
   FiDownload,
-  FiFileText,
+  FiEye,
   FiFilm,
-  FiFolder,
+  FiFilter,
   FiGitBranch,
   FiGithub,
   FiGrid,
-  FiHardDrive,
-  FiHelpCircle,
-  FiHome,
   FiLayers,
-  FiList,
-  FiMessageCircle,
   FiPackage,
+  FiPlay,
   FiServer,
   FiSliders,
   FiTarget,
-  FiTool,
+  FiTrendingUp,
   FiUpload,
   FiVideo,
   FiWifi,
+  FiZap,
 } from 'react-icons/fi';
 import {
   AudienceDoorways,
   ComingSoonSection,
   Hero,
   LinkColumns,
-  SPECIALIZATION_TRACKS,
+  PathColumns,
+  PathGroup,
   Tier,
   TierPicker,
   TileGrid,
@@ -45,26 +42,39 @@ import {
 /**
  * The FreeMoCap docs home.
  *
- * TierPicker (three big boxes: Beginner / Intermediate / Advanced) is the
- * primary router, right under the hero, matching the curriculum DAG's
- * 1000/2000/3000 progression: don't ask a first-time visitor to pick a
- * specialization before they've recorded anything. Each big box jumps to
- * its matching Tier below.
+ * TierPicker (four big boxes: Get Started / Beginner / Intermediate /
+ * Advanced) is the primary router, right under the hero. The ordering
+ * matches Skelly University's own 1000/2000/3000/4000 module numbering,
+ * but the numbers themselves aren't shown on the docs site, just the
+ * label order, showing "1000-level" etc. read as too on-the-nose. Don't
+ * ask a first-time visitor to pick a specialization before they've
+ * recorded anything. Each big box jumps to its matching Tier below.
  *
- * Every page that used to be a plain "more" text link is a tile now too,
- * there's no separate flat-link overflow list inside a Tier section
- * anymore, every link is a small box with a blurb and a "?" tooltip.
+ * Per PR review feedback, each Tier's tile grid is a short, curated set
+ * rather than an exhaustive link dump, sized 3/6/9 and then "a lot" for
+ * the three Advanced paths: Get Started mirrors the three-step `/start/`
+ * flow exactly (setup, recording, visualization); Beginner is six "do
+ * more with what you've got" tiles; Intermediate is the developer-docs
+ * architecture tiles plus one reference page, nine total; Advanced drops
+ * the single flat grid entirely and instead gives each specialization
+ * track (Technology / Science / Art) its own PathGroup, populated from
+ * real module content in `freemocap/university` (verified via the GitHub
+ * API and raw file content this session, not guessed), because the three
+ * tracks don't have the same number of modules and forcing them into one
+ * grid would hide that. The three PathGroups sit inside a PathColumns
+ * wrapper so they read as parallel side-by-side columns under Advanced,
+ * not a third long vertical scroll; the Technology/Science/Art chips
+ * themselves only appear once, on TierPicker's Advanced box near the top,
+ * not repeated again down here. Every page that isn't tiled here is still
+ * reachable from its section's own index (`/concepts/`, `/guides/`,
+ * `/reference/`) and the sidebar, dropping a tile is not the same as
+ * removing a page.
  *
  * Tile `info` arrays are a short table of contents for the destination
  * page. Where the page has real content (checked directly, not guessed)
  * the bullets are its actual headings. Where the page is still a stub,
  * the bullets are a reasonable placeholder for what it will eventually
  * cover, not a claim that it exists yet.
- *
- * "Understand FreeMoCap" isn't its own tier content: the hero's own
- * "What is FreeMoCap?" link already covers that ground, so only the two
- * pages under it that said something new (markerless mocap, how it works)
- * are folded into Beginner instead of duplicating the hero.
  *
  * Audience doorways and Skelly University are a different axis (role, not
  * skill level) and live below, unlabeled by tier on purpose.
@@ -80,11 +90,11 @@ export default function Home() {
       <main className="container">
         <TierPicker />
 
-        <Tier id="beginner" label="Beginner">
+        <Tier id="get-started" label="Get Started">
           <TileGrid
             tiles={[
               {
-                title: 'Install FreeMoCap',
+                title: 'Setup',
                 to: '/start/install',
                 blurb: 'Two ways to install: pip for developers, or a packaged app for everyone else.',
                 info: [
@@ -96,7 +106,7 @@ export default function Home() {
                 icon: FiDownload,
               },
               {
-                title: 'Make your first recording',
+                title: 'Recording',
                 to: '/start/first-recording',
                 blurb: 'Start with one camera before multi-camera. Simpler, faster, confirms your pipeline works.',
                 info: [
@@ -106,6 +116,25 @@ export default function Home() {
                 ],
                 icon: FiVideo,
               },
+              {
+                title: 'Visualization',
+                to: '/start/see-your-results',
+                blurb: 'Check whether it worked: a skeleton moving in Blender, matching what you actually did.',
+                info: [
+                  'The fastest check: did Blender open',
+                  'If you want to check without Blender',
+                  'What "worked" looks like, and what didn\'t',
+                  'Next steps',
+                ],
+                icon: FiEye,
+              },
+            ]}
+          />
+        </Tier>
+
+        <Tier id="beginner" label="Beginner">
+          <TileGrid
+            tiles={[
               {
                 title: 'Record with multiple cameras',
                 to: '/tutorials/multi-camera',
@@ -117,89 +146,6 @@ export default function Home() {
                   'What happens after recording (triangulation)',
                 ],
                 icon: FiFilm,
-              },
-              {
-                title: 'What is markerless mocap?',
-                to: '/concepts/markerless-mocap',
-                blurb: 'Motion capture without physical markers, suits, or a dedicated studio.',
-                info: [
-                  'How markerless differs from marker-based systems',
-                  'A brief history of the technique',
-                  'Where FreeMoCap fits in the landscape',
-                ],
-                icon: FiHelpCircle,
-              },
-              {
-                title: 'How FreeMoCap works',
-                to: '/concepts/how-it-works',
-                blurb: 'The pipeline that turns synced video into a 3D skeleton, in four stages.',
-                info: [
-                  'Synchronized recording',
-                  'Camera calibration',
-                  '2D pose estimation',
-                  '3D triangulation and reconstruction',
-                ],
-                icon: FiCpu,
-              },
-              {
-                title: 'Glossary',
-                to: '/concepts/glossary',
-                blurb: 'Definitions for the terms used throughout these docs.',
-                info: [
-                  'Capture volume',
-                  'Calibration (intrinsics and extrinsics)',
-                  'ChArUco board',
-                  'MediaPipe and YOLO',
-                  'Reprojection error',
-                ],
-                icon: FiBook,
-              },
-              {
-                title: 'Accuracy and limits',
-                to: '/concepts/accuracy-and-limits',
-                blurb: 'What was formally validated, and where the system currently falls short.',
-                info: [
-                  'What was validated (6-camera setup vs. marker-based reference)',
-                  'Results across gait, balance, and prosthetic alignment',
-                  'Why backend choice changes the outcome',
-                  'Known limitations, stated plainly',
-                ],
-                icon: FiTarget,
-              },
-              {
-                title: 'Frequently asked questions',
-                to: '/about/faq',
-                blurb: 'Licensing, funding, and what FreeMoCap can and can’t track yet.',
-                info: [
-                  'How is FreeMoCap free?',
-                  'What license does it use?',
-                  'How can I contribute?',
-                  'Does it work in realtime? (not yet)',
-                  'Multi-person or non-human tracking? (not yet)',
-                ],
-                icon: FiMessageCircle,
-              },
-              {
-                title: 'Cite FreeMoCap',
-                to: '/guides/cite-freemocap',
-                blurb: 'The citation format and DOI to reference FreeMoCap in a paper.',
-                info: [
-                  'BibTeX / citation format',
-                  'Zenodo DOI',
-                  'Citing a specific sub-repo, if relevant',
-                ],
-                icon: FiFileText,
-              },
-              {
-                title: 'Hardware and cameras',
-                to: '/tutorials/hardware',
-                blurb: 'One camera minimum, three recommended, plus a printed calibration board.',
-                info: [
-                  'Required equipment (webcams, USB ports)',
-                  'Recommended camera count',
-                  'Necessary software (Blender, notebook tools)',
-                ],
-                icon: FiHardDrive,
               },
               {
                 title: 'Calibrate your cameras',
@@ -214,49 +160,6 @@ export default function Home() {
                 ],
                 icon: FiSliders,
               },
-              {
-                title: 'Optimize your capture space',
-                to: '/tutorials/capture-environment',
-                blurb: 'Lighting, background, and camera placement tips that meaningfully improve tracking.',
-                info: [
-                  'Lighting conditions and exposure settings',
-                  'Background and clothing contrast',
-                  'Camera placement and framing',
-                  'Working in small spaces',
-                ],
-                icon: FiHome,
-              },
-              {
-                title: 'Fix an installation problem',
-                to: '/guides/installation-troubleshooting',
-                blurb: 'Common installation errors, from environment conflicts to platform-specific issues.',
-                info: [
-                  'Use a fresh virtual environment',
-                  'Check your Python version (3.9–3.12)',
-                  'Check your FreeMoCap version',
-                  'Common error messages and fixes',
-                ],
-                icon: FiTool,
-              },
-              {
-                title: 'All how-to guides',
-                to: '/guides/',
-                blurb: 'Every task-oriented guide in one flat, searchable list.',
-                info: [
-                  'Installation and calibration troubleshooting',
-                  'Export and format guides',
-                  'Bug reports and feature requests',
-                  'Grows from real Discord questions',
-                ],
-                icon: FiList,
-              },
-            ]}
-          />
-        </Tier>
-
-        <Tier id="intermediate" label="Intermediate">
-          <TileGrid
-            tiles={[
               {
                 title: 'Your output data',
                 to: '/concepts/data-model',
@@ -294,54 +197,6 @@ export default function Home() {
                 icon: FiBox,
               },
               {
-                title: 'Recording folder structure',
-                to: '/reference/recording-structure',
-                blurb: "What every file in a recording's output folder is, and which ones you need.",
-                info: [
-                  'Raw video and synchronized frames',
-                  'Calibration files',
-                  'Processed data (parquet, npy)',
-                  'Logs and metadata',
-                ],
-                icon: FiFolder,
-              },
-              {
-                title: 'Array shapes and units',
-                to: '/reference/data-arrays',
-                blurb: 'Exact array shapes, dtypes, and units, generated straight from the code.',
-                info: [
-                  'Canonical shape: (frames, markers, 3)',
-                  'The tidy long-format parquet schema',
-                  '.npy file naming convention',
-                  '3d_xyz vs. rigid_3d_xyz',
-                ],
-                icon: FiGrid,
-              },
-              {
-                title: 'Coordinate conventions',
-                to: '/reference/coordinate-conventions',
-                blurb: 'Millimetres, right-handed, +Z up, and how that compares to Unity, Unreal, and Blender.',
-                info: [
-                  'Units, handedness, and up axis',
-                  'Ground-plane vs. default calibration origin',
-                  'Segment and rotation conventions',
-                  'Exporting to Unity, Unreal, and Blender',
-                ],
-                icon: FiCompass,
-              },
-              {
-                title: 'Skeleton models and keypoints',
-                to: '/reference/skeleton-models',
-                blurb: 'Every keypoint name and index, for every supported tracking model.',
-                info: [
-                  'MediaPipe keypoints',
-                  'RTMPose keypoints',
-                  'YOLO / DeepLabCut keypoints',
-                  'Virtual marker definitions per model',
-                ],
-                icon: FiActivity,
-              },
-              {
                 title: 'Export formats',
                 to: '/guides/export-formats',
                 blurb: 'Exporting your recording to FBX, BVH, or glTF for other tools.',
@@ -357,7 +212,7 @@ export default function Home() {
           />
         </Tier>
 
-        <Tier id="advanced" label="Advanced" tracks={SPECIALIZATION_TRACKS}>
+        <Tier id="intermediate" label="Intermediate">
           <TileGrid
             tiles={[
               {
@@ -457,8 +312,174 @@ export default function Home() {
                 ],
                 icon: FiGithub,
               },
+              {
+                title: 'Array shapes and units',
+                to: '/reference/data-arrays',
+                blurb: 'Exact array shapes, dtypes, and units, generated straight from the code.',
+                info: [
+                  'Canonical shape: (frames, markers, 3)',
+                  'The tidy long-format parquet schema',
+                  '.npy file naming convention',
+                  '3d_xyz vs. rigid_3d_xyz',
+                ],
+                icon: FiGrid,
+              },
             ]}
           />
+        </Tier>
+
+        <Tier id="advanced" label="Advanced">
+          <PathColumns>
+            <PathGroup label="Technology">
+              <TileGrid
+                tiles={[
+                  {
+                    title: 'SkellyCam',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3100-technology/3110-skellycam/3110-skellycam-overview.md',
+                    blurb: 'The camera backend: synchronized multi-camera video capture and detection.',
+                    info: [
+                      "SkellyCam's role in the FreeMoCap pipeline",
+                      'Camera detection, configuration, and synchronization',
+                      'The FastAPI/Uvicorn backend architecture',
+                    ],
+                    icon: FiVideo,
+                  },
+                  {
+                    title: 'SkellyTracker',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3100-technology/3120-skellytracker/3120-skellytracker-overview.md',
+                    blurb: 'The pose estimation backend: one unified API across multiple tracking models.',
+                    info: [
+                      "SkellyTracker's role in the FreeMoCap pipeline",
+                      'The tracker abstraction pattern',
+                      'Available pose estimation backends',
+                      '2D keypoint detection fundamentals',
+                    ],
+                    icon: FiTarget,
+                  },
+                  {
+                    title: 'SkellyForge',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3100-technology/3130-skellyforge/3130-skellyforge-overview.md',
+                    blurb: 'Post-processing: filtering, interpolation, and 3D reconstruction of tracked points.',
+                    info: [
+                      "SkellyForge's role in the FreeMoCap pipeline",
+                      'Data post-processing workflows',
+                      'Filtering and interpolation techniques',
+                      'GUI-based parameter tuning',
+                    ],
+                    icon: FiFilter,
+                  },
+                  {
+                    title: 'SkellyBlender',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3100-technology/3140-skellyblender/3140-skellyblender-overview.md',
+                    blurb: 'The Blender integration: visualizing and working with motion capture data.',
+                    info: [
+                      'FreeMoCap Blender addon architecture',
+                      'Armature creation and animation data',
+                      'Export formats (FBX, BVH)',
+                      'Blender Python API basics',
+                    ],
+                    icon: FiBox,
+                  },
+                  {
+                    title: 'FreeMoCap Core',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3100-technology/3150-freemocap-core/3150-core-overview.md',
+                    blurb: 'The main application: orchestrates the entire motion capture pipeline.',
+                    info: [
+                      'FreeMoCap main application architecture',
+                      'The Qt-based GUI structure',
+                      'Pipeline orchestration logic',
+                      'The recording session data model',
+                    ],
+                    icon: FiCpu,
+                  },
+                ]}
+              />
+            </PathGroup>
+
+            <PathGroup label="Science">
+              <TileGrid
+                tiles={[
+                  {
+                    title: 'Measurement',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3200-science/3201-measurement.md',
+                    blurb: 'Fundamental measurement concepts for motion capture research.',
+                    info: [
+                      'Measurement principles in motion capture',
+                      'Accuracy, precision, and reliability',
+                      'Sources of measurement error',
+                      'Applying these concepts to motion capture data',
+                    ],
+                    icon: FiActivity,
+                  },
+                  {
+                    title: 'Data Analysis',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3200-science/3202-data-analysis.md',
+                    blurb: 'Signal processing and analysis workflows for motion capture data.',
+                    info: [
+                      'Data analysis workflows for motion capture',
+                      'Basic signal processing concepts',
+                      'Filtering and smoothing techniques',
+                      'Visualizing and interpreting motion capture data',
+                    ],
+                    icon: FiBarChart2,
+                  },
+                  {
+                    title: 'Biomechanics',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3200-science/3210-biomechanics/3210-biomechanics-overview.md',
+                    blurb: 'The mechanical laws relating to movement and the structure of living organisms.',
+                    info: [
+                      'Fundamental biomechanics concepts',
+                      'Biomechanical analysis of motion capture data',
+                      'Analyzing human movement patterns scientifically',
+                    ],
+                    icon: FiTrendingUp,
+                  },
+                  {
+                    title: 'Neuroscience',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3200-science/3220-neuroscience/3220-neuroscience-overview.md',
+                    blurb: 'The neural control of movement and perceptuo-motor processes.',
+                    info: [
+                      'The neural basis of movement control',
+                      'Perceptuo-motor processes',
+                      'Connecting motion capture data to neuroscience concepts',
+                    ],
+                    icon: FiZap,
+                  },
+                ]}
+              />
+            </PathGroup>
+
+            <PathGroup label="Art">
+              <TileGrid
+                tiles={[
+                  {
+                    title: 'Animation',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3300-art/3310-animation/3310-animation-overview.md',
+                    blurb: 'Using motion capture for character animation in Blender and other 3D software.',
+                    info: [
+                      'Animation workflows using motion capture',
+                      'Cleaning and polishing mocap data',
+                      'Character rigging and retargeting',
+                      'Production-quality animated content',
+                    ],
+                    icon: FiFilm,
+                  },
+                  {
+                    title: 'Game Dev',
+                    to: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3300-art/3320-gamedev/3320-gamedev-overview.md',
+                    blurb: 'Using motion capture for game character animation and interactive applications.',
+                    info: [
+                      'Game engine requirements for animation',
+                      'Real-time animation optimization techniques',
+                      'Integrating motion capture into game projects',
+                      'Playable characters driven by mocap',
+                    ],
+                    icon: FiPlay,
+                  },
+                ]}
+              />
+            </PathGroup>
+          </PathColumns>
         </Tier>
 
         <ComingSoonSection />

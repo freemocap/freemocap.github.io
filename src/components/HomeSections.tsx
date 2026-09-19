@@ -26,42 +26,60 @@ export type Tile = {
 };
 
 /**
- * Groups a Tile grid under a single skill-level label (Beginner /
- * Intermediate / Advanced), so a visitor scrolling past can tell where
- * they are without re-reading anything above. `id` is what TierPicker's
- * big boxes jump to. Same section/heading treatment as Coming Soon and
- * Papers/community below it, on purpose, this is not a different kind of
- * thing, just another top-level section.
+ * Groups a Tile grid under a single skill-level label (Get Started /
+ * Beginner / Intermediate / Advanced), so a visitor scrolling past can
+ * tell where they are without re-reading anything above. `id` is what
+ * TierPicker's big boxes jump to. Same section/heading treatment as
+ * Coming Soon and Papers/community below it, on purpose, this is not a
+ * different kind of thing, just another top-level section.
  *
- * `tracks`, used only for Advanced, repeats the same specialization chips
- * TierPicker's Advanced box has, right under the heading here too, so
- * the track shortcut is available whether a visitor jumped straight down
- * via the big box or arrived by scrolling.
+ * The specialization chips (Technology/Science/Art) live only on
+ * TierPicker's Advanced box now, not repeated here too, per explicit
+ * instruction: one appearance near the top of the page, not two.
  */
 export function Tier({
   id,
   label,
-  tracks,
   children,
 }: {
   id?: string;
   label: string;
-  tracks?: Track[];
   children: ReactNode;
 }) {
   return (
     <section id={id} className={styles.section}>
       <h2 className={styles.sectionHeading}>{label}</h2>
-      {tracks && (
-        <span className={`${styles.trackTags} ${styles.tierTrackTags}`}>
-          {tracks.map((track) => (
-            <TrackTag key={track.label} {...track} />
-          ))}
-        </span>
-      )}
       {children}
     </section>
   );
+}
+
+/**
+ * One specialization path's own labeled tile grid, used three times inside
+ * the Advanced tier (Technology / Science / Art), each grid populated from
+ * real module content in `freemocap/university` rather than a single flat
+ * grid, since the three paths don't have the same number of modules and
+ * forcing them into one undifferentiated grid would hide that structure.
+ * Always used inside a `PathColumns` wrapper, never standalone.
+ */
+export function PathGroup({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className={styles.pathGroup}>
+      <h3 className={styles.pathHeading}>{label}</h3>
+      {children}
+    </div>
+  );
+}
+
+/**
+ * Lays its PathGroup children out as side-by-side vertical columns
+ * (one per specialization track) rather than stacked, so Technology /
+ * Science / Art read as three parallel tracks under Advanced, not one
+ * long scroll. Collapses to a single column on narrow viewports, same
+ * breakpoint as the rest of this page's grids.
+ */
+export function PathColumns({ children }: { children: ReactNode }) {
+  return <div className={styles.pathColumns}>{children}</div>;
 }
 
 const TOOLTIP_WIDTH = 270;
@@ -268,12 +286,16 @@ function TrackTag({ label, href }: Track) {
 }
 
 /**
- * The top-level router, right under the hero: three big boxes, one per
- * skill level, each jumping straight to its matching Tier further down the
- * page. This, not the tiles inside each Tier, is meant to be the first,
- * most prominent choice a visitor makes. Whole box is the only link, no
- * separate styled CTA text inside it (that was the earlier "goes to a
- * different place than the box" problem).
+ * The top-level router, right under the hero: four big boxes, one per
+ * curriculum level, each jumping straight to its matching Tier further
+ * down the page. This, not the tiles inside each Tier, is meant to be the
+ * first, most prominent choice a visitor makes. Whole box is the only
+ * link, no separate styled CTA text inside it (that was the earlier "goes
+ * to a different place than the box" problem).
+ *
+ * The four labels (Get Started / Beginner / Intermediate / Advanced) are
+ * ordered to match Skelly University's own 1000/2000/3000/4000 module
+ * numbering, but the numbers themselves aren't shown, just the ordering.
  *
  * The Advanced box is the one exception, deliberately: its
  * SPECIALIZATION_TRACKS chips go somewhere different from the box itself
@@ -284,18 +306,23 @@ function TrackTag({ label, href }: Track) {
 export function TierPicker() {
   const tiers: { label: string; description: string; to: string; tracks?: Track[] }[] = [
     {
-      label: 'Beginner',
+      label: 'Get Started',
       description: 'Install FreeMoCap and make your first recording.',
+      to: '#get-started',
+    },
+    {
+      label: 'Beginner',
+      description: 'Optimize your capture and understand your output data.',
       to: '#beginner',
     },
     {
       label: 'Intermediate',
-      description: 'Optimize your capture and understand your output data.',
+      description: 'Explore the architecture and how the pieces fit together.',
       to: '#intermediate',
     },
     {
       label: 'Advanced',
-      description: 'Explore the architecture, contribute, or specialize.',
+      description: 'Specialize in a track: Technology, Science, or Art.',
       to: '#advanced',
       tracks: SPECIALIZATION_TRACKS,
     },

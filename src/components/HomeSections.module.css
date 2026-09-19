@@ -232,18 +232,50 @@
   margin-bottom: 1rem;
 }
 
+/* The three specialization paths inside Advanced, side by side as vertical
+   columns rather than stacked, so Technology/Science/Art read as parallel
+   tracks. Collapses to one column under the same breakpoint the rest of
+   this page's grids use. */
+.pathColumns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  gap: 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .pathColumns {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* Deliberately lighter than .sectionHeading (size, weight, and color all
+   turned down a step): a path name is a subdivision of Advanced, not a
+   heading of the same rank, and it was reading as one at the same weight. */
+.pathHeading {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1rem;
+}
+
+/* .navGrid/.navBox elsewhere are fixed at 313px, sized for the wide flat
+   grids. A path column is its own, narrower third of the container, so its
+   tiles need to fill that column instead of risking overflow at
+   intermediate viewport widths. */
+.pathGroup .navGrid {
+  grid-template-columns: 1fr;
+}
+
+.pathGroup .navBox {
+  width: 100%;
+}
+
 .trackTags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-
-/* Same tags, used directly under a section heading (Tier) instead of
-   inside a card, needs its own bottom margin to separate it from the
-   tile grid that follows, .cardDescription already provides that
-   spacing in the TierPicker box context. */
-.tierTrackTags {
-  margin-bottom: 1.5rem;
 }
 
 .trackTag {
