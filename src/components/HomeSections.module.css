@@ -70,6 +70,15 @@
 .section {
   padding: 3rem 0;
   border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  /* Four of these sections (Get Started/Beginner/Intermediate/Advanced)
+     are TierPicker's own anchor targets. Without this, jumping to one
+     scrolls its heading to the very top of the viewport, right under the
+     sticky navbar, clipping it. Same mechanism Docusaurus's own generated
+     heading anchors use (anchorUtils.module.css), applied here by hand
+     since these are plain sections, not auto-generated doc headings.
+     Offset tuned by eye against the real navbar, not left at Docusaurus's
+     own default (+0.5rem) or derived from a measured height. */
+  scroll-margin-top: calc(var(--ifm-navbar-height) - 1rem);
 }
 
 .section:last-child {
