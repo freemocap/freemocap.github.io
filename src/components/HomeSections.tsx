@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { IconType } from 'react-icons';
 import Link from '@docusaurus/Link';
+import { useHistory } from '@docusaurus/router';
 import styles from './HomeSections.module.css';
 
 /**
@@ -55,17 +56,31 @@ export function Tier({
 }
 
 /**
- * One specialization path's own labeled tile grid, used three times inside
- * the Advanced tier (Technology / Science / Art), each grid populated from
- * real module content in `freemocap/university` rather than a single flat
- * grid, since the three paths don't have the same number of modules and
- * forcing them into one undifferentiated grid would hide that structure.
- * Always used inside a `PathColumns` wrapper, never standalone.
+ * One column's own labeled tile grid inside the Advanced tier (Technology /
+ * Science / Art / FMC Dev). Always used inside a `PathColumns` wrapper,
+ * never standalone.
+ *
+ * `note`, when given, is a one-line subcaption under the heading saying
+ * where this column's tiles actually go: Technology/Science/Art tiles
+ * leave the site for Skelly University's own curriculum on GitHub, FMC
+ * Dev's stay on this site. Without it, a reader can't tell the two kinds
+ * of card apart until they've already clicked one; this site treats
+ * provenance as reader-facing everywhere else (see ProvenanceBanner on
+ * every doc page), so the same honesty belongs here.
  */
-export function PathGroup({ label, children }: { label: string; children: ReactNode }) {
+export function PathGroup({
+  label,
+  note,
+  children,
+}: {
+  label: string;
+  note?: string;
+  children: ReactNode;
+}) {
   return (
     <div className={styles.pathGroup}>
       <h3 className={styles.pathHeading}>{label}</h3>
+      {note && <p className={styles.pathNote}>{note}</p>}
       {children}
     </div>
   );
@@ -73,10 +88,10 @@ export function PathGroup({ label, children }: { label: string; children: ReactN
 
 /**
  * Lays its PathGroup children out as side-by-side vertical columns
- * (one per specialization track) rather than stacked, so Technology /
- * Science / Art read as three parallel tracks under Advanced, not one
- * long scroll. Collapses to a single column on narrow viewports, same
- * breakpoint as the rest of this page's grids.
+ * (one per Advanced column) rather than stacked, so they read as parallel
+ * tracks, not one long scroll. Steps down to 2 columns then 1 as the
+ * viewport narrows, its own breakpoints since 4 columns needs an
+ * intermediate step the rest of this page's grids don't.
  */
 export function PathColumns({ children }: { children: ReactNode }) {
   return <div className={styles.pathColumns}>{children}</div>;
@@ -224,44 +239,67 @@ export function TileGrid({ tiles }: { tiles: Tile[] }) {
   );
 }
 
-export type Track = { label: string; href: string };
+/** `external` picks how TrackTag navigates: `window.open` in a new tab
+ *  for a Skelly University curriculum link, in-app history.push for a
+ *  page on this site. */
+export type Track = { label: string; href: string; external: boolean };
 
 /**
- * The curriculum DAG's 3100/3200/3300 specialization split. Single
- * source of truth, used by both TierPicker's Advanced box and the
- * Advanced Tier heading further down, so the two never drift apart.
- * Links go straight to the real, existing module content in the
- * `freemocap/university` repo (verified via the GitHub API this
- * session, not guessed) rather than the not-yet-built Skelly University
- * site, since that's the closest real thing to link to today.
+ * The curriculum DAG's 3100/3200/3300 specialization split, used by
+ * TierPicker's Advanced box. Links go straight to the real, existing
+ * module content in the `freemocap/university` repo (verified via the
+ * GitHub API this session, not guessed) rather than the not-yet-built
+ * Skelly University site, since that's the closest real thing to link
+ * to today.
  */
 export const SPECIALIZATION_TRACKS: Track[] = [
   {
     label: 'Technology',
     href: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3100-technology/3100-tech-overview.md',
+    external: true,
   },
   {
     label: 'Science',
     href: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3200-science/3200-science-overview.md',
+    external: true,
   },
   {
     label: 'Art',
     href: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3300-art/3300-art-overview.md',
+    external: true,
   },
 ];
 
 /**
- * One specialization-track chip inside the Advanced TierPicker box. Not a
- * real `<a>`, an `<a>` nested inside the box's own `<Link>` would be
- * invalid HTML and browsers handle that inconsistently. Instead this is a
- * span styled and behaving like a link (role, tabIndex, Enter/Space),
- * that stops the click from reaching the parent box and opens the track
- * itself. Deliberately the opposite case from the "?" tooltip: that
- * button only ever informs and never navigates, this one only ever
- * navigates (elsewhere) and never informs.
+ * Not one of the three specialization tracks, FMC Dev's own chip: this
+ * site's Developer Docs landing page, not `freemocap/university`. Kept
+ * separate from SPECIALIZATION_TRACKS (that name means the three career
+ * tracks specifically) and placed first in TierPicker's Advanced box, to
+ * match FMC Dev now being the first of the four Advanced columns.
  */
-function TrackTag({ label, href }: Track) {
-  const go = () => window.open(href, '_blank', 'noopener,noreferrer');
+const DEV_TRACK: Track = { label: 'Dev', href: '/developers', external: false };
+
+/**
+ * One chip inside the Advanced TierPicker box. Not a real `<a>`, an `<a>`
+ * nested inside the box's own `<Link>` would be invalid HTML and browsers
+ * handle that inconsistently. Instead this is a span styled and behaving
+ * like a link (role, tabIndex, Enter/Space), that stops the click from
+ * reaching the parent box and navigates itself: `window.open` for an
+ * external track, in-app `history.push` for FMC Dev's own `/developers`
+ * link, so leaving this site is the exception, not silently the default
+ * for every chip here. Deliberately the opposite case from the "?"
+ * tooltip: that button only ever informs and never navigates, this one
+ * only ever navigates (elsewhere) and never informs.
+ */
+function TrackTag({ label, href, external }: Track) {
+  const history = useHistory();
+  const go = () => {
+    if (external) {
+      window.open(href, '_blank', 'noopener,noreferrer');
+    } else {
+      history.push(href);
+    }
+  };
   return (
     <span
       className={styles.trackTag}
@@ -324,7 +362,7 @@ export function TierPicker() {
       label: 'Advanced',
       description: 'Specialization tracks.',
       to: '#advanced',
-      tracks: SPECIALIZATION_TRACKS,
+      tracks: [DEV_TRACK, ...SPECIALIZATION_TRACKS],
     },
   ];
 

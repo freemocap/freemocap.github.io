@@ -241,21 +241,27 @@
   margin-bottom: 1rem;
 }
 
-/* The three specialization paths inside Advanced, side by side as vertical
-   columns rather than stacked, so Technology/Science/Art read as parallel
-   tracks. Collapses to one column under the same breakpoint the rest of
-   this page's grids use. */
+/* The four columns inside Advanced (Technology/Science/Art/FMC Dev), side
+   by side rather than stacked, so they read as parallel tracks. Four
+   needs its own intermediate step down to 2 as the viewport narrows,
+   unlike this page's other grids, or the columns get too narrow for
+   their tile cards well before the 1-column breakpoint kicks in. */
 .pathColumns {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   align-items: start;
-  gap: 3.5rem;
+  gap: 2.5rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
+  .pathColumns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
   .pathColumns {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
   }
 }
 
@@ -266,6 +272,13 @@
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--ifm-color-emphasis-700);
+  margin-bottom: 0.35rem;
+}
+
+/* Where this column's tiles actually go */
+.pathNote {
+  font-size: 0.72rem;
+  color: var(--ifm-color-emphasis-500);
   margin-bottom: 1rem;
 }
 
@@ -281,19 +294,31 @@
   width: 100%;
 }
 
+/* Was flex-wrap: wrap, but at exactly 4 chips (Dev/Technology/Science/Art
+   on TierPicker's Advanced box) "Technology" alone pushed the row past
+   the card's available width, wrapping "Art" onto its own second line.
+   The card only ever reaches 4-per-row at this site's widest container
+   breakpoint (1320px, verified directly: cardGrid's minmax(17rem, 1fr)
+   never actually lands at its 17rem floor for a 4-across row, jumping
+   straight from 3-per-row at the 1140px breakpoint to 4-per-row at
+   1320px), so 307px card / 257px available for the chip row is the one
+   real number to fit, not a continuous range down to 272px. nowrap plus
+   the tighter .trackTag sizing below fits all 4 in ~251px, a few px of
+   slack under that 257px, rather than exactly at it. */
 .trackTags {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-wrap: nowrap;
+  gap: 0.3rem;
 }
 
 .trackTag {
   display: inline-flex;
   align-items: center;
-  padding: 0.2rem 0.7rem;
+  flex-shrink: 0;
+  padding: 0.15rem 0.4rem;
   border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-400));
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--ifm-color-emphasis-700);
   cursor: pointer;
