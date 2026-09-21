@@ -9,7 +9,7 @@ import styles from './HomeSections.module.css';
  * Homepage structure, top to bottom:
  *   Hero -> TierPicker (3 big boxes: Beginner/Intermediate/Advanced) ->
  *   three Tier groups, each a small Tile grid -> Coming Soon ->
- *   community links -> AudienceDoorways.
+ *   community links.
  * TierPicker is the big, prominent router. Tiles further down are
  * deliberately small and rely on a "?" tooltip instead of paragraph text,
  * that's the reverse of what it looked like on the first two passes.
@@ -432,50 +432,6 @@ export function ComingSoonSection() {
           </p>
           <span className={styles.cardComingSoon}>Read more</span>
         </Link>
-      </div>
-    </section>
-  );
-}
-
-/**
- * Audience routing lives at the bottom of home, as entry points into content
- * that already exists. One artifact, many doorways. No persona ever appears in
- * a URL and no content is duplicated per audience.
- */
-export function AudienceDoorways() {
-  const doorways: { label: string; blurb: string; to: string }[] = [
-    {
-      label: 'Artists and animators',
-      blurb: 'Get clean motion onto a rig in Blender.',
-      to: '/tutorials/blender',
-    },
-    {
-      label: 'Athletes and coaches',
-      blurb: 'Measure movement and get numbers you can compare.',
-      to: '/tutorials/analyze-in-python',
-    },
-    {
-      label: 'Clinicians and researchers',
-      blurb: 'Understand the output data and what it can support.',
-      to: '/concepts/accuracy-and-limits',
-    },
-    {
-      label: 'Developers',
-      blurb: 'Read the architecture and make your first change.',
-      to: '/build/architecture',
-    },
-  ];
-
-  return (
-    <section className={styles.section}>
-      <h2 className={styles.sectionHeading}>Find your path</h2>
-      <div className={styles.doorwayGrid}>
-        {doorways.map((d) => (
-          <Link key={d.to} to={d.to} className={styles.doorway}>
-            <strong>{d.label}</strong>
-            <span>{d.blurb}</span>
-          </Link>
-        ))}
       </div>
     </section>
   );

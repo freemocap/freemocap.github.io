@@ -348,35 +348,6 @@
   letter-spacing: 0.05em;
 }
 
-.doorwayGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 1rem;
-}
-
-.doorway {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 1rem 1.25rem;
-  border-left: 3px solid var(--ifm-color-primary);
-  background: var(--ifm-color-emphasis-100);
-  border-radius: 0 0.5rem 0.5rem 0;
-  text-decoration: none;
-  color: inherit;
-}
-
-.doorway:hover {
-  text-decoration: none;
-  color: inherit;
-  background: var(--ifm-color-emphasis-200);
-}
-
-.doorway span {
-  font-size: 0.9rem;
-  color: var(--ifm-color-emphasis-700);
-}
-
 .columnGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
