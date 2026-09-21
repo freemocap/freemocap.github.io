@@ -3,7 +3,7 @@ title: Recording folder structure
 type: reference
 sidebar_position: 10
 provenance: ai-generated
-inFlux: "The V2 output folder and file layout is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "The V2 output folder and file layout is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
   - date: "2026-08-25"
@@ -37,12 +37,12 @@ For the narrative version of this page, see
 ```
 
 Videos recorded by FreeMoCap itself follow the `{name}.id-{camera_id}.idx-{camera_index}`
-pattern above; imported footage with other names (for example `camera_0.mp4`) is
+pattern preceding; imported footage with other names (for example `camera_0.mp4`) is
 assigned cameras by filename heuristics instead.
 
 A `videos/synchronized/`, `videos/annotated/`, `output/` layout is the
 migration target in the codebase; both layouts validate today, but the
-names above are what a current recording actually produces.
+names preceding are what a current recording actually produces.
 
 ## Defaults
 
@@ -51,7 +51,7 @@ names above are what a current recording actually produces.
 | `~/freemocap_data/` | Root for all FreeMoCap data |
 | `~/freemocap_data/recordings/` | All recordings |
 | `~/freemocap_data/recordings/freemocap_test_data/` | Bundled test recording |
-| `~/freemocap_data/logs_info_and_settings/logs/` | Application logs |
+| `~/freemocap_data/logs_info_and_settings/logs/` | app logs |
 | `~/freemocap_data/calibrations/last_successful_camera_calibration.toml` | Most recent calibration |
 
 Note that the base folder can be overridden with the `FREEMOCAP_BASE_FOLDER`
@@ -66,7 +66,7 @@ data location.
 | `annotated_videos/` | Same footage with detected keypoints drawn on top, one `{video_name}_annotated.mp4` per camera |
 | `output_data/*.npy` | Per-tracker, per-region 3D arrays, see [array shapes and units](/reference/data-arrays) |
 | `output_data/*.parquet` | All trajectories combined into one tidy long-format file, `freemocap_data_by_frame.parquet`, see [the output data model](/concepts/data-model) |
-| `tracker_schema.json` | Keypoint names and connections for the tracker that produced the data |
+| `tracker_schema.json` | keypoint names and connections for the tracker that produced the data |
 | `{name}_camera_calibration.toml` | Camera intrinsics/extrinsics used for this recording |
 | `{name}_info.json` | Camera settings at record time (resolution, exposure, framerate, rotation), plus the recording name, a UUID, and the start timestamp |
 | `{name}.blend` | Blender scene, present only after export |

@@ -34,7 +34,7 @@ shaped by what needs to stay visible and what might get occluded. From there:
    [Image tracking and pose models](/concepts/tracking).
 4. **3D reconstruction** combines the calibration data with every camera's 2D
    keypoints to triangulate each joint's 3D position, frame by frame. See
-   [Triangulation and 3D reconstruction](/concepts/triangulation).
+   [triangulation and 3D reconstruction](/concepts/triangulation).
 
 Calibration and recording can happen in either order in practice. What matters is that
 both are done before pose estimation and reconstruction, since reconstruction needs

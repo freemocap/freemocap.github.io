@@ -21,7 +21,7 @@ That combination has kept quantitative motion analysis mostly inside
 well-funded research labs, out of reach for most clinicians, educators,
 independent researchers, and creators.
 
-FreeMoCap is an attempt to close that gap: a free, open-source, markerless
+FreeMoCap is an attempt to close that gap: a free, open source, markerless
 motion capture system that works with ordinary webcams. Point a few cameras
 at someone moving, and FreeMoCap turns the video into a 3D skeleton, no
 suit, no markers, no specialized room required.
@@ -32,7 +32,7 @@ Something similar happened once before. In 2010, Microsoft released the
 Kinect, a $150 gaming peripheral that could sense depth and track a body in
 real time, technology that had previously cost tens of thousands of
 dollars. Microsoft never intended it for research. Within six days of
-release, an open-source bounty got the Kinect's drivers reverse-engineered,
+release, an open source bounty got the Kinect's drivers reverse-engineered,
 and a community of hobbyists, artists, and eventually biomechanics
 researchers started using it for things it was never designed to do. The
 Kinect itself is long discontinued, but the pattern it demonstrated held:

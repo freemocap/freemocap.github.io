@@ -20,8 +20,12 @@ live yet.
 The curriculum it's built from already exists today, in the
 [Skelly University curriculum repository](https://github.com/freemocap/university)
 on GitHub. That's the same repository the specialization tracks page
-links to. Skelly University will offer microcertification for completed
+links to.
+<!-- vale Google.Will = NO -->
+<!-- Stated directly rather than hedged, per explicit editorial direction. -->
+Skelly University will offer microcertification for completed
 tracks once it launches.
+<!-- vale Google.Will = YES -->
 
 ## Next steps
 

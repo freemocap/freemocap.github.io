@@ -3,7 +3,7 @@ title: The polyrepo map
 type: explanation
 sidebar_position: 3
 provenance: ai-generated
-inFlux: "Polyrepo map section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "polyrepo map section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
   - date: "2026-08-26"
     against: "DataFlowDiagram component (edge/order/terminal-output logic derived from consumes/produces), src/plugins/repos-data and docusaurus.config.ts wiring, data/repos.yml tier/consumes/produces values for all 9 repos, the four linked routes (/developers, /build/data-contracts, /build/repo-directory, /build/architecture), and the freemocap-composes-every-shown-repo claim against pyproject.toml at pinned tag v2.0.0-alpha.21"

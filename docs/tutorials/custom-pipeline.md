@@ -17,9 +17,11 @@ FreeMoCap's backend runs on two different pipelines, and understanding
 the difference is the useful starting point before you go looking for
 where to extend either one.
 
-## Realtime vs. posthoc
+<!-- vale Vale.Terms = NO -->
+## Realtime versus posthoc
+<!-- vale Vale.Terms = YES -->
 
-| | Realtime | Posthoc |
+| | realtime | posthoc |
 |---|---|---|
 | Source | Live camera feeds | Video files already on disk |
 | Priority | Low latency: the latest frame, dropping stale ones if it falls behind | Accuracy: every frame, in order, nothing dropped |

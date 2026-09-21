@@ -11,7 +11,9 @@ history:
     against: "FreeMoCap tracker_definitions.py, SkellyTracker core detector YAMLs, and SkellyForge skellymodels source, read directly"
 ---
 
+<!-- vale Vale.Terms = NO -->
 # Keypoint names and indices by model
+<!-- vale Vale.Terms = YES -->
 
 There are two keypoint-schema systems in this codebase, and both are
 live. They serve different purposes:
@@ -34,7 +36,7 @@ page would be generated purely from
 `skellyforge/skellymodels/tracker_info/*.yaml` was half right: that is
 the source for output-file columns, not for the frontend schema.
 
-## System 1: TrackerDefinition (the frontend schema)
+## System 1: `TrackerDefinition` (the frontend schema)
 
 A `TrackerDefinition` is deliberately small: `name`, `tracked_points`
 (ordered tuple of names), `connections` (tuple of name pairs). Three are

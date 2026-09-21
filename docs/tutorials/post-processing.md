@@ -21,7 +21,7 @@ step itself: a modular post-processing component, not something baked
 into triangulation, which is what makes both of the following steps
 possible.
 
-## Filling Gaps
+## Filling gaps
 
 Not every frame produces a usable 3D point for every keypoint. If too few
 cameras had a confident detection, [reconstruction](/concepts/triangulation)
@@ -35,7 +35,7 @@ losing track of a keypoint, more gaps to fill. See
 [optimize your capture space](/tutorials/capture-environment) to reduce
 how often this happens.
 
-## Smoothing Noise
+## Smoothing noise
 
 After gaps are filled, SkellyForge applies a low-pass Butterworth filter
 to the trajectories. In plain terms: real human movement changes
@@ -52,7 +52,7 @@ noise. If your analysis depends on high-frequency detail, it's worth
 knowing that this smoothing step happened, rather than assuming the
 trajectories you're looking at are the raw triangulated output.
 
-## Why This Matters for Your Analysis
+## Why this matters for your analysis
 
 Both steps happen automatically, which is usually what you want. But
 "automatically" isn't the same as "invisibly": knowing that your data has
@@ -66,5 +66,5 @@ scrutiny than one that was cleanly tracked throughout.
 ## Next steps
 
 - [The FreeMoCap output data model](/concepts/data-model)
-- [Triangulation and 3D reconstruction](/concepts/triangulation)
+- [triangulation and 3D reconstruction](/concepts/triangulation)
 - [Accuracy, validity, and limits](/concepts/accuracy-and-limits)

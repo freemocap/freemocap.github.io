@@ -3,7 +3,7 @@ title: Find and read your output
 type: tutorial
 sidebar_position: 21
 provenance: ai-generated
-inFlux: "Where and how your V2 output data is laid out is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "Where and how your V2 output data is laid out is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
   - date: "2026-08-26"
@@ -37,9 +37,9 @@ of what's actually in there.
 ```
 
 A migration to a slightly different layout (`videos/synchronized/`,
-`videos/annotated/`, and `output/` instead of the names above) is in
+`videos/annotated/`, and `output/` instead of the names preceding) is in
 progress in the codebase; both layouts are recognized today, but the
-names above are what you'll actually see on disk right now. If a future
+names preceding are what you'll actually see on disk right now. If a future
 version of FreeMoCap looks slightly different from this, that's why.
 
 A few other defaults worth knowing:
@@ -49,7 +49,7 @@ A few other defaults worth knowing:
 | All FreeMoCap data | `~/freemocap_data/` (override with the `FREEMOCAP_BASE_FOLDER` environment variable) |
 | All recordings | `~/freemocap_data/recordings/` |
 | Bundled test recording | `~/freemocap_data/recordings/freemocap_test_data/` |
-| Application logs | `~/skellylogs_data/logs/` (logging goes through SkellyLogs; redirect with `SKELLYLOGS_LOG_DIR`) |
+| app logs | `~/skellylogs_data/logs/` (logging goes through SkellyLogs; redirect with `SKELLYLOGS_LOG_DIR`) |
 | Your most recent calibration | `~/freemocap_data/calibrations/last_successful_camera_calibration.toml` |
 
 ## What's in each piece

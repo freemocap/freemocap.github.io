@@ -12,7 +12,7 @@ history:
 ---
 
 Every camera in a FreeMoCap recording sees the world from its own point of view, with its own
-private sense of up, forward, and how far. [Triangulation](/concepts/triangulation) turns those
+private sense of up, forward, and how far. [triangulation](/concepts/triangulation) turns those
 per-camera views into a single set of 3D points, but that only works if every point lands in one
 shared frame. Coordinate conventions are the rules that make that frame meaningful: what a unit of
 distance means, which way is up, and which way counts as positive rotation.
@@ -70,7 +70,7 @@ The rotations FreeMoCap does carry belong to the cameras, not to body segments: 
 orientations are held as quaternions in memory (scalar-first `w, x, y, z`) and stored as Rodrigues
 rotation vectors in the saved calibration TOML. If you need joint angles, SkellyForge contains a
 BVH exporter that derives Euler-angle rotations from bone directions between parent and child
-joints, but nothing in the FreeMoCap application calls it, so a normal recording produces no BVH
+joints, but nothing in the FreeMoCap app calls it, so a normal recording produces no BVH
 file. [Coordinate conventions](/reference/coordinate-conventions) has the terse version of all of
 this.
 
@@ -78,5 +78,5 @@ this.
 
 - [Coordinate conventions](/reference/coordinate-conventions) for the terse, citable spec.
 - [Set the ground plane](/tutorials/ground-plane) for how to get a Z-up recording.
-- [Triangulation and 3D reconstruction](/concepts/triangulation) for how 2D camera views become 3D points at all.
+- [triangulation and 3D reconstruction](/concepts/triangulation) for how 2D camera views become 3D points at all.
 - [Glossary](/concepts/glossary) for terms like ChArUco board and reprojection error.

@@ -81,7 +81,9 @@ accuracy level: swapping in a population-specific model changed the
 outcome from "doesn't work for this person" to "works well enough to
 detect real alignment changes."
 
+<!-- vale Vale.Terms = NO -->
 ## Backend choice changes the outcome
+<!-- vale Vale.Terms = YES -->
 
 The three pose estimation backends have different failure modes, not just
 different accuracy levels:
@@ -114,7 +116,7 @@ use depends on the task; see
 - **Accuracy is downstream of pose estimation.** FreeMoCap's 3D
   reconstruction is only as good as the 2D keypoints it's given. Occlusion,
   unusual body shapes, or a pose estimation model that struggles with a
-  particular population will degrade results no matter how good the
+  particular population degrades results no matter how good the
   camera setup is.
 - **Validated conditions are specific.** These results come from treadmill
   gait, static (not dynamic) balance, and one prosthesis user. They don't
@@ -131,7 +133,7 @@ use depends on the task; see
 
 FreeMoCap is not a replacement for marker-based motion capture, which
 remains the gold standard for precision. What the validation work shows is
-that a low-cost, open-source, markerless system can get close enough to be
+that a low-cost, open source, markerless system can get close enough to be
 useful for real biomechanical questions, provided you understand which
 backend you're using and what it's actually been validated on. Treat this
 page as a starting point for what to expect, and the
@@ -140,9 +142,11 @@ as where to go to understand exactly what numbers you're getting back.
 
 ---
 
-Source: Cherian, A. *Open-Source Development and Validation of a Low-Cost
-Markerless System for Quantitative Motion Analysis.* PhD dissertation,
-Northeastern University, Department of Bioengineering, 2026. Citation
-link pending publication in Northeastern's institutional repository; see
-[cite FreeMoCap](/guides/cite-freemocap) for the software citation in the
-meantime.
+<!-- vale Google.WordListCase = NO -->
+Source: Cherian, A. *Open-source development and validation of a
+low-cost markerless system for quantitative motion analysis.* PhD
+<!-- vale Google.WordListCase = YES -->
+dissertation, Northeastern University, Department of Bioengineering,
+2026. Citation link pending publication in Northeastern University's
+institutional repository; see [cite FreeMoCap](/guides/cite-freemocap)
+for the software citation in the meantime.

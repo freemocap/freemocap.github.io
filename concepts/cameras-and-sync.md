@@ -32,7 +32,7 @@ devices, roughly $1,000 to $1,500 even with the cheapest available iPhones, and
 Theia3D's dedicated hardware costs more still. Since the same architecture that keeps
 SkellyCam's per-camera cost low also makes it cheap to add more cameras, and more
 cameras generally means more accurate 3D reconstruction (see
-[Triangulation and 3D reconstruction](/concepts/triangulation)), accessibility and
+[triangulation and 3D reconstruction](/concepts/triangulation)), accessibility and
 accuracy end up reinforcing each other here rather than trading off.
 
 ## Beyond USB webcams
@@ -50,7 +50,7 @@ build; that step happens outside the software. A study that needs a higher
 frame rate for athletic movement, or non-USB cameras for an outdoor recording, isn't
 locked out of the pipeline.
 
-## Single camera vs. multi-camera
+## Single camera versus multi-camera
 
 FreeMoCap can reconstruct 3D data from a single camera, but monocular reconstruction
 falls well short of what multiple cameras can provide. A second viewpoint adds real

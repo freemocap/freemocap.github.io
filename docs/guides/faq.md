@@ -13,6 +13,11 @@ draft: false
 
 # Frequently asked questions
 
+<!-- vale Google.FirstPerson = NO -->
+<!-- Questions posed as "Can I..." or "My installation fails" are how a
+     reader would actually ask them; this is the FAQ genre exception, same
+     as docs/about/faq.md. -->
+
 These answers started from real questions and answers in the
 FreeMoCap/FreeMoCap GitHub Discussions Q&A category, a stand-in for the
 Discord `#help-requests` export that hasn't happened yet. Answers that
@@ -58,8 +63,10 @@ throughput with many cameras.
 ## How many cameras can I plug in? Do USB hubs work?
 
 See [connect and configure cameras](/guides/camera-setup), which covers
-this properly. The short version: USB bandwidth, not software, is usually
-the limit. Plug cameras into separate controllers rather than one hub,
+this properly.
+<!-- vale Google.Colons = NO -->
+The short version: USB bandwidth, not software, is usually the limit.
+<!-- vale Google.Colons = YES --> Plug cameras into separate controllers rather than one hub,
 prefer USB 3.0, and drop resolution per camera if you need more of them.
 Mixed results with hubs were reported even back in the Discussions era,
 which matches the current guidance to connect directly where possible.
@@ -106,7 +113,7 @@ assuming it's undocumented, see [request a feature](/guides/request-a-feature).
 ## Which Blender versions are supported?
 
 The Blender addon does declare a minimum: its `bl_info` metadata sets
-`'blender': (3, 0, 0)`, i.e. Blender 3.0 or newer. Treat that as a floor
+`'blender': (3, 0, 0)`, that is Blender 3.0 or newer. Treat that as a floor
 rather than a tested compatibility list, and install a current Blender
 from [`blender.org`](https://www.blender.org); if the addon fails to load
 or run on an old version, updating Blender is the first thing to try. For
@@ -144,3 +151,4 @@ The honest headline: joint trajectory errors were generally under 30 mm
 for gait in the validated conditions, accuracy depends heavily on the pose
 estimation backend and your capture conditions, and the validated
 conditions don't cover everything.
+<!-- vale Google.FirstPerson = YES -->

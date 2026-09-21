@@ -23,9 +23,9 @@ many cameras to use and where to put them; for the physical setup itself
 linking your cameras into one coordinate system, see
 [Calibrate your cameras](/tutorials/calibrate).
 
-## How Many Cameras Do You Need
+## How many cameras do you need
 
-There's no universal answer, and published guidance disagrees: Theia3D
+There's no universal answer, and published guidance disagrees: theia3D
 requires a minimum of six cameras and suggests at least eight, while
 OpenCap studies have found only minimal accuracy benefit moving from two
 cameras to five, and other OpenPose-based systems have found substantial
@@ -38,7 +38,7 @@ task involves a lot of self-occlusion (one body part blocking another) or
 covers a wide physical area. The right number is task-dependent, not a
 fixed rule.
 
-## Positioning for a Fixed Space
+## Positioning for a fixed space
 
 If your subject stays roughly in one place (a treadmill, a chair, a small
 capture volume), surround them with cameras rather than lining them up on
@@ -56,7 +56,7 @@ one side. A few things worth knowing:
   [calibration](/tutorials/calibrate) depends on cameras seeing the
   ChArUco board together.
 
-## Positioning for a Moving Subject
+## Positioning for a moving subject
 
 Overground walking or any recording where the subject covers real
 distance needs a different strategy: instead of framing the subject
@@ -68,9 +68,9 @@ landscape orientations like this maximizes ground coverage in a way that
 an all-landscape layout doesn't. The goal, wherever the subject ends up
 along the path, is at least two cameras seeing them at once.
 
-## When the "Rules" Don't Apply
+## When the "rules" don't apply
 
-Camera positioning is genuinely task-dependent, and the guidance above
+Camera positioning is genuinely task-dependent, and the guidance preceding
 comes from validated setups (treadmill gait, overground gait, a stationary
 rowing machine), not from an underlying formula. Expect to iterate: record
 a test clip, check whether reconstruction quality holds up across the

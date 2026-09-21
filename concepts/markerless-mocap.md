@@ -50,7 +50,7 @@ categories:
 - **Custom-built workflows**, developed by individual research groups for a specific
   study. Described in a paper's methods section, but the code is usually not shared,
   so other researchers rebuild it from scratch.
-- **Open-source systems** meant for reuse, like OpenCap (kinematics from two or more
+- **open source systems** meant for reuse, like OpenCap (kinematics from two or more
   iPhones), Pose2Sim, and PosePipe. These lower the barrier to entry but are often
   harder to adapt: swapping the underlying pose estimation model or changing the
   processing pipeline isn't always straightforward.

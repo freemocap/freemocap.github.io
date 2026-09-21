@@ -3,7 +3,7 @@ title: Architecture overview
 type: explanation
 sidebar_position: 2
 provenance: ai-generated
-inFlux: "Architecture section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "Architecture section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
   - date: "2026-08-26"
     against: "FreeMoCap source at pinned tag v2.0.0-alpha.21: app/app.py, app/freemocap_application.py, api/routers.py, api/server_constants.py, api/websocket/websocket_server.py, __main__.py, core/pipeline/, core/tracking/, core/blender/export_to_blender.py, pyproject.toml, freemocap-ui/src/constants/server-urls.ts, freemocap-ui/electron/main/api.ts; skellytracker Tracker API cross-checked; consolidated against freemocap-docs/docs/architecture/overview.mdx and backend-overview.mdx"
@@ -26,9 +26,9 @@ connect. The pages below zoom into one layer at a time.
 
 FreeMoCap is a polyrepo project. Three repositories compose the running app:
 
-| Repo | Owns | How it plugs in |
+| repo | Owns | How it plugs in |
 |---|---|---|
-| `freemocap` | The app: React/Electron frontend, FastAPI backend, processing pipelines | This is the composition root. Everything else is a dependency of it. |
+| `freemocap` | The app: react/Electron frontend, FastAPI backend, processing pipelines | This is the composition root. Everything else is a dependency of it. |
 | `skellycam` | Cameras: detection, configuration, shared memory ring buffers, synchronized recording to disk, multiprocess worker management | Imported as a Python library by the backend; its HTTP routes are mounted under `/skellycam` on the backend's server |
 | `skellytracker` | Pose estimation: the unified `Tracker` API and the detectors (MediaPipe, RTMPose, YOLOX, ArUco, ChArUco), with batched multi-camera inference | Imported as a Python library by the pipeline nodes |
 
@@ -116,7 +116,7 @@ the Electron launcher can discover it):
   binary JPEG frames per camera, keypoints, log lines, framerate stats, and
   pipeline progress. Clients acknowledge frame numbers to pace the backend.
 
-There is a third channel inside the desktop app only: Electron IPC, bridged
+There is a third channel inside the desktop app only: electron IPC, bridged
 through a tRPC proxy, for things only a native shell can do such as file
 dialogs and native menus. The core system works in a plain browser without it.
 

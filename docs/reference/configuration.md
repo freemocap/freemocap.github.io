@@ -93,7 +93,7 @@ Its schema:
 { "baseDataFolder": "/Users/me/Documents/mocap-data" }
 ```
 
-Setting the key relocates the data folder via `FREEMOCAP_BASE_FOLDER`: Electron
+Setting the key relocates the data folder via `FREEMOCAP_BASE_FOLDER`: electron
 persists it, then restarts the Python server it owns so the change takes effect
 immediately (when the server is running standalone and Electron does not own
 it, the change applies at its next start instead). Removing the key reverts to

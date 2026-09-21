@@ -11,10 +11,12 @@ history:
 draft: false
 ---
 
+<!-- vale Vale.Terms = NO -->
 # WebSocket API
+<!-- vale Vale.Terms = YES -->
 
 Alongside the [REST API](/reference/rest-api), FreeMoCap's backend keeps
-a single persistent WebSocket connection open
+a single persistent websocket connection open
 (`ws://localhost:53117/websocket/connect`) for everything that needs to
 stream continuously: camera frames, live keypoints, logs, and
 processing progress. Like the REST API, this is the internal contract
@@ -25,11 +27,11 @@ between the bundled frontend and backend, not a stable public interface.
 | Direction | Message | Carries |
 |---|---|---|
 | Server → client | Frame data | Binary JPEG frames per camera, plus keypoints, sent every processed frame |
-| Server → client | Framerate updates | Backend and frontend FPS, a few times a second |
+| Server → client | framerate updates | backend and frontend FPS, a few times a second |
 | Server → client | Pipeline progress | Post-hoc calibration/mocap processing status |
-| Server → client | Log records | Backend log lines, for the in-app log viewer |
-| Server → client | Tracker schema handshake | Keypoint names and connections for the active trackers, sent once on connect |
-| Server → client | App state | Application-state snapshot, sent on connect and again whenever the state changes |
+| Server → client | Log records | backend log lines, for the in-app log viewer |
+| Server → client | Tracker schema handshake | keypoint names and connections for the active trackers, sent once on connect |
+| Server → client | App state | app-state snapshot, sent on connect and again whenever the state changes |
 | Client → server | Frame acknowledgment | Confirms a frame was received, see below |
 
 ## Why acknowledgment matters
@@ -49,7 +51,7 @@ connection that appears to hang after the first few hundred frames.
 The full binary frame protocol (exact byte layout), every message type,
 and the reconnection/heartbeat behavior are documented in the
 `freemocap` repository's own architecture docs
-([WebSocket Server](https://github.com/freemocap/freemocap/blob/main/freemocap-docs/docs/architecture/backend-websocket-server.mdx)).
+([websocket Server](https://github.com/freemocap/freemocap/blob/main/freemocap-docs/docs/architecture/backend-websocket-server.mdx)).
 That's the version worth trusting, this protocol is still evolving and
 a page ported here would go stale faster than the source does.
 

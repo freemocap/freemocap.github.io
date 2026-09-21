@@ -49,7 +49,7 @@ that help:
 
 ## Configuration settings that matter
 
-Set through the Camera Config Tree in the sidebar:
+Set through the Camera config Tree in the sidebar:
 
 | Setting | Recommendation |
 |---|---|
@@ -57,9 +57,9 @@ Set through the Camera Config Tree in the sidebar:
 | Exposure | Manual, fixed |
 
 Two settings you may see recommended elsewhere are not currently in the
-app. Framerate has no control in the config panel, and SkellyCam leaves
+app. framerate has no control in the config panel, and SkellyCam leaves
 it at the camera's own default (applying a configured framerate is
-disabled in its capture code), so choose cameras that hold the rate you
+turn off' or 'off in its capture code), so choose cameras that hold the rate you
 need rather than trying to set it here. Focus and white balance have no
 controls either, so if your camera supports locking them, do it through
 the camera's own driver or on-device menu before recording.
@@ -89,7 +89,7 @@ accumulate.
 
 Calibration uses a printed [ChArUco board](/concepts/calibration). Print
 it on something rigid so it stays flat, printable board files ship in
-`shared/charuco/` in the freemocap repository. The board's physical
+`shared/charuco/` in the FreeMoCap repository. The board's physical
 dimensions need to match whatever's configured in the calibration
 settings (board preset and square length, in millimeters).
 

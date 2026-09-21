@@ -8,9 +8,16 @@ history:
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
+<!-- vale Google.We = NO -->
+<!-- vale Google.FirstPerson = NO -->
+<!-- An FAQ page is the other genre (with privacy policies) where the
+     rules this suppresses would fight the actual convention: questions
+     posed as "Can I..." are how a reader would really ask them, and
+     answers naturally speak as "we," the project team responding. -->
+
 ## How is FreeMoCap free?
 
-FreeMoCap is completely free to use, but its also free in the sense of "freedom". You have the freedom to use FreeMoCap how you like, including copying, modifying, and redistributing the code. 
+FreeMoCap is completely free to use, but its also free in the sense of "freedom." You have the freedom to use FreeMoCap how you like, including copying, modifying, and redistributing the code. 
 
 For more information on free software, see this article from the GNU Operating System, [What is Free Software?](https://www.gnu.org/philosophy/free-sw.en.html)
 
@@ -26,22 +33,24 @@ If you wish to work with FreeMoCap in a way not supported by the AGPLv3, please 
 
 ## How can I contribute to FreeMoCap?
 
-We accept contributions of all kinds and sizes!
+We accept contributions of all kinds and sizes.
 
 For contributions related to code or documentation, see our [contributing page](/build/contributing).
 
 We also greatly appreciate anyone who helps answer questions on our [Discord](https://discord.gg/nxv5dNTfKT).
 
-We also greatly appreciate financial contributions of any size, although the software is and will remain entirely free. You can donate through various platforms on our [donations page](https://freemocap.org/about-us.html#donate).
+We also greatly appreciate financial contributions of any size, although the software is entirely free, now and permanently. You can donate through various platforms on our [donations page](https://freemocap.org/about-us.html#donate).
 
 ## Does FreeMoCap work in realtime?
 
-Yes, in the current V2 build! FreeMoCap runs a realtime pipeline: per-camera nodes run pose detection as each synchronized frame arrives, and an aggregation node triangulates and filters every frame live, streaming results to the GUI over WebSocket. An optional centralized GPU inference node serves all cameras with batched ONNX inference. FreeMoCap also keeps a non-realtime (posthoc) path, which processes recordings after the fact and remains useful for reprocessing.
+Yes, in the current V2 build. FreeMoCap runs a realtime pipeline: per-camera nodes run pose detection as each synchronized frame arrives, and an aggregation node triangulates and filters every frame live, streaming results to the GUI over websocket. An optional centralized GPU inference node serves all cameras with batched ONNX inference. FreeMoCap also keeps a non-realtime (posthoc) path, which processes recordings after the fact and remains useful for reprocessing.
 
 ## Can FreeMoCap track multiple people at once?
 
-Not yet! FreeMoCap currently only tracks one person at a time, but we are working on adding multi-person tracking functionality.
+Not yet. FreeMoCap currently only tracks one person at a time, but we are working on adding multi-person tracking capability.
 
 ## Can I track things that are not humans?
 
-Not yet! FreeMoCap currently only tracks humans. We have done some proof-of-concept projects using [DeepLabCut](https://deeplabcut.org) and are currently working towards making this part of our standard pipeline.
+Not yet. FreeMoCap currently only tracks humans. We have done some proof-of-concept projects using [DeepLabCut](https://deeplabcut.org) and are currently working towards making this part of our standard pipeline.
+<!-- vale Google.We = YES -->
+<!-- vale Google.FirstPerson = YES -->

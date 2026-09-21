@@ -18,13 +18,13 @@ changing anything else in your pipeline (see
 [SkellyTracker](/concepts/tracking) for how that swapping works). This
 page is about which one to actually reach for.
 
-## If You're Not Sure, Start With MediaPipe
+## If you're not sure, start with MediaPipe
 
 MediaPipe is the default for a reason: it's free, runs on a CPU with no
 GPU required, and is simple to install and call from Python. Unless you
 have a specific reason to switch, it's the right starting point.
 
-## Match the Backend to Your Task
+## Match the backend to your task
 
 The full comparative results are in
 [Accuracy, validity, and limits](/concepts/accuracy-and-limits); the short
@@ -46,7 +46,7 @@ version, by task:
   transfemoral prosthesis in FreeMoCap's own validation work. A
   custom-trained model may be the only option that works; see below.
 
-## When the Built-In Options Aren't Enough
+## When the built-in options aren't enough
 
 If none of the standard backends track your subject reliably, SkellyTracker's
 standardized detector interface (`core/detectors/detector_base_classes.py`)

@@ -45,7 +45,7 @@ proportions look roughly human and its motion matches what you did.
 
 **Signs something's off:**
 
-- Keypoints jumping around or disappearing in the annotated video
+- keypoints jumping around or disappearing in the annotated video
   usually means a lighting or contrast problem, not a software bug. See
   [optimize your capture space](/tutorials/capture-environment).
 - A skeleton that's lying down, mirrored, or wildly out of scale in

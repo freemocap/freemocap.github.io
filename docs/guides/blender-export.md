@@ -36,13 +36,13 @@ RTMPose 3D data doesn't have a working Blender export yet.
 ## Troubleshooting
 
 **Blender not detected.** Install from
-[blender.org](https://www.blender.org), or set the path manually.
+[Blender.org](https://www.blender.org), or set the path manually.
 
 **Export fails, missing files.** The recording isn't fully processed,
 not every required `.npy` file exists yet. Run mocap processing first,
 see [process a recording after the fact](/guides/posthoc-mocap).
 
-**Addon fails to load.** The addon is injected at export time, not
+**addon fails to load.** The addon is injected at export time, not
 installed into Blender's own preferences, so this usually means
 `freemocap_blender_addon` isn't available in your Python environment
 rather than a Blender-side issue.

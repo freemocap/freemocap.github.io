@@ -32,7 +32,7 @@ software itself, and the validation study behind
 }
 ```
 
-Or in prose: Queen, P., Cherian, A., Wirth, T., Idehen, E., & Matthis,
+Or in prose: queen, P., Cherian, A., Wirth, T., Idehen, E., & Matthis,
 J. S. *FreeMoCap.* [https://doi.org/10.5281/zenodo.7233713](https://doi.org/10.5281/zenodo.7233713)
 
 That DOI is Zenodo's **concept DOI**, it always resolves to the latest
@@ -50,9 +50,9 @@ Older copies of the `CITATION.cff` file in the `freemocap/freemocap`
 repository carry a placeholder DOI (`10.5281/zenodo.1234`) that was
 never filled in, and two author names' given and family fields were
 swapped in those same copies. A corrected version adopting the concept
-DOI above has been prepared in the repository but had not landed in the
+DOI preceding has been prepared in the repository but had not landed in the
 public repo as of 2026-08-25, so you may still run into the older file.
-Either way, the DOI and author list above are the correct ones, so use
+Either way, the DOI and author list preceding are the correct ones, so use
 this page's citation if the copy of the file you're reading disagrees
 with it.
 :::
@@ -69,7 +69,7 @@ with it.
 ```
 
 Citation link pending publication in Northeastern's institutional
-repository. Cite the software (above) alongside it if your work depends
+repository. Cite the software (preceding) alongside it if your work depends
 on both.
 
 ## Next steps

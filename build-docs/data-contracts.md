@@ -3,7 +3,7 @@ title: Data contracts between components
 type: reference
 sidebar_position: 5
 provenance: ai-generated
-inFlux: "Data contracts section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "Data contracts section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
   - date: "2026-08-26"
     against: "data/repos.yml consumes/produces fields cross-checked against source: freemocap core/tasks/mocap/posthoc_mocap_task.py, core/blender/export_to_blender.py, pubsub/pubsub_topics.py, core/pipeline/realtime/realtime_aggregator_node.py, system/telemetry/telemetry.py; skellytracker core/data_primitives/observation.py; skellycam core/ipc/shared_memory/camera_shared_memory_ring_buffer.py; skellyforge package layout; freemocap_blender_addon freemocap_data_handler loader and saver; DataContractsTable component and repos-data-plugin"
@@ -31,7 +31,7 @@ map of *who depends on whom*, not a type checker. This table, like
 [the polyrepo map](/build/the-map), is generated live from `data/repos.yml`
 at page-load time; edit that file, not this page.
 
-Cross-checking the table's names against actual source (freemocap pinned to
+Cross-checking the table's names against actual source (FreeMoCap pinned to
 tag v2.0.0-alpha.21, sibling repos at their current main), several of them
 are aspirational labels rather than identifiers that appear anywhere in code,
 and FreeMoCap's own row understates things. Specifically:
@@ -61,7 +61,7 @@ and FreeMoCap's own row understates things. Specifically:
 - FreeMoCap's empty row hides that it is the biggest producer and consumer of
   all: its task signatures import SkellyTracker's `Observation` and SkellyCam's
   `RecordingInfo` directly, and it emits the recording outputs other tools
-  load, including the `.blend` file above and the saved output arrays named by
+  load, including the `.blend` file preceding and the saved output arrays named by
   the constants in `core/blender/export_to_blender.py`
   (`skeleton_3d.npy`, `rigid_bones_3d.npy`, and friends).
 

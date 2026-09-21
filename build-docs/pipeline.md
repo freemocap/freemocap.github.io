@@ -3,7 +3,7 @@ title: Follow one recording end to end
 type: explanation
 sidebar_position: 4
 provenance: ai-generated
-inFlux: "Pipeline walkthrough section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "Pipeline walkthrough section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
   - date: "2026-08-26"

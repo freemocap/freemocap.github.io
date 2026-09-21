@@ -8,19 +8,19 @@ history:
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
-## Capture Volume
+## Capture volume
 3-dimensional area (volume) with sufficient camera coverage to support 3D tracking.
 
 ## Calibration
 
 Calibration is the process of measuring information about the cameras used for a recording.
-We measure the camera "intrinsics", like the focal length and lens distortion, 
-as well as "extrinsics", like where the cameras are in space and where they are pointed.
+It measures the camera "intrinsics," like the focal length and lens distortion, 
+as well as "extrinsics," like where the cameras are in space and where they are pointed.
 Having the cameras calibrated is necessary to triangulate the 2-dimensional data from each camera into 3-dimensional data. 
 
 [Link to a section of the 'braindump' video discussing capture volume calibration](https://www.youtube.com/watch?v=GxKmyKdnTy0&t=1785s)
 
-## ChArUco Board
+## ChArUco board
 
 A ChArUco board is a combination of a chessboard and ArUco markers, two common tools for calibrating cameras.
 The ChArUco is a known object that is easily detected in images, 
@@ -40,13 +40,15 @@ An open source framework for machine learning perception pipelines from Google. 
 An open source object detection model family, originally developed by Megvii. FreeMoCap uses YOLOX to detect the person in each frame so the region around them can be cropped out before pose estimation, see [use YOLO cropping](/guides/yolo-cropping). The specific YOLOX checkpoints used are downloaded from OpenMMLab's MMPose ONNX SDK.
 
      
-## Reprojection Error
-"Reprojection error" is the distance (in pixels) between the originally measured point (i.e. the 2d skeleton) and the reconstructed 3d point reprojected back onto the image plane. 
+<!-- vale Vale.Terms = NO -->
+## Reprojection error
+<!-- vale Vale.Terms = YES -->
+"reprojection error" is the distance (in pixels) between the originally measured point (that is the 2D skeleton) and the reconstructed 3D point reprojected back onto the image plane. 
 
-The intuition is that if the 3d reconstruction and original 2d track are perfect, then reprojection error will be Zero. If it isn't, then there is some inaccuracy in either:
+The intuition is that if the 3D reconstruction and original 2D track are perfect, then reprojection error is zero. If it isn't, then there is some inaccuracy in either:
 
--  the original 2d tracks (i.e. bad skeleton detection in one or more cameras), 
--  in the 3d reconstruction (i.e. bad camera calibration), 
+-  the original 2D tracks (that is bad skeleton detection in one or more cameras), 
+-  in the 3D reconstruction (that is bad camera calibration), 
 - a combination of the two
 
 [Click here to follow a conversation about reprojection error on discord](https://discord.com/channels/760487252379041812/760489602917466133/989189718203838505)

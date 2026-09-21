@@ -3,7 +3,7 @@ title: Building and packaging
 type: how-to
 sidebar_position: 11
 provenance: ai-generated
-inFlux: "Building and packaging section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "Building and packaging section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
   - date: "2026-08-26"
     against: "freemocap.spec, freemocap/__init__.py, pyproject.toml ([tool.bumpver] and project scripts/extras), freemocap-ui/package.json, freemocap-ui/electron-builder.json, freemocap-ui/src/i18n/i18n.ts (locale count), and all four .github/workflows/*.yml trigger definitions in the v2.0.0-alpha.21 clone; runtime model cache paths checked in the skellytracker clone"
@@ -78,7 +78,7 @@ npm run build     # production build
 npm run preview   # preview the production build
 ```
 
-Key packaged dependencies: React 19, Redux Toolkit, Three.js (via
+Key packaged dependencies: react 19, Redux Toolkit, Three.js (via
 `@react-three/fiber` and `@react-three/drei`), the Monaco editor, D3, and
 i18next for the frontend's 41 locales.
 
@@ -89,8 +89,8 @@ Build and deploy workflows live in `.github/workflows/`:
 | Workflow | Purpose |
 |---|---|
 | `build-installers-pyinstaller.yml` | Builds the platform-specific installers (CPU and CUDA variants) on pushes to `development` and on `v*` tags, then assembles a draft GitHub Release on tag pushes |
-| `deploy-docs.yml` | Builds and deploys the repository's own docs site (`freemocap-docs/`) to GitHub Pages, not the freemocap.github.io site this page belongs to |
-| `test.yml` | Backend tests and a frontend typecheck on pull requests to `main` and `development` |
+| `deploy-docs.yml` | Builds and deploys the repository's own docs site (`freemocap-docs/`) to GitHub Pages, not the FreeMoCap.github.io site this page belongs to |
+| `test.yml` | backend tests and a frontend typecheck on pull requests to `main` and `development` |
 | `test-bucket.yml` | Manual smoke test that uploads a file to the Cloudflare R2 release bucket |
 
 ## Versioning
@@ -99,7 +99,7 @@ Both halves currently report the same version: `v2.0.0-alpha.21` in
 `freemocap/__init__.py` (backend) and `2.0.0-alpha.21` in
 `freemocap-ui/package.json` (frontend). There is one canonical version
 string, `current_version` under `[tool.bumpver]` in `pyproject.toml`, and a
-bump (e.g. `uv run poe bump-alpha`) rewrites the Python and Electron version
+bump (for example `uv run poe bump-alpha`) rewrites the Python and Electron version
 strings together in a single commit and tag, so the two move in lockstep
 across releases; they can only diverge if someone edits one of the files by
 hand. `electron-updater` handles auto-updates for installed releases.

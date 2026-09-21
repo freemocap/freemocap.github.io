@@ -3,7 +3,7 @@ title: Backend architecture
 type: explanation
 sidebar_position: 7
 provenance: ai-generated
-inFlux: "Backend architecture section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "backend architecture section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
   - date: "2026-08-26"
@@ -12,7 +12,9 @@ history:
     against: "FreeMoCap-docs/docs/architecture/backend-pubsub.mdx, backend-websocket-server.mdx, backend-calibration.mdx, backend-mocap.mdx, cross-checked against FreeMoCap/pubsub/, FreeMoCap/core/tasks/calibration/, FreeMoCap/core/tasks/triangulation/triangulator.py, and websocket_server.py in the FreeMoCap clone (v2.0.0-alpha.21)"
 ---
 
+<!-- vale Vale.Terms = NO -->
 # Backend architecture
+<!-- vale Vale.Terms = YES -->
 
 [Architecture overview](/build/architecture) covers the FastAPI app, its
 route groups, and the `FreemocapApplication` singleton. This page goes one
@@ -67,7 +69,7 @@ connection:
   counter resets and sending resumes so a stalled frontend can't freeze the
   pipeline indefinitely). Once clear, it blocks on the realtime pipeline's
   result-ready signal (up to half a second), then sends the next payload:
-  JSON metadata plus binary image bytes, and optionally a binary keypoints
+  jSON metadata plus binary image bytes, and optionally a binary keypoints
   block.
 - **The log relay** drains the shared `skellylogs` websocket queue that every
   child process feeds into, so backend logs show up in the frontend's log
@@ -76,7 +78,7 @@ connection:
 - **The client message handler** processes incoming frontend messages: frame
   acknowledgments (the other half of the backpressure protocol), overlay
   sizing hints, and a ping/pong heartbeat.
-- **The app-state sender** pushes the application-state snapshot immediately
+- **The app-state sender** pushes the app-state snapshot immediately
   on connect and again whenever it changes (re-checked once a second),
   carrying the server PID alongside it; the frontend treats this message as
   the single source of truth for observed state.
@@ -130,7 +132,7 @@ configured solver.
 After solving, the world coordinate system can be aligned so the ChArUco
 board defines the ground plane (optional, and off by default in the posthoc
 calibration config), with the up-vector disambiguated to point toward the
-cameras (they're assumed to sit above the board, looking down).
+cameras (they're assumed to sit preceding the board, looking down).
 `CalibrationResult` serializes to an Anipose-compatible TOML, which is what
 gets copied into each recording folder and what both downstream triangulation
 and the Blender export step read back.

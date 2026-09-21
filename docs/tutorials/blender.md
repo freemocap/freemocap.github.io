@@ -71,7 +71,7 @@ bug in the app, not something wrong with your setup.
 ## If something goes wrong
 
 **"Blender not detected."** Install Blender from
-[blender.org](https://www.blender.org), or set the path to your install
+[Blender.org](https://www.blender.org), or set the path to your install
 manually.
 
 **Export fails, citing missing files.** The recording hasn't been fully

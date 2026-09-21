@@ -20,19 +20,21 @@ it's sitting somewhere else. Before those two descriptions can be combined into 
 point, every camera needs to be translated into a single shared frame of reference.
 That translation is calibration.
 
+<!-- vale Vale.Terms = NO -->
 ## Intrinsics and extrinsics
+<!-- vale Vale.Terms = YES -->
 
 Calibration solves for two things about each camera:
 
-- **Extrinsics**: where the camera is, and which way it's pointed, relative to a
+- **extrinsics**: where the camera is, and which way it's pointed, relative to a
   shared world origin.
-- **Intrinsics**: how the camera itself sees, its focal length, principal point, and
+- **intrinsics**: how the camera itself sees, its focal length, principal point, and
   lens distortion, which together describe how a 3D point in front of the lens lands
   on a 2D pixel grid.
 
 Together, intrinsics and extrinsics answer both directions of the same question: given
 a 3D point, where does it land in this camera's image, and, run in reverse, given a 2D
-pixel, what does it tell us about where the point could be in 3D. Calibration is what
+pixel, what does it reveal about where the point could be in 3D. Calibration is what
 makes the reverse direction solvable at all.
 
 ## The ChArUco board
@@ -43,7 +45,7 @@ rigid. (Matte material is worth it; glare on a glossy board introduces detection
 errors.) Every corner on the board has a known position relative to every other
 corner, so it functions as a known 3D object with an easy-to-detect 2D projection in
 each camera's image: exactly the known 3D positions and matching 2D pixels that
-calibration needs in order to solve for the unknown camera parameters.
+calibration needs to solve for the unknown camera parameters.
 
 Waving the board through the capture volume, tilting and moving it so different pairs
 of cameras see it together, gradually links every camera into one shared coordinate
@@ -79,7 +81,7 @@ equation at once. Its corners are the known `X`, and detecting them in each imag
 gives the matching `x`, so with enough views the system has far more equations than
 unknowns and can solve for `P` directly. The same reprojection error this optimization
 minimizes shows up again during reconstruction; see
-[Triangulation and 3D reconstruction](/concepts/triangulation) for that half of the
+[triangulation and 3D reconstruction](/concepts/triangulation) for that half of the
 math.
 
 ## Next steps

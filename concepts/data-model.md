@@ -3,7 +3,7 @@ title: The FreeMoCap output data model
 type: explanation
 sidebar_position: 10
 provenance: ai-generated
-inFlux: "V2's output data model is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "V2's output data model is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
   - date: "2026-08-26"
@@ -30,7 +30,7 @@ angles, center of mass, exporting to Blender) would need a separate
 version per tracker, and comparing results across trackers would mean
 comparing apples to oranges.
 
-FreeMoCap solves this with **SkellyModels**, a skeletal representation
+FreeMoCap solves this with **skellymodels**, a skeletal representation
 layer that sits between "whatever the tracker produced" and "the data you
 actually work with." Each supported tracker is described by a structured
 YAML configuration: keypoint names, their ordering, and anatomical
@@ -52,11 +52,11 @@ direct linear transformation. Because any individual camera can produce a
 bad detection (occlusion, clutter, an unusual pose), triangulation first
 tries all available cameras, checks the reprojection error, and falls back
 to testing camera subsets if that error is too high, blending the subsets
-that reconstruct best into an exponentially-weighted average. The
+that reconstruct best into an exponentially weighted average. The
 resulting 3D trajectories then go through a separate post-processing step
 (gap interpolation for frames where no triangulation solution was found,
 then Butterworth filtering to reduce noise) before they reach you as
-output. Reprojection error drives those rejection decisions, and the
+output. reprojection error drives those rejection decisions, and the
 per-camera confidence weights it produces are saved alongside your data
 as `per_camera_weights.npy`; how much of it reaches the output files
 themselves is covered below.
@@ -85,8 +85,8 @@ themselves is covered below.
 keypoints, computed after tracking and appended to the array. That means
 `num_markers` in your data is larger than the raw number of keypoints the
 underlying tracker actually detected. If you're indexing into the array by
-position rather than by name, this is the detail that will silently
-produce a confusing result.
+position rather than by name, this is the detail that silently
+produces a confusing result.
 
 **The parquet's `reprojection_error` column is reserved, not populated
 (yet).** The column is designed to be per-frame, per-keypoint, and low

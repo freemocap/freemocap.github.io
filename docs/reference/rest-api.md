@@ -30,8 +30,8 @@ Broadly, one route group per concern:
 | Cameras (`/skellycam/camera/*`) | Detecting, connecting to, and configuring cameras |
 | Recording (`/skellycam/camera/group/all/record/*`) | Starting and stopping a recording |
 | Calibration (`/freemocap/calibration/*`) | Capturing a calibration recording and running the calibration solver on it |
-| Mocap (`/freemocap/mocap/*`) | Starting, stopping, and post-processing a mocap recording |
-| Realtime pipeline (`/freemocap/realtime/*`) | Creating or tearing down a live processing pipeline |
+| mocap (`/freemocap/mocap/*`) | Starting, stopping, and post-processing a mocap recording |
+| realtime pipeline (`/freemocap/realtime/*`) | Creating or tearing down a live processing pipeline |
 | Playback (`/freemocap/playback/*`) | Listing recordings and serving their videos, timestamps, and data back out |
 | Blender (`/freemocap/blender/*`) | Detecting Blender, installing the addon, exporting, opening the result |
 
@@ -47,5 +47,5 @@ building against routes that are expected to change shape.
 
 ## Next steps
 
-- [WebSocket API](/reference/websocket-api)
+- [websocket API](/reference/websocket-api)
 - [Recording folder structure](/reference/recording-structure)

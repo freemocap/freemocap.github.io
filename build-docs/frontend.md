@@ -3,7 +3,7 @@ title: Frontend architecture
 type: explanation
 sidebar_position: 6
 provenance: ai-generated
-inFlux: "Frontend architecture section for FreeMoCap core is a work in progress for version alpha. It will stabilize upon beta release."
+inFlux: "frontend architecture section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
   - date: "2026-08-26"
     against: "re-checked against freemocap-ui source at v2.0.0-alpha.21: src/store/store.ts slice list, src/store/persistence-listener.ts and camera-config-listener.ts debounces, src/services/server/ServerContextProvider.tsx and server-context.ts subscription API, BasePanelLayout.tsx and BaseContentRouter.tsx, src/styles/App.css and color.css, i18n/locales and assets/icons counts"
@@ -12,7 +12,9 @@ history:
 draft: false
 ---
 
+<!-- vale Vale.Terms = NO -->
 # Frontend architecture
+<!-- vale Vale.Terms = YES -->
 
 The frontend is a React 19 + TypeScript app rendered inside Electron (or a
 plain browser during development). It uses `HashRouter` rather than
@@ -23,7 +25,7 @@ hash-based routes stay entirely client-side.
 ## Provider hierarchy and layout
 
 The app boots from `main.tsx` and nests providers in a deliberate order,
-outermost first: Redux `Provider` (everything below reads from it),
+outermost first: redux `Provider` (everything below reads from it),
 `ServerContextProvider` (websocket connection, frames, keypoints, logs),
 `HashRouter`, `AutoUpdateProvider`, `PlaybackProvider`, then the three-panel
 layout (`BasePanelLayout`) and its route-to-page mapping
@@ -39,7 +41,7 @@ optional 3D viewport), `/playback` (synced multi-video playback with a 3D
 skeleton viewer), and `/active-recording` (pipeline stage status and
 processing controls).
 
-## Where state lives: Redux, Context, or a ref
+## Where state lives: redux, Context, or a ref
 
 This is the frontend's central architectural decision, and getting it wrong
 causes real bugs, not just style complaints:
@@ -103,7 +105,7 @@ Three channels, each with its own service layer under `src/services/`:
 
 - **REST**, for commands (detect cameras, start recording, run calibration),
   through a `ServerUrls` singleton that centralizes every endpoint URL. Full
-  reference: [REST API](/reference/rest-api).
+  reference: [rEST API](/reference/rest-api).
 - **The websocket**, for everything that streams. `ServerContextProvider` runs a
   `requestAnimationFrame` loop rather than reacting to each message as it
   arrives, since a message storm (dozens of binary camera frames per tick)

@@ -13,10 +13,14 @@ draft: false
 
 # How-to guides
 
+<!-- vale Google.FirstPerson = NO -->
+<!-- The quoted phrases below are example question patterns, not this page
+     speaking in first person. -->
 Short, specific answers to "how do I do X" or "how do I fix Y." If
 you're looking for a guided walkthrough instead, see
 [tutorials](/tutorials/); if you want to understand why something works
 the way it does, see [concepts](/concepts/).
+<!-- vale Google.FirstPerson = YES -->
 
 This list is expected to grow substantially once the Discord
 `#help-requests` channel gets exported and clustered into topics, that's

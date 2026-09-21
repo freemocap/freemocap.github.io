@@ -22,7 +22,7 @@ For explanations of why things are built this way, see
 - [Recording folder structure](/reference/recording-structure)
 - [Array shapes and units](/reference/data-arrays)
 - [Coordinate conventions](/reference/coordinate-conventions)
-- [Keypoint names and indices by model](/reference/skeleton-models)
+- [keypoint names and indices by model](/reference/skeleton-models)
 
 ## System
 
@@ -33,4 +33,4 @@ For explanations of why things are built this way, see
 ## APIs
 
 - [REST API](/reference/rest-api)
-- [WebSocket API](/reference/websocket-api)
+- [websocket API](/reference/websocket-api)

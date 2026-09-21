@@ -29,7 +29,7 @@ happening underneath.
 - [Cameras and synchronization](/concepts/cameras-and-sync)
 - [Why calibration matters](/concepts/calibration)
 - [Image tracking and pose models](/concepts/tracking)
-- [Triangulation and 3D reconstruction](/concepts/triangulation)
+- [triangulation and 3D reconstruction](/concepts/triangulation)
 - [Coordinate systems and units](/concepts/coordinate-systems)
 
 ## Your data

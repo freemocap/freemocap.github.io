@@ -54,24 +54,24 @@ As of this version, FreeMoCap's skeleton output is positions, not orientations: 
 per-segment or per-joint rotation track (Euler or quaternion) is computed or saved by the pipeline,
 so there is no anatomical segment frame to document here yet.
 
-The quaternion convention in the table above therefore applies to cameras, not body segments.
+The quaternion convention in the table preceding therefore applies to cameras, not body segments.
 Identity, `(1, 0, 0, 0)`, simply means no rotation.
 
 If you need joint angles, SkellyForge contains a BVH exporter that derives Euler-angle rotations
 (rotation order ZXY) from bone directions between parent and child joints, but nothing in the
-FreeMoCap application calls it today, so a normal recording produces no BVH file.
+FreeMoCap app calls it today, so a normal recording produces no BVH file.
 
 ## Exporting to other tools
 
 Most 3D and game-engine tools do not share this convention. Unity is left-handed and Y-up. Unreal is
 left-handed, Z-up, and scaled in centimetres rather than millimetres. Blender's default world is
-Z-up, matching FreeMoCap's own up axis. Check the target application's convention before assuming an
+Z-up, matching FreeMoCap's own up axis. Check the target app's convention before assuming an
 export carries over unchanged.
 
 ## Further detail
 
 This page states FreeMoCap's declared convention, not the full specification. In the core repo the
-behavior described above is implemented in
+behavior described preceding is implemented in
 `freemocap/core/tasks/calibration/shared/groundplane_math.py` (stable-window detection, the Kabsch
 fit of the known board model, and the +Z-toward-the-cameras orientation),
 `freemocap/core/tasks/calibration/shared/groundplane_alignment.py` (applying the transform to

@@ -64,7 +64,7 @@ depending on the page:
    as such, one confirmed human-authored), which is worth knowing before
    treating them as more authoritative than they are.
 3. **New synthesis from primary sources**, most notably Cherian, A.
-   *Open-Source Development and Validation of a Low-Cost Markerless
+   *open source Development and Validation of a Low-Cost markerless
    System for Quantitative Motion Analysis* (PhD dissertation,
    Northeastern University, 2026), the validation study behind
    [accuracy, validity, and limits](/concepts/accuracy-and-limits) and
@@ -89,7 +89,10 @@ invented content.
 Prose is checked with [Vale](https://vale.sh) against Google's style
 guide plus a small FreeMoCap-specific vocabulary
 (`.vale/styles/FreeMoCap/` in the site's repository), banning things
-like em dashes and marketing-speak ("seamless," "cutting-edge," and
-similar). Not everything it flags gets fixed, false positives on
+like em dashes and marketing-speak
+<!-- vale FreeMoCap.Hype = NO -->
+("seamless," "cutting-edge," and similar).
+<!-- vale FreeMoCap.Hype = YES -->
+Not everything it flags gets fixed, false positives on
 correct proper nouns and technical terms are common in a domain-specific
 corpus, so warnings get judged rather than blindly satisfied.

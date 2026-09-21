@@ -40,12 +40,12 @@ recording_folder/
 ## Process an existing recording
 
 1. **Select the recording.** Open the **Playback** tab, choose the
-   recording, and click **Continue to Mocap Setup**.
+   recording, and click **Continue to mocap Setup**.
 2. **Confirm the processing directory.** Under **Processing Directory**,
    select the recording's top-level folder, the one containing
    `synchronized_videos/`. If you add or change files afterward, use the
    re-check button to refresh.
-   > **Bug:** if the **Process Mocap** button stays disabled even after
+   > **Bug:** if the **Process mocap** button stays turn off' or 'off even after
    > you've selected a valid recording, press **Re-check Folder**.
 3. **Select the calibration.** Under **Calibration**, confirm the right
    camera calibration is loaded, either an existing TOML from the
@@ -61,13 +61,13 @@ recording_folder/
    confidence threshold, see
    [choose a tracking model](/tutorials/choose-a-tracker).
    RTMPose doesn't have a working Blender export yet, you'll still get
-   3D data either way, but the Blender export toggle stays disabled
+   3D data either way, but the Blender export toggle stays turn off' or 'off
    until you switch back to MediaPipe.
 5. **Configure Blender export**, if you want it. Turn off **Export to
    Blender after mocap processing** if you only need the data files, or
    leave it on and optionally enable auto-opening the finished `.blend`
    file. See [open your recording in Blender](/tutorials/blender).
-6. **Click Process Mocap.** The pipeline progress window shows the
+6. **Click Process mocap.** The pipeline progress window shows the
    current stage. Keep FreeMoCap open until it reports completion.
    Processing time depends on recording length, camera count and
    resolution, the detector you chose, and your available CPU/GPU.
@@ -112,7 +112,7 @@ keep before reprocessing a recording that matters.
 
 Everything this dialog shows is passed into post-hoc processing: the
 recording directory, the calibration, the detector and its model and
-confidence settings, the 3D Triangulation options, the Post Processing
+confidence settings, the 3D triangulation options, the Post Processing
 (Butterworth low-pass filter) options, and the Blender export settings.
 The realtime-only tuning controls (Point Gate, One Euro Filter, FABRIK)
 don't appear in this dialog and don't affect post-hoc output.
