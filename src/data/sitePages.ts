@@ -24,13 +24,16 @@ export const tutorialTiers: Tier[] = [
   },
   {
     // Was two tiers (a 5-page "Tier 2: Intermediate" and a 3-page "Tier 3:
-    // Advanced"). Merged into one so this sidebar's own Intermediate
-    // category is the same 8 pages, same order, as the homepage's
-    // Intermediate tile grid (src/pages/index.tsx) — that tile grid
-    // combined both for the same reason: the two tiers' page counts never
-    // lined up with any tile-count target on their own, and homepage
-    // "Advanced" already means something unrelated (specialization
-    // tracks from freemocap/university, not further tutorials).
+    // Advanced" of tutorial pages). Merged into one so this sidebar's own
+    // Intermediate category is the same 8 pages, same order, as the
+    // homepage's Intermediate tile grid (src/pages/index.tsx) — that tile
+    // grid combined both for the same reason: the two tiers' page counts
+    // never lined up with any tile-count target on their own. This merge
+    // still stands even though a "Tier 3: Advanced" exists again below:
+    // that's a different Tier 3, two explainer pages, not the 3 tutorial
+    // pages that used to live here (those are the Python/pipeline/batch
+    // entries above, now folded into this tier). Nothing to reconcile
+    // between the two; they were never the same content.
     label: 'Tier 2: Intermediate',
     pages: [
       { to: '/tutorials/better-calibration', label: 'Get a calibration you can trust' },
@@ -41,6 +44,23 @@ export const tutorialTiers: Tier[] = [
       { to: '/tutorials/analyze-in-python', label: 'Analyze your data in Python' },
       { to: '/tutorials/custom-pipeline', label: 'Build a custom pipeline' },
       { to: '/tutorials/batch-processing', label: 'Process many recordings at once' },
+    ],
+  },
+  {
+    // Not tutorial pages, all 14 real ones are already spoken for above.
+    // This tier is a signpost past the tutorials, to two real explainer
+    // pages: the three specialization tracks (verified real module
+    // content in freemocap/university) and Skelly University itself, not
+    // live yet but written up as a real page rather than a disabled menu
+    // entry, since there's real, accurate content to say about it even
+    // before it launches. An earlier pass pointed "Specialization tracks"
+    // at the homepage's `/#advanced` anchor instead of a real page; that
+    // was explicitly rejected, no anchor links from this menu to the
+    // homepage.
+    label: 'Tier 3: Advanced',
+    pages: [
+      { to: '/tutorials/specialization-tracks', label: 'Specialization tracks' },
+      { to: '/tutorials/skelly-university', label: 'Skelly University' },
     ],
   },
 ];

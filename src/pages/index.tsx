@@ -76,7 +76,11 @@ import {
  *   different repo) with no business sharing a label, so keeping two
  *   separate tutorial tiers around after their combined page count
  *   became one homepage tier would have just been a second, stale
- *   grouping alongside the real one.
+ *   grouping alongside the real one. Tutorials' sidebar has a "Tier 3:
+ *   Advanced" again now, but it isn't the old tutorial Tier 3 come back;
+ *   it's two new explainer pages (`/tutorials/specialization-tracks`,
+ *   `/tutorials/skelly-university`), unrelated to the merge above, which
+ *   still stands.
  * - Advanced drops the single flat grid entirely and instead gives each
  *   of four columns its own PathGroup, FMC Dev first, then the three
  *   specialization tracks (Technology / Science / Art) populated from

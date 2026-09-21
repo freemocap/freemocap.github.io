@@ -401,30 +401,37 @@ export function Hero() {
         <Link className={styles.buttonSecondary} to="/concepts/what-is-freemocap">
           What is FreeMoCap?
         </Link>
+        <Link className={styles.buttonSecondary} to="/developers">
+          Developer Docs
+        </Link>
       </div>
     </header>
   );
 }
 
-/** Skelly University. Reserved slot, honestly labelled. */
+/**
+ * Skelly University. Reserved slot, honestly labelled. Links to this
+ * site's own /tutorials/skelly-university explainer, not straight to
+ * GitHub: that page is the canonical description now (it exists so
+ * Tutorials' Tier 3 doesn't have to link out to the homepage or to raw
+ * GitHub for this), and it links to the real curriculum repo itself as
+ * its own next step. This card's blurb is a short teaser, not a copy of
+ * that page's prose, the two are allowed to differ in wording as long as
+ * they agree on the facts.
+ */
 export function ComingSoonSection() {
   return (
     <section className={styles.section}>
       <h2 className={styles.sectionHeading}>Coming Soon</h2>
       <div className={styles.cardGrid}>
-        <a
-          href="https://github.com/freemocap/university"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.card} ${styles.cardMuted}`}
-        >
+        <Link to="/tutorials/skelly-university" className={`${styles.card} ${styles.cardMuted}`}>
           <h3 className={styles.cardTitle}>Skelly University</h3>
           <p className={styles.cardDescription}>
             A course-based path through markerless motion capture from first
             recording to specialized tracks in technology, science, and art. Will offer microcertification.
           </p>
-          <span className={styles.cardComingSoon}>https://github.com/freemocap/university</span>
-        </a>
+          <span className={styles.cardComingSoon}>Read more</span>
+        </Link>
       </div>
     </section>
   );
