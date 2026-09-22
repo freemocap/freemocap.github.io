@@ -37,6 +37,15 @@
   --ifm-color-primary-light: #97c6c6;
   --ifm-color-primary-lighter: #b2d5d4;
   --ifm-color-primary-lightest: #cce3e3;
+
+  /* Same 4 hues as the light-mode block above, lightened/desaturated to
+     match this theme's own neutral border (--ifm-color-emphasis-300,
+     #606770 here) instead of light mode's #767676, same reasoning as
+     --ifm-color-primary's own light/dark split above. */
+  --fmc-track-dev: #a79976;
+  --fmc-track-technology: #a77d76;
+  --fmc-track-science: #8b76a7;
+  --fmc-track-art: #a77695;
 }
 
 /* @freemocap/skellydocs only defines --ifm-background-color for
@@ -103,6 +112,20 @@
      this project's own components (HomeSections, PolyrepoTree), opted
      into explicitly rather than inherited through the general scale. */
   --fmc-border-strong: #767676;
+
+  /* Advanced tier track accents (homepage only): one very subtle,
+     desaturated hue per PathGroup column and its matching TierPicker
+     pill (FMC Dev/Technology/Science/Art), so a reader can associate a
+     column with its pill at a glance without the boxes reading as
+     "colorful." Same hue across light/dark, same saturation and
+     lightness as each other within a theme (only H varies), tuned to
+     land at roughly the same visual weight as the plain #767676/#606770
+     border they replace, not louder. See HomeSections.module.css's
+     pathGroup/trackTag variant modifier rules for where these apply. */
+  --fmc-track-dev: #9a875b;
+  --fmc-track-technology: #9a635b;
+  --fmc-track-science: #755b9a;
+  --fmc-track-art: #9a5b83;
 }
 
 /* Home renders its own hero, so the default article padding fights it. */

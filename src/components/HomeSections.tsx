@@ -55,6 +55,14 @@ export function Tier({
   );
 }
 
+/** The four Advanced columns/pills, shared between PathGroup and TrackTag
+ *  so both sides of the same color-coordination stay in sync: adding a
+ *  fifth column means the type error shows up in both places, not just
+ *  a silent missing color. Maps 1:1 to the --fmc-track- CSS variables in
+ *  src/css/custom.css and the pathGroup/trackTag variant modifier
+ *  classes in HomeSections.module.css. */
+export type TrackVariant = 'dev' | 'technology' | 'science' | 'art';
+
 /**
  * One column's own labeled tile grid inside the Advanced tier (Technology /
  * Science / Art / FMC Dev). Always used inside a `PathColumns` wrapper,
@@ -67,18 +75,25 @@ export function Tier({
  * of card apart until they've already clicked one; this site treats
  * provenance as reader-facing everywhere else (see ProvenanceBanner on
  * every doc page), so the same honesty belongs here.
+ *
+ * `variant` tints just this column's tile borders (very subtle, see
+ * custom.css) so it visually pairs with its matching TrackTag pill on
+ * TierPicker's Advanced box above. Required, not optional: all four
+ * current PathGroups are one of the four tracks, there's no neutral case.
  */
 export function PathGroup({
   label,
   note,
+  variant,
   children,
 }: {
   label: string;
   note?: string;
+  variant: TrackVariant;
   children: ReactNode;
 }) {
   return (
-    <div className={styles.pathGroup}>
+    <div className={`${styles.pathGroup} ${styles[`pathGroup--${variant}`]}`}>
       <h3 className={styles.pathHeading}>{label}</h3>
       {note && <p className={styles.pathNote}>{note}</p>}
       {children}
@@ -241,8 +256,9 @@ export function TileGrid({ tiles }: { tiles: Tile[] }) {
 
 /** `external` picks how TrackTag navigates: `window.open` in a new tab
  *  for a Skelly University curriculum link, in-app history.push for a
- *  page on this site. */
-export type Track = { label: string; href: string; external: boolean };
+ *  page on this site. `variant` picks this pill's accent, matching its
+ *  PathGroup column below (see TrackVariant above). */
+export type Track = { label: string; href: string; external: boolean; variant: TrackVariant };
 
 /**
  * The curriculum DAG's 3100/3200/3300 specialization split, used by
@@ -257,16 +273,19 @@ export const SPECIALIZATION_TRACKS: Track[] = [
     label: 'Technology',
     href: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3100-technology/3100-tech-overview.md',
     external: true,
+    variant: 'technology',
   },
   {
     label: 'Science',
     href: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3200-science/3200-science-overview.md',
     external: true,
+    variant: 'science',
   },
   {
     label: 'Art',
     href: 'https://github.com/freemocap/university/blob/main/skellyuniversity/modules/3000-specialization/3300-art/3300-art-overview.md',
     external: true,
+    variant: 'art',
   },
 ];
 
@@ -277,7 +296,7 @@ export const SPECIALIZATION_TRACKS: Track[] = [
  * tracks specifically) and placed first in TierPicker's Advanced box, to
  * match FMC Dev now being the first of the four Advanced columns.
  */
-const DEV_TRACK: Track = { label: 'Dev', href: '/developers', external: false };
+const DEV_TRACK: Track = { label: 'Dev', href: '/developers', external: false, variant: 'dev' };
 
 /**
  * One chip inside the Advanced TierPicker box. Not a real `<a>`, an `<a>`
@@ -291,7 +310,7 @@ const DEV_TRACK: Track = { label: 'Dev', href: '/developers', external: false };
  * tooltip: that button only ever informs and never navigates, this one
  * only ever navigates (elsewhere) and never informs.
  */
-function TrackTag({ label, href, external }: Track) {
+function TrackTag({ label, href, external, variant }: Track) {
   const history = useHistory();
   const go = () => {
     if (external) {
@@ -302,7 +321,7 @@ function TrackTag({ label, href, external }: Track) {
   };
   return (
     <span
-      className={styles.trackTag}
+      className={`${styles.trackTag} ${styles[`trackTag--${variant}`]}`}
       role="link"
       tabIndex={0}
       onClick={(e) => {

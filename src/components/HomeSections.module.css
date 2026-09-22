@@ -294,6 +294,26 @@
   width: 100%;
 }
 
+/* One very subtle accent per Advanced column, borders only, matching
+   the pill accents below. Colors defined once in src/css/custom.css
+   (--fmc-track-*) so light/dark mode stay in one place. Falls back to
+   the plain neutral border if a variant class is somehow missing. */
+.pathGroup--dev .navBox {
+  border-color: var(--fmc-track-dev, var(--fmc-border-strong, var(--ifm-color-emphasis-300)));
+}
+
+.pathGroup--technology .navBox {
+  border-color: var(--fmc-track-technology, var(--fmc-border-strong, var(--ifm-color-emphasis-300)));
+}
+
+.pathGroup--science .navBox {
+  border-color: var(--fmc-track-science, var(--fmc-border-strong, var(--ifm-color-emphasis-300)));
+}
+
+.pathGroup--art .navBox {
+  border-color: var(--fmc-track-art, var(--fmc-border-strong, var(--ifm-color-emphasis-300)));
+}
+
 /* Was flex-wrap: wrap, but at exactly 4 chips (Dev/Technology/Science/Art
    on TierPicker's Advanced box) "Technology" alone pushed the row past
    the card's available width, wrapping "Art" onto its own second line.
@@ -330,6 +350,26 @@
   border-color: var(--ifm-color-primary);
   color: var(--ifm-color-primary);
   outline: none;
+}
+
+/* Coordinates each pill with its matching PathGroup column further down
+   the page (same --fmc-track-* variables, border only, text color left
+   alone). Hover/focus above still wins on top of these, same as it
+   already does over the plain border color. */
+.trackTag--dev {
+  border-color: var(--fmc-track-dev, var(--fmc-border-strong, var(--ifm-color-emphasis-400)));
+}
+
+.trackTag--technology {
+  border-color: var(--fmc-track-technology, var(--fmc-border-strong, var(--ifm-color-emphasis-400)));
+}
+
+.trackTag--science {
+  border-color: var(--fmc-track-science, var(--fmc-border-strong, var(--ifm-color-emphasis-400)));
+}
+
+.trackTag--art {
+  border-color: var(--fmc-track-art, var(--fmc-border-strong, var(--ifm-color-emphasis-400)));
 }
 
 .cardMuted {

@@ -357,7 +357,7 @@ export default function Home() {
 
         <Tier id="advanced" label="Advanced">
           <PathColumns>
-            <PathGroup label="FMC Dev" note="Developer pages on this site">
+            <PathGroup label="FMC Dev" note="Developer pages on this site" variant="dev">
               <TileGrid
                 tiles={[
                   {
@@ -473,7 +473,7 @@ export default function Home() {
               />
             </PathGroup>
 
-            <PathGroup label="Technology" note="Upcoming Skelly University course (GitHub stub)">
+            <PathGroup label="Technology" note="Upcoming Skelly University course (GitHub stub)" variant="technology">
               <TileGrid
                 tiles={[
                   {
@@ -540,7 +540,7 @@ export default function Home() {
             </PathGroup>
 
 
-            <PathGroup label="Science" note="Upcoming Skelly University course (GitHub stub)">
+            <PathGroup label="Science" note="Upcoming Skelly University course (GitHub stub)" variant="science">
               <TileGrid
                 tiles={[
                   {
@@ -593,7 +593,7 @@ export default function Home() {
               />
             </PathGroup>
 
-            <PathGroup label="Art" note="Upcoming Skelly University course (GitHub stub)">
+            <PathGroup label="Art" note="Upcoming Skelly University course (GitHub stub)" variant="art">
               <TileGrid
                 tiles={[
                   {
