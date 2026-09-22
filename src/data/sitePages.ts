@@ -88,6 +88,8 @@ export const navSections: Section[] = [
     label: 'How-to',
     hubPath: '/guides/',
     pages: [
+      // First, matching its "Quick answers" top billing on docs/guides/index.md.
+      { to: '/guides/faq', label: 'Frequently asked questions' },
       { to: '/guides/installation-troubleshooting', label: 'Fix an installation problem' },
       { to: '/guides/calibration-troubleshooting', label: 'Fix a calibration problem' },
       { to: '/guides/gpu-setup', label: 'Set up GPU acceleration' },
