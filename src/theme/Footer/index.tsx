@@ -46,9 +46,32 @@ const gridSections = navSections.filter((s) => s.id !== 'start');
 // plain text, not a seventh column. Reads from src/data/sitePages.ts, the
 // same source the navbar dropdowns use, so this isn't a fourth hand-copy of
 // the same links.
+//
+// SITE-STRUCTURE NAMING (canonical, use these exact names in comments/PRs/
+// discussion, don't invent new ones):
+//   - "footer sitemap" section: the upper part of this component, the
+//     Get-started row + Developer Docs button plus the 5-column link grid
+//     below it (the .getStartedRow and .grid divs just below). No single
+//     wrapping element/class covers just this part, it's these two
+//     sibling divs together. Also referred to this way in
+//     docusaurus.config.ts's navbar comment ("the footer sitemap reads").
+//   - "footer lower band" section: the .lowerBand div below the sitemap,
+//     socials row + About row + copyright.
+//   Together, footer sitemap + footer lower band are ONE footer component
+//   (this file, swizzled in as Docusaurus's @theme/Footer), rendered by
+//   Layout on every page of the site, not just the homepage.
+//   - "Papers, talks, and community" section: a SEPARATE, homepage-only
+//     page-content section (the `LinkColumns` call in src/pages/index.tsx,
+//     defined in src/components/HomeSections.tsx), NOT part of this
+//     footer component and not footer chrome, even though on the homepage
+//     it renders directly above the footer sitemap with barely a gap.
+//   Don't conflate the "Papers, talks, and community" section with either
+//   footer band, and don't describe this site as having "two footers".
 export default function Footer(): React.JSX.Element {
   return (
     <footer className={styles.footer}>
+      {/* footer sitemap section (Get-started row + Developer Docs button,
+          then the 5-column link grid below) */}
       <div className={`container ${styles.inner}`}>
         <div className={styles.getStartedRow}>
           <Link className={styles.getStartedLabel} to={getStartedSection.hubPath}>
@@ -81,6 +104,7 @@ export default function Footer(): React.JSX.Element {
         </div>
       </div>
 
+      {/* footer lower band section (socials row + About row + copyright) */}
       <div className={styles.lowerBand}>
         <div className={`container ${styles.inner}`}>
           <div className={styles.socials}>

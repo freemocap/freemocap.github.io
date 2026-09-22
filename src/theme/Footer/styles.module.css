@@ -6,6 +6,8 @@
   padding: 3rem 1rem 2.5rem;
 }
 
+/* footer sitemap section starts here (.getStartedRow + .grid below it).
+   See the canonical section names in src/theme/Footer/index.tsx. */
 .getStartedRow {
   display: flex;
   align-items: baseline;
@@ -97,6 +99,8 @@
   text-decoration: none;
 }
 
+/* footer lower band section starts here (socials + About row + copyright).
+   See the canonical section names in src/theme/Footer/index.tsx. */
 .lowerBand {
   border-top: 1px solid var(--ifm-color-emphasis-200);
   background: var(--ifm-color-emphasis-100);

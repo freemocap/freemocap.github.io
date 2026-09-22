@@ -629,6 +629,21 @@ export default function Home() {
 
         <ComingSoonSection />
 
+        {/* "Papers, talks, and community" section (canonical name, see
+            site-structure naming in src/theme/Footer/index.tsx). Homepage-
+            only content, NOT part of the footer. This is the last <main>
+            section before </Layout>, so it renders directly above the
+            real sitewide footer's footer sitemap section (src/theme/
+            Footer/index.tsx, which Layout renders on every page, homepage
+            included). The two sit back to back with only a thin divider,
+            which reads as one big footer area at a glance, but they're
+            different things: this block is page content (its own
+            <section>, inside <main>), the footer below it is site chrome.
+            Some links here (Community/Project columns) do overlap in
+            destination with the footer lower band's socials row and About
+            row further down; that's an intentional "recap the essentials
+            right where the reader's eye already is" placement, not
+            accidental duplication, don't "fix" it without asking first. */}
         <LinkColumns
           heading="Papers, talks, and community"
           columns={[

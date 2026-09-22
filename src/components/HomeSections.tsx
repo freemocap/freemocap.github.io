@@ -437,6 +437,12 @@ export function ComingSoonSection() {
   );
 }
 
+// Generic heading + multi-column link list section. Currently has exactly
+// one call site: src/pages/index.tsx renders it with
+// heading="Papers, talks, and community" as the homepage's canonical
+// "Papers, talks, and community" section (see site-structure naming in
+// src/theme/Footer/index.tsx) — a page-content section, not part of the
+// footer, even though it sits directly above it on the homepage.
 export function LinkColumns({
   heading,
   columns,
