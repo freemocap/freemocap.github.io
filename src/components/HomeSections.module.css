@@ -528,6 +528,17 @@
   height: 1.6rem;
 }
 
+/* The "?" tooltip badge (.infoIcon above) sits at a plain 0.5rem inset
+   everywhere else, but .sequenceBox's much bigger corner radius
+   (1.75rem vs. the plain box's 0.5rem) curves in close enough at that
+   same inset to read as crowding the edge. Nudged inward, this box
+   only, rather than changing the shared .infoIcon rule every other
+   section's boxes still use. */
+.sequenceBox .infoIcon {
+  top: 0.9rem;
+  right: 0.9rem;
+}
+
 /* ---- Connectors ----
    Both kinds (between boxes in a row, and between one row and the next)
    are built from the same two pieces (line + arrowhead, see Connector
