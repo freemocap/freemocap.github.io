@@ -1,0 +1,142 @@
+# Single source of truth for the FreeMoCap polyrepo map.
+#
+# This file generates:
+#   - the architecture map diagram        (/build/the-map)
+#   - the repo directory                  (/build/repo-directory)
+#   - the data contracts table            (/build/data-contracts)
+#   - the "where it sits" panel on every repo docs home
+#   - the list of external docs sources fetched by scripts/fetch-external-docs.mjs
+#
+# Do not hand-write any of the above. Change it here.
+#
+# docs_path: path within the repo to the folder of markdown to aggregate.
+#            Set to null when the repo has no docs site yet. The fetch script
+#            skips these and logs them; nothing breaks.
+# ref:       git ref to build against. Pin to a tag, not a branch, so a
+#            sub-repo merging a broken doc cannot break the docs site.
+
+- id: freemocap
+  name: FreeMoCap
+  tier: core
+  emoji: "💀✨"
+  responsibility: Pipelines. Composes the sub-skellies into one application.
+  domain: Anything that requires nodes from multiple sub-skellies
+  repo: https://github.com/freemocap/freemocap
+  # NOT aggregated live. The core repo's 34 pages in freemocap-docs/docs are
+  # SOURCE MATERIAL being consolidated into this site's build-docs/ folder
+  # (see plan section 5: 15 architecture pages collapse to about 6). Once that
+  # consolidation lands and the core repo's docs folder is the canonical
+  # developer arm, set this to freemocap-docs/docs and delete build-docs/.
+  docs_path: null
+  ref: v2.0.0-alpha.21
+  route: /build/
+  consumes: []
+  produces: []
+
+- id: skellycam
+  name: SkellyCam
+  tier: pantheon
+  emoji: "💀📸"
+  responsibility: Cameras and video
+  domain: Camera device interaction, empirical measurement, raw images
+  repo: https://github.com/freemocap/skellycam
+  docs_path: skellycam-docs/docs
+  ref: main
+  # Not the bare instance root: SkellyCam's own docs have no page with
+  # slug: /, only intro.mdx (sidebar_position: 1), so /skellycam/ alone
+  # 404s. Confirmed by the first real /developers build, which is the
+  # first thing that ever turned this route into an actual link.
+  route: /skellycam/intro
+  consumes: []
+  produces: [synchronized_frame_packages]
+
+- id: skellytracker
+  name: SkellyTracker
+  tier: pantheon
+  emoji: "💀🔭"
+  responsibility: Single-camera image tracking
+  domain: Image analysis, computer vision, convolutional neural networks
+  repo: https://github.com/freemocap/skellytracker
+  docs_path: null # no docs site yet. Source material in rearchitecture-docs/
+  ref: main
+  route: /skellytracker/
+  consumes: [synchronized_frame_packages]
+  produces: [keypoint_observations]
+
+- id: skellyforge
+  name: SkellyForge
+  tier: pantheon
+  emoji: "💀🛠️"
+  responsibility: 3D reconstruction and kinematic modeling
+  domain: Multi-camera aggregation, 3D geometry, signal processing
+  repo: https://github.com/freemocap/skellyforge
+  docs_path: null # no docs site yet
+  ref: main
+  route: /skellyforge/
+  consumes: [keypoint_observations]
+  produces: [reconstructed_points, kinematic_models]
+
+- id: skellyblender
+  name: SkellyBlender
+  tier: pantheon
+  emoji: "💀🎬"
+  responsibility: Blender scene generation and animation export
+  domain: 3D animation, .blend / .fbx / .bvh / .gltf output
+  repo: https://github.com/freemocap/freemocap_blender_addon
+  docs_path: null # no docs site yet
+  ref: main
+  route: /skellyblender/
+  consumes: [kinematic_models]
+  produces: [blend_scene]
+
+- id: skellylogs
+  name: SkellyLogs
+  tier: utility
+  emoji: "💀📜"
+  responsibility: Shared logging configuration and websocket log transport
+  domain: Logging
+  repo: https://github.com/freemocap/skellylogs
+  docs_path: null
+  ref: main
+  route: /skellylogs/
+  consumes: []
+  produces: []
+
+- id: skellypings
+  name: SkellyPings
+  tier: utility
+  emoji: "💀📡"
+  responsibility: Telemetry and diagnostics
+  domain: Instrumentation
+  repo: https://github.com/freemocap/skellypings
+  docs_path: null
+  ref: main
+  route: /skellypings/
+  consumes: []
+  produces: []
+
+- id: skellydocs
+  name: SkellyDocs
+  tier: utility
+  emoji: "💀📖"
+  responsibility: Shared Docusaurus theme and CLI for every FreeMoCap docs site
+  domain: Documentation tooling
+  repo: https://github.com/freemocap/skellydocs
+  docs_path: null
+  ref: main
+  route: /skellydocs/
+  consumes: []
+  produces: []
+
+- id: skellysync
+  name: SkellySync
+  tier: utility
+  emoji: "💀🔄"
+  responsibility: Synchronizes videos of the same event via audio cross-correlation
+  domain: Synchronization
+  repo: https://github.com/freemocap/skellysync
+  docs_path: null # no docs site yet
+  ref: main
+  route: /skellysync/
+  consumes: []
+  produces: []

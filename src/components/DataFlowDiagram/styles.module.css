@@ -1,0 +1,66 @@
+.wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem 0 1rem;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  min-width: 560px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.arrow {
+  stroke: var(--ifm-color-emphasis-400);
+  stroke-width: 2;
+}
+
+.arrowhead {
+  fill: var(--ifm-color-emphasis-400);
+}
+
+.edgeLabel {
+  fill: var(--ifm-color-emphasis-600);
+  font-size: 11px;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.box {
+  fill: var(--ifm-color-emphasis-100);
+  stroke: var(--ifm-color-emphasis-400);
+  stroke-width: 1.5;
+  transition: stroke 0.15s ease;
+}
+
+.emoji {
+  pointer-events: none;
+  user-select: none;
+}
+
+.label {
+  fill: var(--ifm-font-color-base);
+  font-weight: 600;
+  font-size: 14px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.boxLink {
+  cursor: pointer;
+}
+
+.boxLink:hover .box {
+  stroke: var(--ifm-color-primary);
+}
+
+.boxLink:hover .label {
+  fill: var(--ifm-color-primary);
+}
+
+.terminalNote {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+  text-align: center;
+}

@@ -1,0 +1,59 @@
+# Replaces Google.Headings, which is disabled in .vale.ini. Google.Headings
+# lives in .vale/styles/Google/, fetched by `vale sync` and gitignored (see
+# that directory's note in .gitignore), so any project-specific exceptions
+# added there don't survive a sync and aren't seen by CI's vale-action,
+# which manages its own separate copy of Google's styles. This rule is a
+# copy of Google.Headings with the same behavior, kept here instead so its
+# exceptions list is tracked and actually takes effect.
+extends: capitalization
+message: "'%s' should use sentence-style capitalization."
+link: "https://developers.google.com/style/capitalization#capitalization-in-titles-and-headings"
+level: warning
+scope: heading
+match: $sentence
+# No `indicators: [":"]` here. That makes Vale require a capital after a colon,
+# which is the Microsoft convention this rule was originally copied from. This
+# guide says the opposite: "the first word after a colon is generally
+# lowercase" (developers.google.com/style/colons), and Colons.yml enforces
+# exactly that. See issue #58.
+exceptions:
+  - 3D
+  - Azure
+  - Backend
+  - BVH
+  - CLI
+  - Cosmos
+  - Docker
+  - Emmet
+  - FBX
+  - Frontend
+  - glTF
+  - GPU
+  - gRPC
+  - I
+  - Intrinsics
+  - Kubernetes
+  - Linux
+  - macOS
+  - Marketplace
+  - Mass
+  - MongoDB
+  - Pendulum
+  - Python
+  - Reaction
+  - Realtime
+  - REPL
+  - Reprojection
+  - REST
+  - Studio
+  - TensorRT
+  - Triangulation
+  - TypeScript
+  - University
+  - URLs
+  - USB
+  - Visual
+  - VS
+  - WebSocket
+  - Windows
+  - JSON

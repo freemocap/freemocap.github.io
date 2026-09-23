@@ -1,0 +1,103 @@
+.banner {
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  background: rgba(167, 139, 250, 0.04);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--sk-text-dim, var(--ifm-color-emphasis-700));
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  flex-wrap: wrap;
+}
+
+.summary::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 6px;
+  border-color: transparent transparent transparent currentColor;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.banner[open] > .summary::before {
+  transform: rotate(90deg);
+}
+
+.summary:hover {
+  background: rgba(167, 139, 250, 0.06);
+  border-radius: 6px;
+}
+
+.checked,
+.unchecked {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.05rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.checked {
+  color: var(--sk-accent, #6ee7b7);
+  background: rgba(110, 231, 183, 0.08);
+}
+
+.unchecked {
+  /* opacity: 0.6 used to compound with --sk-text-dim to render this as
+     an almost-invisible 1.55:1 in light mode. The de-emphasis is the
+     dim color itself (vs .checked's full accent), doesn't need an
+     opacity layered on top too. */
+  color: var(--sk-text-dim, inherit);
+  background: rgba(148, 163, 184, 0.08);
+}
+
+.body {
+  padding: 0.25rem 1rem 0.6rem 1.6rem;
+}
+
+.body p {
+  margin: 0 0 0.5rem;
+}
+
+.body a {
+  color: var(--sk-purple, var(--ifm-color-primary));
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin: 0.35rem 0;
+  font-size: 0.72rem;
+}
+
+.meta dt {
+  font-weight: 600;
+  display: inline;
+}
+
+.meta dt::after {
+  content: ': ';
+}
+
+.meta dd {
+  display: inline;
+  margin: 0;
+}
+
+.moreInfo {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+}

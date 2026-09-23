@@ -1,0 +1,13 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+level: error
+ignorecase: false
+swap:
+  '(?:Freemocap|freeMoCap|FreeMocap|free-mocap|Free MoCap)': FreeMoCap
+  '(?:Skellycam|skellyCam|SkellyCAM)': SkellyCam
+  '(?:Skellytracker|skellyTracker)': SkellyTracker
+  '(?:Skellyforge|skellyForge)': SkellyForge
+  '(?:Skellyblender|skellyBlender)': SkellyBlender
+  '(?:Charuco|charuco|CharUco)': ChArUco
+  '(?:Mediapipe|mediaPipe)': MediaPipe
+  '(?:MoCap|Mocap) (?:data|recording|session)': mocap $1
