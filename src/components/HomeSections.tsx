@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { IconType } from 'react-icons';
 import Link from '@docusaurus/Link';
@@ -248,6 +248,131 @@ export function TileGrid({ tiles }: { tiles: Tile[] }) {
             </span>
             <span className={styles.navBoxBlurb}>{t.blurb}</span>
           </Link>
+        );
+      })}
+    </div>
+  );
+}
+
+const SEQUENCE_ROW_SIZE = 3;
+
+/** A continuous line with a solid CSS-triangle arrowhead flush against
+ *  its end, no gap between the two: a stock icon (FiArrowRight) was
+ *  tried first and rejected, Feather's glyphs sit inset from their own
+ *  SVG viewBox edge, which read as a floating chevron with a gap before
+ *  it no matter how tight the layout around it was. A border-triangle
+ *  has no such inset, so it butts straight up against the line. Flush
+ *  against the boxes on either side of the whole thing too, "like a
+ *  flowchart" rather than a small icon floating in a gap. Orientation/
+ *  mirroring is handled by its ancestor's CSS (row vs. row-reverse vs.
+ *  the row-to-row vertical connector, see HomeSections.module.css),
+ *  this just renders the two pieces every connector is made of. */
+function Connector({ className }: { className: string }) {
+  return (
+    <span className={className} aria-hidden="true">
+      <span className={styles.sequenceConnectorLine} />
+      <span className={styles.sequenceConnectorArrow} />
+    </span>
+  );
+}
+
+/**
+ * A numbered, line-connected variant of TileGrid, used only for Get
+ * Started (3 tiles) and Beginner (6 tiles): the two Tiers whose tile
+ * count divides evenly into rows of 3, per explicit request to present
+ * them as a numbered sequence rather than a plain grid. Everywhere else
+ * on the page keeps using plain TileGrid untouched. Deliberately reads
+ * as a different kind of component, not a themed TileGrid variant: full-
+ * width flexible boxes (not TileGrid's fixed 313px), a big uncircled
+ * number instead of a small badge, and continuous flowchart-style
+ * connector lines instead of a floating arrow icon.
+ *
+ * Rows are chunked in JS (always exactly 3 wide, the entire point of
+ * this component), not left to CSS auto-fill, so the "row" the
+ * connectors and the alternating direction reason about always matches
+ * the DOM's own grouping, at every viewport width, and every box in a
+ * row shares the remaining space equally (`flex: 1 1 0`) rather than
+ * sitting at a fixed width with slack around it.
+ *
+ * Above the 1100px breakpoint (reusing PathColumns' own breakpoint, not
+ * inventing a new one), rows alternate direction like a boustrophedon:
+ * row 1 reads left-to-right, row 2 right-to-left (`--reverse` in
+ * HomeSections.module.css swaps `flex-direction` and mirrors each
+ * connector), so box 3 (end of row 1) and box 4 (start of row 2) land in
+ * the same column and one vertical connector between the two rows shows
+ * the sequence keeps going. That connector (`RowConnector` below) mimics
+ * the real row's exact 5-slot structure (box/gap/box/gap/box, the gaps
+ * matching `.sequenceConnector`'s fixed width) with invisible spacers,
+ * swapping in the one visible vertical line at whichever end box lands
+ * on the shared edge, so it stays pixel-aligned under that box at every
+ * viewport width rather than only roughly centered. DOM order stays
+ * 1..N throughout regardless of visual position, so tab order and
+ * screen-reader order are unaffected by the visual reversal; the
+ * numbers and connectors are purely decorative (`aria-hidden`)
+ * sighted-reader aids for following the left-right-left path, not the
+ * thing establishing the real order. Below 1100px, rows collapse to a
+ * single top-to-bottom column and every connector points straight down
+ * instead (same reasoning made simpler: no more row-to-row direction to
+ * track, RowConnector's spacers disappear entirely, see
+ * HomeSections.module.css).
+ */
+function RowConnector({ alignEnd }: { alignEnd: boolean }) {
+  const spacer = <span className={styles.sequenceRowConnectorSpacer} />;
+  const gap = <span className={styles.sequenceRowConnectorGap} />;
+  const slot = <Connector className={styles.sequenceRowConnectorSlot} />;
+  return (
+    <div className={styles.sequenceRowConnector}>
+      {alignEnd ? spacer : slot}
+      {gap}
+      {spacer}
+      {gap}
+      {alignEnd ? slot : spacer}
+    </div>
+  );
+}
+
+export function SequenceGrid({ tiles }: { tiles: Tile[] }) {
+  const rows: Tile[][] = [];
+  for (let i = 0; i < tiles.length; i += SEQUENCE_ROW_SIZE) {
+    rows.push(tiles.slice(i, i + SEQUENCE_ROW_SIZE));
+  }
+
+  return (
+    <div className={styles.sequenceGrid}>
+      {rows.map((row, rowIndex) => {
+        const reversed = rowIndex % 2 === 1;
+        // The previous row's LAST box is where the connector lines up:
+        // its right edge if that row read left-to-right, its left edge
+        // if that row was itself reversed.
+        const prevReversed = (rowIndex - 1) % 2 === 1;
+        return (
+          <Fragment key={rowIndex}>
+            {rowIndex > 0 && <RowConnector alignEnd={!prevReversed} />}
+            <div className={`${styles.sequenceRow} ${reversed ? styles['sequenceRow--reverse'] : ''}`}>
+              {row.map((t, i) => {
+                const Icon = t.icon;
+                const number = rowIndex * SEQUENCE_ROW_SIZE + i + 1;
+                return (
+                  <Fragment key={t.to}>
+                    <Link to={t.to} className={styles.sequenceBox}>
+                      <span className={styles.sequenceNumber} aria-hidden="true">
+                        {number}
+                      </span>
+                      <span className={styles.sequenceContent}>
+                        <InfoTooltip bullets={t.info} />
+                        <span className={styles.navBoxRow}>
+                          <Icon className={styles.navBoxIcon} aria-hidden="true" />
+                          <span className={styles.navBoxTitle}>{t.title}</span>
+                        </span>
+                        <span className={styles.navBoxBlurb}>{t.blurb}</span>
+                      </span>
+                    </Link>
+                    {i < row.length - 1 && <Connector className={styles.sequenceConnector} />}
+                  </Fragment>
+                );
+              })}
+            </div>
+          </Fragment>
         );
       })}
     </div>

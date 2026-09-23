@@ -37,6 +37,7 @@ import {
   LinkColumns,
   PathColumns,
   PathGroup,
+  SequenceGrid,
   Tier,
   TierPicker,
   TileGrid,
@@ -160,7 +161,7 @@ export default function Home() {
         <TierPicker />
 
         <Tier id="get-started" label="Get Started">
-          <TileGrid
+          <SequenceGrid
             tiles={[
               {
                 title: 'Setup',
@@ -202,7 +203,7 @@ export default function Home() {
         </Tier>
 
         <Tier id="beginner" label="Beginner">
-          <TileGrid
+          <SequenceGrid
             tiles={[
               {
                 title: 'Choose and set up your cameras',
