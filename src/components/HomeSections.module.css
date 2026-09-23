@@ -456,10 +456,6 @@
        every box the same way regardless of its title's line count. */
     align-items: stretch;
   }
-
-  .sequenceRow--reverse {
-    flex-direction: row-reverse;
-  }
 }
 
 /* The box itself. Not composed with .navBox above, this is a genuinely
@@ -545,11 +541,11 @@
    in HomeSections.tsx), continuous and flush against the boxes on
    either side, "like a flowchart" rather than a small icon floating in
    a gap of empty space. Default/shared styling below is the VERTICAL
-   form (mobile's single column, and the row-to-row connector at every
-   width); the >=1100px block turns .sequenceConnector specifically
-   (never .sequenceRowConnectorSlot) horizontal for a horizontal row. */
-.sequenceConnector,
-.sequenceRowConnectorSlot {
+   form (mobile's single column, and both stubs of the row-to-row elbow
+   connector at every width); the >=1100px block turns .sequenceConnector
+   specifically (never the elbow's stubs, see RowElbowConnector's own
+   rules further down) horizontal for a horizontal row. */
+.sequenceConnector {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -564,18 +560,6 @@
     flex: 0 0 3rem;
     height: auto;
     align-self: stretch;
-  }
-
-  /* .sequenceConnector's own child order (line, then arrow) never
-     changes on its own; only the outer .sequenceRow reverses. Without
-     this, a reversed row's arrow icon mirrors to point the right way
-     (see the scaleX(-1) rule below) but stays on the connector's own
-     trailing/right side, i.e. next to the wrong box (the origin, not
-     the destination) since the connector itself never flipped which
-     side is "leading." Reversing it here too puts line-then-arrow in
-     the correct visual order for a right-to-left row. */
-  .sequenceRow--reverse .sequenceConnector {
-    flex-direction: row-reverse;
   }
 }
 
@@ -625,44 +609,138 @@
   .sequenceConnector .sequenceConnectorArrow {
     transform: none;
   }
-
-  .sequenceRow--reverse .sequenceConnector .sequenceConnectorArrow {
-    transform: scaleX(-1);
-  }
 }
 
-/* The row-to-row connector: mimics the real row's exact 5-slot structure
-   (box/gap/box/gap/box, see RowConnector in HomeSections.tsx) with
-   invisible spacers so its one visible vertical line lands pixel-
-   aligned under whichever box shares that edge, at every viewport
-   width. Below 1100px there's only ever one column, so the spacers
-   collapse away entirely and the row just centers the one connector. */
-.sequenceRowConnector {
+/* ---- Row-to-row elbow connector ----
+   Bridges box 3 (end of row 1, right side) to box 4 (start of row 2,
+   left side) now that both rows read left-to-right. Mobile default
+   below is the plain straight-down connector (box 3 and box 4 are
+   already stacked directly on top of each other in a single column);
+   the >=1100px block replaces it with the 2-piece rounded "L" bend,
+   see RowElbowConnector's own doc comment in HomeSections.tsx for why
+   it's 2 border-boxes rather than 3 separately-positioned line pieces. */
+.sequenceRowConnectorElbow {
+  position: relative;
+  height: 2.75rem;
+}
+
+.sequenceRowConnectorMobileLine {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
 
-.sequenceRowConnectorSpacer,
-.sequenceRowConnectorGap {
+.sequenceRowConnectorElbowRight,
+.sequenceRowConnectorElbowLeft,
+.sequenceRowConnectorElbowArrow {
   display: none;
 }
 
 @media (min-width: 1100px) {
-  .sequenceRowConnector {
-    justify-content: stretch;
+  /* Slightly taller than the plain inter-box connector (.sequenceConnector's
+     2.5rem): a bend needs a bit more room to read as a deliberate corner
+     rather than a cramped kink, per explicit request for "only very
+     slightly" more space between the two rows.
+     If this value changes, update the 1.625rem "half" literal in
+     .sequenceRowConnectorElbowRight/Left too (see their own comments
+     for why it's a literal, not a computed 50%). */
+  .sequenceRowConnectorElbow {
+    height: 3.25rem;
   }
 
-  .sequenceRowConnectorSpacer {
+  .sequenceRowConnectorMobileLine {
+    display: none;
+  }
+
+  /* Both L's: `right`/`left` position the box-3/box-4-facing edge using
+     the same box-column math as the old bridge line (a row is 3 equal
+     box columns plus 2 fixed 3rem gaps, so a column's center sits
+     `100%/6 - 1rem` in from its nearer edge); `width` is exactly half
+     the row (one box column plus one gap) so the two meet at 50%,
+     dead center, by symmetry. `border-radius` rounds only the one
+     corner where each box's 2 visible borders actually meet.
+
+     The VERTICAL split between this piece and .sequenceRowConnectorElbowLeft
+     is a literal half-height (1.625rem, half of .sequenceRowConnectorElbow's
+     own 3.25rem), not 50%, on purpose: this piece used to end at
+     `height: 50%` while the other started at `top: 50%`, two
+     independently-rounded percentage calculations against the same
+     (not-necessarily-integer-pixel) container height, which could
+     round to adjacent device pixels and show as a 1px vertical jog
+     right where the two were supposed to form one flat horizontal
+     line. The same literal length used in both places resolves to
+     the same device pixel every time, since it's the same arithmetic
+     rather than two separately-rounded ones that merely started from
+     an equal-looking value. */
+  .sequenceRowConnectorElbowRight {
     display: block;
-    flex: 1 1 0;
+    position: absolute;
+    top: 0;
+    right: calc(100% / 6 - 1rem);
+    width: calc(100% / 3 + 1rem);
+    height: 1.625rem;
+    border-style: solid;
+    border-color: var(--ifm-color-primary);
+    border-width: 0 2px 2px 0;
+    border-bottom-right-radius: 10px;
   }
 
-  .sequenceRowConnectorGap {
+  /* top: calc(1.625rem - 2px), not 1.625rem - this is the fix for a
+     real (not sub-pixel-rounding) bug: a border-bottom always sits in
+     the LAST 2px of its own box, and a border-top always sits in the
+     FIRST 2px of its own box. With both boxes meeting edge-to-edge at
+     exactly 1.625rem (.sequenceRowConnectorElbowRight ends there,
+     this used to start there), the 2 lines were legitimately at
+     ADJACENT Y-ranges - Right's line the 2px above the seam, Left's
+     the 2px below it - not the same line, which is a real 2px vertical
+     step where they meet, not a rounding artifact (that was fixed
+     separately by moving off percentages, see .sequenceRowConnectorElbowRight's
+     own comment; this is a second, different bug at the same seam).
+     Starting this box 2px higher moves its border-top into the exact
+     same Y-range Right's border-bottom already occupies, so the 2
+     lines are now literally the same stripe, continued. height is
+     widened by that same 2px (to calc(1.625rem - 10px), i.e.
+     (1.625rem - 2px) - 12px + 2px folded together) so the box's
+     BOTTOM edge - where border-left stops, see below - stays exactly
+     where it was, still flush with the arrowhead. */
+  .sequenceRowConnectorElbowLeft {
     display: block;
-    flex: 0 0 3rem;
+    position: absolute;
+    top: calc(1.625rem - 2px);
+    left: calc(100% / 6 - 1rem);
+    width: calc(100% / 3 + 1rem);
+    height: calc(1.625rem - 10px);
+    border-style: solid;
+    border-color: var(--ifm-color-primary);
+    border-width: 2px 0 0 2px;
+    border-top-left-radius: 10px;
   }
 
-  .sequenceRowConnectorSlot {
-    flex: 1 1 0;
+  /* The arrowhead sits where .sequenceRowConnectorElbowLeft's own left
+     border ends (box 4's column center, at the connector's bottom
+     edge), not attached to either border-box itself: a border-radius
+     corner has no natural place to hang a separate triangle off of.
+     Same square (12x12) CSS-triangle technique as .sequenceConnectorArrow,
+     centered on that x via a fixed -6px margin (half its own width)
+     rather than -50%, since this box's own width/position aren't the
+     thing centering it, that column's x-position is. The +1px on the
+     `left` value (beyond the plain `calc(100%/6 - 1rem)` the line
+     above uses) accounts for the line being a 2px-wide border whose
+     own visual center sits 1px right of that raw value, not centered
+     on it - without this the arrowhead was centered 1px off from the
+     line it caps. */
+  .sequenceRowConnectorElbowArrow {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(100% / 6 - 1rem + 1px);
+    margin-left: -6px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 12px solid var(--ifm-color-primary);
+    transform: rotate(90deg);
   }
 }

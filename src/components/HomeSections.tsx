@@ -289,44 +289,57 @@ function Connector({ className }: { className: string }) {
  *
  * Rows are chunked in JS (always exactly 3 wide, the entire point of
  * this component), not left to CSS auto-fill, so the "row" the
- * connectors and the alternating direction reason about always matches
- * the DOM's own grouping, at every viewport width, and every box in a
- * row shares the remaining space equally (`flex: 1 1 0`) rather than
- * sitting at a fixed width with slack around it.
+ * connectors reason about always matches the DOM's own grouping, at
+ * every viewport width, and every box in a row shares the remaining
+ * space equally (`flex: 1 1 0`) rather than sitting at a fixed width
+ * with slack around it.
  *
- * Above the 1100px breakpoint (reusing PathColumns' own breakpoint, not
- * inventing a new one), rows alternate direction like a boustrophedon:
- * row 1 reads left-to-right, row 2 right-to-left (`--reverse` in
- * HomeSections.module.css swaps `flex-direction` and mirrors each
- * connector), so box 3 (end of row 1) and box 4 (start of row 2) land in
- * the same column and one vertical connector between the two rows shows
- * the sequence keeps going. That connector (`RowConnector` below) mimics
- * the real row's exact 5-slot structure (box/gap/box/gap/box, the gaps
- * matching `.sequenceConnector`'s fixed width) with invisible spacers,
- * swapping in the one visible vertical line at whichever end box lands
- * on the shared edge, so it stays pixel-aligned under that box at every
- * viewport width rather than only roughly centered. DOM order stays
- * 1..N throughout regardless of visual position, so tab order and
- * screen-reader order are unaffected by the visual reversal; the
- * numbers and connectors are purely decorative (`aria-hidden`)
- * sighted-reader aids for following the left-right-left path, not the
- * thing establishing the real order. Below 1100px, rows collapse to a
- * single top-to-bottom column and every connector points straight down
- * instead (same reasoning made simpler: no more row-to-row direction to
- * track, RowConnector's spacers disappear entirely, see
- * HomeSections.module.css).
+ * Every row reads left-to-right, above the 1100px breakpoint (reusing
+ * PathColumns' own breakpoint, not inventing a new one) and below it
+ * alike - no boustrophedon/alternating-direction reversal (an earlier
+ * version of this component did that; see git history if this is ever
+ * worth reviving). Box 3 (end of row 1) sits at the opposite corner
+ * from box 4 (start of row 2), so the row-to-row connector
+ * (`RowElbowConnector` below) is an orthogonal line - down from box 3,
+ * across, down into box 4 - long enough to actually bridge them,
+ * rather than a short straight connector.
+ *
+ * Built from 2 CSS border-boxes, not 3 separate line pieces: an
+ * earlier version butted a vertical line span against a horizontal
+ * line span, which is 2 independently-positioned elements and can show
+ * a hairline gap at the seam depending on sub-pixel rounding, and
+ * can't round the bend where they meet (a border-radius needs to be
+ * one element's own corner, not the join between two). Each "L" here
+ * is a single absolutely-positioned box with only 2 of its 4 borders
+ * visible (right+bottom for the box-3 side, left+top for the box-4
+ * side) and a border-radius on just the corner where those 2 borders
+ * meet, so the bend is that one element's own rounded corner: no seam
+ * to gap, and the curve is real. `right`/`left`/`width` all reuse the
+ * same `calc(100% / 6 - 1rem)` box-column math the old version used
+ * (a row is 3 equal box columns plus 2 fixed 3rem gaps, so a column's
+ * center sits that far in from its nearer edge) - by symmetry the two
+ * L's meet exactly at the horizontal center, whatever the row's actual
+ * width is at a given viewport.
+ *
+ * Below 1100px, rows collapse to a single column where box 3 and box 4
+ * are already directly stacked, so the two L's disappear entirely and
+ * a plain straight-down connector (same line+arrow pieces every other
+ * inter-box connector uses) takes over instead, see
+ * HomeSections.module.css. DOM order and visual order match throughout
+ * (no reversal to account for); the numbers and connectors are purely
+ * decorative (`aria-hidden`) sighted-reader aids, not the thing
+ * establishing the real order.
  */
-function RowConnector({ alignEnd }: { alignEnd: boolean }) {
-  const spacer = <span className={styles.sequenceRowConnectorSpacer} />;
-  const gap = <span className={styles.sequenceRowConnectorGap} />;
-  const slot = <Connector className={styles.sequenceRowConnectorSlot} />;
+function RowElbowConnector() {
   return (
-    <div className={styles.sequenceRowConnector}>
-      {alignEnd ? spacer : slot}
-      {gap}
-      {spacer}
-      {gap}
-      {alignEnd ? slot : spacer}
+    <div className={styles.sequenceRowConnectorElbow} aria-hidden="true">
+      <span className={styles.sequenceRowConnectorMobileLine}>
+        <span className={styles.sequenceConnectorLine} />
+        <span className={styles.sequenceConnectorArrow} />
+      </span>
+      <span className={styles.sequenceRowConnectorElbowRight} />
+      <span className={styles.sequenceRowConnectorElbowLeft} />
+      <span className={styles.sequenceRowConnectorElbowArrow} />
     </div>
   );
 }
@@ -339,42 +352,35 @@ export function SequenceGrid({ tiles }: { tiles: Tile[] }) {
 
   return (
     <div className={styles.sequenceGrid}>
-      {rows.map((row, rowIndex) => {
-        const reversed = rowIndex % 2 === 1;
-        // The previous row's LAST box is where the connector lines up:
-        // its right edge if that row read left-to-right, its left edge
-        // if that row was itself reversed.
-        const prevReversed = (rowIndex - 1) % 2 === 1;
-        return (
-          <Fragment key={rowIndex}>
-            {rowIndex > 0 && <RowConnector alignEnd={!prevReversed} />}
-            <div className={`${styles.sequenceRow} ${reversed ? styles['sequenceRow--reverse'] : ''}`}>
-              {row.map((t, i) => {
-                const Icon = t.icon;
-                const number = rowIndex * SEQUENCE_ROW_SIZE + i + 1;
-                return (
-                  <Fragment key={t.to}>
-                    <Link to={t.to} className={styles.sequenceBox}>
-                      <span className={styles.sequenceNumber} aria-hidden="true">
-                        {number}
+      {rows.map((row, rowIndex) => (
+        <Fragment key={rowIndex}>
+          {rowIndex > 0 && <RowElbowConnector />}
+          <div className={styles.sequenceRow}>
+            {row.map((t, i) => {
+              const Icon = t.icon;
+              const number = rowIndex * SEQUENCE_ROW_SIZE + i + 1;
+              return (
+                <Fragment key={t.to}>
+                  <Link to={t.to} className={styles.sequenceBox}>
+                    <span className={styles.sequenceNumber} aria-hidden="true">
+                      {number}
+                    </span>
+                    <span className={styles.sequenceContent}>
+                      <InfoTooltip bullets={t.info} />
+                      <span className={styles.navBoxRow}>
+                        <Icon className={styles.navBoxIcon} aria-hidden="true" />
+                        <span className={styles.navBoxTitle}>{t.title}</span>
                       </span>
-                      <span className={styles.sequenceContent}>
-                        <InfoTooltip bullets={t.info} />
-                        <span className={styles.navBoxRow}>
-                          <Icon className={styles.navBoxIcon} aria-hidden="true" />
-                          <span className={styles.navBoxTitle}>{t.title}</span>
-                        </span>
-                        <span className={styles.navBoxBlurb}>{t.blurb}</span>
-                      </span>
-                    </Link>
-                    {i < row.length - 1 && <Connector className={styles.sequenceConnector} />}
-                  </Fragment>
-                );
-              })}
-            </div>
-          </Fragment>
-        );
-      })}
+                      <span className={styles.navBoxBlurb}>{t.blurb}</span>
+                    </span>
+                  </Link>
+                  {i < row.length - 1 && <Connector className={styles.sequenceConnector} />}
+                </Fragment>
+              );
+            })}
+          </div>
+        </Fragment>
+      ))}
     </div>
   );
 }
