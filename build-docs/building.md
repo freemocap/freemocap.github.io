@@ -5,6 +5,8 @@ sidebar_position: 11
 provenance: ai-generated
 inFlux: "Building and packaging section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): build-installers-pyinstaller.yml (release renaming, server zips, all CUDA builds to R2 since #880), freemocap.spec (FREEMOCAP_BUILD_VARIANT default cuda), test.yml (pull requests to main and development), skellytracker model_registry.py and mediapipe_model_manager.py cache dirs, 41 locale files, alpha.25 GitHub release assets. Updated version examples, installer naming and CUDA hosting; rest unchanged."
   - date: "2026-08-26"
     against: "freemocap.spec, freemocap/__init__.py, pyproject.toml ([tool.bumpver] and project scripts/extras), freemocap-ui/package.json, freemocap-ui/electron-builder.json, freemocap-ui/src/i18n/i18n.ts (locale count), and all four .github/workflows/*.yml trigger definitions in the v2.0.0-alpha.21 clone; runtime model cache paths checked in the skellytracker clone"
   - date: "2026-08-24"
@@ -21,8 +23,8 @@ package (its `pyproject.toml` defines a `freemocap` console script and
 are these installers:
 
 ```
-FreeMoCap_2.0.0-alpha.21_x64_installer.exe
-│   (NSIS on Windows; .dmg and .zip on Apple Silicon macOS,
+freemocap_<version>_<label>.<ext>   e.g. freemocap_2.0.0-alpha.25_windows-x64-cpu.exe
+│   (NSIS .exe on Windows; .dmg and .zip on Apple Silicon macOS,
 │    .AppImage and .deb on Linux)
 ├── FreeMoCap(.exe)     Electron launcher
 └── resources/
@@ -88,15 +90,15 @@ Build and deploy workflows live in `.github/workflows/`:
 
 | Workflow | Purpose |
 |---|---|
-| `build-installers-pyinstaller.yml` | Builds the platform-specific installers (CPU and CUDA variants) on pushes to `development` and on `v*` tags, then assembles a draft GitHub Release on tag pushes |
+| `build-installers-pyinstaller.yml` | Builds the platform-specific installers (CPU and CUDA variants) on pushes to `development` and on `v*` tags, then assembles a draft GitHub Release on tag pushes. Release assets are renamed to `freemocap_<version>_<label>.<ext>`, with a matching `freemocap_server_*.zip` per platform. CUDA builds are too large for GitHub and are uploaded to Cloudflare R2 instead |
 | `deploy-docs.yml` | Builds and deploys the repository's own docs site (`freemocap-docs/`) to GitHub Pages, not the FreeMoCap.github.io site this page belongs to |
 | `test.yml` | backend tests and a frontend typecheck on pull requests to `main` and `development` |
 | `test-bucket.yml` | Manual smoke test that uploads a file to the Cloudflare R2 release bucket |
 
 ## Versioning
 
-Both halves currently report the same version: `v2.0.0-alpha.21` in
-`freemocap/__init__.py` (backend) and `2.0.0-alpha.21` in
+Both halves report the same version, for example `v2.0.0-alpha.25` in
+`freemocap/__init__.py` (backend) and `2.0.0-alpha.25` in
 `freemocap-ui/package.json` (frontend). There is one canonical version
 string, `current_version` under `[tool.bumpver]` in `pyproject.toml`, and a
 bump (for example `uv run poe bump-alpha`) rewrites the Python and Electron version

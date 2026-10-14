@@ -1,38 +1,60 @@
 ---
 title: Fix an installation problem
 type: how-to
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): release assets and freemocap.org/download; freemocap-ui python-server startup; skellylogs default_paths (log folder). Rewritten for the desktop installer; pip/Qt entries removed as v1-only."
   - date: "2026-08-25"
     against: "freemocap clone pinned at v2.0.0-alpha.21: pyproject.toml requires-python and [project.scripts], .python-version, noxfile.py and .github/workflows/test.yml Python versions, Electron/FastAPI GUI per freemocap-docs intro.mdx, Qt absence sweep across all polyrepo clones, internal link to /start/install"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
-The [Installation Guide](/start/install) covers the basics, but sometimes things don't go as smoothly as planned. This guide covers common problems encountered while installing the software, and hopefully gets FreeMoCap running in no time. At the bottom of the page is a list of common error messages you may see during installation, along with common solutions.
 
-If you're still having problems installing FreeMoCap after troubleshooting with the tips below, reach out on [Discord](https://discord.gg/j76UGWfEeA) to ask for more help.
+# Fix an installation problem
 
-## Use a new environment
-Different python projects have different dependencies, and often those dependencies can clash with each other. If you have any installation problem, the first thing to try is installing and running FreeMoCap in a new, dedicated environment. 
-There's many options for creating and managing environments in Python; Poetry and Conda are both good choices.
+If FreeMoCap won't install or open, try these in order. If nothing works, ask in
+`#help-requests` on [Discord](https://discord.gg/XpRQJnqZxf) or
+[report a bug](/guides/report-a-bug).
 
-## Check your Python version
-Currently, FreeMoCap requires Python 3.11 or newer. Development and release builds are pinned to Python 3.12; use the most recent compatible version of Python. If installing FreeMoCap in a 3.12 environment doesn't work for you, then try it with a different python version and see if that helps.
+## Get the latest version
 
-## Check your FreeMoCap version
-FreeMoCap is under active development, and bugs get addressed as quickly as possible. It is always best to install the latest version of the software. If a prior installation isn't working, you can update versions by running `pip install freemocap --upgrade`. 
+New versions fix a lot of bugs. Download the latest installer from the
+[FreeMoCap download page](https://freemocap.org/download) and install it over your current one.
 
-When pip begins installing the software, it prints which version it is installing. You can compare that to the most recent version [listed on PyPi](https://pypi.org/project/freemocap/) to make sure it is up to date.
+## Mac: "FreeMoCap can't be opened"
 
-## Common error messages
+Open **System Settings > Privacy & Security**, scroll down, and click **Open Anyway** next to
+the FreeMoCap message.
 
-### `Command "freemocap" not recognized`
-- On some python installations, you may need to type `python -m freemocap` instead of just `freemocap` to launch the GUI.
+## Windows: "Windows protected your PC"
 
-### `qt.qta.plugin: Could not load the Qt platform plugin "xcb"`
-- This error comes from applications built on the Qt graphical toolkit. Older (v1) releases of FreeMoCap had a Qt based graphical interface, but the current v2 app uses an Electron based interface instead and does not depend on Qt, so this error is unlikely to come from a current installation. If you are seeing it, you are probably running an old v1 install.
-- On Linux, some common distributions do not come with all of the libraries that are required to run Qt. Most users have been able to fix this by running:
+Click **More info**, then **Run anyway**.
 
-`sudo apt-get install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev`
+## Linux: the AppImage doesn't open
 
-If you use a different package manager, you may need to look up equivalent commands for your package manager.
+Make sure the file is allowed to run:
+
+```bash
+chmod +x freemocap_*.AppImage
+```
+
+On Ubuntu 22.04 and newer, AppImages also need FUSE. Install it with
+`sudo apt install libfuse2` (on Ubuntu 24.04, `sudo apt install libfuse2t64`), or use the `.deb`
+instead.
+
+## The window opens but stays stuck loading
+
+FreeMoCap starts its processing engine in the background when it opens, and the first launch can
+take a minute or two. If it never finishes, quit FreeMoCap completely and open it again.
+
+## Processing is very slow
+
+On Windows or Linux with an NVIDIA graphics card, install the CUDA version of FreeMoCap from the
+[download page](https://freemocap.org/download). See
+[set up GPU acceleration](/guides/gpu-setup).
+
+## Sending logs with a bug report
+
+FreeMoCap writes log files to the `skellylogs_data/logs` folder in your home folder. Attach the
+newest one when you ask for help.

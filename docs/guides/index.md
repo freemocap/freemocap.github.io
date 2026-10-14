@@ -4,6 +4,8 @@ type: hub
 sidebar_position: 1
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "Link list unchanged; removed an internal planning note about a future Discord export."
   - date: "2026-08-25"
     against: "link inventory against the site tree (all 12 /guides targets plus /tutorials/ and /concepts/ hubs) and freemocap v2.0.0-alpha.21 (tracker_factory.py, mocap_task_config.py, mocap-detector-settings.tsx) for the YOLOX experimental label"
   - date: "2026-08-21"
@@ -21,10 +23,6 @@ you're looking for a guided walkthrough instead, see
 [tutorials](/tutorials/); if you want to understand why something works
 the way it does, see [concepts](/concepts/).
 <!-- vale Google.FirstPerson = YES -->
-
-This list is expected to grow substantially once the Discord
-`#help-requests` channel gets exported and clustered into topics, that's
-the highest-value source for what belongs here next.
 
 ## Quick answers
 

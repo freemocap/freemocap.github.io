@@ -6,6 +6,8 @@ provenance: ai-generated
 inFlux: "Pipeline walkthrough section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): tracker_factory.py builders unchanged in name and session type; MediaPipe now runs hands as wrist-cropped child stages and face as a child stage (#889, #898), merged back by merge_mediapipe_hand_face_children(). Updated that table row. realtime_aggregator_node.py and realtime_skeleton_inference_node.py changes were small; the rest not re-checked."
   - date: "2026-08-26"
     against: "re-checked every concrete claim against freemocap source at v2.0.0-alpha.21: core/pipeline/abcs/*.py, core/pipeline/realtime/*.py (incl. exact line counts), core/pipeline/posthoc/*.py, core/tracking/tracker_factory.py and tracker_definitions.py, core/tasks/mocap/posthoc_mocap_task.py, realtime_filtering/*, rigid_body/skeleton_rigidifier.py and online_segment_lengths.py, api/websocket/websocket_server.py and tracker_schema_message.py"
   - date: "2026-08-24"
@@ -145,7 +147,7 @@ construction, and session creation only happen in one place:
 | `build_charuco_tracker(board_def)` | `CpuSession` | ChArUco board detector, used for calibration markers |
 | `build_skeleton_onnx_session(...)` | `OnnxSession` | Shared RTMPose/YOLOX session, batch size = min(camera count, `max_batch_size`) |
 | `build_skeleton_tracker(...)` | (the session preceding) | Body-pose tracker: YOLOX crop into RTMPose |
-| `build_mediapipe_tracker(...)` | `MediaPipeSession` | MediaPipe body, hands, and face tracker |
+| `build_mediapipe_tracker(...)` | `MediaPipeSession` | MediaPipe body tracker, with each hand run as a child stage on a wrist crop (cropped from the body stage's own wrist, index and pinky points) and face as a child stage; `merge_mediapipe_hand_face_children()` folds the children back into the flat body ordering downstream code expects |
 
 Per frame, the pipeline calls `tracker.process_image(...)` (one camera) or
 `tracker.process_batch(...)` (all cameras in one GPU call) and gets back an

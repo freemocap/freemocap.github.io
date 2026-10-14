@@ -1,13 +1,16 @@
 ---
 title: Frequently asked questions
 type: explanation
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): realtime pipeline and tour text in en-english.json. Shortened the realtime answer to plain English; donation and Discord links checked live. Rest unchanged."
   - date: "2026-08-25"
     against: "polyrepo-clones/freemocap (v2.0.0-alpha.21): LICENSE (AGPLv3), README.md (Discord invite, realtime pipeline), freemocap/core/pipeline/realtime/ and api/http/realtime/realtime_router.py (realtime pipeline exists), core/pipeline/realtime/camera_node_config.py (single-person cap), freemocap-docs/docs/architecture/backend-pipeline-architecture.mdx; polyrepo-clones/skellytracker main (multi_person_tracker.py, detector registry); polyrepo-clones/skellyforge main (pipelines/dlc_pipeline.py)"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
+
 <!-- vale Google.We = NO -->
 <!-- vale Google.FirstPerson = NO -->
 <!-- An FAQ page is the other genre (with privacy policies) where the
@@ -43,7 +46,7 @@ We also greatly appreciate financial contributions of any size, although the sof
 
 ## Does FreeMoCap work in realtime?
 
-Yes, in the current V2 build. FreeMoCap runs a realtime pipeline: per-camera nodes run pose detection as each synchronized frame arrives, and an aggregation node triangulates and filters every frame live, streaming results to the GUI over websocket. An optional centralized GPU inference node serves all cameras with batched ONNX inference. FreeMoCap also keeps a non-realtime (posthoc) path, which processes recordings after the fact and remains useful for reprocessing.
+Yes. While your cameras are streaming, FreeMoCap can track and display a 3D skeleton live. For the most accurate data, it also processes each recording after it's made.
 
 ## Can FreeMoCap track multiple people at once?
 

@@ -5,6 +5,8 @@ sidebar_position: 11
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): CameraSettingsModal.tsx (Rotate, Resolution, Exposure; no framerate, focus or white balance controls), SettingsModal.tsx and menu-builder.ts (File > Settings, Include virtual cameras when detecting devices; alpha.24 release notes), skellycam opencv_apply_config.py (Linux forced auto-exposure). Rewritten; fixed garbled text from an earlier automated style pass. Camera table carried over, not re-tested."
   - date: "2026-08-25"
     against: "freemocap-docs docs/guides/camera-setup.mdx plus live code: freemocap-ui camera config tree and calibration settings, skellycam camera_config.py and opencv_apply_config.py, skellytracker charuco_board_definition.py, freemocap shared/charuco"
   - date: "2026-08-21"
@@ -13,88 +15,58 @@ history:
 
 # Connect and configure cameras
 
-For the physical setup (lighting, placement, background), see
+For placement, lighting and background, see
 [optimize your capture space](/tutorials/capture-environment) and
-[record with multiple cameras](/tutorials/multi-camera). This page is
-about the cameras themselves and the settings that affect calibration
-stability.
+[record with multiple cameras](/tutorials/multi-camera).
 
-## Supported cameras
+## Which cameras work
 
-Any USB camera OpenCV's `VideoCapture` can open should work. Tested
-configurations:
+Most USB webcams work. These are commonly used:
 
 | Camera | Resolution | FPS | Notes |
 |---|---|---|---|
 | Logitech C920 | 1080p / 720p | 30 / 60 | Widely used, reliable |
-| Logitech C922 | 1080p / 720p | 30 / 60 | Similar to C920, better low light |
-| Logitech Brio | 4K / 1080p | 30 / 60 | Higher resolution, wider field of view |
-| Elgato Cam Link | 1080p | 60 | HDMI capture, for use with a DSLR or mirrorless camera |
-| Generic USB webcams | Variable | Variable | May work, quality varies |
+| Logitech C922 | 1080p / 720p | 30 / 60 | Like the C920, better in low light |
+| Logitech Brio | 4K / 1080p | 30 / 60 | Higher resolution, wider view |
+| Elgato Cam Link | 1080p | 60 | Connects a DSLR or mirrorless camera over HDMI |
+
+FreeMoCap doesn't look for virtual cameras (like OBS Virtual Camera) by default. To use one, turn on
+**Include virtual cameras when detecting devices** under **File > Settings > Cameras**.
 
 ## USB bandwidth
 
-USB cameras use real bandwidth, and running out of it shows up as
-dropped frames or disconnects, not a clear error message. A few things
-that help:
+Each camera uses a lot of USB bandwidth. When there isn't enough, you get dropped frames or
+cameras disconnecting, with no clear error.
 
-- Use separate USB controllers when you can, not just separate ports on
-  the same hub.
-- USB 3.0 has more headroom than USB 2.0.
-- Lower resolution means less bandwidth per camera, which means more
-  cameras can share one controller.
-- If cameras are dropping frames or disconnecting, that's the first
-  thing to check, spread them across controllers before assuming
-  something else is wrong.
+- Plug cameras straight into the computer, not into a hub.
+- Spread cameras across different USB controllers if you can.
+- Use USB 3 ports where possible.
+- Lower the resolution to fit more cameras.
 
-## Configuration settings that matter
+## Camera settings
 
-Set through the Camera config Tree in the sidebar:
+Expand a camera's row in the camera panel to change:
 
 | Setting | Recommendation |
 |---|---|
+| Rotate | Match how the camera is mounted |
 | Resolution | 720p is a good balance of quality and bandwidth |
-| Exposure | Manual, fixed |
+| Exposure | Manual, kept fixed. See [setting exposure](/tutorials/capture-environment#setting-exposure) |
 
-Two settings you may see recommended elsewhere are not currently in the
-app. framerate has no control in the config panel, and SkellyCam leaves
-it at the camera's own default (applying a configured framerate is
-turn off' or 'off in its capture code), so choose cameras that hold the rate you
-need rather than trying to set it here. Focus and white balance have no
-controls either, so if your camera supports locking them, do it through
-the camera's own driver or on-device menu before recording.
+Keep exposure fixed. If it changes during a recording, tracking and calibration can drift.
+Cameras on Linux always use automatic exposure.
 
-Fixed exposure matters more than it might seem to. If auto-exposure
-changes mid-recording, the detected feature positions shift with the
-brightness change, and your [calibration](/concepts/calibration) can
-drift as a result. This is a common, non-obvious cause of a calibration
-that looked fine and then didn't. One caveat: on Linux, SkellyCam
-currently forces auto-exposure regardless of the mode you pick (because
-of a cross-platform mismatch in exposure units), so the manual setting
-is ignored there.
+FreeMoCap has no settings for frame rate, focus, or white balance. Cameras run at their own
+default frame rate. If your camera can lock focus and white balance, do it with the camera's own
+software before recording.
 
 ## Synchronization
 
-Cameras aren't hardware-genlocked, synchronization is done in software.
-SkellyCam's orchestrator runs a two-phase grab/retrieve cycle, where all
-cameras latch each frame before any of them decodes it, so every camera
-produces the same number of frames across a recording, and each frame
-gets a high-resolution timestamp that's saved with the recording for
-posthoc analysis. For the most reliable sync: use cameras that hold a
-consistent framerate (not variable frame rate), and keep individual
-recording sessions under about 30 minutes to limit how much drift can
-accumulate.
-
-## Calibration board
-
-Calibration uses a printed [ChArUco board](/concepts/calibration). Print
-it on something rigid so it stays flat, printable board files ship in
-`shared/charuco/` in the FreeMoCap repository. The board's physical
-dimensions need to match whatever's configured in the calibration
-settings (board preset and square length, in millimeters).
+FreeMoCap keeps the cameras in step in software: every camera captures the same number of frames,
+and each frame gets a timestamp. For the best sync, use cameras with a steady frame rate and keep
+recordings under about 30 minutes.
 
 ## Next steps
 
-- [Why calibration matters](/concepts/calibration)
+- [Calibrate your cameras](/tutorials/calibrate)
 - [Get a calibration you can trust](/tutorials/better-calibration)
-- [Record with multiple cameras](/tutorials/multi-camera)

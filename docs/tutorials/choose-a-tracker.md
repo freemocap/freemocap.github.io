@@ -4,6 +4,8 @@ type: tutorial
 sidebar_position: 32
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): mocap_task_config.py and mocap-slice.ts (detector rtmpose default; rtmpose 'more accurate', mediapipe 'faster, CPU-friendly'), mocap-detector-settings.tsx (RTMPose/MediaPipe only; Default/High Res/Fast and Heavy/Full/Lite), BlenderSection.tsx (MediaPipe-only export). The old page said MediaPipe was the default and listed trackers the app doesn't offer. Validation findings carried over from /concepts/accuracy-and-limits."
   - date: "2026-08-26"
     against: "skellytracker/core/detectors/detector_base_classes.py (confirmed a real, current extensible detector interface exists) and skellyforge/pipelines/dlc_pipeline.py (confirmed dead code, broken imports, already tracked in CODE-BUGS-FOUND.md)"
   - date: "2026-08-20"
@@ -13,60 +15,37 @@ draft: false
 
 # Choose a tracking model
 
-FreeMoCap can run on several different pose estimation backends without
-changing anything else in your pipeline (see
-[SkellyTracker](/concepts/tracking) for how that swapping works). This
-page is about which one to actually reach for.
+The tracker finds your body's joints in each video frame. FreeMoCap offers two. Choose one under
+**Mocap Settings > Detector**.
 
-## If you're not sure, start with MediaPipe
+| | RTMPose (default) | MediaPipe |
+|---|---|---|
+| Accuracy | Higher | Lower |
+| Speed | Slower, much faster with a GPU | Faster, runs well on any processor |
+| Blender export | Not yet | Yes |
+| Options | **Default**, **High Res**, or **Fast** model | **Heavy**, **Full**, or **Lite** model |
 
-MediaPipe is the default for a reason: it's free, runs on a CPU with no
-GPU required, and is simple to install and call from Python. Unless you
-have a specific reason to switch, it's the right starting point.
+**Use RTMPose** for the most accurate data, unless you need Blender.
 
-## Match the backend to your task
+**Use MediaPipe** if you want a Blender scene, or if processing is too slow on your computer.
 
-The full comparative results are in
-[Accuracy, validity, and limits](/concepts/accuracy-and-limits); the short
-version, by task:
+## Matching the tracker to your task
 
-- **Gait.** RTMPose was the most consistent backend in FreeMoCap's
-  validation study, with the lowest ankle-kinematics error and none of
-  MediaPipe's speed-dependent lag.
-- **Balance, or anything close to static.** MediaPipe's built-in temporal
-  smoothing, a liability for fast movement, is what made it the only
-  backend sensitive enough to detect the expected changes in postural
-  sway. RTMPose and ViTPose showed more frame-to-frame jitter at rest.
-- **Fast or ballistic movement.** Be aware of MediaPipe's smoothing-driven
-  lag and ViTPose's small systematic scaling bias (2 to 4 percent,
-  concentrated in the vertical axis) before relying on either for
-  precise timing.
-- **A population or body type standard models weren't trained on.**
-  General-purpose backends can fail outright, as they did tracking a
-  transfemoral prosthesis in FreeMoCap's own validation work. A
-  custom-trained model may be the only option that works; see below.
+From FreeMoCap's validation studies (details in
+[accuracy, validity, and limits](/concepts/accuracy-and-limits)):
 
-## When the built-in options aren't enough
+- **Walking and gait:** RTMPose was the most consistent.
+- **Balance and standing still:** MediaPipe's built-in smoothing made it better at picking up
+  small amounts of sway.
+- **Fast movements:** MediaPipe's smoothing can make it lag behind quick motion, so prefer RTMPose.
 
-If none of the standard backends track your subject reliably, SkellyTracker's
-standardized detector interface (`core/detectors/detector_base_classes.py`)
-means a custom-trained model can, in principle, be integrated without
-rewriting the rest of the pipeline. That's exactly what FreeMoCap's
-prosthetics validation case required: off-the-shelf models, trained mostly
-on able-bodied people, didn't generalize to a prosthetic limb, and a
-custom-trained model did. See
-[Image tracking and pose models](/concepts/tracking) for how that
-integration works.
+## When neither tracker works
 
-A concrete example worth knowing about before you go looking for one:
-SkellyForge's own DeepLabCut pipeline (`skellyforge/pipelines/
-dlc_pipeline.py`) is currently dead code, it imports a SkellyTracker
-module that no longer exists post-polyrepo-split. It's not a working
-reference implementation to copy, treat SkellyTracker's own base detector
-classes as the real starting point for a new custom integration instead.
+Standard trackers can fail on bodies they weren't trained on, such as a person with a prosthetic
+limb. A custom-trained model can work in these cases; see
+[image tracking and pose models](/concepts/tracking).
 
 ## Next steps
 
+- [Set up GPU acceleration](/guides/gpu-setup)
 - [Image tracking and pose models](/concepts/tracking)
-- [Accuracy, validity, and limits](/concepts/accuracy-and-limits)
-- [The FreeMoCap output data model](/concepts/data-model)

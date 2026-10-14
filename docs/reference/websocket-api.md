@@ -4,6 +4,8 @@ type: reference
 sidebar_position: 16
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): websocket_connect.py (/websocket/connect), websocket_server.py (300-frame backpressure warning and reset thresholds), freemocap-docs architecture/backend-websocket-server.mdx still present. No changes needed."
   - date: "2026-08-25"
     against: "freemocap v2.0.0-alpha.21 websocket source (api/websocket/websocket_server.py, websocket_connect.py, websocket_message_types.py, binary_keypoints_protocol.py, api/routers.py, app/app.py, api/server_constants.py), freemocap-ui ServerContextProvider.tsx and websocket-connection.ts, and freemocap-docs backend-websocket-server.mdx and api-boundary.mdx"
   - date: "2026-08-21"

@@ -1,13 +1,16 @@
 ---
 title: Fix a calibration problem
 type: how-to
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): bundle_adjust.py and freemocap_anipose.py error messages, calibration-settings.tsx presets. Error section rewritten to current messages only; v1 traceback and programmatic board definition removed; tips unchanged."
   - date: "2026-08-25"
     against: "polyrepo-clones pulled 2026-08-25: freemocap anipose calibration solver (bundle_adjust.py, freemocap_anipose.py, charuco_board_ops.py), skellytracker CharucoBoardDefinition, and shared/charuco board images"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
+
 Camera calibration is a smooth process once you get the hang of it, but it can take some trial and error to get your set up right. The following tips help smooth out the road bumps, and at the bottom is a list of common error messages you may see in the logging console, along with common solutions. 
 
 If this guide isn't enough to get you calibrating your cameras successfully, reach out on [Discord](https://discord.gg/j76UGWfEeA) to ask for more help.
@@ -18,7 +21,7 @@ Using a bigger ChArUco board can make it easier for your cameras to detect the b
 You can help make a small ChArUco board work by holding it closer to the cameras while recording, but make sure the board is still visible from multiple cameras at a time.
 
 ## Rigid ChArUco board
-The software detecting the ChArUco is expecting the board to be perfectly flat. To calibrate properly, make sure your board is mounted to something rigid, like a piece of cardboard or poster board.
+The software detecting the ChArUco is expecting the board to be perfectly flat. To calibrate properly, make sure your board is mounted to something rigid, such as cardboard or foam board.
 
 ## Recording length
 Taking time to record a longer calibration can help reduce your chances of a failed calibration. Spend 5-10 seconds displaying the board to each pair of cameras. 
@@ -38,26 +41,19 @@ Some phones allow you to turn off image mirroring in the settings, but if not yo
 
 ## Common error messages
 
-### `ValueError: not enough values to unpack (expected 2, got 0)`
-```
-freemocap_anipose.py", line 1810, in calibrate_rows
-    objp, imgp = zip(*mixed)
-    ^^^^^^^^^^
-ValueError: not enough values to unpack (expected 2, got 0)
-```
-This issue comes up when one or more cameras do not have any shared views of the ChArUco with other cameras. This can due to the physical setup of your cameras. Make sure each camera can clearly see the ChArUco board at the same time as another camera. This issue can also happen if a camera is not properly detecting a ChArUco board due to an issue like a mirrored view, glare, or a ChArUco board that's too small in the cameras view.
+Calibration errors appear in the app and in the log files in `skellylogs_data/logs` in your home
+folder.
 
-The traceback preceding comes from older releases of FreeMoCap. Current versions raise clearer errors for the same underlying problems, for example `No valid calibration points for camera {N} (need >= 7)` when a camera has essentially no usable views of the board, or `Expected {N} pairs, got {M}. Graph may be disconnected!` when the shared views between cameras do not connect all of them into one group.
+### `No valid calibration points for camera N (need >= 7)`
+A camera barely saw the board. Check that it can see the board clearly: try a bigger board, less
+glare, or bringing the board closer.
 
-## ChArUco board definition
+### `Expected N pairs, got M. Graph may be disconnected!`
+Some cameras never saw the board at the same time as the others. Make sure each camera shares
+views of the board with at least one other camera, so all the cameras link up into one group.
 
-Print or display [this image](https://github.com/freemocap/freemocap/blob/main/shared/charuco/charuco_board_image.png) for the ChArUco board. There is also a [high definition version](https://github.com/freemocap/freemocap/blob/main/shared/charuco/charuco_board_image_highRes.png) for printing larger boards. FreeMoCap can't detect ChArUco boards that don't match this exact layout.
+## Board layout
 
-If you have a need to define the FreeMoCap ChArUco board programmatically, the definition is a single shared `CharucoBoardDefinition` model, defined in SkellyTracker at `skellytracker/core/detectors/keypoint_detectors/charuco/charuco_board_definition.py` and used by both the ChArUco detector and the calibration solver. The default board is the letter-size 5x3 layout (5 squares wide, 3 squares tall, with 54 mm squares). Its fields are:
-```
-    squares_x: int
-    squares_y: int
-    square_length_mm: float
-    marker_length_ratio: float = 0.8
-    aruco_dictionary_enum: int = cv2.aruco.DICT_4X4_250
-```
+FreeMoCap only detects its own ChArUco boards: the 5x3 and 7x5 boards from
+[calibrate your cameras](/tutorials/calibrate). Make sure the board preset and square length in
+the calibration settings match your printed board.

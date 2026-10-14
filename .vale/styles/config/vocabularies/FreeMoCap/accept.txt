@@ -259,3 +259,8 @@ xyz
 YAMLs
 YOLOX
 Zenodo
+Mocap Settings
+Auto Process Mocap
+Continue to Mocap Setup
+Process Mocap
+Import \.toml file

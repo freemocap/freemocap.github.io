@@ -1,43 +1,58 @@
 ---
 title: Record with one camera
 type: tutorial
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2), plus the installed alpha.25 app opened on macOS (welcome screen, Connected status, Connect Cameras, Start Recording, Auto Process Mocap; no camera attached, so no recording was made). Source: freemocap-ui en-english.json tour text, RecordingControlPanel.tsx, RecordingCompleteDialog.tsx (Open in Playback), mocap-slice.ts (detectorType rtmpose default), BlenderSection.tsx (MediaPipe-only export), skellycam opencv_apply_config.py (Linux forced auto-exposure)."
   - date: "2026-08-26"
     against: "freemocap clone pinned at v2.0.0-alpha.21: pyproject.toml [project.scripts], freemocap-ui en-english.json labels plus WelcomeModal.tsx/CameraHeaderActions.tsx/CameraConfigTreeViewHeader.tsx, recording-slice.ts autoProcess default, mocap_task_config.py detector and Blender-export defaults, export_to_blender.py MediaPipe-only gate, posthoc_mocap_task.py single-camera calibration skip, skellycam camera_config.py exposure defaults and opencv_apply_config.py Linux force-auto-exposure; link targets /start/install and /tutorials/calibrate confirmed present"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
-## Introduction
-Everybody starts by creating a single-camera recording and reconstruction of their movement before moving on to more complex tasks like multi-camera calibration and reconstruction. 
 
-## Installation 
+Start with one camera. It's the quickest way to check that FreeMoCap works on your computer
+before you set up several cameras. One camera gives you 2D tracking, not reliable 3D.
 
-Follow the [Installation Guide](/start/install) to install the [FreeMoCap](https://github.com/freemocap/freemocap) software
+## 1. Open FreeMoCap
 
-## Launching FreeMoCap
-Launch FreeMoCap from the terminal by activating the relevant Python environment and typing `freemocap` into the terminal, then press Enter. At that point, the GUI should show up, looking something like this (the screenshot below is from an earlier release, so the current interface looks somewhat different):
+Open FreeMoCap. The first launch can take a minute while it starts up. When the top-left corner
+says **Connected**, it's ready.
 
-![image](https://user-images.githubusercontent.com/15314521/239695690-90ef7e7b-48f3-4f46-8d4a-5b5bcc3254b3.png)
+## 2. Connect your camera
 
-- Click the "Connect Cameras" button on the welcome screen. FreeMoCap detects the cameras plugged into your computer and starts streaming from them (you can also reach the same controls later from the camera panel in the sidebar, via "Connect Cameras").
+Plug in a webcam (or use your laptop's built-in camera) and click **Connect Cameras**. Your
+camera's live view appears in the middle of the window.
 
-## Camera detection
-If a camera doesn't show up on its own, use the detect (refresh) control in the camera panel to scan for plugged-in cameras again. Once cameras are connected, each one streams a live viewpoint into the GUI. Expand a camera's row to adjust its settings (resolution, rotation, exposure, and so on), then send them with the connect/apply control in the camera panel; when auto-apply is switched on, changes are sent as you make them. 
+If your camera doesn't show up, click the refresh button in the camera panel to scan again.
 
-<details>
-<summary>Tips: exposure and framing</summary>
+To change a camera's settings, such as resolution or exposure, expand its row in the camera panel.
+For sharp tracking, use a low exposure setting in a bright room. Cameras on Linux always use automatic
+exposure.
 
-> Prioritize proper exposure for the best video quality. Start by lowering your exposure setting (ideally below -6) to reduce blur and create a crisp image. This may initially make the image appear slightly darker than expected. While perfect framing isn't critical for a simple single-camera setup, ensure you're visible within the frame. Keeping good framing practices in mind is beneficial for future, more complex recording scenarios.
->
-> On Linux, FreeMoCap currently forces cameras into automatic exposure, so manual exposure values are ignored on that platform for now.
+## 3. Choose a tracker (optional)
 
-</details>
+FreeMoCap uses the **RTMPose** tracker by default. If you want to open your recording in Blender
+afterwards, click **Mocap Settings** and change **Detector** to **MediaPipe**, because Blender
+export only works with MediaPipe for now.
 
-## Recording
-Because you're doing a single camera recording, you don't need to do any calibration (single-camera recordings skip the calibration requirement entirely and reconstruct through a planar projection fallback). But when you do graduate to multi-camera recordings, this is where you would get out a ChArUco board and run a calibration first. You're all clear to record your motion capture for now, though.
+## 4. Record
 
-Click "Start Recording" and go into the field of view to perform some kind of movement. Then click "Stop Recording," and it should process automatically from there (auto-process is on by default). When processing finishes, the recording folder is populated with the output data files. If you processed with the MediaPipe tracker and Blender was detected on your system, the finished Blender scene opens up automatically. With the default RTMPose tracker you get the motion capture data files, but Blender export isn't supported for its output yet.
+1. Click **Start Recording**.
+2. Step into view and move around.
+3. Click **Stop Recording**.
 
-## 3D data with multiple cameras
-Now that you have gotten the process working with a single camera, it's time to try multiple cameras. Start with the [multi-camera calibration guide](/tutorials/calibrate).
+You don't need to calibrate for a single camera.
+
+**Auto Process Mocap** is on by default, so FreeMoCap processes the recording as soon as you
+stop. The first time, it downloads the tracking model, so stay online.
+
+## 5. See your results
+
+When you stop recording, a summary window appears. Click **Open in Playback** to review the
+recording. More on this in [see what you made](/start/see-your-results).
+
+## Next
+
+Ready for 3D? [Calibrate your cameras](/tutorials/calibrate), then
+[record with multiple cameras](/tutorials/multi-camera).

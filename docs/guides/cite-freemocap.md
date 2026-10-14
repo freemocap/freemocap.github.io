@@ -4,6 +4,8 @@ type: how-to
 sidebar_position: 15
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): CITATION.cff (author order Matthis, Queen, Cherian, Wirth, Idehen; concept DOI 10.5281/zenodo.7233713); Zenodo API for the concept record (latest archived version v2.0.0-alpha.22, 2026-08-27, same author order); menu-builder.ts (Help > About FreeMoCap). Old notes about the v1.0.0-rc-only record and the placeholder CITATION.cff DOI removed as no longer true. Thesis citation unchanged."
   - date: "2026-08-25"
     against: "Software citation re-checked against the cloned freemocap CITATION.cff (including the prepared-but-not-yet-pushed DOI and name-order corrections), dissertation entry against the site's own accuracy-and-limits source attribution and the 2026-08-20 planning notes, and both link targets against their live pages"
   - date: "2026-08-21"
@@ -13,49 +15,31 @@ draft: false
 
 # Cite FreeMoCap
 
-Two separate things get cited depending on what you're referencing: the
-software itself, and the validation study behind
+You can cite two things: the software itself, and the validation study behind
 [accuracy, validity, and limits](/concepts/accuracy-and-limits).
 
 ## Citing the software
 
 ```bibtex
 @software{freemocap,
-  author       = {Queen, Philip and
+  author       = {Matthis, Jonathan Samir and
+                   Queen, Philip and
                    Cherian, Aaron and
                    Wirth, Trent and
-                   Idehen, Endurance and
-                   Matthis, Jonathan Samir},
-  title        = {freemocap},
+                   Idehen, Endurance},
+  title        = {FreeMoCap},
   doi          = {10.5281/zenodo.7233713},
   url          = {https://github.com/freemocap/freemocap}
 }
 ```
 
-Or in prose: queen, P., Cherian, A., Wirth, T., Idehen, E., & Matthis,
-J. S. *FreeMoCap.* [https://doi.org/10.5281/zenodo.7233713](https://doi.org/10.5281/zenodo.7233713)
+Or in prose: Matthis, J. S., Queen, P., Cherian, A., Wirth, T., & Idehen, E. *FreeMoCap.*
+[https://doi.org/10.5281/zenodo.7233713](https://doi.org/10.5281/zenodo.7233713)
 
-That DOI is Zenodo's **concept DOI**, it always resolves to the latest
-released version rather than pinning to one snapshot. As of this
-writing the latest (and only) release Zenodo has on record is `v1.0.0-rc`
-from March 2023, notably behind the actively developed `v2.0.0-alpha`
-line on GitHub. If you need to cite the exact version you actually used
-and it's newer than that, cite the
-[GitHub repository](https://github.com/freemocap/freemocap) directly and
-note the commit or tag, rather than implying a Zenodo-versioned release
-that doesn't exist yet.
-
-:::note If you're checking against CITATION.cff yourself
-Older copies of the `CITATION.cff` file in the `freemocap/freemocap`
-repository carry a placeholder DOI (`10.5281/zenodo.1234`) that was
-never filled in, and two author names' given and family fields were
-swapped in those same copies. A corrected version adopting the concept
-DOI preceding has been prepared in the repository but had not landed in the
-public repo as of 2026-08-25, so you may still run into the older file.
-Either way, the DOI and author list preceding are the correct ones, so use
-this page's citation if the copy of the file you're reading disagrees
-with it.
-:::
+This DOI always points to the latest release archived on
+[Zenodo](https://doi.org/10.5281/zenodo.7233713). To cite the exact version you used, add its
+version number (shown in the app under **Help > About FreeMoCap**). Each archived version also has
+its own DOI on its Zenodo page.
 
 ## Citing the validation study
 
@@ -68,9 +52,8 @@ with it.
 }
 ```
 
-Citation link pending publication in Northeastern's institutional
-repository. Cite the software (preceding) alongside it if your work depends
-on both.
+Citation link pending publication in Northeastern's institutional repository. If your work depends
+on both, cite the software alongside it.
 
 ## Next steps
 

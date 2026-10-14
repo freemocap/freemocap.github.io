@@ -6,6 +6,8 @@ provenance: ai-generated
 inFlux: "backend architecture section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): pubsub_abcs.py change since alpha.21 is only a shutdown fix (cancel_join_thread on close), which doesn't affect anything this page describes. No changes needed."
   - date: "2026-08-26"
     against: "Re-checked the freemocap v2.0.0-alpha.21 tree directly: pubsub_abcs.py, pubsub_manager.py, pubsub_relay.py, pubsub_topics.py; api/websocket/websocket_server.py and websocket_connect.py; core/tasks/calibration/ (shared/calibration_state.py, shared/calibration_result.py, shared/groundplane_math.py, calibration_task_config.py, posthoc_calibration_task.py, anipose_calibration/run_anipose_calibration.py and helpers/bundle_adjust.py, pyceres_calibration/pyceres_calibration_pipeline.py); core/tasks/triangulation/triangulator.py and helpers/outlier_rejection.py and helpers/default_triangulation_values.py; core/blender/export_to_blender.py and helpers/run_blender_export.py; core/kinematics/segment_lengths.py; core/pipeline/realtime/realtime_aggregator_node.py"
   - date: "2026-08-24"

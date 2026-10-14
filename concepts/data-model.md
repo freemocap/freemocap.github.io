@@ -6,6 +6,8 @@ provenance: ai-generated
 inFlux: "V2's output data model is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): skellymodels actor.py (parquet columns, npy naming), skeleton_from_mediapipe_observations.py (reprojection error not attached, so the column is NaN; per_camera_weights.npy written). Trimmed the future-location aside; rest unchanged."
   - date: "2026-08-26"
     against: "freemocap v2.0.0-alpha.21 pipeline source (skeleton_from_mediapipe_observations.py, triangulator.py, outlier_rejection.py, triangulation_config.py, recording_structure.py, playback_router.py) and SkellyForge skellymodels (actor.py, aspect.py, trajectory.py, error.py, anatomical_structure.py, tracking_model_info.py, anatomical_calculations.py, tracker_info YAMLs), read directly; cross-checked against docs/reference/data-arrays.md"
   - date: "2026-08-20"
@@ -69,9 +71,7 @@ themselves is covered below.
   rather than a wide array: one row per keypoint per trajectory per frame,
   with columns `frame`, `keypoint`, `x`, `y`, `z`, `model`, `trajectory`,
   and `reprojection_error`. A finished recording writes it as
-  `output_data/freemocap_data_by_frame.parquet`; the recording-layout code
-  declares `{recording_name}_data.parquet` at the recording root as its
-  eventual location, and consumers accept either name. It's
+  `output_data/freemocap_data_by_frame.parquet`. It's
   self-describing, it embeds its own model metadata, so it can round-trip
   back into the same in-memory structure without a separate schema file.
 - Individual `.npy` arrays follow a `{tracker}_{aspect}_{trajectory}.npy`

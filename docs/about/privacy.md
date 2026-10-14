@@ -1,8 +1,10 @@
 ---
 title: Privacy policy
 type: explanation
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): telemetry.py system fields, telemetry_config.py, SettingsModal.tsx (Privacy section, full checkbox label), welcome screen checkbox ticked by default (seen in the installed app), telemetry_uid and telemetry_config.json created in freemocap_data on first launch (seen on disk). No changes needed."
   - date: "2026-08-25"
     against: "SkellyPings telemetry implementation in freemocap v2.0.0-alpha.21 (system/telemetry/telemetry.py, system/telemetry/telemetry_config.py, api/http/telemetry/telemetry_router.py, build_info.py, freemocap-ui SettingsModal.tsx and WelcomeModal.tsx) and the skellypings repo (TelemetryClient and Cloud Run server)"
   - date: "2026-08-19"

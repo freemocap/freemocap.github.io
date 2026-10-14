@@ -1,9 +1,11 @@
 ---
 title: About FreeMoCap
 type: explanation
-provenance: human-checked
+provenance: ai-generated
 reviewed: 2026-08-19
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): ImportVideosModal.tsx (sync on import, so imported videos no longer need to be pre-synchronized). Replaced a v1-style video tag that can't play a YouTube URL with a link (video confirmed via YouTube oEmbed). Rest unchanged."
   - date: "2026-08-25"
     against: "re-checked against polyrepo-clones/freemocap (v2.0.0-alpha.21): output formats (skeleton_from_mediapipe_observations.py, recording_structure.py, export_to_blender.py), single-camera and imported-video paths (posthoc_mocap_task.py, project_single_camera.py, mocap_router.py, ImportVideosModal.tsx), Discord link in README.md"
   - date: "2026-08-19"
@@ -31,7 +33,7 @@ A high-quality, minimal-cost motion capture system would be a transformative too
 
 ✨💀✨
 
-<video src="https://youtu.be/WW_WpMcbzns?si=ivAJ3StoCUmVK-zR" mini-player="true" preview-src="hero-video-image.png"/>
+Watch the video [*This is FreeMoCap*](https://youtu.be/WW_WpMcbzns).
 
 This project is managed by the [FreeMoCap Foundation](https://freemocapfoundation.org)
 
@@ -41,7 +43,7 @@ FreeMoCap (free motion capture) is a [free open source ](https://www.gnu.org/phi
 
 ## Features and capabilities
 
-FreeMoCap features a complete GUI-based interface that can create high-quality kinematic data from single cameras, multiple cameras, or imported videos. It also produces data outputs in the form of NumPy arrays, CSVs, parquet files (the primary mocap data store), and a Blender output scene. The software is designed to work with minimal-cost, low-quality USB webcams. Externally recorded videos can also be imported and processed, provided they are synchronized (the import check requires all videos in a group to share the same frame count).
+FreeMoCap features a complete GUI-based interface that can create high-quality kinematic data from single cameras, multiple cameras, or imported videos. It also produces data outputs in the form of NumPy arrays, CSVs, parquet files (the primary mocap data store), and a Blender output scene. The software is designed to work with minimal-cost, low-quality USB webcams. You can also import videos recorded on other cameras, like GoPros or phones, and FreeMoCap can synchronize them for you.
 
 ## Community involvement and support
 

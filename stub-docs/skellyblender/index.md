@@ -4,6 +4,8 @@ type: hub
 sidebar_position: 1
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "GitHub API and raw files checked 2026-10-14 (repo metadata, releases, branch comparisons), PyPI/npm metadata, and freemocap uv.lock at v2.0.0-alpha.25 for pinned commits. Added the At a glance section (role in the app, links, pinned version, install note)."
   - date: "2026-08-26"
     against: "Re-read freemocap_blender_addon (ref main): pyproject.toml (bumpver pattern vYYYY.0M.BUILD[-TAG], current_version v2026.04.1041, dependencies=[], requires-python >=3.10), package __init__.py (bl_info author ajc27, addon version (1, 1, 7), minimum Blender (3, 0, 0)), README.md (ajc27-git credit, Zenodo DOI badge, AGPLv3), core_functions/main_controller.py load_data() stage order and outputs (empties, rig, rigid body meshes, Skelly mesh, center of mass mesh, video planes, capture cameras, checkerboard ground plane, FBX/BVH export, saved .blend), create_freemocap_empties.py, add_capture_cameras.py (reads the recording's .toml calibration), export_3d_model.py default formats ['fbx', 'bvh'], export_video.py composited render pipeline, blender_ui/operators/__init__.py operator registry, .github/workflows, and confirmed there is no test suite; pantheon tier confirmed against the site's data/repos.yml"
   - date: "2026-08-24"
@@ -18,6 +20,20 @@ SkellyBlender is the Blender addon of the FreeMoCap polyrepo. On disk and on Git
 What a completed load produces: keyframed empties for every tracked point, an armature rig with a TPose rest pose (for easier retargeting), rigid body meshes, a skinned Skelly mesh, center of mass visualization, capture videos as image planes, cameras rebuilt from the recording's calibration file, a checkerboard ground plane, and a saved `.blend` next to the recording's data. A second pass exports the rigged animation as FBX or BVH, and a third renders composited videos from the scene.
 
 Packaging facts, from `pyproject.toml` and `__init__.py`: the version is managed by bumpver on a `vYYYY.0M.BUILD` pattern (currently `v2026.04.1041`, while `bl_info` separately declares addon version `(1, 1, 7)`), the minimum Blender is `(3, 0, 0)`, and development requires Python >= 3.10. Runtime dependencies are declared as an empty list because the addon runs inside Blender's bundled interpreter. Licensed AGPLv3, with a Zenodo DOI badge in the README. There are no tests in the repository.
+
+## At a glance
+
+**In the FreeMoCap app.** Makes the Blender scene. When you export a MediaPipe recording to Blender, FreeMoCap runs this add-on inside Blender to build the animated skeleton, save the `.blend` file, and write FBX and BVH files. Inside Blender, the same add-on adds a **FreeMoCap** tab to the 3D view sidebar. See [open your recording in Blender](/tutorials/blender).
+
+| | |
+|---|---|
+| Code | [`freemocap/freemocap_blender_addon`](https://github.com/freemocap/freemocap_blender_addon) |
+| Issues | [Open issues](https://github.com/freemocap/freemocap_blender_addon/issues) |
+| Download | [Latest release](https://github.com/freemocap/freemocap_blender_addon/releases/latest) (`freemocap_blender_addon_<version>.zip`) |
+| Version in FreeMoCap alpha.25 | [`549b0fd`](https://github.com/freemocap/freemocap_blender_addon/commit/549b0fd7fc840c8b0908a8373a986eca91c18ad8) on `main` (`v2026.04.1041`) |
+| License | AGPL-3.0 |
+
+You don't need to install the add-on for FreeMoCap's own export; the app brings its own copy. To use it directly in Blender, download the release `.zip` and install it from **Edit > Preferences > Add-ons**.
 
 ## Contents
 

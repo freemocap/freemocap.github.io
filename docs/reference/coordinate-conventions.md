@@ -4,6 +4,8 @@ type: reference
 sidebar_position: 12
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): skellyforge human.put_skeleton_on_ground (needs left/right_heel and left/right_foot_index; rtmpose_model_info.yaml has big_toe instead, so RTMPose recordings still skip it), skeleton_from_mediapipe_observations.py (called only when multi-camera and no ground plane), blender_export_config.py (FBX/BVH now exported). Replaced the no-BVH paragraph; rest unchanged."
   - date: "2026-08-25"
     against: "freemocap v2.0.0-alpha.21 source read directly (groundplane_math.py, groundplane_alignment.py, pyceres postprocessing.py, anipose_calibration_helpers.py, camera_extrinsics.py, calibration_result.py, calibration_task_config.py, skeleton_from_mediapipe_observations.py), CharucoBoardDefinition in skellytracker, SkellyForge human.py and bvh_exporter"
   - date: "2026-08-19"
@@ -57,9 +59,9 @@ so there is no anatomical segment frame to document here yet.
 The quaternion convention in the table preceding therefore applies to cameras, not body segments.
 Identity, `(1, 0, 0, 0)`, simply means no rotation.
 
-If you need joint angles, SkellyForge contains a BVH exporter that derives Euler-angle rotations
-(rotation order ZXY) from bone directions between parent and child joints, but nothing in the
-FreeMoCap app calls it today, so a normal recording produces no BVH file.
+If you need joint rotations, the [Blender export](/tutorials/blender) builds a rigged armature and
+saves FBX and BVH files (in the recording's `3d_models/` folder), which carry rotations. See
+[export to FBX and BVH](/guides/export-formats).
 
 ## Exporting to other tools
 

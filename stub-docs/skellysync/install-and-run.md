@@ -5,6 +5,8 @@ sidebar_position: 2
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "philip/rewrite README checked 2026-10-14. Added a note that this page covers main and FreeMoCap uses the rewrite."
   - date: "2026-08-26"
     against: "SkellySync main: __main__.py, gui/skelly_synchronize_gui.py, skelly_synchronize.py, core_processes (ffmpeg_functions.py, correlation_functions.py, audio_utilities.py, video_utilities.py), system/file_extensions.py, utils/get_video_files.py, pyproject.toml, README.md, CI workflows"
   - date: "2026-08-24"
@@ -12,6 +14,10 @@ history:
 ---
 
 # Install and run
+
+:::note This page describes the `main` branch
+FreeMoCap uses the rewrite on the [`philip/rewrite` branch](https://github.com/freemocap/skellysync/tree/philip/rewrite), which replaces the PySide6 GUI with a CLI, a FastAPI server (`skelly-sync-api`, installed with `pip install -e ".[api]"`) and a React web UI. See that branch's README for its install steps.
+:::
 
 ```bash
 pip install skelly_synchronize

@@ -5,6 +5,8 @@ sidebar_position: 6
 provenance: ai-generated
 inFlux: "frontend architecture section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): store.ts (ffmpeg slice added for import sync, now 14 reducers). Updated the slice count and list; rest unchanged."
   - date: "2026-08-26"
     against: "re-checked against freemocap-ui source at v2.0.0-alpha.21: src/store/store.ts slice list, src/store/persistence-listener.ts and camera-config-listener.ts debounces, src/services/server/ServerContextProvider.tsx and server-context.ts subscription API, BasePanelLayout.tsx and BaseContentRouter.tsx, src/styles/App.css and color.css, i18n/locales and assets/icons counts"
   - date: "2026-08-24"
@@ -61,11 +63,11 @@ anything.
 
 ### Redux store
 
-The store currently registers **13 slices**, more than the project's own
+The store currently registers **14 slices**, more than the project's own
 architecture docs describe, reading `store.ts` directly rather than trusting
 that count: `cameras`, `recording`, `videos`, `realtime`, `connection`,
-`calibration`, `mocap`, `locale`, `pipelines`, `blender`, `recordingStatus`,
-`activeRecording`, and `playbackData`. A fourteenth slice directory,
+`calibration`, `mocap`, `locale`, `pipelines`, `blender`, `ffmpeg`,
+`recordingStatus`, `activeRecording`, and `playbackData`. A fifteenth slice directory,
 `theme`, exists on disk under `src/store/slices/` but is not imported into
 `store.ts`; it manages its own `localStorage` persistence directly instead.
 

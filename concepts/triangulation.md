@@ -1,16 +1,19 @@
 ---
 title: Triangulation and 3D reconstruction
 type: explanation
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): triangulation_config.py and default_triangulation_values.py (outlier rejection on, min cameras 2, max drop 2, target 0.02), outlier_rejection.py (exp(-5 * error / target)), project_single_camera.py (Y=0 plane), mocap-triangulation-settings.tsx labels. Removed the v1 screenshot; fixed the checkbox label. Rest unchanged."
   - date: "2026-08-26"
     against: "freemocap working tree in polyrepo-clones/freemocap: core/tasks/triangulation/helpers/triangulation_config.py, helpers/default_triangulation_values.py, helpers/outlier_rejection.py, helpers/project_single_camera.py, core/tasks/triangulation/triangulator.py, core/tasks/mocap/mocap_helpers/skeleton_from_mediapipe_observations.py, core/tasks/mocap/posthoc_mocap_task.py, freemocap-ui/src/components/mocap-setup/mocap-triangulation-settings.tsx, freemocap-ui/src/store/slices/mocap/mocap-slice.ts"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
+
 The **triangulation Settings** control how FreeMoCap combines the per-camera 2D skeleton tracks into 3D points. At its simplest, triangulation takes the 2D detections of a given keypoint from every camera that saw it and solves for the 3D position that best matches those views. FreeMoCap also offers an optional reprojection-error-based outlier-rejection step that can substantially improve reconstruction quality on 4+ camera rigs.
 
-![Detail of reprojection Error Outlier Rejection Options](/img/v1/reprojection_filtering_crop_detail.png)
+You'll find these settings under **Mocap Settings > Triangulation Settings**.
 
 ## Top-level parameters
 
@@ -18,7 +21,7 @@ The **triangulation Settings** control how FreeMoCap combines the per-camera 2D 
 
 **Single-Camera Recordings** - A recording from a single camera cannot be triangulated at all, so instead FreeMoCap projects each detected keypoint onto a flat plane (the Y = 0 plane): horizontal position comes from the pixel x coordinate, height comes from the pixel y coordinate, and all depth information is discarded. This produces plausible-looking motion and lets the rest of the processing pipeline run unchanged, but it is not true 3D data. Set up a multi-camera system if you care about 3D data.
 
-**Use Outlier Rejection Method?**, a checkbox that toggles the reprojection-error outlier rejection step (described below). It is **on by default**, and leaving it enabled is recommended for any recording with 4+ cameras. For the method to have any effect, the number of cameras in your recording must be *greater than* "Minimum Cameras for triangulation," otherwise there are no camera subsets left to test.
+**Use outlier rejection**, a checkbox that toggles the reprojection-error outlier rejection step (described below). It is **on by default**, and leaving it enabled is recommended for any recording with 4+ cameras. For the method to have any effect, the number of cameras in your recording must be *greater than* "Minimum Cameras for triangulation," otherwise there are no camera subsets left to test.
 
 <!-- vale Vale.Terms = NO -->
 ## Reprojection error outlier rejection
@@ -67,4 +70,4 @@ This smooth blending avoids sharp frame-to-frame jumps that would otherwise occu
 **Target reprojection Error**, the target mean reprojection error (*ε<sub>target</sub>* in the weight formula preceding) used when filtering each marker. Lowering this rejects more outliers; raising it accepts more. Note that in the current implementation this threshold is expressed in undistorted-normalized image coordinates rather than pixels (roughly -1 to 1 across the image plane), which is why its default value of 0.02 looks small next to a typical pixel-space error.
 
 ### Code reference
-The Outlier REjection method was introduced in [FreeMoCap PR#758](https://github.com/freemocap/freemocap/pull/758). Follow the link to see the code behind the implementation. The current implementation lives in `freemocap/core/tasks/triangulation/helpers/outlier_rejection.py` and `freemocap/core/tasks/triangulation/triangulator.py`.
+The outlier rejection method was introduced in [FreeMoCap PR#758](https://github.com/freemocap/freemocap/pull/758). Follow the link to see the code behind the implementation. The current implementation lives in `freemocap/core/tasks/triangulation/helpers/outlier_rejection.py` and `freemocap/core/tasks/triangulation/triangulator.py`.

@@ -4,6 +4,8 @@ type: tutorial
 sidebar_position: 30
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): calibration_result.py and run_anipose_calibration.py (reprojection_error_px written to the calibration TOML metadata), calibration_paths.py (file name), calibration-module.tsx (error not shown in the app)."
   - date: "2026-08-26"
     against: "re-read against the page's own linked pages (all 5 internal links confirmed to resolve); page is calibration-methodology advice with no separately checkable code claims"
   - date: "2026-08-20"
@@ -13,49 +15,30 @@ draft: false
 
 # Get a calibration you can trust
 
-[Fix a calibration problem](/guides/calibration-troubleshooting) is there
-for when something's already gone wrong. This page is the other side of
-that: habits that make a bad calibration less likely in the first place,
-and how to tell whether a calibration that completed without an error
-actually produced something trustworthy.
+A calibration can finish without an error and still be poor. These habits make a good one more
+likely.
 
-## Give the board real variety
+## Move the board around a lot
 
-It's tempting to hold the ChArUco board still, or move it in one simple
-sweep, and call the calibration done. Don't. Deliberately varying the
-board's position *and* its depth and tilt, not just sliding it side to
-side, is what improves the robustness of the camera parameters
-calibration solves for. A board held at a single distance and angle gives
-the optimization far less to work with than one that's been shown near,
-far, tilted, and rotated throughout the capture volume.
+Don't hold the board still or sweep it in one line. Show it near and far, tilted and turned, all
+through the space where you'll record. The more variety the cameras see, the better the
+calibration.
 
-## Check your reprojection error, don't just trust that it ran
+## Check the calibration error
 
-A calibration can finish without throwing an error and still be a poor
-one. The number that actually tells you whether to trust it is
-reprojection error: the gap between where a calibration point was
-detected and where the resulting camera parameters predict it should be.
-Lower is better. See [Why calibration matters](/concepts/calibration) for
-what this number means, and
-[triangulation and 3D reconstruction](/concepts/triangulation) for how
-the same error signal gets used again downstream, during reconstruction
-itself. If your calibration's reprojection error is high, that's the
-signal to go collect more, and more varied, board views rather than
-proceeding and hoping the downstream data is fine.
+Each calibration saves its error in pixels. Lower is better. To find it, open the calibration file
+(`{recording name}_camera_calibration.toml` in the calibration recording's folder) in a text
+editor and look for `reprojection_error_px`. If it's high compared with your earlier calibrations,
+record a new one with more varied board views. See [why calibration matters](/concepts/calibration)
+for what the number means.
 
-## Recalibrate when anything physical changes
+## Recalibrate after any change
 
-A calibration describes exactly where your cameras are and how they're
-each aimed. That means it goes stale the moment anything physical changes:
-a camera gets bumped, refocused, or repositioned; a lens is swapped; a
-camera is added to or removed from the rig. There's no way for the
-software to detect this on its own, an old calibration keeps being
-used until you replace it, so treat any physical change to the camera
-setup as a reason to calibrate again before your next recording.
+A calibration only fits the exact setup it was recorded with. Calibrate again whenever a camera
+is moved, bumped, refocused, added, or removed. FreeMoCap can't tell that anything changed, and
+keeps using your last calibration.
 
 ## Next steps
 
-- [Calibrate your cameras](/tutorials/calibrate)
 - [Fix a calibration problem](/guides/calibration-troubleshooting)
 - [Set the ground plane](/tutorials/ground-plane)
-- [Why calibration matters](/concepts/calibration)

@@ -5,6 +5,8 @@ sidebar_position: 9
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): blender_export_config.py and freemocap_blender_addon export_3d_model.py (Blender export now writes FBX and BVH by default). Replaced the claim that a normal recording produces no BVH file; skeleton_from_mediapipe_observations.py confirms the put-on-ground fallback. Rest unchanged."
   - date: "2026-08-26"
     against: "freemocap v2.0.0-alpha.21 source read directly (posthoc_mocap_task.py, skeleton_from_mediapipe_observations.py, groundplane_math.py, anipose_calibration_helpers.py, run_anipose_calibration.py, calibration_result.py, calibration_task_config.py, core/kinematics package), skellyforge human.py, actor.py, biomechanics calculations, and bvh_exporter"
   - date: "2026-08-19"
@@ -68,10 +70,9 @@ saved by the pipeline today, so there is no anatomical segment frame to document
 
 The rotations FreeMoCap does carry belong to the cameras, not to body segments: camera
 orientations are held as quaternions in memory (scalar-first `w, x, y, z`) and stored as Rodrigues
-rotation vectors in the saved calibration TOML. If you need joint angles, SkellyForge contains a
-BVH exporter that derives Euler-angle rotations from bone directions between parent and child
-joints, but nothing in the FreeMoCap app calls it, so a normal recording produces no BVH
-file. [Coordinate conventions](/reference/coordinate-conventions) has the terse version of all of
+rotation vectors in the saved calibration TOML. If you need joint rotations, the [Blender export](/tutorials/blender) builds a rigged skeleton
+and saves it as FBX and BVH files, which carry rotations. See
+[export to FBX and BVH](/guides/export-formats). [Coordinate conventions](/reference/coordinate-conventions) has the terse version of all of
 this.
 
 ## See also

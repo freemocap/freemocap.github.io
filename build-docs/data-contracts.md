@@ -5,6 +5,8 @@ sidebar_position: 5
 provenance: ai-generated
 inFlux: "Data contracts section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): sync_job.py (SkellySync now imported), export_to_blender.py (_addon_config_payload, 3d_models FBX/BVH). Updated the SkellySync and Blender lines; repos.yml consumes/produces left as is."
   - date: "2026-08-26"
     against: "data/repos.yml consumes/produces fields cross-checked against source: freemocap core/tasks/mocap/posthoc_mocap_task.py, core/blender/export_to_blender.py, pubsub/pubsub_topics.py, core/pipeline/realtime/realtime_aggregator_node.py, system/telemetry/telemetry.py; skellytracker core/data_primitives/observation.py; skellycam core/ipc/shared_memory/camera_shared_memory_ring_buffer.py; skellyforge package layout; freemocap_blender_addon freemocap_data_handler loader and saver; DataContractsTable component and repos-data-plugin"
   - date: "2026-08-24"
@@ -57,7 +59,9 @@ and FreeMoCap's own row understates things. Specifically:
   object-based: Blender export runs against the recording folder on disk
   (and currently supports MediaPipe-processed recordings only, enforced in
   `core/blender/export_to_blender.py`), producing a `.blend` file written
-  next to the recording.
+  next to the recording plus FBX/BVH files in its `3d_models/` folder. The
+  app's export options are mapped into the addon's own config sections by
+  `_addon_config_payload()` in the same file.
 - FreeMoCap's empty row hides that it is the biggest producer and consumer of
   all: its task signatures import SkellyTracker's `Observation` and SkellyCam's
   `RecordingInfo` directly, and it emits the recording outputs other tools
@@ -67,7 +71,8 @@ and FreeMoCap's own row understates things. Specifically:
 
 The utility-tier rows do check out as genuinely artifact-free in this sense:
 the backend imports `configure_logging` and `get_websocket_log_queue` from
-SkellyLogs and a `TelemetryClient` from SkellyPings, and has no SkellySync
-imports at all, so none of them passes a named data artifact to another repo.
+SkellyLogs and a `TelemetryClient` from SkellyPings, and calls SkellySync
+(`skelly_synchronize`) only to line up imported videos before they become a
+recording, so none of them passes a named data artifact to another repo.
 
 [← Architecture overview](/build/architecture)

@@ -5,6 +5,8 @@ sidebar_position: 2
 provenance: ai-generated
 inFlux: "Architecture section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): freemocap_application.py (sync_job_manager added, now six fields), core/pipeline/posthoc/sync_job.py and sync_job_manager.py (skelly_synchronize import, added in #879). Replaced 'SkellySync has no imports'; rest unchanged."
   - date: "2026-08-26"
     against: "FreeMoCap source at pinned tag v2.0.0-alpha.21: app/app.py, app/freemocap_application.py, api/routers.py, api/server_constants.py, api/websocket/websocket_server.py, __main__.py, core/pipeline/, core/tracking/, core/blender/export_to_blender.py, pyproject.toml, freemocap-ui/src/constants/server-urls.ts, freemocap-ui/electron/main/api.ts; skellytracker Tracker API cross-checked; consolidated against freemocap-docs/docs/architecture/overview.mdx and backend-overview.mdx"
   - date: "2026-08-24"
@@ -43,8 +45,9 @@ streams logs through `skellylogs`, and sends anonymous usage telemetry through
 `skellypings`. Blender export runs `freemocap_blender_addon` inside a headless
 Blender subprocess, loading the addon straight from the backend's Python
 environment, so installing it into Blender itself is optional (and the addon
-currently supports MediaPipe-processed recordings only). SkellySync has no
-imports in the FreeMoCap backend today.
+currently supports MediaPipe-processed recordings only). SkellySync
+(`skelly_synchronize`) synchronizes imported videos, by audio or a
+brightness flash, through `SyncJob`s run by the `SyncJobManager`.
 
 ```mermaid
 graph TD
@@ -136,7 +139,7 @@ The backend is a FastAPI app created by `create_fastapi_app()` in
 
 State lives in one place: `FreemocapApplication` (`app/freemocap_application.py`),
 created once at startup and fetched anywhere else via `get_freemocap_app()`.
-It owns five things:
+It owns six things:
 
 | Field | Purpose |
 |---|---|
@@ -145,6 +148,7 @@ It owns five things:
 | `camera_group_manager` | Camera detection and configuration, from SkellyCam |
 | `realtime_pipeline_manager` | Long-lived pipelines bound to live camera groups |
 | `posthoc_pipeline_manager` | Fire-and-forget pipelines pointed at recorded videos |
+| `sync_job_manager` | Video-synchronization jobs for imported videos, run through SkellySync |
 
 In the same way that SkellyCam's identity is CRUD operations on camera groups,
 FreeMoCap's identity is CRUD operations on **pipelines**. A realtime pipeline

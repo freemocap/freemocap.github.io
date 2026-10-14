@@ -5,6 +5,8 @@ sidebar_position: 18
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): release asset matrix (macOS arm64, Windows x64, Linux x64; CPU and CUDA variants), freemocap-ui electron-builder.json targets, skellytracker ort_session_utils.auto_detect_provider (trt, cuda, coreml on macOS, cpu). Python/Anaconda row removed: the installer bundles Python."
   - date: "2026-08-25"
     against: "live polyrepo code: freemocap pyproject.toml requires-python (>=3.11) plus noxfile.py and test.yml matrix (3.11/3.12) and .python-version (3.12); skellytracker pyproject.toml extras and requires-python cap (<3.13); skellytracker GPU_SETUP_GUIDE.md provider/extras table; searched all clones for notebook/ipynb generation (none found) and freemocap.spec excluding notebook/IPython as unused; linked pages re-read (hardware.md, gpu-setup.md, camera-setup.md, calibration concept, faq.md)"
   - date: "2026-08-21"
@@ -13,46 +15,40 @@ history:
 
 # System requirements
 
-For the fuller explanation of why these matter, see
-[choose and set up your cameras](/tutorials/hardware) and
-[set up GPU acceleration](/guides/gpu-setup). This page is the terse
-version.
+## Computer
 
-## Minimum
-
-| Requirement | Detail |
+| | Supported |
 |---|---|
-| Camera | One, even a laptop's built-in camera. Gives 2D tracking only, not reliable 3D. |
-| Python | 3.11 or 3.12, inside a virtual environment manager (Anaconda recommended; source installs require uv) |
-| OS | Windows, macOS, or Linux |
-| GPU | None required, CPU inference works everywhere |
+| Mac | Apple Silicon (M1 or newer) |
+| Windows | 64-bit (x64) PC |
+| Linux | 64-bit (x64) PC |
 
-## For reliable 3D data
+## Cameras
 
-| Requirement | Detail |
+| Goal | Cameras |
 |---|---|
-| Cameras | 2 minimum, 3+ recommended, connected directly to USB ports (not through a hub) |
-| Calibration board | A printed ChArUco board, see [why calibration matters](/concepts/calibration) |
+| Try it out, 2D tracking | One, such as a laptop's built-in camera |
+| 3D motion capture | Two or more, three recommended, plugged straight into the computer, not through a hub |
 
-## Optional
+For 3D you also need a printed ChArUco calibration board. See
+[calibrate your cameras](/tutorials/calibrate).
 
-| Software | For |
+## Graphics card
+
+Not required. FreeMoCap runs on any supported computer, and a graphics card makes tracking
+faster:
+
+| Computer | Speed-up |
 |---|---|
-| [Blender](https://www.blender.org) | Generating an animated 3D scene from your recording |
-| VS Code or JupyterLab | Analyzing your recording's output data in Python (parquet and `.npy` files) |
-| A supported GPU | Faster pose estimation, see [set up GPU acceleration](/guides/gpu-setup) for which install to use |
+| Mac with Apple Silicon | Used automatically |
+| Windows or Linux with an NVIDIA card | Install the CUDA version of FreeMoCap |
+| Anything else | None, tracking runs on the processor |
 
-## GPU support by platform
+## Optional software
 
-| Platform | GPU | What you get |
-|---|---|---|
-| Windows / Linux | NVIDIA | CUDA, or TensorRT for the fastest option |
-| Windows | AMD, Intel, or any DirectX 12 GPU | DirectML |
-| macOS | Apple Silicon (M1 and newer) | CoreML, automatic |
-| Any | None | CPU fallback, always available |
+- [Blender](https://www.blender.org), to turn your recording into an animated 3D scene.
 
 ## Next steps
 
+- [Install FreeMoCap](/start/install)
 - [Choose and set up your cameras](/tutorials/hardware)
-- [Connect and configure cameras](/guides/camera-setup)
-- [Set up GPU acceleration](/guides/gpu-setup)

@@ -4,6 +4,8 @@ type: hub
 sidebar_position: 1
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "GitHub API and raw files checked 2026-10-14 (repo metadata, releases, branch comparisons), PyPI/npm metadata, and freemocap uv.lock at v2.0.0-alpha.25 for pinned commits. Added the At a glance section (role in the app, links, pinned version, install note)."
   - date: "2026-08-26"
     against: "Re-checked package.json (version 0.3.17, dependencies, peerDependencies, engines, license field), LICENSE file, README, llms.txt, publish.yml, and src/bin usage of handlebars and prompts in polyrepo-clones/skellydocs; consumer claims against this site's package.json, docusaurus.config.ts, and data/repos.yml; resolved all eight contents links against stub-docs/skellydocs/"
   - date: "2026-08-24"
@@ -17,7 +19,20 @@ draft: false
 
 Runtime dependencies are just `handlebars` and `prompts` (both used only by the CLI). Everything Docusaurus-related is a peer dependency: `@docusaurus/core`, `@docusaurus/preset-classic`, `@docusaurus/theme-mermaid`, `@mdx-js/react`, `prism-react-renderer`, and React 18 or 19. Building it requires Node >= 24.
 
-Version note: this site declares `^0.3.10` in its `package.json`; the source clone documented here is at 0.3.17.
+Version note: this site's lock file installs 0.3.10. The latest version on npm is 0.3.16, and `main` is at 0.3.17, which isn't published yet.
+
+## At a glance
+
+**In the FreeMoCap app.** Builds this docs site. It isn't part of the FreeMoCap app; it provides the shared theme and components for every FreeMoCap documentation site.
+
+| | |
+|---|---|
+| Code | [`freemocap/skellydocs`](https://github.com/freemocap/skellydocs) |
+| Issues | [Open issues](https://github.com/freemocap/skellydocs/issues) |
+| Package | [`@freemocap/skellydocs` on npm](https://www.npmjs.com/package/@freemocap/skellydocs) (latest published: 0.3.16) |
+| Its own docs | [SkellyDocs' own docs site](https://docs.freemocap.org/skellydocs/) |
+| Version this site uses | 0.3.10 |
+| License | Unresolved: `package.json` says MIT, the `LICENSE` file is AGPL-3.0 |
 
 ## Contents
 

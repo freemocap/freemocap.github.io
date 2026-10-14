@@ -5,6 +5,8 @@ sidebar_position: 14
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): skellylogs default_paths.py (logs fixed at ~/skellylogs_data/logs, no environment override), freemocap default_paths.py (get_log_file_path unused). Fixed the log location; rest unchanged and not re-checked."
   - date: "2026-08-25"
     against: "FreeMoCap source v2.0.0-alpha.21 re-checked (system/default_paths.py, system/telemetry/telemetry_config.py, system/telemetry/telemetry.py, build_info.py, api/server_constants.py, __init__.py, app/app.py, __main__.py) plus Electron main/base-folder.ts, main/api.ts, main/ipc.ts, services/python-server.ts and the SkellyPings client/server"
   - date: "2026-08-24"
@@ -26,11 +28,12 @@ The single environment variable the Python backend reads is defined in
 
 | Name | Purpose | Default when unset |
 |---|---|---|
-| `FREEMOCAP_BASE_FOLDER` | Root folder for all FreeMoCap data (recordings, calibrations, logs, telemetry config) | `~/freemocap_data` |
+| `FREEMOCAP_BASE_FOLDER` | Root folder for FreeMoCap data (recordings, calibrations, telemetry config) | `~/freemocap_data` |
 
 This variable is the single point where the base folder is resolved; every other
-path in the app derives from it (recordings go in `<base>/recordings`,
-logs in `<base>/logs_info_and_settings/logs`, and so on).
+data path derives from it (recordings go in `<base>/recordings`, calibrations in
+`<base>/calibrations`). Logs are the exception: SkellyLogs always writes them to
+`~/skellylogs_data/logs`, whatever the base folder.
 
 Who sets it: the Electron shell passes the user-chosen data folder to the Python
 server through this variable whenever it spawns the server as a subprocess. Who

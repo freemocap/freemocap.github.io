@@ -1,13 +1,16 @@
 ---
 title: Report a bug
 type: how-to
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): .github/ISSUE_TEMPLATE/bug_report.md exists; menu-builder.ts (Help > About FreeMoCap); skellylogs default_paths.py (log folder, confirmed on the installed app). Added version and log file to the checklist; rest unchanged."
   - date: "2026-08-25"
     against: "polyrepo-clones/freemocap (v2.0.0-alpha.21): .github/ISSUE_TEMPLATE/bug_report.md (template exists, filename matches the template= query parameter in the issue link), CONTRIBUTING.md bug report section (bullets, stackoverflow example link, and closing paragraph all match), and issue URLs in freemocap-ui menu-builder.ts and src/constants/external-urls.ts"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
+
 ## Write bug reports with detail, background, and sample code
 
 File a bug report by creating a new [GitHub issue in the FreeMoCap repo](https://github.com/freemocap/freemocap/issues/new?template=bug_report.md).
@@ -15,6 +18,8 @@ File a bug report by creating a new [GitHub issue in the FreeMoCap repo](https:/
 **Great Bug Reports** tend to have:
 
 - A quick summary and/or background
+- Your FreeMoCap version (**Help > About FreeMoCap**) and your operating system
+- Your newest log file, from `skellylogs_data/logs` in your home folder
 - Steps to reproduce
   - Be specific.
   - Include an uploaded ZIP of the FreeMoCap data session you ran that produced the issue.

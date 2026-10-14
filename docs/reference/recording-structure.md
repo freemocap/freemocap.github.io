@@ -6,6 +6,8 @@ provenance: ai-generated
 inFlux: "The V2 output folder and file layout is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): skellylogs default_paths.py (logs in ~/skellylogs_data/logs, confirmed on the installed app; freemocap's own get_log_file_path() has no callers), useMenuActions.ts and download_sample_data.py (test data isn't bundled), blender_export_config.py (3d_models/). Fixed the log path, removed the bundled-test-data row and the migration note."
   - date: "2026-08-25"
     against: "freemocap v2.0.0-alpha.21 source (system/default_paths.py, system/recording_structure/recording_structure.py, api/http/mocap/mocap_router.py, core/tasks/mocap/posthoc_mocap_task.py, core/pipeline/posthoc/video_group_helper.py, core/tasks/calibration/shared/calibration_save.py), skellycam RecordingInfo and parse_video_filename, skellyforge Actor.save_out_all_data_parquet"
   - date: "2026-08-21"
@@ -30,6 +32,7 @@ For the narrative version of this page, see
 │   ├── *.npy
 │   ├── *.csv
 │   └── *.parquet
+├── 3d_models/                      # FBX/BVH, only if exported
 ├── tracker_schema.json
 ├── {recording_name}_camera_calibration.toml
 ├── {recording_name}_info.json
@@ -40,18 +43,13 @@ Videos recorded by FreeMoCap itself follow the `{name}.id-{camera_id}.idx-{camer
 pattern preceding; imported footage with other names (for example `camera_0.mp4`) is
 assigned cameras by filename heuristics instead.
 
-A `videos/synchronized/`, `videos/annotated/`, `output/` layout is the
-migration target in the codebase; both layouts validate today, but the
-names preceding are what a current recording actually produces.
-
 ## Defaults
 
 | Path | Purpose |
 |---|---|
 | `~/freemocap_data/` | Root for all FreeMoCap data |
 | `~/freemocap_data/recordings/` | All recordings |
-| `~/freemocap_data/recordings/freemocap_test_data/` | Bundled test recording |
-| `~/freemocap_data/logs_info_and_settings/logs/` | app logs |
+| `~/skellylogs_data/logs/` | App logs |
 | `~/freemocap_data/calibrations/last_successful_camera_calibration.toml` | Most recent calibration |
 
 Note that the base folder can be overridden with the `FREEMOCAP_BASE_FOLDER`
@@ -70,3 +68,4 @@ data location.
 | `{name}_camera_calibration.toml` | Camera intrinsics/extrinsics used for this recording |
 | `{name}_info.json` | Camera settings at record time (resolution, exposure, framerate, rotation), plus the recording name, a UUID, and the start timestamp |
 | `{name}.blend` | Blender scene, present only after export |
+| `3d_models/` | FBX and BVH files, present only after export |

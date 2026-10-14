@@ -4,6 +4,8 @@ type: explanation
 sidebar_position: 5
 provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): ImportVideosModal.tsx (audio and brightness-flash sync on import, added in alpha.23). Replaced the claim that there's no built-in sync for external cameras; rest unchanged."
   - date: "2026-08-26"
     against: "polyrepo-clones pulled 2026-08-26: skellycam README and package description (synchronized acquisition from cheap USB webcams, frame-perfect two-phase grab/retrieve orchestration); searched skellycam and freemocap clones for any built-in light-based or audio-based synchronization of external cameras and found none, so that attribution was corrected to the self-sync then import workflow documented in guides/posthoc-mocap and faq; posthoc synchronized_videos import path confirmed in freemocap-docs guides/posthoc-mocap.mdx and skellycam playback_router.py; single-camera support consistent with tutorials/single-camera and tutorials/hardware; dissertation-sourced numbers (six roughly $20 webcams at 1280x720 and 30 FPS, OpenCap iPhone pricing, Theia3D hardware cost) are not verifiable locally and were left as written"
   - date: "2026-08-20"
@@ -37,18 +39,12 @@ accuracy end up reinforcing each other here rather than trading off.
 
 ## Beyond USB webcams
 
-$20 webcams aren't a requirement, they're what the validation study happened to use.
-For hardware beyond directly connected USB webcams, the pipeline accommodates external
-cameras like GoPros or smartphones by importing video that has already been
-synchronized by some other means: record however you like, synchronize the videos
-yourself (audio sync works well when every camera records sound, or a camera flash at
-the start gives you a visual sync point), then place them in a recording folder's
-`synchronized_videos/` directory and process after the fact (see
-[process a recording after the fact](/guides/posthoc-mocap)). There's no built-in
-light-based or audio-based synchronization tool for external cameras in the current
-build; that step happens outside the software. A study that needs a higher
-frame rate for athletic movement, or non-USB cameras for an outdoor recording, isn't
-locked out of the pipeline.
+$20 webcams aren't a requirement; they're what the validation study happened to use. You can also
+record with cameras that aren't connected to the computer, like GoPros or phones, and bring the
+videos in afterwards with **Playback > Import Videos**. FreeMoCap can line them up using their
+audio, or a light flash that every camera saw. See
+[process a recording after the fact](/guides/posthoc-mocap). That keeps the door open for
+higher frame rate cameras for athletic movement, or non-USB cameras outdoors.
 
 ## Single camera versus multi-camera
 

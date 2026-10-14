@@ -5,6 +5,8 @@ sidebar_position: 13
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): BlenderSection.tsx labels, MediaPipe-only gating. Troubleshooting updated for installer users; scene element table unchanged and not re-checked."
   - date: "2026-08-25"
     against: "polyrepo-clones/freemocap (v2.0.0-alpha.21): freemocap/core/blender/export_to_blender.py, helpers/run_blender_export.py, system/recording_status/recording_status.py, api/http/blender/blender_router.py, plus polyrepo-clones/freemocap_blender_addon main_controller.py, create_freemocap_empties.py, add_capture_cameras.py, create_lights.py"
   - date: "2026-08-21"
@@ -17,7 +19,7 @@ Quick reference for Blender export. For the full walkthrough, see
 [open your recording in Blender](/tutorials/blender).
 
 :::note MediaPipe only, for now
-RTMPose 3D data doesn't have a working Blender export yet.
+Blender export only works with recordings processed with the MediaPipe tracker.
 :::
 
 ## What gets exported
@@ -35,17 +37,11 @@ RTMPose 3D data doesn't have a working Blender export yet.
 
 ## Troubleshooting
 
-**Blender not detected.** Install from
-[Blender.org](https://www.blender.org), or set the path manually.
+**Blender not detected.** Install it from
+[Blender.org](https://www.blender.org), or click **Select Blender executable** and choose it.
 
-**Export fails, missing files.** The recording isn't fully processed,
-not every required `.npy` file exists yet. Run mocap processing first,
+**Export fails, missing files.** The recording hasn't finished processing. Process it first;
 see [process a recording after the fact](/guides/posthoc-mocap).
-
-**addon fails to load.** The addon is injected at export time, not
-installed into Blender's own preferences, so this usually means
-`freemocap_blender_addon` isn't available in your Python environment
-rather than a Blender-side issue.
 
 ## Next steps
 

@@ -5,6 +5,8 @@ sidebar_position: 15
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): app.py router mounting (freemocap routers under /freemocap, skellycam under /skellycam; FastAPI defaults leave /docs on), api/http/* router prefixes (added posthoc, ffmpeg, telemetry), server_constants.py (port 53117). Pointer to the in-repo api-boundary.mdx replaced with the live /docs page. Not checked against a running server."
   - date: "2026-08-25"
     against: "freemocap v2.0.0-alpha.21 source (app/app.py route registration, api/routers.py, api/server_constants.py, api/http routers for calibration/mocap/realtime/playback/blender/app), skellycam camera_router, and freemocap-docs architecture/api-boundary.mdx plus notes/api-notes.mdx"
   - date: "2026-08-21"
@@ -13,37 +15,29 @@ history:
 
 # REST API
 
-FreeMoCap's desktop app talks to its own local backend
-(`http://localhost:53117` by default) over a REST API, the same one the
-bundled frontend uses. It's not a public, versioned API meant for
-third-party integration, and the project's own architecture docs
-describe it as actively being redesigned toward a more consistent,
-recording-centric shape. Treat anything below as a snapshot, not a
-stable contract.
+The FreeMoCap app talks to its local server over a REST API at `http://localhost:53117`. It isn't a
+stable public API, so routes may change between releases.
 
-## What it covers
+## Browse the full API
 
-Broadly, one route group per concern:
+While FreeMoCap is open, go to [http://localhost:53117/docs](http://localhost:53117/docs) in a web
+browser. It lists every route with its exact request and response shapes, and lets you try them.
+Because it comes from the running app, it always matches your version.
+
+## Route groups
 
 | Area | Handles |
 |---|---|
 | Cameras (`/skellycam/camera/*`) | Detecting, connecting to, and configuring cameras |
 | Recording (`/skellycam/camera/group/all/record/*`) | Starting and stopping a recording |
-| Calibration (`/freemocap/calibration/*`) | Capturing a calibration recording and running the calibration solver on it |
-| mocap (`/freemocap/mocap/*`) | Starting, stopping, and post-processing a mocap recording |
-| realtime pipeline (`/freemocap/realtime/*`) | Creating or tearing down a live processing pipeline |
-| Playback (`/freemocap/playback/*`) | Listing recordings and serving their videos, timestamps, and data back out |
-| Blender (`/freemocap/blender/*`) | Detecting Blender, installing the addon, exporting, opening the result |
-
-## If you actually need to build against this
-
-The full, current endpoint-by-endpoint reference, including exact
-request and response shapes, lives in the `freemocap` repository's own
-architecture docs
-([API Boundary](https://github.com/freemocap/freemocap/blob/main/freemocap-docs/docs/architecture/api-boundary.mdx)),
-kept closer to the actual code than anything ported here could stay.
-That page also points to the planned API redesign, worth reading before
-building against routes that are expected to change shape.
+| Calibration (`/freemocap/calibration/*`) | Recording a calibration and running the calibration solver |
+| mocap (`/freemocap/mocap/*`) | Processing recordings, including `POST /freemocap/mocap/recording/process` |
+| Post-hoc (`/freemocap/posthoc/*`) | Stopping running processing jobs |
+| realtime pipeline (`/freemocap/realtime/*`) | Starting and stopping the live processing pipeline |
+| Playback (`/freemocap/playback/*`) | Listing recordings and serving their videos, timestamps, and data |
+| Blender (`/freemocap/blender/*`) | Detecting Blender, exporting, and opening the result |
+| FFmpeg (`/freemocap/ffmpeg/*`) | Checking whether FFmpeg is installed |
+| Telemetry (`/freemocap/telemetry/*`) | Recording anonymous usage events |
 
 ## Next steps
 

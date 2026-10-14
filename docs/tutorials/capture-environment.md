@@ -1,20 +1,19 @@
 ---
 title: Optimize your capture space
 type: tutorial
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): skellycam camera_config.py (manual exposure, default -7), recommend_camera_exposure_setting.py (Auto/Manual/Recommend), opencv_apply_config.py (Linux forced auto-exposure), CameraSettingsModal.tsx (Manual/Auto/Recommend options). Exposure section rewritten and v1 video removed; other sections unchanged."
   - date: "2026-08-26"
     against: "polyrepo-clones pulled 2026-08-26: skellycam camera_config.py (DEFAULT_EXPOSURE=-7) and opencv_apply_config.py, freemocap-ui exposure slider range (EXPOSURE_MIN=-13, EXPOSURE_MAX=-4), skellycam RotationTypes portrait rotation support, link target /tutorials/calibrate"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
+
 While FreeMoCap can record anywhere that's big enough to capture your entire body on video, some places and set ups give better results than others. The tips below help you configure your space to get the best recordings, whether you're working with high-end gear or simple webcams. 
 
-Don't be afraid to start small and simple - any set up is better than no set up. You can always add complexity as you become more comfortable with the system.
-
-## Video tutorial
-
-[This video](https://www.youtube.com/watch?v=GxKmyKdnTy0&t=872s) uses an older version of the software, but the discussion of hardware, lighting, and camera placement is still relevant (use the timestamps to jump to specific sections).
+Start small and simple. You can add more once the basics work.
 
 ## Lighting conditions
 
@@ -22,21 +21,14 @@ Lighting is crucial for a camera-based system like FreeMoCap. For best results, 
 
 A short exposure time means the camera's (digital) shutter stays open for less time on each recorded frame. That gives the subject less time to move during the exposure, reducing motion blur and making it easier to identify the subject's joints in each frame.
 
-<details>
-<summary>Exposure Settings</summary>
+### Setting exposure
 
-When setting the exposure on the GUI, aim for a setting of at most `-6`, but better results can be achieved at `-7` or `-8` or lower.
+Exposure is set per camera: expand a camera's row in the camera panel. The default is a manual
+setting of `-7`. Lower numbers mean shorter exposure and less blur, but a darker image, so add
+light rather than raising the number. `-7` or `-8` works well in a bright room. Choose
+**Recommend** to have FreeMoCap pick a setting for your lighting.
 
-On a technical level, **enough light in the scene allows shorter camera exposure times**.
-
-</details>
-
-<details>
-<summary>More on Exposure Settings</summary>
-
-For information on how these camera exposure settings map onto actual time measurements, see [this article](https://www.kurokesu.com/main/2020/05/22/uvc-camera-exposure-timing-in-opencv/).
-
-</details>
+Cameras on Linux always use automatic exposure.
 
 ## Background considerations
 

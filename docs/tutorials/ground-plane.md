@@ -1,13 +1,16 @@
 ---
 title: Set the ground plane
 type: tutorial
-provenance: human-checked
+provenance: ai-generated
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): groundplane_math.py thresholds (2 mm/frame, 10-frame run, 3 observations per corner, 3 non-collinear corners) still match; calibration-settings.tsx toggle label. Removed the v1 interface screenshot and the note about the old v1 checkboxes; rest unchanged."
   - date: "2026-08-26"
     against: "v2 source: freemocap groundplane_math.py, groundplane_alignment.py, anipose_calibration_helpers.py, posthoc_calibration_task.py, calibration_result.py, calibration_task_config.py, freemocap-ui calibration-module.tsx and calibration-slice.ts, skellytracker CharucoBoardDefinition, skellyforge charuco_board_7_5.yaml and charuco_board_5_3.yaml"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
+
 ## What is ground plane calibration?
 Ground plane calibration sets the 3D world so that “up” (the Z axis) means up and the ground is where it should be.
 Instead of using a camera’s perspective to define the world (which can lead to the 3D data coming on oriented oddly), it uses a flat ChArUco board placed on the floor to set the origin and upright orientation.
@@ -25,17 +28,13 @@ And that's the short-and-sweet version. Detailed instructions follow below.
 
 ## How to use ground plane calibration
 ### 1. In the software, check the `Align to initial Charuco ground plane` toggle
-In the current FreeMoCap GUI there is a single checkbox covering both cases. In the Calibration panel, open the ChArUco board settings and check `Align to initial Charuco ground plane` (it is stored and sent with the calibration job as the `useGroundplane` option):
-
-![image](/img/v1/how_to_recording_calibration.png)
+In the Calibration panel, open the ChArUco board settings and check `Align to initial Charuco ground plane`.
 
 **A. If recording your calibration through the FreeMoCap software:**
-check the `Align to initial Charuco ground plane` toggle, choose `Record and Calibrate`, and proceed with recording your calibration according to the instructions preceding. Set all other parameters (for example square size, board choice) as normal.
+check the `Align to initial Charuco ground plane` toggle, choose `Record and Calibrate`, and record your calibration as described in [calibrate your cameras](/tutorials/calibrate). Set all other parameters (for example square size, board choice) as normal.
 
 **B. If calibrating an existing or externally recorded calibration recording:**
 check the same `Align to initial Charuco ground plane` toggle, then use `Import Calibration videos` to select the folder containing your `synchronized_videos` and run the calibration on it. Set all other parameters (for example square size, board choice) as normal.
-
-(The screenshots preceding are from the previous V1 interface, where the same options appeared as separate `Record Calibration Videos` and `Calibrate from Active Recording` checkboxes.)
 
 ### 2. Recording calibration videos to use with ground plane
 **Start your calibration recording with the board flat on the ground.**

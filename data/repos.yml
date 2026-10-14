@@ -132,7 +132,7 @@
   name: SkellySync
   tier: utility
   emoji: "💀🔄"
-  responsibility: Synchronizes videos of the same event via audio cross-correlation
+  responsibility: Synchronizes videos of the same event, by audio cross-correlation or a brightness flash
   domain: Synchronization
   repo: https://github.com/freemocap/skellysync
   docs_path: null # no docs site yet

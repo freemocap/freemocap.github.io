@@ -6,6 +6,8 @@ provenance: ai-generated
 inFlux: "Where and how your V2 output data is laid out is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): on-disk names actually written today (skellycam default_paths.py synchronized_videos/ and timestamps/, freemocap default_paths.py annotated_videos/, posthoc_mocap_task.py output_data/, skeleton save_out_* npy/csv/parquet, calibration_paths.py {name}_camera_calibration.toml and calibrations/last_successful_camera_calibration.toml, blender_export_config.py 3d_models/). recording_structure.py describes a newer target layout that nothing writes yet, so it was not used. Not checked against a real recording."
   - date: "2026-08-26"
     against: "freemocap v2.0.0-alpha.21 code (system/default_paths.py, system/recording_structure/recording_structure.py, core/tasks/mocap/posthoc_mocap_task.py, core/pipeline/posthoc/video_node.py, api/http/playback/playback_router.py, core/blender/export_to_blender.py), skellycam RecordingInfo.save_to_file, skellyforge Actor save_out_* methods, skellylogs configure_logging and default_paths"
   - date: "2026-08-20"
@@ -14,81 +16,49 @@ history:
 
 # Find and read your output
 
-Every recording, whether it's a calibration or a mocap session, lands in
-its own folder under `~/freemocap_data/recordings/`. This page is a map
-of what's actually in there.
+Every recording, calibration or motion capture, gets its own folder in
+`freemocap_data/recordings` in your home folder. To jump to a recording's folder, open it in the
+**Playback** tab and click **Open folder in file explorer**.
 
-## Where to look
+## What's in a recording folder
 
 ```
-~/freemocap_data/recordings/
+freemocap_data/recordings/
 └── {recording_name}/
-    ├── synchronized_videos/          # Frame-synchronized camera videos
-    │   └── timestamps/               # Capture-time frame timestamps
-    ├── annotated_videos/             # Videos with detection overlays
-    ├── output_data/                  # 3D keypoints, center of mass, etc.
+    ├── synchronized_videos/          # Original videos, one per camera
+    │   └── timestamps/               # When each frame was captured
+    ├── annotated_videos/             # Videos with the tracked points drawn on
+    ├── output_data/                  # The motion capture data
     │   ├── *.npy
     │   ├── *.csv
-    │   └── *.parquet
-    ├── tracker_schema.json           # Keypoint names and connections used
+    │   └── freemocap_data_by_frame.parquet
+    ├── 3d_models/                    # FBX and BVH files, after a Blender export
+    ├── tracker_schema.json           # Which points were tracked and how they connect
     ├── {name}_camera_calibration.toml
-    ├── {name}_info.json              # Camera settings at record time
-    └── {name}.blend                  # If you've exported to Blender
+    ├── {name}_info.json              # Camera settings used for the recording
+    └── {name}.blend                  # The Blender scene, after a Blender export
 ```
 
-A migration to a slightly different layout (`videos/synchronized/`,
-`videos/annotated/`, and `output/` instead of the names preceding) is in
-progress in the codebase; both layouts are recognized today, but the
-names preceding are what you'll actually see on disk right now. If a future
-version of FreeMoCap looks slightly different from this, that's why.
+- **`synchronized_videos/`** holds your original footage, lined up in time across cameras.
+- **`annotated_videos/`** holds the same footage with the tracked points drawn on top. It's the
+  quickest way to check tracking by eye.
+- **`output_data/`** holds the motion capture data in three formats: `.npy` for Python,
+  `.csv` for spreadsheets, and `freemocap_data_by_frame.parquet`, which has every point of every
+  frame in one table. See [array shapes and units](/reference/data-arrays) for what each file
+  holds.
+- **`{name}_camera_calibration.toml`** is the calibration used for this recording.
+- **`{name}.blend`** and **`3d_models/`** appear only after a [Blender export](/tutorials/blender).
 
-A few other defaults worth knowing:
+## Other locations
 
-| What | Where |
+| What | Where, in your home folder |
 |---|---|
-| All FreeMoCap data | `~/freemocap_data/` (override with the `FREEMOCAP_BASE_FOLDER` environment variable) |
-| All recordings | `~/freemocap_data/recordings/` |
-| Bundled test recording | `~/freemocap_data/recordings/freemocap_test_data/` |
-| app logs | `~/skellylogs_data/logs/` (logging goes through SkellyLogs; redirect with `SKELLYLOGS_LOG_DIR`) |
-| Your most recent calibration | `~/freemocap_data/calibrations/last_successful_camera_calibration.toml` |
-
-## What's in each piece
-
-- **`synchronized_videos/`** is your raw footage, one file per camera,
-  already time-aligned, with the capture-time frame timestamps alongside
-  in `timestamps/`. **`annotated_videos/`** is the same footage, with
-  detected keypoints drawn on top, useful for checking tracking quality
-  by eye.
-- **`output_data/`** is where the actual mocap data lives: `.npy` arrays
-  (see [array shapes and units](/reference/data-arrays) for exactly
-  what's in each one), plus `.csv` and `.parquet` versions of the same
-  data for tools that don't read `.npy` directly, including one combined
-  tidy file, `freemocap_data_by_frame.parquet`, with every keypoint of
-  every frame in long format. See
-  [the output data model](/concepts/data-model) for what these numbers
-  actually mean and how they were produced.
-- **`tracker_schema.json`** sits at the recording root once mocap
-  processing has run, recording which keypoints and connections the
-  tracker used.
-- **`{name}_camera_calibration.toml`** is your calibration, in plain
-  text. It's what [reconstruction](/concepts/triangulation) reads to
-  know where each camera was. Calibrating a recording saves it under
-  that recording's own name; if you instead process a recording using
-  your most recent calibration, the copy dropped into the folder keeps
-  that file's name, `last_successful_camera_calibration.toml`.
-- **`{name}_info.json`** records how the recording was made: camera
-  settings at record time (resolution, exposure, rotation and so on),
-  plus the recording name, a UUID, and the start timestamp. It doesn't
-  carry a calibration-or-mocap tag; it's the saved videos plus the
-  calibration TOML that make a recording reprocessable later with
-  different settings, without having to remember your original setup.
-- **`{name}.blend`** only shows up once you've exported to Blender; see
-  [Open your recording in Blender](/tutorials/blender). Blender export
-  currently only supports recordings processed with MediaPipe.
+| All recordings | `freemocap_data/recordings/` |
+| Your latest calibration | `freemocap_data/calibrations/last_successful_camera_calibration.toml` |
+| Log files | `skellylogs_data/logs/` |
 
 ## Next steps
 
-- [The FreeMoCap output data model](/concepts/data-model)
-- [Array shapes and units](/reference/data-arrays)
-- [Open your recording in Blender](/tutorials/blender)
 - [Analyze your data in Python](/tutorials/analyze-in-python)
+- [The FreeMoCap output data model](/concepts/data-model)
+- [Open your recording in Blender](/tutorials/blender)

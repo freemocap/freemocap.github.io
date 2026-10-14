@@ -5,6 +5,8 @@ sidebar_position: 13
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): tracker_definitions.py loaded in the app's venv (rtmpose_wholebody 133 points, mediapipe_wholebody 211 points), posthoc_mocap_task.py (tracker_schema.json still hardcoded to RTMPose). Spot-checked counts and the hardcoded-schema note; per-index tables not re-checked. No changes needed."
   - date: "2026-08-25"
     against: "Re-checked FreeMoCap tracker_definitions.py, tracker_schema_message.py, websocket_server.py, posthoc_mocap_task.py, playback_router.py, pyproject.toml, and skeleton_from_mediapipe_observations.py plus SkellyTracker rtmpose_wholebody.yaml, mediapipe body/hand/face-contour YAMLs, rtmpose_wholebody_detector.py and tracker_mapping.py plus SkellyForge mediapipe/rtmpose/canonical_body/canonical_hand YAMLs, tracking_model_info.py, human.py and actor.py, all read directly"
   - date: "2026-08-24"

@@ -5,6 +5,8 @@ sidebar_position: 4
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): default_paths.py and skellycam default_paths.py folder names (synchronized_videos/, annotated_videos/), posthoc_mocap_task.py (output_data/), default_paths.py (freemocap_data/recordings), PlaybackPage.tsx (Open folder in file explorer), mocap_task_config.py (export_to_blender and auto_open_blend_file default true), BlenderSection.tsx (MediaPipe-only export), mocap-slice.ts (RTMPose default). Not checked against a real recording."
   - date: "2026-08-25"
     against: "freemocap v2.0.0-alpha.21 polyrepo clone (system/default_paths.py, core/pipeline/posthoc/video_node.py, core/blender/export_to_blender.py, core/tasks/mocap/posthoc_mocap_task.py, core/tasks/mocap/mocap_task_config.py, freemocap-ui BlenderSection.tsx), plus site link targets"
   - date: "2026-08-21"
@@ -13,54 +15,43 @@ history:
 
 # See what you made
 
-Right after a recording finishes, two questions matter: did it actually
-track your movement, and where did everything go.
+## Watch it back
 
-## The fastest check: did Blender open
+Open the **Playback** tab and select your recording. Check the tracked skeleton against your
+movement: points should sit on your joints and move smoothly.
 
-If Blender was detected on your system, FreeMoCap opens a scene
-automatically when processing finishes: a skeleton moving through the
-motion you just recorded. Look for the obvious stuff first, does it move
-the way you moved, are all your limbs where they should be, is anything
-flying off into space or frozen in place. That's enough to tell you
-whether the whole pipeline worked, before you look at any actual data.
+## Open it in Blender
 
-If Blender wasn't detected, or didn't open automatically, see
-[open your recording in Blender](/tutorials/blender).
+If you recorded with the **MediaPipe** tracker and have [Blender](https://www.blender.org)
+installed, FreeMoCap creates a Blender scene and opens it when processing finishes. If Blender
+doesn't open, see [open your recording in Blender](/tutorials/blender).
 
-## If you want to check without Blender
+The default RTMPose tracker doesn't export to Blender yet. Its data files are still saved.
 
-Every recording also gets an annotated video: your original footage
-with the detected keypoints drawn directly on top. It's in the
-recording's `annotated_videos/` folder (see
-[find and read your output](/tutorials/find-your-data) for the full
-layout), and it's the fastest way to sanity-check 2D tracking by eye
-without needing Blender at all.
+## Find the files
 
-## What "worked" looks like, and what didn't
+Recordings are saved in the `freemocap_data/recordings` folder in your home folder, one folder per
+recording. In the **Playback** tab, click **Open folder in file explorer** to go straight there.
 
-**Good signs:** keypoints in the annotated video sit on the actual
-joints and move smoothly frame to frame. In Blender, the skeleton's
-proportions look roughly human and its motion matches what you did.
+Inside each recording folder:
 
-**Signs something's off:**
+- `synchronized_videos/` holds the original videos.
+- `annotated_videos/` holds copies with the tracked points drawn on top.
+- `output_data/` holds the motion capture data.
+- `<recording name>.blend` is the Blender scene, if one was made.
 
-- keypoints jumping around or disappearing in the annotated video
-  usually means a lighting or contrast problem, not a software bug. See
+See [find and read your output](/tutorials/find-your-data) for the full layout.
+
+## If something looks wrong
+
+- **Points jump around or disappear:** usually lighting. See
   [optimize your capture space](/tutorials/capture-environment).
-- A skeleton that's lying down, mirrored, or wildly out of scale in
-  Blender (multi-camera recordings only) usually points to the
-  calibration, not the recording itself. See
+- **A multi-camera skeleton is lying down, mirrored, or the wrong size:** usually calibration. See
   [get a calibration you can trust](/tutorials/better-calibration).
 
-A single-camera recording won't give you reliable 3D positions no
-matter how clean the tracking looks, that's expected, see
-[cameras and synchronization](/concepts/cameras-and-sync) for why. If
-2D tracking looked clean and you're ready for real 3D data, that's the
-cue to move on to multiple cameras.
+A single camera can't give reliable 3D positions, however clean the tracking looks. For real 3D
+data, [record with multiple cameras](/tutorials/multi-camera).
 
 ## Next steps
 
 - [Where to go next](/start/where-next)
-- [Find and read your output](/tutorials/find-your-data)
-- [Record with multiple cameras](/tutorials/multi-camera)

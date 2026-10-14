@@ -5,6 +5,8 @@ sidebar_position: 11
 provenance: ai-generated
 draft: false
 history:
+  - date: "2026-10-14"
+    against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): posthoc_mocap_task.py (output_data/), skellymodels actor.py (freemocap_data_by_frame.parquet, npy naming), recording_structure.py (unused target layout). Trimmed the mid-rename discussion and the pre-multi-detector history; arrays, columns and counts unchanged and not re-checked."
   - date: "2026-08-25"
     against: "FreeMoCap v2.0.0-alpha.21 posthoc mocap task, playback router, recording_structure, recording_status, and SkellyForge skellymodels (actor.py, trajectory.py, aspect.py, anatomical_calculations.py, tracker_info YAMLs), read directly"
   - date: "2026-08-24"
@@ -45,28 +47,10 @@ same conventions.
 
 ### A note on the parquet's location
 
-The repo is mid-rename here, and the sources disagree in a way worth
-stating plainly:
-
-- `RecordingStructure` (the module that declares itself authoritative for
-  recording layout) defines the canonical store as
-  `{recording}/{recording_name}_data.parquet` at the recording *root*,
-  and treats `output_data/freemocap_data_by_frame.parquet` as a *legacy*
-  marker.
-- The pipeline code that actually writes parquet today
-  (`Actor.save_out_all_data_parquet`) still writes
-  `freemocap_data_by_frame.parquet` into `output_data/`, and nothing in
-  the FreeMoCap repo writes the new `{name}_data.parquet`.
-- Consumers bridge the gap: the playback router's parquet lookup tries
-  `{name}_data.parquet` first, falls back to
-  `output_data/freemocap_data_by_frame.parquet`, then to any `.parquet`
-  in the recording. The layout validator accepts either.
-
-So: if you find `{name}_data.parquet` on disk someday, it is the same
-kind of file moved to a new address. Today,
-`output_data/freemocap_data_by_frame.parquet` is what a recording
-actually produces. See also
-[recording folder structure](/reference/recording-structure).
+Recordings store the parquet at `output_data/freemocap_data_by_frame.parquet`.
+`RecordingStructure` in the source describes a future
+`{recording_name}_data.parquet` at the recording root, but nothing writes it yet. The playback
+code reads either location.
 
 ## Array convention
 
@@ -153,11 +137,7 @@ the producing detector prefixed into each filename:
 {detector}_body_segment_center_of_mass.npy
 ```
 
-Older recordings may carry `*_right_hand_right_hand.npy`-style names;
-the readiness check accepts those as equivalents. Before multi-detector
-support, the readiness check itself demanded flat `mediapipe_*`
-filenames regardless of which detector produced the recording, so
-RTMPose recordings always failed the pre-flight check.
+The readiness check also accepts `*_right_hand_right_hand.npy`-style names.
 
 For what point names sit behind each column index, and a known
 body/hand/face ordering hazard in RTMPose recordings, see
