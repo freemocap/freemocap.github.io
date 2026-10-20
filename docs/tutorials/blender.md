@@ -13,6 +13,8 @@ history:
 draft: false
 ---
 
+import blender_export_options from './img/blender-export-options.webp';
+
 # Open your recording in Blender
 
 FreeMoCap can turn a processed recording into a Blender scene with an animated skeleton. It also
@@ -47,6 +49,8 @@ In the Blender settings you can choose:
 - The skeleton's rest pose: T-pose or A-pose.
 - **Apply Foot Locking**, to stop feet sliding on the floor.
 - **Limit Hand Markers Range of Motion**, to keep fingers from bending unnaturally.
+
+<Screenshot src={blender_export_options} width={480} alt="The Blender settings in Mocap Settings, showing the Blender executable, the export and auto-open switches, FBX and BVH formats, the rest pose, foot locking and hand range options, and the Process Recording with Blender button" caption="The Blender settings in Mocap Settings." version="2.0.0-alpha.25" />
 
 ## Where the files go
 

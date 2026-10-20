@@ -1,6 +1,12 @@
 # Screenshot plan
 
-Shot list for the V2 UI screenshots. Not published: this file sits outside the folders the docs site builds from. The image script, `<Screenshot>` component and zoom plugin are in place (see the README's Screenshots section). No shots have been captured yet.
+Shot list for the V2 UI screenshots. Not published: this file sits outside the folders the docs site builds from. The image script, `<Screenshot>` component and zoom plugin are in place (see the README's Screenshots section).
+
+## Status
+
+Captured and in the docs (8): `welcome-screen`, `calibrate-import-menu`, `import-videos`, `sync-options`, `detector-choice` (plus a MediaPipe version, `detector-choice-mediapipe`), `filter-settings`, `blender-export-options`. Raw originals are in `~/Documents/FMC/App Captures and Tutorials/raw/`.
+
+Source recording: the official `skellysamples` sample data, converted to H.264 (see ENGINEER-CALLOUTS 23 and 25) and processed with MediaPipe. Held back until the 3D viewport shows the skeleton (callout 26): `playback-skeleton`, `open-in-playback`, `ground-plane-axes`, `default-calibration-axes`.
 
 Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tells the reader to click.
 

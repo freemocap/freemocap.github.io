@@ -13,6 +13,9 @@ history:
 draft: false
 ---
 
+import detector_choice_mediapipe from './img/detector-choice-mediapipe.webp';
+import detector_choice from './img/detector-choice.webp';
+
 # Choose a tracking model
 
 The tracker finds your body's joints in each video frame. FreeMoCap offers two. Choose one under
@@ -28,6 +31,10 @@ The tracker finds your body's joints in each video frame. FreeMoCap offers two. 
 **Use RTMPose** for the most accurate data, unless you need Blender.
 
 **Use MediaPipe** if you want a Blender scene, or if processing is too slow on your computer.
+
+<Screenshot src={detector_choice} width={480} alt="The Detector settings in Mocap Settings with RTMPose selected, showing the Default, High Res and Fast model options and a confidence threshold" caption="With RTMPose selected, choose a Default, High Res or Fast model." version="2.0.0-alpha.25" />
+
+<Screenshot src={detector_choice_mediapipe} width={480} alt="The Detector settings in Mocap Settings with MediaPipe selected, showing the Heavy, Full and Lite pose model sizes and three confidence settings" caption="With MediaPipe selected, choose a Heavy, Full or Lite pose model." version="2.0.0-alpha.25" />
 
 ## Matching the tracker to your task
 

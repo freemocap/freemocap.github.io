@@ -6,6 +6,8 @@ provenance: ai-generated
 inFlux: "Where and how your V2 output data is laid out is a work in progress for version alpha. It's expected to stabilize by beta."
 draft: false
 history:
+  - date: "2026-10-20"
+    against: "a real recording folder produced by the installed alpha.25 app on macOS (official sample data imported, MediaPipe detector, Blender export on): the folder names, the 3d_models, output_data and saved_data contents"
   - date: "2026-10-14"
     against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): on-disk names actually written today (skellycam default_paths.py synchronized_videos/ and timestamps/, freemocap default_paths.py annotated_videos/, posthoc_mocap_task.py output_data/, skeleton save_out_* npy/csv/parquet, calibration_paths.py {name}_camera_calibration.toml and calibrations/last_successful_camera_calibration.toml, blender_export_config.py 3d_models/). recording_structure.py describes a newer target layout that nothing writes yet, so it was not used. Not checked against a real recording."
   - date: "2026-08-26"
@@ -46,6 +48,9 @@ freemocap_data/recordings/
   `.csv` for spreadsheets, and `freemocap_data_by_frame.parquet`, which has every point of every
   frame in one table. See [array shapes and units](/reference/data-arrays) for what each file
   holds.
+- **`saved_data/`** holds a second copy of the data, split by body part into `csv/` and `npy/`
+  folders, with the trajectory names and metadata in `info/`. Two README files in the folder explain
+  how it is laid out.
 - **`{name}_camera_calibration.toml`** is the calibration used for this recording.
 - **`{name}.blend`** and **`3d_models/`** appear only after a [Blender export](/tutorials/blender).
 

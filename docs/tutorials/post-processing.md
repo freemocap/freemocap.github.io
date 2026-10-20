@@ -13,6 +13,8 @@ history:
 draft: false
 ---
 
+import filter_settings from './img/filter-settings.webp';
+
 # Filter and fill your data
 
 After FreeMoCap works out the 3D position of each point, it cleans up the data in two steps
@@ -44,6 +46,8 @@ Open **Mocap Settings** and find **Butterworth Low-Pass Filter**:
 
 For recordings made in FreeMoCap, the sampling rate is set automatically from the recording. For
 imported videos, set it to your videos' frame rate yourself.
+
+<Screenshot src={filter_settings} width={480} alt="The Post Processing section of Mocap Settings, showing the Butterworth Low-Pass Filter with sampling rate, cutoff and order, above the Blender settings" caption="The Butterworth Low-Pass Filter settings in Mocap Settings." version="2.0.0-alpha.25" />
 
 To apply new settings to an existing recording, process it again. Open it in the **Playback** tab,
 click **Continue to Mocap Setup**, then **Process Mocap**.

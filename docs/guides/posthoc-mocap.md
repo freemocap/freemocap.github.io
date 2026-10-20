@@ -13,6 +13,9 @@ history:
     against: "freemocap-docs guides/posthoc-mocap.mdx (v2.0.0-alpha.21, human-authored source, not yet re-checked against the running app)"
 ---
 
+import sync_options from './img/sync-options.webp';
+import import_videos from './img/import-videos.webp';
+
 # Process a recording after the fact
 
 You can run motion capture on videos you already have, either a FreeMoCap recording you want to
@@ -29,8 +32,12 @@ process again, or videos from your own cameras.
    - **Brightness flash**, if you flashed a light that every camera saw.
 5. Click **Import**.
 
+<Screenshot src={import_videos} width={480} alt="The Import Videos dialog with three video files chosen, a recording name box, and a Synchronize videos on import checkbox" caption="The Import Videos dialog with one video per camera chosen." version="2.0.0-alpha.25" />
+
 Synchronizing needs [FFmpeg](https://ffmpeg.org/download.html). If FreeMoCap says FFmpeg is missing,
 install it and restart FreeMoCap.
+
+<Screenshot src={sync_options} width={480} alt="The Import Videos dialog with Synchronize videos on import ticked, showing the Audio and Brightness flash choices" caption="Ticking the synchronize option reveals the Audio and Brightness flash choices." version="2.0.0-alpha.25" />
 
 ## Process the recording
 

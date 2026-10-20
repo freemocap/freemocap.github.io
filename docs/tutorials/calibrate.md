@@ -12,6 +12,8 @@ history:
     against: "v1 (ported, not yet re-checked against v2)"
 ---
 
+import calibrate_import_menu from './img/calibrate-import-menu.webp';
+
 To get 3D data from several cameras, FreeMoCap first needs to work out where each camera is. You
 do this by recording a printed ChArUco board as you move it around in front of the cameras.
 
@@ -87,6 +89,8 @@ FreeMoCap calibrates as soon as you stop. When it finishes, the panel shows **Ca
 
 If you already have calibration videos, use **Calibrate > Import Calibration videos** instead. To
 reuse a calibration file from before, use **Calibrate > Import .toml file**.
+
+<Screenshot src={calibrate_import_menu} width={560} alt="The Calibration panel with the Calibrate menu open, offering Import Calibration videos and Import .toml file" caption="The Calibrate menu offers both import options." version="2.0.0-alpha.25" />
 
 ## 5. Record your motion capture
 
