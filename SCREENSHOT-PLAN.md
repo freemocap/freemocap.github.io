@@ -4,7 +4,7 @@ Shot list for the V2 UI screenshots. Not published: this file sits outside the f
 
 ## Status
 
-Captured and in the docs (8): `welcome-screen`, `calibrate-import-menu`, `import-videos`, `sync-options`, `detector-choice` (plus a MediaPipe version, `detector-choice-mediapipe`), `filter-settings`, `blender-export-options`. Raw originals are in `~/Documents/FMC/App Captures and Tutorials/raw/`.
+Captured and in the docs (10): `welcome-screen`, `calibrate-import-menu`, `import-videos`, `sync-options`, `detector-choice` (plus a MediaPipe version, `detector-choice-mediapipe`), `filter-settings`, `blender-export-options`, `blender-scene`, `recording-folder`. Raw originals are in `~/Documents/FMC/App Captures and Tutorials/raw/`.
 
 Source recording: the official `skellysamples` sample data, converted to H.264 (see ENGINEER-CALLOUTS 23 and 25) and processed with MediaPipe. Held back until the 3D viewport shows the skeleton (callout 26): `playback-skeleton`, `open-in-playback`, `ground-plane-axes`, `default-calibration-axes`.
 

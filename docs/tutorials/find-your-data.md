@@ -16,6 +16,8 @@ history:
     against: "freemocap-docs architecture docs (v2.0.0-alpha.21, not yet re-checked against the running app)"
 ---
 
+import recording_folder from './img/recording-folder.webp';
+
 # Find and read your output
 
 Every recording, calibration or motion capture, gets its own folder in
@@ -34,12 +36,15 @@ freemocap_data/recordings/
     │   ├── *.npy
     │   ├── *.csv
     │   └── freemocap_data_by_frame.parquet
+    ├── saved_data/                   # A second copy of the data, split by body part
     ├── 3d_models/                    # FBX and BVH files, after a Blender export
     ├── tracker_schema.json           # Which points were tracked and how they connect
     ├── {name}_camera_calibration.toml
     ├── {name}_info.json              # Camera settings used for the recording
     └── {name}.blend                  # The Blender scene, after a Blender export
 ```
+
+<Screenshot src={recording_folder} alt="A processed recording's folder open in Finder, showing the 3d_models, annotated_videos, output_data, saved_data and synchronized_videos folders, the calibration file, the Blender scene and tracker_schema.json" caption="A processed recording's folder in Finder, after a Blender export." version="2.0.0-alpha.25" />
 
 - **`synchronized_videos/`** holds your original footage, lined up in time across cameras.
 - **`annotated_videos/`** holds the same footage with the tracked points drawn on top. It's the

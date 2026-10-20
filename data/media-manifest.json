@@ -12,6 +12,18 @@
     "bytes": 19018
   },
   {
+    "id": "blender-scene",
+    "page": "docs/tutorials/blender.md",
+    "file": "docs/tutorials/img/blender-scene.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 1330,
+    "height": 830,
+    "bytes": 50514
+  },
+  {
     "id": "calibrate-import-menu",
     "page": "docs/tutorials/calibrate.md",
     "file": "docs/tutorials/img/calibrate-import-menu.webp",
@@ -70,6 +82,18 @@
     "width": 584,
     "height": 456,
     "bytes": 14032
+  },
+  {
+    "id": "recording-folder",
+    "page": "docs/tutorials/find-your-data.md",
+    "file": "docs/tutorials/img/recording-folder.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 740,
+    "height": 385,
+    "bytes": 8414
   },
   {
     "id": "sync-options",

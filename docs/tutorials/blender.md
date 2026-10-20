@@ -13,6 +13,7 @@ history:
 draft: false
 ---
 
+import blender_scene from './img/blender-scene.webp';
 import blender_export_options from './img/blender-export-options.webp';
 
 # Open your recording in Blender
@@ -35,6 +36,8 @@ Install [Blender](https://www.blender.org). FreeMoCap finds it automatically. If
 With **Export to Blender after mocap processing** turned on (it's on by default), FreeMoCap makes
 the Blender scene every time it finishes processing a MediaPipe recording. With
 **Auto-open .blend file in Blender when done** on, the scene opens in Blender straight away.
+
+<Screenshot src={blender_scene} alt="A Blender scene exported from a recording: a skeleton standing on a blue ground plane, three video panels showing the camera views with the tracked skeleton drawn on them, and a camera" caption="The exported scene in Blender, with the skeleton, the ground plane and the camera videos." version="2.0.0-alpha.25" />
 
 ## Export a recording you already processed
 
