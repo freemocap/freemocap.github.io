@@ -25,7 +25,7 @@ module.exports = [
   { from: v1('next-steps'), to: '/start/where-next' },
 
   // Tutorials
-  { from: v1('software-hardware-prerequisites'), to: '/reference/system-requirements' },
+  { from: v1('software-hardware-prerequisites'), to: '/tutorials/hardware' },
   { from: v1('single-camera-recording'), to: '/tutorials/single-camera' },
   { from: v1('multi-camera-calibration'), to: '/tutorials/calibrate' },
   { from: v1('groundplane-calibration'), to: '/tutorials/ground-plane' },
@@ -51,7 +51,7 @@ module.exports = [
 
   // About
   { from: v1('about-us'), to: '/about/about-us' },
-  { from: v1('frequently-asked-questions-faq'), to: '/guides/faq' },
+  { from: v1('frequently-asked-questions-faq'), to: '/about/faq' },
   { from: v1('privacy-policy'), to: '/about/privacy' },
   { from: v1('code-of-conduct'), to: '/about/code-of-conduct' },
 
