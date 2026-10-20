@@ -27,21 +27,25 @@ current one.
 
 ## Redirects
 
-The placeholder links to legacy `/documentation/*` pages. Real 301s live in
-`static/.htaccess`, so they ship with every build:
+The placeholder links to legacy `/documentation/*` pages. Today these already
+work through the client-side redirect pages in `data/redirects.js`, which ship
+with the build. The server is nginx, so `.htaccess` does nothing here. For real
+301s on the ten most-linked pages, add this in Plesk (Websites & Domains ->
+docs.freemocap.org -> Apache & nginx Settings -> Additional nginx directives)
+and test it with the hosts file before DNS moves:
 
-| V1 URL | V2 target |
-|---|---|
-| `/documentation/index_md.html` | `/` |
-| `/documentation/installation.html` | `/start/install` |
-| `/documentation/software-hardware-prerequisites.html` | `/reference/system-requirements` |
-| `/documentation/multi-camera-calibration.html` | `/tutorials/calibrate` |
-| `/documentation/single-camera-recording.html` | `/tutorials/single-camera` |
-| `/documentation/calibration-troubleshooting.html` | `/guides/calibration-troubleshooting` |
-| `/documentation/installation-troubleshooting.html` | `/guides/installation-troubleshooting` |
-| `/documentation/frequently-asked-questions-faq.html` | `/guides/faq` |
-| `/documentation/code-of-conduct.html` | `/about/code-of-conduct` |
-| `/documentation/contributing-index.html` | `/build/contributing` |
+```nginx
+location = /documentation/index_md.html { return 301 /; }
+location = /documentation/installation.html { return 301 /start/install/; }
+location = /documentation/software-hardware-prerequisites.html { return 301 /reference/system-requirements/; }
+location = /documentation/multi-camera-calibration.html { return 301 /tutorials/calibrate/; }
+location = /documentation/single-camera-recording.html { return 301 /tutorials/single-camera/; }
+location = /documentation/calibration-troubleshooting.html { return 301 /guides/calibration-troubleshooting/; }
+location = /documentation/installation-troubleshooting.html { return 301 /guides/installation-troubleshooting/; }
+location = /documentation/frequently-asked-questions-faq.html { return 301 /guides/faq/; }
+location = /documentation/code-of-conduct.html { return 301 /about/code-of-conduct/; }
+location = /documentation/contributing-index.html { return 301 /build/contributing/; }
+```
 
 ## Rollback
 

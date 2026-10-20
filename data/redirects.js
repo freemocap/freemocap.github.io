@@ -8,8 +8,9 @@
  * are running old software.
  *
  * The legacy site served Writerside HTML at /documentation/<slug>.html. The
- * .html suffix is handled here, and the ten most-linked pages are also real
- * 301s in static/.htaccess so they work without JavaScript. Keep the two in sync.
+ * .html suffix is handled here (client-side), so it works anywhere. The server
+ * is nginx, so real 301s for the most-linked pages would be nginx rules set in
+ * Plesk at cutover (see DEPLOY-PLAN.md), not an .htaccess file.
  */
 
 const v1 = (slug) => `/documentation/${slug}.html`;
