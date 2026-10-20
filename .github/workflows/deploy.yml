@@ -51,7 +51,7 @@ jobs:
             echo "::warning title=Prose checker could not run. This does NOT block the deploy::Vale is the tool that checks our writing style (commas, spelling, capitalization). It failed to start, most often a temporary download error from GitHub, so no style check happened this time. The site build and deploy are unaffected. To retry, use Re-run failed jobs. To check prose yourself, run npm run lint:prose."
             result="The prose checker could not start (usually a temporary download error). Nothing is wrong with the docs. Re-run the failed job to retry."
           else
-            echo "::notice title=Prose style notes are advice, not failures::Vale checks our writing style. Anything it reports appears as a warning on the separate vale check and never fails the build or deploy. To see them yourself, run npm run lint:prose."
+            echo "::notice title=Prose style notes are advice and never failures::Vale checks our writing style. Anything it reports appears as a warning on the separate vale check and never fails the build or deploy. To see them yourself, run npm run lint:prose."
             result="The prose checker ran. Any findings are style advice shown on the separate vale check. They never fail the build or deploy."
           fi
           {
@@ -90,7 +90,7 @@ jobs:
       - name: Note that this is a dry run
         if: vars.DOCS_DEPLOY_DRY_RUN == 'true'
         run: |
-          echo "::notice title=Dry-run mode is ON, so the real upload is skipped on purpose::The repo variable DOCS_DEPLOY_DRY_RUN is true. This run only lists what would change on the server and changes nothing. Set it to false to do a real deploy."
+          echo "::notice title=Dry-run mode is ON so the real upload is skipped on purpose::The repo variable DOCS_DEPLOY_DRY_RUN is true. This run only lists what would change on the server and changes nothing. Set it to false to do a real deploy."
 
       - uses: actions/download-artifact@v8
         with:

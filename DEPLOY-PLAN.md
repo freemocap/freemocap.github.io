@@ -34,12 +34,12 @@ The placeholder links to legacy `/documentation/*` pages. Real 301s via
 |---|---|
 | `/documentation/index_md.html` | `/` |
 | `/documentation/installation.html` | `/start/install` |
-| `/documentation/software-hardware-prerequisites.html` | `/reference/system-requirements` or `/tutorials/hardware`: pick one |
-| `/documentation/multi-camera-calibration.html` | `/tutorials/calibrate` or `/tutorials/multi-camera`: pick one |
+| `/documentation/software-hardware-prerequisites.html` | `/reference/system-requirements` |
+| `/documentation/multi-camera-calibration.html` | `/tutorials/calibrate` |
 | `/documentation/single-camera-recording.html` | `/tutorials/single-camera` |
 | `/documentation/calibration-troubleshooting.html` | `/guides/calibration-troubleshooting` |
 | `/documentation/installation-troubleshooting.html` | `/guides/installation-troubleshooting` |
-| `/documentation/frequently-asked-questions-faq.html` | `/guides/faq` or `/about/faq`: pick one |
+| `/documentation/frequently-asked-questions-faq.html` | `/guides/faq` |
 | `/documentation/code-of-conduct.html` | `/about/code-of-conduct` |
 | `/documentation/contributing-index.html` | `/build/contributing` |
 
