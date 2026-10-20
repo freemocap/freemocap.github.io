@@ -2,7 +2,7 @@ name: Build and deploy docs
 
 on:
   push:
-    branches: [main]
+    branches: [main, docs-v2]
   pull_request:
   workflow_dispatch:
 
@@ -53,7 +53,9 @@ jobs:
   # tab, not a side effect of a merge.
   deploy:
     needs: build
-    if: github.event_name == 'workflow_dispatch'
+    # Pre-merge preview toggle: pushes to docs-v2 deploy to the VPS only while the
+    # repo variable PREVIEW_DEPLOY is 'true'. Unset or any other value = no deploy.
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/docs-v2' && vars.PREVIEW_DEPLOY == 'true')
     runs-on: ubuntu-latest
     environment: production
     steps:
