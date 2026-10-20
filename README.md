@@ -87,7 +87,7 @@ runs only when:
   (pre-merge testing; leave it unset otherwise).
 
 Merging never deploys by itself. The job first runs a dry run (aborting if it
-would delete more than 50 files), then the real sync. Set the repo variable
+would delete more than 400 files), then the real sync. Set the repo variable
 `DOCS_DEPLOY_DRY_RUN` to `true` to skip the real sync and only see what would
 change.
 

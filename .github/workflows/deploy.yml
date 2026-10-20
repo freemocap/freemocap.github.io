@@ -117,11 +117,14 @@ jobs:
           printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
 
       # Dry run first: shows exactly what would change, and aborts the job if
-      # the sync would delete more than 50 files (a sign something is wrong).
+      # the sync would delete more than 400 files (a sign something is wrong).
+      # A normal rebuild deletes some: Docusaurus renames its JS bundles whenever
+      # their contents change, so the old ones are cleaned up. The site has about
+      # 670 files, so 400 still stops anything that looks like a wipe.
       - name: Dry run
         run: |
-          echo "::notice title=Reading the dry-run list below (nothing is changed in this step)::Each line is a file rsync would change. Lines starting with >f+++ are new files, >f followed by other characters are updated files, and lines starting with *deleting would be removed from the server. If more than 50 would be deleted, the run stops on purpose."
-          rsync -rlt --dry-run --itemize-changes --delete-after --max-delete=50 \
+          echo "::notice title=Reading the dry-run list below (nothing is changed in this step)::Each line is a file rsync would change. Lines starting with >f+++ are new files, >f followed by other characters are updated files, and lines starting with *deleting would be removed from the server. If more than 400 would be deleted, the run stops on purpose."
+          rsync -rlt --dry-run --itemize-changes --delete-after --max-delete=400 \
             --exclude='.well-known' --exclude='.htaccess' \
             --exclude='.php-ini' --exclude='.php-version' \
             --exclude='cgi-bin' --exclude='error_docs' \
@@ -133,7 +136,7 @@ jobs:
       - name: Deploy to docs.freemocap.org
         if: vars.DOCS_DEPLOY_DRY_RUN != 'true'
         run: |
-          rsync -rlt --itemize-changes --delete-after --max-delete=50 \
+          rsync -rlt --itemize-changes --delete-after --max-delete=400 \
             --chmod=D755,F644 \
             --exclude='.well-known' --exclude='.htaccess' \
             --exclude='.php-ini' --exclude='.php-version' \
@@ -144,4 +147,4 @@ jobs:
       - name: Explain a deploy failure
         if: failure()
         run: |
-          echo "::error title=The upload to the server did not finish::Your changes are safe in GitHub and the build itself was fine. Look at which step failed above. Set up SSH failing means a missing secret DOCS_SSH_KEY or variable DOCS_SSH_KNOWN_HOSTS. Permission denied or a host key error means the key was changed on the server or the server was rebuilt. The Dry run stopping on its own means it would have deleted more than 50 files, so check that the build is complete. A partial upload is harmless. Re-running the job fixes it, because the sync is repeatable."
+          echo "::error title=The upload to the server did not finish::Your changes are safe in GitHub and the build itself was fine. Look at which step failed above. Set up SSH failing means a missing secret DOCS_SSH_KEY or variable DOCS_SSH_KNOWN_HOSTS. Permission denied or a host key error means the key was changed on the server or the server was rebuilt. The Dry run stopping on its own means it would have deleted more than 400 files, so check that the build is complete. A partial upload is harmless. Re-running the job fixes it, because the sync is repeatable."
