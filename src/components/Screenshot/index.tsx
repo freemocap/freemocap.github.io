@@ -9,6 +9,8 @@ import styles from './styles.module.css';
 //   import shot from './img/record-controls.webp';
 //   <Screenshot src={shot} alt="..." caption="..." version="2.0.0-alpha.25" />
 // Importing lets webpack fingerprint the file and fail the build on a bad path.
+// Images load normally, not lazily: they are small (4 to 50 KB) and have no reserved size,
+// and a zero-sized lazy image can fail to load, especially on phones.
 // `alt` is required and should say what the reader is meant to see.
 type Props = {
   src: string;
@@ -21,7 +23,7 @@ type Props = {
 export default function Screenshot({ src, alt, caption, version, width }: Props): ReactNode {
   return (
     <figure className={styles.figure}>
-      <img className={styles.image} src={src} alt={alt} loading="lazy" style={width ? { maxWidth: width } : undefined} />
+      <img className={styles.image} src={src} alt={alt} style={width ? { maxWidth: `min(100%, ${width}px)` } : undefined} />
       {(caption || version) && (
         <figcaption className={styles.caption}>
           {caption}
