@@ -16,7 +16,8 @@
 const v1 = (slug) => `/documentation/${slug}.html`;
 
 module.exports = [
-  { from: [v1('index_md'), '/documentation'], to: '/' },
+  // No V2 page covers V1's "Max Number of Processes" setting, so it goes home.
+  { from: [v1('index_md'), '/documentation', v1('multiprocessing')], to: '/' },
 
   // Getting started
   { from: v1('getting-started-index'), to: '/start/' },
@@ -44,7 +45,6 @@ module.exports = [
   { from: v1('bug-report'), to: '/guides/report-a-bug' },
 
   // Build
-  { from: v1('multiprocessing'), to: '/build/backend' },
   { from: v1('contributing-index'), to: '/build/contributing' },
   { from: v1('python-code-style-guide'), to: '/build/code-style' },
   { from: v1('updating-documentation'), to: '/build/writing-docs' },
