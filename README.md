@@ -104,6 +104,28 @@ Needs on the repo: secret `DOCS_SSH_KEY` (the private key) and variable
 `DOCS_SSH_KNOWN_HOSTS` (the server's pinned host key). The pre-cutover checklist
 is in [DEPLOY-PLAN.md](DEPLOY-PLAN.md).
 
+## Screenshots
+
+Shot list: [SCREENSHOT-PLAN.md](SCREENSHOT-PLAN.md). Process every capture through
+the script so they all get the same crop, size and compression:
+
+```bash
+npm run shot -- raw.png --page docs/tutorials/single-camera.md --id record-controls \
+  --crop 0,700,480,350 --app 2.0.0-alpha.25 --os macOS --theme dark
+```
+
+That writes `docs/tutorials/img/record-controls.webp` (1600 px wide at most) and
+records it in `data/media-manifest.json`. Then use it in the page:
+
+```mdx
+import shot from './img/record-controls.webp';
+
+<Screenshot src={shot} alt="What the reader should see" caption="Optional" version="2.0.0-alpha.25" />
+```
+
+Images sit next to their page so a frozen version keeps its own screenshots.
+Clicking an image zooms it. Never commit the raw originals.
+
 ## Known issues
 
 1. **V2's data model is still stabilizing during alpha.** 18 pages, including

@@ -1,6 +1,6 @@
 # Screenshot plan
 
-Shot list for the V2 UI screenshots. Not published: this file sits outside the folders the docs site builds from. Nothing here is implemented yet. The folder convention, image script, `<Screenshot>` component and zoom plugin are the next step.
+Shot list for the V2 UI screenshots. Not published: this file sits outside the folders the docs site builds from. The image script, `<Screenshot>` component and zoom plugin are in place (see the README's Screenshots section). No shots have been captured yet.
 
 Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tells the reader to click.
 

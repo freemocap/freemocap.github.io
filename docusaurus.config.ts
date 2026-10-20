@@ -70,6 +70,8 @@ const config: Config = {
   markdown: { mermaid: true, hooks: { onBrokenMarkdownLinks: 'throw' } },
   themes: [
     '@docusaurus/theme-mermaid',
+    // Click-to-zoom on screenshots (medium-zoom). Settings under themeConfig.zoom.
+    'docusaurus-plugin-image-zoom',
     [
       // Local Lunr index, built at compile time. No external service, works
       // offline and on localhost. Swap for Algolia DocSearch if/when the
@@ -246,6 +248,11 @@ const config: Config = {
     // moving from Tutorials to How-to (or between tutorial tiers) doesn't
     // leave every previously-visited section expanded at once.
     docs: { sidebar: { autoCollapseCategories: true } },
+    // Screenshots of the app are dense; zoom makes their text readable.
+    zoom: {
+      selector: '.markdown img:not(.no-zoom)',
+      background: { light: 'rgba(255, 255, 255, 0.92)', dark: 'rgba(16, 14, 32, 0.92)' },
+    },
     navbar: {
       title: 'FreeMoCap',
       logo: { alt: 'FreeMoCap', src: 'img/logos/skelly-docs-site-logo.png' },

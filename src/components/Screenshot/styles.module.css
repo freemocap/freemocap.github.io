@@ -1,0 +1,25 @@
+.figure {
+  margin: 1.5rem 0;
+}
+
+/* A dark app window on a light page needs an edge; on a dark page it is
+   harmless. Neutral grey so it works in both color modes. */
+.image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  border-radius: 6px;
+}
+
+.caption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.version {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}

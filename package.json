@@ -13,7 +13,8 @@
     "clear": "docusaurus clear",
     "typecheck": "tsc",
     "lint:prose": "vale docs concepts build-docs stub-docs",
-    "docusaurus": "docusaurus"
+    "docusaurus": "docusaurus",
+    "shot": "node scripts/process-screenshots.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.0",
@@ -36,7 +37,9 @@
     "@docusaurus/module-type-aliases": "^3.10.0",
     "@docusaurus/tsconfig": "^3.10.0",
     "@docusaurus/types": "^3.10.0",
+    "docusaurus-plugin-image-zoom": "^3.0.1",
     "js-yaml": "^4.1.0",
+    "sharp": "^0.35.5",
     "typescript": "~5.6.2"
   },
   "engines": {
