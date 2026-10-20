@@ -32,7 +32,7 @@ jobs:
       - name: Lint prose
         uses: errata-ai/vale-action@reviewdog
         with:
-          files: docs concepts build-docs
+          files: '["docs", "concepts", "build-docs", "stub-docs"]'
           fail_on_error: false # raise to true once the corpus is clean
           reporter: github-pr-check
 
@@ -64,17 +64,46 @@ jobs:
           name: site
           path: build
 
-      # Same server as freemocap_dot_org (Plesk, one box hosting both
-      # subscriptions), but its own FTP user scoped to the docs.freemocap.org
-      # subdomain's document root, so this account has no reach into the
-      # main site's files. That user's home directory is already the
-      # subdomain root, so server-dir is just "/".
+      # Deploys by rsync over SSH, not FTP: the FTP data channel to this host
+      # times out partway through (per-file passive connections). The key is
+      # locked server-side with `restrict,command="rrsync <docs docroot>"` in
+      # authorized_keys, so even though the SSH user also owns the main
+      # freemocap.org site, this key can only read/write inside the
+      # docs.freemocap.org folder. Every path below is relative to that folder.
+      # Needs: secret DOCS_SSH_KEY (private key), variable DOCS_SSH_KNOWN_HOSTS
+      # (the server's host key line, pinned so the connection is verified).
+      - name: Set up SSH
+        env:
+          DOCS_SSH_KEY: ${{ secrets.DOCS_SSH_KEY }}
+          KNOWN_HOSTS: ${{ vars.DOCS_SSH_KNOWN_HOSTS }}
+        run: |
+          test -n "$DOCS_SSH_KEY" || { echo "DOCS_SSH_KEY secret is not set"; exit 1; }
+          test -n "$KNOWN_HOSTS" || { echo "DOCS_SSH_KNOWN_HOSTS variable is not set"; exit 1; }
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DOCS_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      # Dry run first: shows exactly what would change, and aborts the job if
+      # the sync would delete more than 50 files (a sign something is wrong).
+      - name: Dry run
+        run: |
+          rsync -rlt --dry-run --itemize-changes --delete-after --max-delete=50 \
+            --exclude='.well-known' --exclude='.htaccess' \
+            --exclude='.php-ini' --exclude='.php-version' \
+            --exclude='cgi-bin' --exclude='error_docs' \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
+            build/ freemocap.org_vdxo8zsw0f@198.71.57.235:./
+
+      # Skipped while the repo variable DOCS_DEPLOY_DRY_RUN is 'true', so the
+      # first run can show the dry-run listing without changing the server.
       - name: Deploy to docs.freemocap.org
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: 198.71.57.235
-          protocol: ftps
-          username: ${{ secrets.DOCS_FTP_USERNAME }}
-          password: ${{ secrets.DOCS_FTP_PASSWORD }}
-          local-dir: build/
-          server-dir: /
+        if: vars.DOCS_DEPLOY_DRY_RUN != 'true'
+        run: |
+          rsync -rlt --itemize-changes --delete-after --max-delete=50 \
+            --chmod=D755,F644 \
+            --exclude='.well-known' --exclude='.htaccess' \
+            --exclude='.php-ini' --exclude='.php-version' \
+            --exclude='cgi-bin' --exclude='error_docs' \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
+            build/ freemocap.org_vdxo8zsw0f@198.71.57.235:./
