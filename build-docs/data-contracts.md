@@ -18,8 +18,8 @@ import DataContractsTable from '@site/src/components/DataContractsTable';
 
 # Data contracts between components
 
-The reference table for what [the polyrepo map](/build/the-map) draws as a
-diagram: every repo that produces or consumes a named data artifact, what
+This is the reference table for what [the polyrepo map](/build/the-map) draws as a
+diagram. It lists every repo that produces or consumes a named data artifact, what
 that artifact is called, and (computed, not hand-entered) which repo
 actually consumes each thing that gets produced.
 

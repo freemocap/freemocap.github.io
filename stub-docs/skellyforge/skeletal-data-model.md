@@ -19,7 +19,7 @@ Defined in `skellymodels/`.
 
 Six YAML files describe marker layouts, parsed by `ModelInfo` (`tracking_model_info.py`). Each defines a `name`, a `tracker_name`, an aspect `order`, and per-aspect blocks listing `tracked_points` (explicit names, or a `generated` convention/count pattern for dense regions like faces), optional `virtual_marker_definitions` (weighted sums of real markers), `segment_connections` (proximal/distal pairs), Winter-anthropometry `center_of_mass_definitions`, `bone_length_ratios`, and a `joint_hierarchy`.
 
-| Config | Contents |
+| File | Contents |
 |---|---|
 | `mediapipe_model_info.yaml` | body (33 landmarks + head/neck/trunk/hips_center virtual markers), both hands (21 points each, full finger segment map), face (136 generated `face_NNNN` contour points) |
 | `rtmpose_model_info.yaml` | body (23 COCO-wholebody points + the four computed centers), face (68 generated), hands (21 points each, `hand_root`, `thumb1`, and more) |

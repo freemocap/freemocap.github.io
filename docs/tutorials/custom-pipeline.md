@@ -24,7 +24,7 @@ where to extend either one.
 | | realtime | posthoc |
 |---|---|---|
 | Source | Live camera feeds | Video files already on disk |
-| Priority | Low latency: the latest frame, dropping stale ones if it falls behind | Accuracy: every frame, in order, nothing dropped |
+| Priority | Low latency: the latest frame, dropping stale ones if it falls behind | Accuracy: all frames, in order, nothing dropped |
 | Runs for | As long as the cameras are active | Until the video ends, then stops |
 | Sees | Only the current frame | The whole recording at once |
 | Output | Streamed to the frontend live | Written to disk, for playback afterward |

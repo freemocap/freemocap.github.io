@@ -19,7 +19,7 @@ draft: false
 
 Runtime dependencies are just `handlebars` and `prompts` (both used only by the CLI). Everything Docusaurus-related is a peer dependency: `@docusaurus/core`, `@docusaurus/preset-classic`, `@docusaurus/theme-mermaid`, `@mdx-js/react`, `prism-react-renderer`, and React 18 or 19. Building it requires Node >= 24.
 
-Version note: this site's lock file installs 0.3.10. The latest version on npm is 0.3.16, and `main` is at 0.3.17, which isn't published yet.
+**Version note.** This site's lock file installs 0.3.10. The latest version on npm is 0.3.16, and `main` is at 0.3.17, which isn't published yet.
 
 ## At a glance
 

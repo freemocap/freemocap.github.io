@@ -20,8 +20,10 @@ exceptions:
   - 3D
   - Azure
   - Backend
+  - .blend
   - BVH
   - CLI
+  - CSS
   - Cosmos
   - Docker
   - Emmet

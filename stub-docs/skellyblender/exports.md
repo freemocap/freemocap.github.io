@@ -13,7 +13,7 @@ draft: false
 
 # Exports
 
-## .blend
+## `.blend`
 
 Always written by the automatic pipeline and by a manual Load Data run, saved as `<recording_name>.blend` in the recording folder, the same convention as an app-driven session.
 

@@ -11,7 +11,7 @@ history:
     against: "freemocap_blender_addon source read directly (package v2026.04.1041); integration verified against the FreeMoCap clone (the core Blender export module)"
 ---
 
-# The Load Data pipeline
+# The load-data pipeline
 
 The **Load FreeMoCap Data** panel has three controls: **Clear Scene**, a recording path, and **Load Data**. After loading, a **Scope Data Parent** dropdown appears; multiple recordings can be loaded into one scene and later operators act on whichever data parent is scoped.
 

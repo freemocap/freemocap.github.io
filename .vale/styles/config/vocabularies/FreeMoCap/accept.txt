@@ -264,3 +264,9 @@ Auto Process Mocap
 Continue to Mocap Setup
 Process Mocap
 Import \.toml file
+COCO's
+fcurves
+msgspec
+POSTs
+redirectable
+unnormalized

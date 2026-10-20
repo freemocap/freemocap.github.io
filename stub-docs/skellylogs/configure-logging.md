@@ -25,7 +25,7 @@ def configure_logging(
 
 | Parameter | Default | Behavior |
 |---|---|---|
-| `level` | required | Minimum level for the console and websocket handlers. The file handler is configured at `TRACE`, but records must also pass the root logger (which is set to `level`), so in practice nothing below `level` reaches the file either. The `TRACE` file-handler setting only differs from `level` when `level` itself is below `TRACE` (e.g. `LogLevels.ALL`). |
+| `level` | required | Minimum level for the console and websocket handlers. The file handler is configured at `TRACE`, but records must also pass the root logger (which is set to `level`), so in practice nothing below `level` reaches the file either. The `TRACE` file-handler setting only differs from `level` when `level` itself is below `TRACE` (for example `LogLevels.ALL`). |
 | `ws_queue` | `None` | Queue for websocket distribution. If `None` **and** running in the main process, a new queue is created and an `atexit` cleanup hook is registered. If `None` in a **child** process, `configure_logging` returns before configuring any handlers (package suppression and custom level registration still run). The child should instead receive the parent's queue and pass it here. |
 | `log_file_path` | `None` | Log file location. `None` means the default path, `~/skellylogs_data/logs/<iso8601 timestamp>.log` (redirectable via the `SKELLYLOGS_LOG_DIR` environment variable). |
 | `suppress_packages` | `DEFAULT_NOISY_PACKAGES` | Map of `{logger_name: level}` applied via `setLevel`. Pass `{}` to suppress nothing. |

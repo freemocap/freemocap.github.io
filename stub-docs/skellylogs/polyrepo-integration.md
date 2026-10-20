@@ -17,7 +17,7 @@ history:
 
 - Declares `skellylogs` as a dependency in `pyproject.toml`, sourced from `git+https://github.com/freemocap/skellylogs`; both `freemocap` and `skellycam` lockfiles pin the same commit (`9114990350d7fb36747526286671c17abd7e523e`).
 - `freemocap/__init__.py` and `freemocap/core/__init__.py` both run `configure_logging(LogLevels.TRACE)` at import time, making `TRACE` the effective global verbosity for the whole app.
-- `core/pipeline/abcs/pipeline_ipc.py`: every realtime pipeline's `PipelineIPC.create()` sets the dataclass's `ws_queue` field to `get_websocket_log_queue()`, so all pipeline child processes inherit the shared log queue and their records reach the frontend alongside the main process's.
+- `core/pipeline/abcs/pipeline_ipc.py`. Every realtime pipeline's `PipelineIPC.create()` sets the dataclass's `ws_queue` field to `get_websocket_log_queue()`, so all pipeline child processes inherit the shared log queue and their records reach the frontend alongside the main process's.
 - `api/websocket/websocket_server.py`: the server's `_logs_relay` asyncio task is the consumer described preceding, it drains the queue with `get_nowait()`, drops records below `MIN_LOG_LEVEL_FOR_WEBSOCKET` (its default `ws_log_level`), tolerates `EOFError`/`OSError` from partial pickles left by dying child processes, and sends each dict to the client as JSON via its reusable msgspec encoder. App code leans on the custom levels throughout (`logger.api(...)` for route registration and lifecycle events, `logger.trace(...)` for per-frame backpressure chatter, `logger.success(...)` on startup/shutdown).
 - `app/app.py` reports the installed `skellylogs` version in the startup "System info" log banner next to the other Skelly packages.
 
