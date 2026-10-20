@@ -60,7 +60,7 @@ If a suitable stretch of frames is found, the board detections in it are average
 Ground plane calibration redefines the world coordinate system using the orientation of the **ChArUco board**. The known board geometry (each corner's position on the board, in millimeters) is rigidly fitted to the triangulated corner positions using a Kabsch (orthogonal Procrustes) fit over all well-observed corners, rather than relying on specific individual markers:
 
 - The origin `(0, 0, 0)` is set to **corner 0** of the ChArUco board (the location of marker 0 on a 7x5 and 5x3 board is shown in the figure below)
-- The **X** and **Y** axes come from the fitted board pose itself: X runs along the board edge in the `squares_x` direction and Y along the edge in the `squares_y` direction, so they always follow the printed board regardless of which corners happened to be visible
+- The **X** and **Y** axes come from the fitted board pose itself. X runs along the board edge in the `squares_x` direction and Y along the edge in the `squares_y` direction, so they always follow the printed board regardless of which corners happened to be visible
 - The **Z** axis is the board's normal vector, oriented to point toward the cameras (and therefore up out of the floor)
 
 ![image](/img/v1/charuco_as_groundplane.png)
@@ -73,14 +73,14 @@ in looking at the data viewer in the FreeMoCap GUI - as you can see in the examp
 
 ![groundplane_oriented_data.png](/img/v1/groundplane_oriented_data.png)
 
-The output calibration TOML also records whether a ground plane calibration succeeded: when it did, a `groundplane_applied = true` entry is written in the `[metadata]` section of the file.
+The output calibration TOML also records whether a ground plane calibration succeeded. When it did, a `groundplane_applied = true` entry is written in the `[metadata]` section of the file.
 
 ## Possible errors
 If the ground plane calibration fails, the software **instead uses the default calibration** (the failure is logged as a warning, and calibration completes without the ground plane alignment). There are a couple of 
 known reasons this may happen.
 
 #### 1. `CharucoStabilityError`
-This error is raised when no contiguous run of frames stays still enough to define the ground plane: either no run of frames remained below the 2 mm/frame motion threshold at all, or the longest stable run was shorter than the minimum of 10 frames. Double-check and 
+This error is raised when no contiguous run of frames stays still enough to define the ground plane. Either no run of frames remained below the 2 mm/frame motion threshold at all, or the longest stable run was shorter than the minimum of 10 frames. Double-check and 
 make sure the board was completely flat and still for the first few seconds of the recording.
 
 #### 2. `CharucoVisibilityError`

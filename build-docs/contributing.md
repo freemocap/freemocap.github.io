@@ -31,7 +31,7 @@ Contributing code to FreeMoCap means creating and submitting pull requests. This
 
 ### Development process
 
-FreeMoCap follows [GitHub Flow](https://docs.github.com/en/get-started/quickstart/github-flow): fork the repo, branch from `main`, and open a pull request when the change is ready for review.
+FreeMoCap follows [GitHub Flow](https://docs.github.com/en/get-started/quickstart/github-flow). Fork the repo, branch from `main`, and open a pull request when the change is ready for review.
 
 ### Pull requests
 
@@ -60,7 +60,7 @@ Here's a nice introduction to [testing in Python](https://realpython.com/python-
 
 ## Contributing to documentation
 
-The repository's own documentation lives in the `freemocap-docs/` directory of the [FreeMoCap repo](https://github.com/freemocap/freemocap) and is written with [Docusaurus](https://docusaurus.io/). It can be edited with any markdown editor, and follows the same GitHub Flow process as code contributions: open a pull request against the FreeMoCap repo.
+The repository's own documentation lives in the `freemocap-docs/` directory of the [FreeMoCap repo](https://github.com/freemocap/freemocap) and is written with [Docusaurus](https://docusaurus.io/). It can be edited with any markdown editor, and follows the same GitHub Flow process as code contributions. Open a pull request against the FreeMoCap repo.
 
 ## Getting help and asking questions
 

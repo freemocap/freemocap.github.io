@@ -67,7 +67,7 @@ floor at `Z = 0`. Walk through it in
 
 **Default calibration** skips the board-on-floor step and pins the world frame to
 camera 0's own point of view instead. It's still a valid, internally consistent
-coordinate system, but it has no relationship to gravity: reconstructed subjects
+coordinate system, but it has no relationship to gravity. Reconstructed subjects
 typically come out lying on their side rather than standing. See
 [Coordinate systems and units](/concepts/coordinate-systems) for what that means for
 the data you get back.

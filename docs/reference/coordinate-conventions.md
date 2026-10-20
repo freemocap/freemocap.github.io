@@ -50,7 +50,7 @@ skip it. Ground-plane calibration remains the reliable way to get a physically m
 
 ## Segment and rotation data
 
-As of this version, FreeMoCap's skeleton output is positions, not orientations: each frame stores
+As of this version, FreeMoCap's skeleton output is positions, not orientations. Each frame stores
 3D millimetre coordinates for the tracked keypoints and virtual markers (see
 [output arrays](/reference/data-arrays)), plus derived quantities such as center of mass. No
 per-segment or per-joint rotation track (Euler or quaternion) is computed or saved by the pipeline,

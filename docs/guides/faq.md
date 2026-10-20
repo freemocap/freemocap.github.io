@@ -45,7 +45,7 @@ See [calibrate your cameras](/tutorials/calibrate).
 
 ## Do black-and-white or infrared cameras work?
 
-Untested. If the camera works with FreeMoCap, check the live tracking view early: if the skeleton
+Untested. If the camera works with FreeMoCap, check the live tracking view early. If the skeleton
 shows up reliably in every camera, you're fine.
 
 ## Can I export to glTF or GLB?

@@ -45,7 +45,7 @@ Calibration errors appear in the app and in the log files in `skellylogs_data/lo
 folder.
 
 ### `No valid calibration points for camera N (need >= 7)`
-A camera barely saw the board. Check that it can see the board clearly: try a bigger board, less
+A camera barely saw the board. Check that it can see the board clearly. Try a bigger board, less
 glare, or bringing the board closer.
 
 ### `Expected N pairs, got M. Graph may be disconnected!`

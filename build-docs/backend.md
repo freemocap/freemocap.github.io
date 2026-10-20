@@ -30,7 +30,7 @@ assumes that context.
 ## Pub/sub: how pipeline nodes talk to each other
 
 Pipeline nodes run in separate `multiprocessing` child processes and need to
-communicate without coupling their lifetimes together: camera nodes send
+communicate without coupling their lifetimes together. Camera nodes send
 observations to the aggregator, the aggregator asks for the next frame,
 config changes need to reach every worker. `freemocap/pubsub/` (
 `pubsub_abcs.py`, `pubsub_manager.py`, `pubsub_relay.py`, `pubsub_topics.py`)

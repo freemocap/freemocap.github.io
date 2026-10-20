@@ -39,7 +39,7 @@ are aspirational labels rather than identifiers that appear anywhere in code,
 and FreeMoCap's own row understates things. Specifically:
 
 - `synchronized_frame_packages` does not exist as an identifier in any cloned
-  repo. The real handoff out of SkellyCam is shared memory: pipeline nodes
+  repo. The real handoff out of SkellyCam is shared memory. Pipeline nodes
   read frames from each camera's `CameraSharedMemoryRingBuffer`, plus the
   recorded video files SkellyCam writes to disk. The direction of the arrow
   (SkellyCam feeding SkellyTracker) is right even where the name is not.

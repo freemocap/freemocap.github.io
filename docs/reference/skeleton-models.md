@@ -30,12 +30,12 @@ live. They serve different purposes:
    biomechanically annotated output data. This is what names the columns
    of your output arrays and parquet.
 
-They use the same body point names but are not interchangeable: the
+They use the same body point names but are not interchangeable. The
 RTMPose aspect orders differ between them, and the two MediaPipe face
 representations carry the same count with different point identities.
 Those mismatches are flagged in detail below. The old plan that this
 page would be generated purely from
-`skellyforge/skellymodels/tracker_info/*.yaml` was half right: that is
+`skellyforge/skellymodels/tracker_info/*.yaml` was half right. That is
 the source for output-file columns, not for the frontend schema.
 
 ## System 1: `TrackerDefinition` (the frontend schema)
@@ -166,7 +166,7 @@ Two things to know before indexing RTMPose output beyond the body:
    like `{tracker}_skeleton_3d.npy` or the parquet. Verify against a
    recording you trust rather than trusting the labels.
 2. Face point counts agree with the frontend schema for RTMPose (68 =
-   68), but MediaPipe's do not line up in identity: the model-info config
+   68), but MediaPipe's do not line up in identity. The model-info config
    generates a contiguous `face_0000`-`face_0135` while the detector
    emits 136 sparse mesh indices (`face_0000`, `face_0007`,
    `face_0477`, and more). Same width, different meaning per column.

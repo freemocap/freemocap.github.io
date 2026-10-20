@@ -15,7 +15,7 @@ history:
 
 # Process many recordings at once
 
-FreeMoCap can't process several recordings in one go yet. Process each one on its own: open it in
+FreeMoCap can't process several recordings in one go yet. Process each one on its own. Open it in
 the **Playback** tab, click **Continue to Mocap Setup**, then **Process Mocap**.
 
 If you're comfortable with scripting, you can loop over your recordings yourself and send each one

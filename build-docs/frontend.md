@@ -54,7 +54,7 @@ causes real bugs, not just style complaints:
 | React Context | State shared by one subtree (playback, auto-update) | Avoids prop drilling without going global |
 | `useRef` | Data that changes at frame rate: camera frames, keypoints, skeleton frames, overlay data | Refs don't trigger re-renders; putting 60fps data in Redux would re-render every subscribed component 60 times a second |
 
-`ServerContextProvider` is where this rule matters most: streaming data lives
+`ServerContextProvider` is where this rule matters most. Streaming data lives
 in refs and reaches consumers through a subscription pattern
 (`subscribeToKeypoints`, `subscribeToSkeleton`, `subscribeToCenterOfMass`,
 `subscribeToXcom`, `subscribeToBodyKinematics`) rather than Redux dispatch,

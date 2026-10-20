@@ -45,7 +45,7 @@ Open **Mocap Settings** and find **Butterworth Low-Pass Filter**:
 For recordings made in FreeMoCap, the sampling rate is set automatically from the recording. For
 imported videos, set it to your videos' frame rate yourself.
 
-To apply new settings to an existing recording, process it again: open it in the **Playback** tab,
+To apply new settings to an existing recording, process it again. Open it in the **Playback** tab,
 click **Continue to Mocap Setup**, then **Process Mocap**.
 
 ## Next steps

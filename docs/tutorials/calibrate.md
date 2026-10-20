@@ -19,7 +19,7 @@ A single camera doesn't need calibration.
 
 ## 1. Print a ChArUco board
 
-FreeMoCap works with two boards. Use the **5x3** board unless you have a reason not to: its
+FreeMoCap works with two boards. Use the **5x3** board unless you have a reason not to. Its
 squares print larger, so cameras can see it from farther away.
 
 <!-- vale Google.Colons = NO -->

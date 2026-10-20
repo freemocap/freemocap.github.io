@@ -14,7 +14,7 @@ history:
 # Command line interface
 
 The `freemocap` package ships exactly one installed command and one runnable diagnostic
-module. There is no general-purpose argument parser: the main entry point takes
+module. There is no general-purpose argument parser. The main entry point takes
 no options at all, because the desktop (Electron) app is the intended
 user interface and the command exists to start the backend server.
 

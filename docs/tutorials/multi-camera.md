@@ -72,7 +72,7 @@ along the path, is at least two cameras seeing them at once.
 
 Camera positioning is genuinely task-dependent, and the guidance preceding
 comes from validated setups (treadmill gait, overground gait, a stationary
-rowing machine), not from an underlying formula. Expect to iterate: record
+rowing machine), not from an underlying formula. Expect to iterate. Record
 a test clip, check whether reconstruction quality holds up across the
 movement you actually care about, and adjust from there.
 

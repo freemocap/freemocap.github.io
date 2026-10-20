@@ -32,7 +32,7 @@ The single environment variable the Python backend reads is defined in
 
 This variable is the single point where the base folder is resolved; every other
 data path derives from it (recordings go in `<base>/recordings`, calibrations in
-`<base>/calibrations`). Logs are the exception: SkellyLogs always writes them to
+`<base>/calibrations`). Logs are the exception. SkellyLogs always writes them to
 `~/skellylogs_data/logs`, whatever the base folder.
 
 Who sets it: the Electron shell passes the user-chosen data folder to the Python
@@ -96,7 +96,7 @@ Its schema:
 { "baseDataFolder": "/Users/me/Documents/mocap-data" }
 ```
 
-Setting the key relocates the data folder via `FREEMOCAP_BASE_FOLDER`: electron
+Setting the key relocates the data folder via `FREEMOCAP_BASE_FOLDER`. Electron
 persists it, then restarts the Python server it owns so the change takes effect
 immediately (when the server is running standalone and Electron does not own
 it, the change applies at its next start instead). Removing the key reverts to

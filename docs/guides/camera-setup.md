@@ -62,7 +62,7 @@ software before recording.
 
 ## Synchronization
 
-FreeMoCap keeps the cameras in step in software: every camera captures the same number of frames,
+FreeMoCap keeps the cameras in step in software. Every camera captures the same number of frames,
 and each frame gets a timestamp. For the best sync, use cameras with a steady frame rate and keep
 recordings under about 30 minutes.
 

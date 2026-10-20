@@ -119,13 +119,13 @@ PosthocAggregatorNode
 Files on disk → served over REST for playback
 ```
 
-The two pipeline types trade the same thing in opposite directions: realtime
-drops frames under load to stay live, posthoc never drops a frame because
-nothing is live, the video already happened. Calibration and mocap are both
+The two pipeline types trade the same thing in opposite directions. The realtime
+pipeline drops frames under load to stay live, while the posthoc pipeline never drops a frame because
+nothing is live and the video already happened. Calibration and mocap are both
 posthoc tasks that share this machinery; they differ only in which task
 function the aggregator runs and what it writes out.
 
-The posthoc mocap task specifically (`run_posthoc_mocap_aggregator_task`): collects
+The posthoc mocap task specifically (`run_posthoc_mocap_aggregator_task`) collects
 each camera's per-frame observations into an `ObservationBuffer`, resolves
 which calibration file to use (an explicit path if given, otherwise the most
 recent successful calibration, copied into the recording folder), triangulates

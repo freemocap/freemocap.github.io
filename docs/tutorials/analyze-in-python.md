@@ -60,7 +60,7 @@ ax.set_ylabel("Z position (mm)")
 plt.show()
 ```
 
-Remember [the coordinate system](/concepts/coordinate-systems): data is
+Remember [the coordinate system](/concepts/coordinate-systems). Data is
 in millimetres, with +Z as up, if your ground-plane calibration set a
 Z-up frame in the first place.
 

@@ -15,7 +15,7 @@ history:
 
 # Process a recording after the fact
 
-You can run motion capture on videos you already have: either a FreeMoCap recording you want to
+You can run motion capture on videos you already have, either a FreeMoCap recording you want to
 process again, or videos from your own cameras.
 
 ## Bring in your own videos

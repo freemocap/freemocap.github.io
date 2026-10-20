@@ -56,7 +56,7 @@ code reads either location.
 
 Every 3D array in a recording is `(num_frames, num_markers, 3)` float64,
 xyz in millimetres ([coordinate conventions](/reference/coordinate-conventions)).
-`Trajectory` validates this at construction: the second dimension must
+`Trajectory` validates this at construction. The second dimension must
 equal the number of supplied marker names, and the last dimension must be
 exactly 3. Marker order is fixed by the tracker's model config; index
 into arrays by name wherever possible, because appended markers (below)
@@ -81,7 +81,7 @@ marker per trajectory per frame:
 | `reprojection_error` | Per-frame, per-marker error; see the caveat below |
 
 Rows are sorted by `frame`, then `model`, then `trajectory`. Which
-trajectories appear depends on the region: the body aspect gets all four
+trajectories appear depends on the region. The body aspect gets all four
 (triangulated, rigid-bones-enforced, total-body CoM, per-segment CoM),
 while hands and face get `3d_xyz` only, because their configs define no
 joint hierarchy or center-of-mass parameters.

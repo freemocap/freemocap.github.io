@@ -17,7 +17,7 @@ Start small and simple. You can add more once the basics work.
 
 ## Lighting conditions
 
-Lighting is crucial for a camera-based system like FreeMoCap. For best results, use bright environments, such as near open windows during the day. Be cautious: environments that look bright to the eye can register as quite dim to a camera sensor (human eyes are exceptionally good at adapting to different lighting conditions).
+Lighting is crucial for a camera-based system like FreeMoCap. For best results, use bright environments, such as near open windows during the day. Be cautious. Environments that look bright to the eye can register as quite dim to a camera sensor (human eyes are exceptionally good at adapting to different lighting conditions).
 
 A short exposure time means the camera's (digital) shutter stays open for less time on each recorded frame. That gives the subject less time to move during the exposure, reducing motion blur and making it easier to identify the subject's joints in each frame.
 
@@ -34,9 +34,9 @@ Cameras on Linux always use automatic exposure.
 
 A solid-colored backdrop is not strictly necessary, but using one can improve the quality of recordings. Covering complex visual textures in the camera's field of view makes tracking the human in the scene easier, leading to better outcomes. Start with a simple setup first, and add complexity once you've established that the simple version works.
 
-Visual contrast between the subject and the background helps the subject stand out in recordings. Example: wear dark clothing against a light background.
+Visual contrast between the subject and the background helps the subject stand out in recordings. For example, wear dark clothing against a light background.
 
-Similarly, it is better for subjects to wear tight-fitting clothes that expose joints like elbows and knees. While not strictly necessary, it leads to better quality recordings. Consider the machine's perspective: if the subject is wearing baggy pants and the software is asked to identify the knee, it struggles. It may produce an estimate close to the correct position, but tracking the knee is easier if it is visible or if the subject is wearing tight-fitting pants.
+Similarly, it is better for subjects to wear tight-fitting clothes that expose joints like elbows and knees. While not strictly necessary, it leads to better quality recordings. Consider the machine's perspective. If the subject is wearing baggy pants and the software is asked to identify the knee, it struggles. It may produce an estimate close to the correct position, but tracking the knee is easier if it is visible or if the subject is wearing tight-fitting pants.
 
 ## Camera placement and configuration
 

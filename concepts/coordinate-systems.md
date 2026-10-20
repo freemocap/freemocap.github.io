@@ -32,7 +32,7 @@ robotics tooling and much of 3D and biomechanics software, and it is also Blende
 world orientation. It is deliberately not the left-handed, +Y-up convention that some game engines
 default to.
 
-Right-handed means the three axes follow the right-hand rule: point your right hand's fingers along
+Right-handed means the three axes follow the right-hand rule. Point your right hand's fingers along
 +X and curl them toward +Y, and your thumb points along +Z. That relationship between the axes is
 fixed, independent of which way the scene happens to be facing.
 
@@ -68,7 +68,7 @@ coordinates for the tracked keypoints, the virtual markers appended to them, and
 quantities such as center of mass. No per-segment or per-joint rotation track is computed or
 saved by the pipeline today, so there is no anatomical segment frame to document here yet.
 
-The rotations FreeMoCap does carry belong to the cameras, not to body segments: camera
+The rotations FreeMoCap does carry belong to the cameras, not to body segments. Camera
 orientations are held as quaternions in memory (scalar-first `w, x, y, z`) and stored as Rodrigues
 rotation vectors in the saved calibration TOML. If you need joint rotations, the [Blender export](/tutorials/blender) builds a rigged skeleton
 and saves it as FBX and BVH files, which carry rotations. See

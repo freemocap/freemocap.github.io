@@ -37,7 +37,7 @@ to build and tune.
 ## The shift to learned models
 
 That changed with deep learning-based pose estimation. DeepPose, released in 2014, and
-OpenPose, released in 2017, marked the transition: instead of hand-built geometric
+OpenPose, released in 2017, marked the transition. Instead of hand-built geometric
 models, a neural network learns to infer joint locations directly from an image. Deep
 learning quickly became the dominant approach, and it's what every actively developed
 markerless system, FreeMoCap included, is built on today.
