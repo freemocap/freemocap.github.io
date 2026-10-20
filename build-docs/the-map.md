@@ -30,7 +30,7 @@ the site builds. Nobody edits this page directly; edit `repos.yml` instead.
 
 <DataFlowDiagram />
 
-Reading it left to right: each arrow is one named data artifact, produced by
+Reading it left to right, each arrow is one named data artifact, produced by
 the repo on its left and consumed by the repo on its right. A repo with
 nothing pointing into it is a source (nothing upstream in the polyrepo feeds
 it); a repo whose output nothing else consumes is either a terminal output

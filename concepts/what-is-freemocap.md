@@ -54,7 +54,7 @@ FreeMoCap covers the complete pipeline from raw video to usable data:
 - **Pose estimation**, detecting joint positions in each 2D video frame
 - **3D reconstruction**, triangulating those 2D detections into a 3D skeleton over time
 
-The architecture is modular by design: you can swap which pose estimation
+The architecture is modular by design. You can swap which pose estimation
 model runs underneath (MediaPipe and RTMPose are built in, and the detector
 registry is designed so further models can be integrated), export into
 Blender for animation, or pull the raw coordinate data into Python for

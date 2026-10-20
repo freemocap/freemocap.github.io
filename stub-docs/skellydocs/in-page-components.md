@@ -34,7 +34,7 @@ A collapsed-by-default `<details>` banner declaring how the page was produced. T
 | `ai-transformatted` | Human provided raw material; AI restructured it (livestream to blog post, meeting notes to docs) |
 | `human-generated` | Page written entirely by a human author |
 
-Optional props: `humanCurated` (adds a checked "curated" badge and review sentence), `generatedAt` and `model` (shown as metadata rows), `humanNotes` (curator notes in an accented block), and `moreInfoUrl` (defaults to the generation-types explainer on the deployed SkellyDocs site; pass an empty string to hide the link). Expanding the banner also reveals a nested overview of all three types with the current one highlighted. Passing `repo` turns the disclaimer into an actionable one: it links to a prefilled documentation-issue template in that repo.
+Optional props: `humanCurated` (adds a checked "curated" badge and review sentence), `generatedAt` and `model` (shown as metadata rows), `humanNotes` (curator notes in an accented block), and `moreInfoUrl` (defaults to the generation-types explainer on the deployed SkellyDocs site; pass an empty string to hide the link). Expanding the banner also reveals a nested overview of all three types with the current one highlighted. Passing `repo` turns the disclaimer into an actionable one. It links to a prefilled documentation-issue template in that repo.
 
 Per its own repo convention (stated in its CLAUDE.md), every `.mdx` page starts with `<AiGeneratedBanner />`.
 

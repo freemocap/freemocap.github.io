@@ -43,7 +43,7 @@ that implements the interface can be used interchangeably, without changing anyt
 downstream. The default backend is RTMPose, a top-down pose estimation model run via
 ONNX Runtime, with a YOLOX person detector locating each subject before its keypoints
 are estimated. MediaPipe remains available as the other skeleton detector, kept for
-practicality: it's lightweight enough to run on a CPU, with no GPU required, and
+practicality. It's lightweight enough to run on a CPU, with no GPU required, and
 simple to install and call from Python.
 
 Because backends are swappable without touching the rest of the pipeline, different

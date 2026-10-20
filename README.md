@@ -65,7 +65,8 @@ npm run lint:prose
 ```
 
 Google's style package plus local rules in `.vale/styles/FreeMoCap`: no dashes,
-project spellings, and a warning on empty assertive adjectives. CI runs Vale on
+project spellings, a warning on empty assertive adjectives, and a warning on
+colons that join two full sentences. CI runs Vale on
 `docs`, `concepts`, `build-docs` and `stub-docs`, non-blocking
 (`fail_on_error: false`). Findings appear as annotations on the run.
 

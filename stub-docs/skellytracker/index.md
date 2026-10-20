@@ -15,7 +15,7 @@ draft: false
 
 # SkellyTracker
 
-SkellyTracker is the single-camera image tracking backend for FreeMoCap: it turns raw images into named 2D keypoints and bounding boxes. It wraps several independent computer-vision tools behind one consistent API built around a **Tracker → Session → Detector** pipeline, implemented in the `skellytracker/core/` package. Part of the FreeMoCap polyrepo's pantheon tier.
+SkellyTracker is the single-camera image tracking backend for FreeMoCap. It turns raw images into named 2D keypoints and bounding boxes. It wraps several independent computer-vision tools behind one consistent API built around a **Tracker → Session → Detector** pipeline, implemented in the `skellytracker/core/` package. Part of the FreeMoCap polyrepo's pantheon tier.
 
 It serves two distinct jobs for the pipeline:
 

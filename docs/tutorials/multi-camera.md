@@ -59,7 +59,7 @@ one side. A few things worth knowing:
 ## Positioning for a moving subject
 
 Overground walking or any recording where the subject covers real
-distance needs a different strategy: instead of framing the subject
+distance needs a different strategy. Instead of framing the subject
 tightly, cover the space they'll move through. One effective pattern uses
 two cameras in portrait orientation at opposite ends of the walkway,
 angled to look down its length, plus several cameras in landscape
