@@ -104,6 +104,8 @@ Needs on the repo: secret `DOCS_SSH_KEY` (the private key) and variable
 `DOCS_SSH_KNOWN_HOSTS` (the server's pinned host key). The pre-cutover checklist
 is in [DEPLOY-PLAN.md](DEPLOY-PLAN.md).
 
+To look at the test server before it goes live, see [PREVIEW.md](PREVIEW.md).
+
 ## Screenshots
 
 Shot list: [SCREENSHOT-PLAN.md](SCREENSHOT-PLAN.md). Process every capture through
