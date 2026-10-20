@@ -73,6 +73,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: 198.71.57.235
+          protocol: ftps
           username: ${{ secrets.DOCS_FTP_USERNAME }}
           password: ${{ secrets.DOCS_FTP_PASSWORD }}
           local-dir: build/
