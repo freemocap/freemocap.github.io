@@ -29,12 +29,38 @@ jobs:
       - name: Fetch external docs
         run: npm run fetch
 
-      - name: Lint prose
+      # Advisory only. continue-on-error means even if Vale itself cannot start
+      # (usually a transient download error), the build and deploy carry on.
+      - name: Lint prose (advisory, never blocks)
+        id: vale
+        continue-on-error: true
         uses: errata-ai/vale-action@reviewdog
         with:
           files: '["docs", "concepts", "build-docs", "stub-docs"]'
           fail_on_error: false # raise to true once the corpus is clean
           reporter: github-pr-check
+
+      # Plain-language explanation of whatever Vale just did, for anyone who
+      # lands on this log without knowing what Vale is.
+      - name: Explain the prose lint result
+        if: always()
+        env:
+          VALE_OUTCOME: ${{ steps.vale.outcome }}
+        run: |
+          if [ "$VALE_OUTCOME" = "failure" ]; then
+            echo "::warning title=Prose checker could not run. This does NOT block the deploy::Vale is the tool that checks our writing style (commas, spelling, capitalization). It failed to start, most often a temporary download error from GitHub, so no style check happened this time. The site build and deploy are unaffected. To retry, use Re-run failed jobs. To check prose yourself, run npm run lint:prose."
+            result="The prose checker could not start (usually a temporary download error). Nothing is wrong with the docs. Re-run the failed job to retry."
+          else
+            echo "::notice title=Prose style notes are advice, not failures::Vale checks our writing style. Anything it reports appears as a warning on the separate vale check and never fails the build or deploy. To see them yourself, run npm run lint:prose."
+            result="The prose checker ran. Any findings are style advice shown on the separate vale check. They never fail the build or deploy."
+          fi
+          {
+            echo "### Prose lint (Vale)"
+            echo ""
+            echo "$result"
+            echo ""
+            echo "Vale checks writing style only. It cannot break the site, and it is not part of what gets deployed."
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # onBrokenLinks is set to 'throw', so a dead internal link fails here.
       # That is deliberate: it is the mechanical enforcement of "no dead ends".
@@ -47,6 +73,11 @@ jobs:
           path: build/
           retention-days: 7
 
+      - name: Explain a build failure
+        if: failure()
+        run: |
+          echo "::error title=The site did not build. Nothing was deployed::Check the Build step log for the first line containing Error. The usual cause is a broken internal link or a typo in a page header (Docusaurus is set to stop on broken links on purpose). If the failure is in Fetch external docs, a sub-repo docs folder could not be downloaded. Fix it and push again, or re-run the job if it looks like a network blip."
+
   # Merging never deploys by itself. Deploying is a deliberate "Run workflow"
   # click from the Actions tab, or a push to docs-v2 while PREVIEW_DEPLOY is
   # 'true' (pre-merge testing; unset otherwise).
@@ -56,6 +87,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
+      - name: Note that this is a dry run
+        if: vars.DOCS_DEPLOY_DRY_RUN == 'true'
+        run: |
+          echo "::notice title=Dry-run mode is ON, so the real upload is skipped on purpose::The repo variable DOCS_DEPLOY_DRY_RUN is true. This run only lists what would change on the server and changes nothing. Set it to false to do a real deploy."
+
       - uses: actions/download-artifact@v8
         with:
           name: site
@@ -84,6 +120,7 @@ jobs:
       # the sync would delete more than 50 files (a sign something is wrong).
       - name: Dry run
         run: |
+          echo "::notice title=Reading the dry-run list below (nothing is changed in this step)::Each line is a file rsync would change. Lines starting with >f+++ are new files, >f followed by other characters are updated files, and lines starting with *deleting would be removed from the server. If more than 50 would be deleted, the run stops on purpose."
           rsync -rlt --dry-run --itemize-changes --delete-after --max-delete=50 \
             --exclude='.well-known' --exclude='.htaccess' \
             --exclude='.php-ini' --exclude='.php-version' \
@@ -103,3 +140,8 @@ jobs:
             --exclude='cgi-bin' --exclude='error_docs' \
             -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
             build/ freemocap.org_vdxo8zsw0f@198.71.57.235:./
+
+      - name: Explain a deploy failure
+        if: failure()
+        run: |
+          echo "::error title=The upload to the server did not finish::Your changes are safe in GitHub and the build itself was fine. Look at which step failed above. Set up SSH failing means a missing secret DOCS_SSH_KEY or variable DOCS_SSH_KNOWN_HOSTS. Permission denied or a host key error means the key was changed on the server or the server was rebuilt. The Dry run stopping on its own means it would have deleted more than 50 files, so check that the build is complete. A partial upload is harmless. Re-running the job fixes it, because the sync is repeatable."

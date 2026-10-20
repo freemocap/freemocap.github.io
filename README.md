@@ -96,6 +96,10 @@ in `authorized_keys`, so it can only read and write inside the
 `docs.freemocap.org` folder, even though its user also owns the main
 `freemocap.org` site.
 
+Each step explains itself in the run log: the prose linter (Vale) is advisory and
+can never block a deploy, and the build and deploy jobs add a plain-language note
+when they fail or run as a dry run.
+
 Needs on the repo: secret `DOCS_SSH_KEY` (the private key) and variable
 `DOCS_SSH_KNOWN_HOSTS` (the server's pinned host key). The pre-cutover checklist
 is in [DEPLOY-PLAN.md](DEPLOY-PLAN.md).
