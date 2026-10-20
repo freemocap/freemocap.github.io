@@ -62,22 +62,6 @@ There may be more still indexed by search engines or bookmarked that aren't
 linked from the placeholder; this list is only what's provably still in use
 today, not a full crawl.
 
-### Open question, blocking the redirect plan
-
-`freemocap/documentation`'s own `gh-pages` branch looked like the obvious
-source for `/documentation/*`, but its content uses a different, nested URL
-scheme (`getting_started/installation/index.html`) that 404s live. Whatever
-actually serves the flat, kebab-case URLs above is something else: a
-Cloudflare Worker or Pages project, a different repo or branch, or a direct
-deploy to the VPS outside of GitHub entirely. Not identifiable from outside
-the account.
-
-**Needs an answer before DNS moves:** what actually serves `/documentation/*`
-today? That determines whether it silently disappears the moment
-docs.freemocap.org points at the new VPS content (meaning the redirects
-below need to exist before the DNS flip, not after), or whether it lives on
-infrastructure this cutover doesn't touch at all.
-
 ## Redirect mapping (V1 flat URL -> V2 page)
 
 Real 301s via `.htaccess` on the VPS, not a client-side JS redirect plugin:
@@ -99,7 +83,7 @@ against the actual `docs-v2` file tree:
 | `/documentation/contributing-index.html` | `/build/contributing` | exact match |
 
 Three rows need a decision (marked above), the rest are unambiguous. Once
-those are picked and the open question above is answered, this becomes an
+those are picked, this becomes an
 actual `.htaccess` file to add to `static/` so it ships with every build.
 
 ## Cutover sequence
