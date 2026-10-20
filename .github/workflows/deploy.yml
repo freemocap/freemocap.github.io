@@ -122,7 +122,7 @@ jobs:
         run: |
           echo "::notice title=Reading the dry-run list below (nothing is changed in this step)::Each line is a file rsync would change. Lines starting with >f+++ are new files, >f followed by other characters are updated files, and lines starting with *deleting would be removed from the server. If more than 50 would be deleted, the run stops on purpose."
           rsync -rlt --dry-run --itemize-changes --delete-after --max-delete=50 \
-            --exclude='.well-known' --exclude='.htaccess' \
+            --exclude='.well-known' \
             --exclude='.php-ini' --exclude='.php-version' \
             --exclude='cgi-bin' --exclude='error_docs' \
             -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
@@ -135,7 +135,7 @@ jobs:
         run: |
           rsync -rlt --itemize-changes --delete-after --max-delete=50 \
             --chmod=D755,F644 \
-            --exclude='.well-known' --exclude='.htaccess' \
+            --exclude='.well-known' \
             --exclude='.php-ini' --exclude='.php-version' \
             --exclude='cgi-bin' --exclude='error_docs' \
             -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \

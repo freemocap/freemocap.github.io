@@ -8,8 +8,8 @@
  * are running old software.
  *
  * The legacy site served Writerside HTML at /documentation/<slug>.html. The
- * .html suffix is handled here and duplicated in the nginx config so it works
- * even before the SPA loads.
+ * .html suffix is handled here, and the ten most-linked pages are also real
+ * 301s in static/.htaccess so they work without JavaScript. Keep the two in sync.
  */
 
 const v1 = (slug) => `/documentation/${slug}.html`;
@@ -24,7 +24,7 @@ module.exports = [
   { from: v1('next-steps'), to: '/start/where-next' },
 
   // Tutorials
-  { from: v1('software-hardware-prerequisites'), to: '/tutorials/hardware' },
+  { from: v1('software-hardware-prerequisites'), to: '/reference/system-requirements' },
   { from: v1('single-camera-recording'), to: '/tutorials/single-camera' },
   { from: v1('multi-camera-calibration'), to: '/tutorials/calibrate' },
   { from: v1('groundplane-calibration'), to: '/tutorials/ground-plane' },
@@ -50,7 +50,7 @@ module.exports = [
 
   // About
   { from: v1('about-us'), to: '/about/about-us' },
-  { from: v1('frequently-asked-questions-faq'), to: '/about/faq' },
+  { from: v1('frequently-asked-questions-faq'), to: '/guides/faq' },
   { from: v1('privacy-policy'), to: '/about/privacy' },
   { from: v1('code-of-conduct'), to: '/about/code-of-conduct' },
 

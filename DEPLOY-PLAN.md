@@ -27,8 +27,8 @@ current one.
 
 ## Redirects
 
-The placeholder links to legacy `/documentation/*` pages. Real 301s via
-`.htaccess` in `static/` so they ship with every build:
+The placeholder links to legacy `/documentation/*` pages. Real 301s live in
+`static/.htaccess`, so they ship with every build:
 
 | V1 URL | V2 target |
 |---|---|
