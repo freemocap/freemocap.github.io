@@ -11,6 +11,8 @@ history:
     against: "v1 (ported, not yet re-checked against v2)"
 ---
 
+import welcome from './img/welcome-screen.webp';
+
 Start with one camera. It's the quickest way to check that FreeMoCap works on your computer
 before you set up several cameras. One camera gives you 2D tracking, not reliable 3D.
 
@@ -18,6 +20,11 @@ before you set up several cameras. One camera gives you 2D tracking, not reliabl
 
 Open FreeMoCap. The first launch can take a minute while it starts up. When the top-left corner
 says **Connected**, it's ready.
+
+The first time you open it, a welcome screen offers **Connect Cameras**, **Playback**, and a
+quick tour. You can close it and carry on.
+
+<Screenshot src={welcome} alt="The FreeMoCap welcome screen, with Connect Cameras and Playback buttons, a Take a quick tour button, and a checkbox for anonymous usage pings" caption="The welcome screen on first launch." version="2.0.0-alpha.25" />
 
 ## 2. Connect your camera
 

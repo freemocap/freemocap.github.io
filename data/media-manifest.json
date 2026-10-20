@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "welcome-screen",
+    "page": "docs/tutorials/single-camera.md",
+    "file": "docs/tutorials/img/welcome-screen.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 580,
+    "height": 390,
+    "bytes": 12790
+  }
+]
