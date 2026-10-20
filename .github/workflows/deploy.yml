@@ -47,14 +47,11 @@ jobs:
           path: build/
           retention-days: 7
 
-  # Manual only, same as freemocap_dot_org's own deploy_site.yml: merging to
-  # main builds and lints (job above) but never ships anything by itself.
-  # Going live is always a deliberate "Run workflow" click from the Actions
-  # tab, not a side effect of a merge.
+  # Merging never deploys by itself. Deploying is a deliberate "Run workflow"
+  # click from the Actions tab, or a push to docs-v2 while PREVIEW_DEPLOY is
+  # 'true' (pre-merge testing; unset otherwise).
   deploy:
     needs: build
-    # Pre-merge preview toggle: pushes to docs-v2 deploy to the VPS only while the
-    # repo variable PREVIEW_DEPLOY is 'true'. Unset or any other value = no deploy.
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/docs-v2' && vars.PREVIEW_DEPLOY == 'true')
     runs-on: ubuntu-latest
     environment: production
@@ -64,12 +61,11 @@ jobs:
           name: site
           path: build
 
-      # Deploys by rsync over SSH, not FTP: the FTP data channel to this host
-      # times out partway through (per-file passive connections). The key is
-      # locked server-side with `restrict,command="rrsync <docs docroot>"` in
-      # authorized_keys, so even though the SSH user also owns the main
-      # freemocap.org site, this key can only read/write inside the
-      # docs.freemocap.org folder. Every path below is relative to that folder.
+      # Deploys by rsync over SSH. The key is locked server-side with
+      # `restrict,command="rrsync <docs docroot>"` in authorized_keys, so even
+      # though the SSH user also owns the main freemocap.org site, this key can
+      # only read/write inside the docs.freemocap.org folder. Every path below
+      # is relative to that folder.
       # Needs: secret DOCS_SSH_KEY (private key), variable DOCS_SSH_KNOWN_HOSTS
       # (the server's host key line, pinned so the connection is verified).
       - name: Set up SSH

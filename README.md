@@ -1,6 +1,7 @@
 # FreeMoCap docs
 
-The aggregator site served at [docs.freemocap.org](https://docs.freemocap.org).
+The aggregator site for [docs.freemocap.org](https://docs.freemocap.org), written
+against FreeMoCap v2.0.0-alpha.
 
 One Docusaurus site composed from several sources, so the whole map shares one
 shell, one search index, and one version switcher.
@@ -14,152 +15,112 @@ npm start          # dev server on :3000
 ```
 
 `npm run build` runs `fetch` then builds. `npm run build:local` skips the fetch
-and uses whatever is already in `external/`.
+and uses whatever is already in `external/`. `npm run typecheck` runs `tsc`.
 
 ## How it is put together
 
-Four content sources, mounted as separate Docusaurus docs instances:
-
 | Route | Folder | Versioned | Owner |
 |---|---|---|---|
-| `/` | `docs/` | yes | this repo. Start, tutorials, guides, reference, about |
+| `/` | `docs/` | yes (`current` = 2.0 alpha, plus frozen `1.x`) | this repo. Start, tutorials, guides, reference, about |
 | `/concepts/` | `concepts/` | **no** | this repo |
-| `/build/` | `build-docs/` | yes | this repo, for now (see below) |
+| `/build/` | `build-docs/` | no | this repo, for now (see Known issues) |
 | `/skellycam/` | `external/skellycam/docs` | independently | `freemocap/skellycam` |
+| `/skellyblender/`, `/skellydocs/`, `/skellyforge/`, `/skellylogs/`, `/skellypings/`, `/skellysync/`, `/skellytracker/` | `stub-docs/` | no | this repo, until each repo has its own docs site |
 
 **`/concepts/` is deliberately unversioned.** Docusaurus versions by copying a
 whole folder into a frozen snapshot. That is right for pages describing the
-software, since 2.0 install steps genuinely differ from 2.1, and wrong for pages
-describing reality, since what triangulation is did not change between releases.
-Versioning is set per instance, so unversioned concept pages need their own
-instance. Readers never see the seam.
+software and wrong for pages describing reality, since what triangulation is did
+not change between releases. Versioning is set per instance, so unversioned
+concept pages need their own instance.
 
 ## data/repos.yml
 
 Single source of truth for the polyrepo map. It drives which sub-repos get
-fetched, and it is the intended source for the architecture map, the repo
-directory, the data contracts table, and the "where it sits" panel on each
-repo's docs home. Do not hand-write any of those; change this file.
+fetched and mounted. Do not hand-write the architecture map, repo directory, or
+data contracts table; change this file.
 
-`docs_path: null` means the repo has no docs site yet. Today that is
-SkellyTracker, SkellyForge, SkellyBlender, and all four utilities (SkellyLogs,
-SkellyPings, SkellyDocs, SkellySync). The fetch script skips them and says so;
-the build does not care. Adding SkellyForge docs later is a one-line change
-here.
-
-`ref` pins a git tag. The site builds against pins, not `main`, so a sub-repo
-merging a broken doc cannot break the docs site.
-
-## Versioning
-
-Currently one version, `current`, labelled "2.0 (alpha)".
-
-Cut the frozen legacy version **once**, after the V1 port has been reviewed and
-before V2 rewrites begin:
-
-```bash
-npm run docusaurus docs:version 1.x
-```
-
-then add to `docusaurus.config.ts`:
-
-```ts
-'1.x': { label: '1.x (legacy)', path: '1.x', banner: 'unmaintained' }
-```
-
-Cutting it now would snapshot a version identical to `current`, which would tell
-readers something untrue.
+`docs_path: null` means the repo has no docs site yet, so it gets a stub section
+under `stub-docs/` instead. The fetch script skips these and says so. Giving a
+repo a docs site later is a one-line change here. `ref` pins a git tag or branch
+for the fetch.
 
 ## Provenance
 
-Every page declares how it was written, and the declaration is permanent and
-reader-facing. Two values:
+Every page declares how it was written, in frontmatter, and the declaration is
+permanent and reader-facing.
 
-| `provenance` | Means |
-|---|---|
-| `ai-generated` | A model wrote this from the code. No human has checked it line by line. |
-| `human-checked` | Written or checked by a human, against the version in `reviewed_against`. |
+- `provenance`: `ai-generated` (drafted by an AI from source) or `human-checked`
+  (a person verified it, even if an AI did the drafting).
+- `history`: the audit log, newest first. Each entry has a `date` and an
+  `against`, what the page was checked against.
+- `inFlux`: a banner message for pages expected to change before beta.
 
-A page moves from one to the other when someone gives it a pass. "Done" means the
-label is accurate, not that the label is gone.
-
-`reviewed_against` is what keeps this honest. `human-checked` on a page last read
-against `alpha.4` is a claim about history. CI should warn when a page falls more
-than N releases behind current; that check is not written yet.
+[How these docs are written](docs/about/how-these-docs-are-written.md) is the
+reader-facing version of this.
 
 ## Prose linting
 
 ```bash
-vale docs concepts build-docs
+npm run lint:prose
 ```
 
-Google's style package plus three local rules: no em-dashes or en-dashes,
-project spellings (`FreeMoCap`, `SkellyCam`, `ChArUco`), and a warning on
-assertive adjectives that describe nothing (`powerful`, `seamless`,
-`state-of-the-art`).
-
-CI runs it non-blocking. Raise `fail_on_error` to `true` once the corpus is clean.
+Google's style package plus local rules in `.vale/styles/FreeMoCap`: no dashes,
+project spellings, and a warning on empty assertive adjectives. CI runs Vale on
+`docs`, `concepts`, `build-docs` and `stub-docs`, non-blocking
+(`fail_on_error: false`). Findings appear as annotations on the run.
 
 ## Deploy
 
-Every push and pull request runs the `build` job in
-`.github/workflows/deploy.yml`: fetch external docs, lint prose, build.
-Nothing ships anywhere as a result of that alone.
+`.github/workflows/deploy.yml` has two jobs.
 
-Publishing is a separate, manual step: trigger `workflow_dispatch` on that
-same workflow from the Actions tab ("Run workflow"). The `deploy` job then
-downloads the `build` job's artifact and pushes it to docs.freemocap.org via
-`SamKirkland/FTP-Deploy-Action`, using a dedicated FTP account scoped to that
-subdomain's own document root. Merging a PR never triggers a deploy by
-itself.
+**`build`** runs on every push and pull request: fetch external docs, lint prose,
+build, upload the site as an artifact. `onBrokenLinks` is `throw`, so a dead
+internal link fails the build. Do not downgrade it.
 
-Required repository secrets: `DOCS_FTP_USERNAME`, `DOCS_FTP_PASSWORD`.
+**`deploy`** publishes that artifact to the Plesk VPS with `rsync` over SSH. It
+runs only when:
 
-`onBrokenLinks` is set to `throw`. Do not downgrade it. It is the mechanical
-enforcement of the no-dead-ends principle, and it is what caught the SkellyCam
-link problem described below.
+- someone triggers **Run workflow** on the Actions tab (the workflow file must be
+  on `main`), or
+- a push lands on `docs-v2` while the repo variable `PREVIEW_DEPLOY` is `true`
+  (pre-merge testing; leave it unset otherwise).
 
-## One-shot scripts
+Merging never deploys by itself. The job first runs a dry run (aborting if it
+would delete more than 50 files), then the real sync. Set the repo variable
+`DOCS_DEPLOY_DRY_RUN` to `true` to skip the real sync and only see what would
+change.
 
-`scripts/port-v1.mjs` and `scripts/scaffold-pages.mjs` have already been run.
-They are checked in so the port is reproducible and reviewable, not because they
-need running again. `scaffold-pages.mjs` never overwrites an existing file, so it
-is safe to re-run when new pages join the sitemap.
+The SSH key is locked server-side with `restrict,command="rrsync <docs folder>"`
+in `authorized_keys`, so it can only read and write inside the
+`docs.freemocap.org` folder, even though its user also owns the main
+`freemocap.org` site.
 
-## Known issues and things a human has to decide
+Needs on the repo: secret `DOCS_SSH_KEY` (the private key) and variable
+`DOCS_SSH_KNOWN_HOSTS` (the server's pinned host key). The pre-cutover checklist
+is in [DEPLOY-PLAN.md](DEPLOY-PLAN.md).
 
-1. **V2's data model is still stabilizing during alpha.** `reference/
-   data-arrays.md`, `reference/recording-structure.md`,
-   `tutorials/find-your-data.md`, `tutorials/analyze-in-python.md`, and all of
-   `/build/` carry an in-flux banner (`inFlux` frontmatter field) rather than
-   being held back: real content today, expected to change before beta.
+## Known issues
 
+1. **V2's data model is still stabilizing during alpha.** 18 pages, including
+   all of `/build/`, carry an `inFlux` banner: real content today, expected to
+   change before beta.
 2. **Curriculum tier reconciliation.** The tutorial tiers (1/2/3) and Skelly
-   University's own module numbering (1000/2000/3000) don't map cleanly onto
-   each other yet. Known, deliberately unresolved.
-
-3. **SkellyCam's docs use site-absolute `/docs/…` links** that only resolve on
-   its standalone site. `fetch-external-docs.mjs` rewrites them on fetch and
-   logs the count. That bridges it; the durable fix is relative links in the
-   sub-repo. Any repo joining the aggregate will have the same problem.
-
-4. **`/build/` currently lives in this repo.** The core repo's 34 pages in
-   `freemocap-docs/docs` are source material being consolidated (15 architecture
-   pages collapse to about 6). Once that lands and the core repo owns the
-   developer arm, set `docs_path` for `freemocap` in `repos.yml` and delete
-   `build-docs/`.
-
-5. **The legacy ground-plane calibration videos aren't in this repo.**
-   `docs/tutorials/ground-plane.md` links to two `<video>` tags pointing at
-   `static/img/v1/*.mp4` (about 24MB), sourced from the legacy docs repo at
+   University's module numbering (1000/2000/3000) don't map cleanly onto each
+   other yet. Deliberately unresolved.
+3. **SkellyCam's docs use site-absolute `/docs/…` links** that only resolve on its
+   standalone site. `fetch-external-docs.mjs` rewrites them on fetch and logs the
+   count. The durable fix is relative links in the sub-repo.
+4. **`/build/` lives in this repo.** Once the core repo owns the developer docs,
+   set `docs_path` for `freemocap` in `repos.yml` and delete `build-docs/`.
+5. **The ground-plane calibration videos aren't in this repo.**
+   `docs/tutorials/ground-plane.md` has two `<video>` tags pointing at
+   `static/img/v1/*.mp4` (about 24MB), which don't exist yet. Source:
    `freemocap/documentation` under
-   `docs/Writerside/images/assets/images/calibration/`. Either copy them into
-   `static/img/v1/` or move them to a CDN and update those two tags; committing
-   24MB of video into a docs repo is worth avoiding if there's an easy
-   alternative.
+   `docs/Writerside/images/assets/images/calibration/`. Copy them in or host them
+   elsewhere and update the two tags.
 
-There is no `docs.freemocap.org/download`, and there should never be one: the
-real download page (OS/GPU detection, release selector) lives on the main
-site, at `freemocap.org/download` (which itself redirects, 301, to
-`freemocap.org/download.html`). This site's navbar Download item links
-directly to `freemocap.org/download`, never to a page on this domain.
+Items that need an engineer to change the app or another repo are tracked in
+[ENGINEER-CALLOUTS.md](ENGINEER-CALLOUTS.md).
+
+The real download page lives on the main site at `freemocap.org/download`. This
+site's navbar Download item links there; this domain never has its own.
