@@ -6,29 +6,25 @@ current one.
 
 ## Where things stand
 
-- The full site is deployed to the Plesk VPS and tested there, through a hosts
-  file override only. DNS still points at GitHub Pages, so the current
-  placeholder is what everyone else sees.
-- GitHub Pages on `main` is still a legacy build off `main`'s root, and the live
-  placeholder is served from there.
+- DNS for `docs.freemocap.org` is a proxied Cloudflare A record to the Plesk VPS
+  (a Configuration Rule sets SSL to Full for that host), with a Let's Encrypt
+  certificate on the origin. The new site is live.
+- GitHub Pages for this repo stays enabled on `main` with the custom domain, so
+  `freemocap.github.io/*` and every org project site
+  (`freemocap.github.io/<repo>/`) keep redirecting to `docs.freemocap.org`. Do
+  not disable Pages: github.io root would 404 and the project sites would serve
+  their old content directly.
+- The root `CNAME` file is what keeps that custom domain set. Never delete it.
+  `.nojekyll` stops Pages from Jekyll-building the Docusaurus source.
 
-## Cutover
+## Cutover (done except the merge)
 
-1. **Switch GitHub Pages to a redirect-only stub. Do not disable it.** Publish
-   `github-pages-stub/` as the root of an orphan `gh-pages` branch, then Settings
-   -> Pages -> Source -> `gh-pages` (keep the custom domain `docs.freemocap.org`).
-   This still stops Pages from Jekyll-building the Docusaurus source on merge,
-   and it keeps `freemocap.github.io/*` and every org project site
-   (`freemocap.github.io/<repo>/`) redirecting to `docs.freemocap.org`. If Pages
-   is disabled outright, github.io root 404s and the project sites start serving
-   their old content directly on github.io.
-2. **Merge** PR #3. The workflow's manual trigger only appears once `deploy.yml`
-   is on `main`.
-3. **Run workflow** on `main` (Actions -> "Build and deploy docs").
-4. **Check the VPS** through your hosts file override.
-5. **Flip DNS** for `docs.freemocap.org` to the VPS. Lower the record's TTL a day
-   or two ahead.
-6. **Issue the TLS certificate** in Plesk once DNS points at the VPS.
+1. Merge PR #3. Pushes to `main` deploy to the VPS while `DEPLOY_ON_PUSH` is
+   `'true'`.
+2. Check `docs.freemocap.org` and a `freemocap.github.io` path afterwards.
+
+Rollback: point the Cloudflare `docs` record back at `freemocap.github.io`
+(CNAME, proxied) and set Pages source to the `legacy-placeholder` branch.
 
 ## Redirects
 
