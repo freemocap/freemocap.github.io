@@ -83,7 +83,7 @@ runs only when:
 
 - someone triggers **Run workflow** on the Actions tab (the workflow file must be
   on `main`), or
-- a push lands on `main` or `docs-v2` while the repo variable `DEPLOY_ON_PUSH` is
+- a push lands on `main` while the repo variable `DEPLOY_ON_PUSH` is
   `true`. Leave it unset to make pushes build only.
 
 With `DEPLOY_ON_PUSH` unset, merging never deploys by itself; with it `true`, a
