@@ -1,0 +1,151 @@
+name: Build and deploy docs
+
+on:
+  push:
+    branches: [main, docs-v2]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Pull each sub-repo's docs at its pinned ref. Repos with no docs site
+      # are skipped and reported; a repo that declares a docs_path and fails
+      # to produce it fails the build, because the map is then lying.
+      - name: Fetch external docs
+        run: npm run fetch
+
+      # Advisory only. continue-on-error means even if Vale itself cannot start
+      # (usually a transient download error), the build and deploy carry on.
+      - name: Lint prose (advisory, never blocks)
+        id: vale
+        continue-on-error: true
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          files: '["docs", "concepts", "build-docs", "stub-docs"]'
+          fail_on_error: false # raise to true once the corpus is clean
+          reporter: github-pr-check
+
+      # Plain-language explanation of whatever Vale just did, for anyone who
+      # lands on this log without knowing what Vale is.
+      - name: Explain the prose lint result
+        if: always()
+        env:
+          VALE_OUTCOME: ${{ steps.vale.outcome }}
+        run: |
+          if [ "$VALE_OUTCOME" = "failure" ]; then
+            echo "::warning title=Prose checker could not run. This does NOT block the deploy::Vale is the tool that checks our writing style (commas, spelling, capitalization). It failed to start, most often a temporary download error from GitHub, so no style check happened this time. The site build and deploy are unaffected. To retry, use Re-run failed jobs. To check prose yourself, run npm run lint:prose."
+            result="The prose checker could not start (usually a temporary download error). Nothing is wrong with the docs. Re-run the failed job to retry."
+          else
+            echo "::notice title=Prose style notes are advice and never failures::Vale checks our writing style. Anything it reports appears as a warning on the separate vale check and never fails the build or deploy. To see them yourself, run npm run lint:prose."
+            result="The prose checker ran. Any findings are style advice shown on the separate vale check. They never fail the build or deploy."
+          fi
+          {
+            echo "### Prose lint (Vale)"
+            echo ""
+            echo "$result"
+            echo ""
+            echo "Vale checks writing style only. It cannot break the site, and it is not part of what gets deployed."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # onBrokenLinks is set to 'throw', so a dead internal link fails here.
+      # That is deliberate: it is the mechanical enforcement of "no dead ends".
+      - name: Build
+        run: npm run build:local
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site
+          path: build/
+          retention-days: 7
+
+      - name: Explain a build failure
+        if: failure()
+        run: |
+          echo "::error title=The site did not build. Nothing was deployed::Check the Build step log for the first line containing Error. The usual cause is a broken internal link or a typo in a page header (Docusaurus is set to stop on broken links on purpose). If the failure is in Fetch external docs, a sub-repo docs folder could not be downloaded. Fix it and push again, or re-run the job if it looks like a network blip."
+
+  # Deploying is a deliberate "Run workflow"
+  # click from the Actions tab, or a push to main or docs-v2 while the repo
+  # variable DEPLOY_ON_PUSH is 'true' (unset or anything else means pushes
+  # only build).
+  deploy:
+    needs: build
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && vars.DEPLOY_ON_PUSH == 'true')
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Note that this is a dry run
+        if: vars.DOCS_DEPLOY_DRY_RUN == 'true'
+        run: |
+          echo "::notice title=Dry-run mode is ON so the real upload is skipped on purpose::The repo variable DOCS_DEPLOY_DRY_RUN is true. This run only lists what would change on the server and changes nothing. Set it to false to do a real deploy."
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: site
+          path: build
+
+      # Deploys by rsync over SSH. The key is locked server-side with
+      # `restrict,command="rrsync <docs docroot>"` in authorized_keys, so even
+      # though the SSH user also owns the main freemocap.org site, this key can
+      # only read/write inside the docs.freemocap.org folder. Every path below
+      # is relative to that folder.
+      # Needs: secret DOCS_SSH_KEY (private key), variable DOCS_SSH_KNOWN_HOSTS
+      # (the server's host key line, pinned so the connection is verified).
+      - name: Set up SSH
+        env:
+          DOCS_SSH_KEY: ${{ secrets.DOCS_SSH_KEY }}
+          KNOWN_HOSTS: ${{ vars.DOCS_SSH_KNOWN_HOSTS }}
+        run: |
+          test -n "$DOCS_SSH_KEY" || { echo "DOCS_SSH_KEY secret is not set"; exit 1; }
+          test -n "$KNOWN_HOSTS" || { echo "DOCS_SSH_KNOWN_HOSTS variable is not set"; exit 1; }
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DOCS_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      # Dry run first: shows exactly what would change, and aborts the job if
+      # the sync would delete more than 400 files (a sign something is wrong).
+      # A normal rebuild deletes some: Docusaurus renames its JS bundles whenever
+      # their contents change, so the old ones are cleaned up. The site has about
+      # 670 files, so 400 still stops anything that looks like a wipe.
+      - name: Dry run
+        run: |
+          echo "::notice title=Reading the dry-run list below (nothing is changed in this step)::Each line is a file rsync would change. Lines starting with >f+++ are new files, >f followed by other characters are updated files, and lines starting with *deleting would be removed from the server. If more than 400 would be deleted, the run stops on purpose."
+          rsync -rlt --dry-run --itemize-changes --delete-after --max-delete=400 \
+            --exclude='.well-known' --exclude='.htaccess' \
+            --exclude='.php-ini' --exclude='.php-version' \
+            --exclude='cgi-bin' --exclude='error_docs' \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
+            build/ freemocap.org_vdxo8zsw0f@198.71.57.235:./
+
+      # Skipped while the repo variable DOCS_DEPLOY_DRY_RUN is 'true', so the
+      # first run can show the dry-run listing without changing the server.
+      - name: Deploy to docs.freemocap.org
+        if: vars.DOCS_DEPLOY_DRY_RUN != 'true'
+        run: |
+          rsync -rlt --itemize-changes --delete-after --max-delete=400 \
+            --chmod=D755,F644 \
+            --exclude='.well-known' --exclude='.htaccess' \
+            --exclude='.php-ini' --exclude='.php-version' \
+            --exclude='cgi-bin' --exclude='error_docs' \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
+            build/ freemocap.org_vdxo8zsw0f@198.71.57.235:./
+
+      - name: Explain a deploy failure
+        if: failure()
+        run: |
+          echo "::error title=The upload to the server did not finish::Your changes are safe in GitHub and the build itself was fine. Look at which step failed above. Set up SSH failing means a missing secret DOCS_SSH_KEY or variable DOCS_SSH_KNOWN_HOSTS. Permission denied or a host key error means the key was changed on the server or the server was rebuilt. The Dry run stopping on its own means it would have deleted more than 400 files, so check that the build is complete. A partial upload is harmless. Re-running the job fixes it, because the sync is repeatable."

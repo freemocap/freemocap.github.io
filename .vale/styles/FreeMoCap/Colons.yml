@@ -1,0 +1,7 @@
+extends: existence
+message: "This colon joins two full sentences. End the first sentence with a period and start a new one."
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  - '[A-Za-z0-9)\]*_"”’'']: (?:it|it''s|they|this|that|there|you|you''ll|you''re|we|if|when|otherwise|instead|each|every|these|those|then|so)\b'

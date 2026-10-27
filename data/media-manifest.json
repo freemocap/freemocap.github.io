@@ -1,0 +1,122 @@
+[
+  {
+    "id": "blender-export-options",
+    "page": "docs/tutorials/blender.md",
+    "file": "docs/tutorials/img/blender-export-options.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 602,
+    "height": 652,
+    "bytes": 19018
+  },
+  {
+    "id": "blender-scene",
+    "page": "docs/tutorials/blender.md",
+    "file": "docs/tutorials/img/blender-scene.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 1330,
+    "height": 830,
+    "bytes": 50514
+  },
+  {
+    "id": "calibrate-import-menu",
+    "page": "docs/tutorials/calibrate.md",
+    "file": "docs/tutorials/img/calibrate-import-menu.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 614,
+    "height": 180,
+    "bytes": 4308
+  },
+  {
+    "id": "detector-choice",
+    "page": "docs/tutorials/choose-a-tracker.md",
+    "file": "docs/tutorials/img/detector-choice.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 602,
+    "height": 652,
+    "bytes": 20328
+  },
+  {
+    "id": "detector-choice-mediapipe",
+    "page": "docs/tutorials/choose-a-tracker.md",
+    "file": "docs/tutorials/img/detector-choice-mediapipe.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 602,
+    "height": 652,
+    "bytes": 21146
+  },
+  {
+    "id": "filter-settings",
+    "page": "docs/tutorials/post-processing.md",
+    "file": "docs/tutorials/img/filter-settings.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 602,
+    "height": 652,
+    "bytes": 18198
+  },
+  {
+    "id": "import-videos",
+    "page": "docs/guides/posthoc-mocap.md",
+    "file": "docs/guides/img/import-videos.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 584,
+    "height": 456,
+    "bytes": 14032
+  },
+  {
+    "id": "recording-folder",
+    "page": "docs/tutorials/find-your-data.md",
+    "file": "docs/tutorials/img/recording-folder.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 740,
+    "height": 385,
+    "bytes": 8414
+  },
+  {
+    "id": "sync-options",
+    "page": "docs/guides/posthoc-mocap.md",
+    "file": "docs/guides/img/sync-options.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 584,
+    "height": 490,
+    "bytes": 15422
+  },
+  {
+    "id": "welcome-screen",
+    "page": "docs/tutorials/single-camera.md",
+    "file": "docs/tutorials/img/welcome-screen.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-20",
+    "width": 580,
+    "height": 390,
+    "bytes": 12790
+  }
+]

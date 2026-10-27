@@ -1,0 +1,746 @@
+/* Homepage layout. Restrained on purpose: funnels over walls of links, and a
+   single column of sections rather than the three-column dump that makes the
+   MyST guide hard to look at. */
+
+.hero {
+  padding: 4rem 0 3rem;
+  text-align: center;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.heroTagline {
+  font-size: 1.25rem;
+  color: var(--ifm-color-emphasis-700);
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.buttonPrimary,
+.buttonSecondary {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.buttonPrimary {
+  /* Was #6aa3a2 (2.85:1 against white text, fails WCAG AA), hardcoded
+     here independent of --ifm-color-primary so custom.css's 2026-08-25
+     fix didn't reach it. Same darkened value used there and on
+     freemocap.org's equivalent buttons (4.51:1). */
+  background: #4e7f7e;
+  color: var(--ifm-color-white, #fff);
+}
+
+.buttonPrimary:hover {
+  /* Was #578d8c, actually lighter than the corrected rest color above,
+     which inverted the hover-darkens convention. Same ~8pt lightness
+     step darker than the new rest color, matching freemocap.org's
+     --accent-green-fill-hover. */
+  background: #3f6665;
+  color: var(--ifm-color-white, #fff);
+  text-decoration: none;
+}
+
+.buttonSecondary {
+  border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-400));
+  color: var(--ifm-font-color-base);
+}
+
+.buttonSecondary:hover {
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.section {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  /* Four of these sections (Get Started/Beginner/Intermediate/Advanced)
+     are TierPicker's own anchor targets. Without this, jumping to one
+     scrolls its heading to the very top of the viewport, right under the
+     sticky navbar, clipping it. Same mechanism Docusaurus's own generated
+     heading anchors use (anchorUtils.module.css), applied here by hand
+     since these are plain sections, not auto-generated doc headings.
+     Offset tuned by eye against the real navbar, not left at Docusaurus's
+     own default (+0.5rem) or derived from a measured height. */
+  scroll-margin-top: calc(var(--ifm-navbar-height) - 1rem);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+/* Fixed width, same on every viewport: (1320 - 2*16px padding -
+   3*12px gaps) / 4 = 313px, sized so exactly 4 fill freemocap.org's
+   widest .container tier. auto-fill wraps to fewer per row on narrower
+   viewports without ever changing box size. */
+.navGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 313px);
+  gap: 0.75rem;
+}
+
+.navBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 313px;
+  height: 6.5rem;
+  padding: 0.75rem 1.6rem 0.75rem 0.9rem;
+  border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-300));
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  text-align: left;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.navBox:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-emphasis-100);
+  text-decoration: none;
+  color: inherit;
+}
+
+.navBoxRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.navBoxIcon {
+  flex-shrink: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--ifm-color-primary);
+}
+
+.navBoxTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.navBoxBlurb {
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: var(--ifm-color-emphasis-600);
+  overflow-wrap: break-word;
+}
+
+.infoIcon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-400));
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: help;
+}
+
+.infoIcon:hover,
+.infoIcon:focus-visible {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  outline: none;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 1000;
+  width: 270px;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.4rem;
+  background: var(--ifm-background-surface-color, var(--ifm-background-color));
+  border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-300));
+  box-shadow: var(--ifm-global-shadow-md);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--ifm-font-color-base);
+  pointer-events: none;
+}
+
+.tooltipList {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.tooltipList li {
+  margin-bottom: 0.35rem;
+}
+
+.tooltipList li:last-child {
+  margin-bottom: 0;
+}
+
+.sectionHeading {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-200));
+  border-radius: 0.75rem;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+  color: inherit;
+  transform: translateY(-2px);
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.95rem;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+/* The four columns inside Advanced (Technology/Science/Art/FMC Dev), side
+   by side rather than stacked, so they read as parallel tracks. Four
+   needs its own intermediate step down to 2 as the viewport narrows,
+   unlike this page's other grids, or the columns get too narrow for
+   their tile cards well before the 1-column breakpoint kicks in. */
+.pathColumns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: start;
+  gap: 2.5rem;
+}
+
+@media (max-width: 1100px) {
+  .pathColumns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .pathColumns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Deliberately lighter than .sectionHeading (size, weight, and color all
+   turned down a step): a path name is a subdivision of Advanced, not a
+   heading of the same rank, and it was reading as one at the same weight. */
+.pathHeading {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 0.35rem;
+}
+
+/* Where this column's tiles actually go */
+.pathNote {
+  font-size: 0.72rem;
+  color: var(--ifm-color-emphasis-500);
+  margin-bottom: 1rem;
+}
+
+/* .navGrid/.navBox elsewhere are fixed at 313px, sized for the wide flat
+   grids. A path column is its own, narrower third of the container, so its
+   tiles need to fill that column instead of risking overflow at
+   intermediate viewport widths. */
+.pathGroup .navGrid {
+  grid-template-columns: 1fr;
+}
+
+.pathGroup .navBox {
+  width: 100%;
+}
+
+/* One very subtle accent per Advanced column, borders only, matching
+   the pill accents below. Colors defined once in src/css/custom.css
+   (--fmc-track-*) so light/dark mode stay in one place. Falls back to
+   the plain neutral border if a variant class is somehow missing. */
+.pathGroup--dev .navBox {
+  border-color: var(--fmc-track-dev, var(--fmc-border-strong, var(--ifm-color-emphasis-300)));
+}
+
+.pathGroup--technology .navBox {
+  border-color: var(--fmc-track-technology, var(--fmc-border-strong, var(--ifm-color-emphasis-300)));
+}
+
+.pathGroup--science .navBox {
+  border-color: var(--fmc-track-science, var(--fmc-border-strong, var(--ifm-color-emphasis-300)));
+}
+
+.pathGroup--art .navBox {
+  border-color: var(--fmc-track-art, var(--fmc-border-strong, var(--ifm-color-emphasis-300)));
+}
+
+/* Was flex-wrap: wrap, but at exactly 4 chips (Dev/Technology/Science/Art
+   on TierPicker's Advanced box) "Technology" alone pushed the row past
+   the card's available width, wrapping "Art" onto its own second line.
+   The card only ever reaches 4-per-row at this site's widest container
+   breakpoint (1320px, verified directly: cardGrid's minmax(17rem, 1fr)
+   never actually lands at its 17rem floor for a 4-across row, jumping
+   straight from 3-per-row at the 1140px breakpoint to 4-per-row at
+   1320px), so 307px card / 257px available for the chip row is the one
+   real number to fit, not a continuous range down to 272px. nowrap plus
+   the tighter .trackTag sizing below fits all 4 in ~251px, a few px of
+   slack under that 257px, rather than exactly at it. */
+.trackTags {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.3rem;
+}
+
+.trackTag {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-400));
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.trackTag:hover,
+.trackTag:focus-visible {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  outline: none;
+}
+
+/* Coordinates each pill with its matching PathGroup column further down
+   the page (same --fmc-track-* variables, border only, text color left
+   alone). Hover/focus above still wins on top of these, same as it
+   already does over the plain border color. */
+.trackTag--dev {
+  border-color: var(--fmc-track-dev, var(--fmc-border-strong, var(--ifm-color-emphasis-400)));
+}
+
+.trackTag--technology {
+  border-color: var(--fmc-track-technology, var(--fmc-border-strong, var(--ifm-color-emphasis-400)));
+}
+
+.trackTag--science {
+  border-color: var(--fmc-track-science, var(--fmc-border-strong, var(--ifm-color-emphasis-400)));
+}
+
+.trackTag--art {
+  border-color: var(--fmc-track-art, var(--fmc-border-strong, var(--ifm-color-emphasis-400)));
+}
+
+.cardMuted {
+  /* opacity: 0.75 used to compound with the card's own border/text
+     colors, e.g. taking the already-fixed emphasis-200 border back down
+     to 2.19:1 in light mode. The dashed border alone already reads as
+     "different/reserved," doesn't need opacity on top of it too. */
+  border-style: dashed;
+}
+
+.cardComingSoon {
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.columnGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
+}
+
+.columnTitle {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.columnList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.9;
+}
+
+.columnNote {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  .hero {
+    padding: 2.5rem 0 2rem;
+  }
+}
+
+/* ---- Sequence grid (Get Started / Beginner only) ----
+   Deliberately NOT a themed TileGrid variant: full-width flexible boxes,
+   a big uncircled number, continuous flowchart-style connector lines.
+   Mobile-first: a single top-to-bottom column, every connector pointing
+   down. At >=1100px (PathColumns' own breakpoint, reused rather than
+   inventing a new one) rows go horizontal and alternate direction like
+   a boustrophedon; see SequenceGrid's own doc comment in
+   HomeSections.tsx for the full reasoning. */
+.sequenceGrid {
+  display: flex;
+  flex-direction: column;
+}
+
+.sequenceRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+@media (min-width: 1100px) {
+  .sequenceRow {
+    flex-direction: row;
+    /* stretch, not center: 3 boxes in a row can end up different
+       heights (their titles wrap to different line counts depending on
+       exact viewport width), and center-aligning shorter boxes leaves
+       a gap between that box's own bottom edge and the row's real
+       bottom edge, which is exactly where the row-to-row connector
+       starts - it touched the row, not the box, and read as "the
+       arrow doesn't touch the box" whenever that box happened to be
+       shorter than its row-mates. Stretch keeps every box in a row the
+       same height (the tallest), so every bottom edge is the same
+       edge, and the connector (which has its own align-self: stretch,
+       see .sequenceConnector below, independent of this) touches
+       every box the same way regardless of its title's line count. */
+    align-items: stretch;
+  }
+}
+
+/* The box itself. Not composed with .navBox above, this is a genuinely
+   different shape/size, not a themed variant of it: flex:1 so all 3 in
+   a row split the full row width evenly (no fixed 313px, no slack round
+   the edges), a big radius (0.5rem on the plain TileGrid box -> 1.75rem
+   here), and a number column instead of a single icon+title row. */
+.sequenceBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 1.75rem 2rem;
+  border: 1px solid var(--fmc-border-strong, var(--ifm-color-emphasis-300));
+  border-radius: 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.sequenceBox:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-emphasis-100);
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Big, plain, no circle/border/fill: per explicit request, the number
+   itself is the whole affordance, not a small badge. Fixed width so
+   1-digit and (eventually) 2-digit numbers don't shift where the
+   content column starts. */
+.sequenceNumber {
+  flex-shrink: 0;
+  width: 2.75rem;
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ifm-color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Icon+title+blurb, same content as the plain TileGrid box, just to the
+   right of the number instead of being the whole box. Not itself
+   position:relative, so InfoTooltip's absolute "?" badge (see .infoIcon
+   above) positions against .sequenceBox and stays pinned to that outer
+   corner regardless of this column's own content height. */
+.sequenceContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.sequenceBox .navBoxTitle {
+  font-size: 1.05rem;
+}
+
+.sequenceBox .navBoxBlurb {
+  font-size: 0.88rem;
+}
+
+.sequenceBox .navBoxIcon {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+/* The "?" tooltip badge (.infoIcon above) sits at a plain 0.5rem inset
+   everywhere else, but .sequenceBox's much bigger corner radius
+   (1.75rem vs. the plain box's 0.5rem) curves in close enough at that
+   same inset to read as crowding the edge. Nudged inward, this box
+   only, rather than changing the shared .infoIcon rule every other
+   section's boxes still use. */
+.sequenceBox .infoIcon {
+  top: 0.9rem;
+  right: 0.9rem;
+}
+
+/* ---- Connectors ----
+   Both kinds (between boxes in a row, and between one row and the next)
+   are built from the same two pieces (line + arrowhead, see Connector
+   in HomeSections.tsx), continuous and flush against the boxes on
+   either side, "like a flowchart" rather than a small icon floating in
+   a gap of empty space. Default/shared styling below is the VERTICAL
+   form (mobile's single column, and both stubs of the row-to-row elbow
+   connector at every width); the >=1100px block turns .sequenceConnector
+   specifically (never the elbow's stubs, see RowElbowConnector's own
+   rules further down) horizontal for a horizontal row. */
+.sequenceConnector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 2.5rem;
+}
+
+@media (min-width: 1100px) {
+  .sequenceConnector {
+    flex-direction: row;
+    flex: 0 0 3rem;
+    height: auto;
+    align-self: stretch;
+  }
+}
+
+.sequenceConnectorLine {
+  flex: 1 1 auto;
+  width: 2px;
+  background: var(--ifm-color-primary);
+}
+
+@media (min-width: 1100px) {
+  .sequenceConnector .sequenceConnectorLine {
+    width: auto;
+    height: 2px;
+  }
+}
+
+/* A solid CSS triangle, not an icon (see Connector's own doc comment in
+   HomeSections.tsx for why): the classic border trick, zero width/height
+   box with 3 of its 4 borders given a color and one left transparent,
+   which draws a filled triangle in the transparent-vs-colored corner.
+   flex-shrink:0 plus zero margin/gap anywhere in this chain (.sequenceConnector,
+   .sequenceConnectorLine, this) keeps it butted directly against the
+   line's end, no visible seam. Default orientation points right; the
+   transforms below rotate/mirror it for the other 2 directions this
+   component needs, same technique .navBox-adjacent icons elsewhere on
+   this page already use, just applied to a shape instead of a glyph.
+   Border-box is deliberately SQUARE (12x12: border-left width equals
+   border-top+border-bottom combined), not just "a triangle": rotate()
+   pivots around the box's own center, and for a non-square box that
+   center isn't equidistant from the base on every side, so a 90deg
+   rotation (the down-pointing case) visibly shifts the base away from
+   flush by (height-width)/2 - the exact gap reported against the first,
+   non-square (11x14) version of this rule. Square eliminates that
+   shift entirely; scaleX(-1) (the left-pointing case) was never
+   affected since mirroring doesn't move the base at all. */
+.sequenceConnectorArrow {
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 12px solid var(--ifm-color-primary);
+  transform: rotate(90deg);
+}
+
+@media (min-width: 1100px) {
+  .sequenceConnector .sequenceConnectorArrow {
+    transform: none;
+  }
+}
+
+/* ---- Row-to-row elbow connector ----
+   Bridges box 3 (end of row 1, right side) to box 4 (start of row 2,
+   left side) now that both rows read left-to-right. Mobile default
+   below is the plain straight-down connector (box 3 and box 4 are
+   already stacked directly on top of each other in a single column);
+   the >=1100px block replaces it with the 2-piece rounded "L" bend,
+   see RowElbowConnector's own doc comment in HomeSections.tsx for why
+   it's 2 border-boxes rather than 3 separately-positioned line pieces. */
+.sequenceRowConnectorElbow {
+  position: relative;
+  height: 2.75rem;
+}
+
+.sequenceRowConnectorMobileLine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.sequenceRowConnectorElbowRight,
+.sequenceRowConnectorElbowLeft,
+.sequenceRowConnectorElbowArrow {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  /* Slightly taller than the plain inter-box connector (.sequenceConnector's
+     2.5rem): a bend needs a bit more room to read as a deliberate corner
+     rather than a cramped kink, per explicit request for "only very
+     slightly" more space between the two rows.
+     If this value changes, update the 1.625rem "half" literal in
+     .sequenceRowConnectorElbowRight/Left too (see their own comments
+     for why it's a literal, not a computed 50%). */
+  .sequenceRowConnectorElbow {
+    height: 3.25rem;
+  }
+
+  .sequenceRowConnectorMobileLine {
+    display: none;
+  }
+
+  /* Both L's: `right`/`left` position the box-3/box-4-facing edge using
+     the same box-column math as the old bridge line (a row is 3 equal
+     box columns plus 2 fixed 3rem gaps, so a column's center sits
+     `100%/6 - 1rem` in from its nearer edge); `width` is exactly half
+     the row (one box column plus one gap) so the two meet at 50%,
+     dead center, by symmetry. `border-radius` rounds only the one
+     corner where each box's 2 visible borders actually meet.
+
+     The VERTICAL split between this piece and .sequenceRowConnectorElbowLeft
+     is a literal half-height (1.625rem, half of .sequenceRowConnectorElbow's
+     own 3.25rem), not 50%, on purpose: this piece used to end at
+     `height: 50%` while the other started at `top: 50%`, two
+     independently-rounded percentage calculations against the same
+     (not-necessarily-integer-pixel) container height, which could
+     round to adjacent device pixels and show as a 1px vertical jog
+     right where the two were supposed to form one flat horizontal
+     line. The same literal length used in both places resolves to
+     the same device pixel every time, since it's the same arithmetic
+     rather than two separately-rounded ones that merely started from
+     an equal-looking value. */
+  .sequenceRowConnectorElbowRight {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: calc(100% / 6 - 1rem);
+    width: calc(100% / 3 + 1rem);
+    height: 1.625rem;
+    border-style: solid;
+    border-color: var(--ifm-color-primary);
+    border-width: 0 2px 2px 0;
+    border-bottom-right-radius: 10px;
+  }
+
+  /* top: calc(1.625rem - 2px), not 1.625rem - this is the fix for a
+     real (not sub-pixel-rounding) bug: a border-bottom always sits in
+     the LAST 2px of its own box, and a border-top always sits in the
+     FIRST 2px of its own box. With both boxes meeting edge-to-edge at
+     exactly 1.625rem (.sequenceRowConnectorElbowRight ends there,
+     this used to start there), the 2 lines were legitimately at
+     ADJACENT Y-ranges - Right's line the 2px above the seam, Left's
+     the 2px below it - not the same line, which is a real 2px vertical
+     step where they meet, not a rounding artifact (that was fixed
+     separately by moving off percentages, see .sequenceRowConnectorElbowRight's
+     own comment; this is a second, different bug at the same seam).
+     Starting this box 2px higher moves its border-top into the exact
+     same Y-range Right's border-bottom already occupies, so the 2
+     lines are now literally the same stripe, continued. height is
+     widened by that same 2px (to calc(1.625rem - 10px), i.e.
+     (1.625rem - 2px) - 12px + 2px folded together) so the box's
+     BOTTOM edge - where border-left stops, see below - stays exactly
+     where it was, still flush with the arrowhead. */
+  .sequenceRowConnectorElbowLeft {
+    display: block;
+    position: absolute;
+    top: calc(1.625rem - 2px);
+    left: calc(100% / 6 - 1rem);
+    width: calc(100% / 3 + 1rem);
+    height: calc(1.625rem - 10px);
+    border-style: solid;
+    border-color: var(--ifm-color-primary);
+    border-width: 2px 0 0 2px;
+    border-top-left-radius: 10px;
+  }
+
+  /* The arrowhead sits where .sequenceRowConnectorElbowLeft's own left
+     border ends (box 4's column center, at the connector's bottom
+     edge), not attached to either border-box itself: a border-radius
+     corner has no natural place to hang a separate triangle off of.
+     Same square (12x12) CSS-triangle technique as .sequenceConnectorArrow,
+     centered on that x via a fixed -6px margin (half its own width)
+     rather than -50%, since this box's own width/position aren't the
+     thing centering it, that column's x-position is. The +1px on the
+     `left` value (beyond the plain `calc(100%/6 - 1rem)` the line
+     above uses) accounts for the line being a 2px-wide border whose
+     own visual center sits 1px right of that raw value, not centered
+     on it - without this the arrowhead was centered 1px off from the
+     line it caps. */
+  .sequenceRowConnectorElbowArrow {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(100% / 6 - 1rem + 1px);
+    margin-left: -6px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 12px solid var(--ifm-color-primary);
+    transform: rotate(90deg);
+  }
+}
