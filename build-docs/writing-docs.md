@@ -4,33 +4,32 @@ type: how-to
 provenance: human-checked
 inFlux: "Docs contribution section for FreeMoCap core is a work in progress for version alpha. It's expected to stabilize by beta."
 history:
-  - date: "2026-08-26"
-    against: "polyrepo-clones/freemocap (v2.0.0-alpha.21): freemocap-docs/ Docusaurus v3 site (package.json scripts, docusaurus.config.ts), .github/workflows/deploy-docs.yml triggers and paths, CONTRIBUTING.md GitHub Flow and PR steps, the single legacy Writerside mention left in README.md, and data/redirects.js mapping the old /documentation/*.html URLs to their live equivalents"
+  - date: "2026-10-27"
+    against: "this site's own repo (freemocap/freemocap.github.io): README.md, .github/workflows/deploy.yml triggers and CI steps, package.json scripts, docusaurus.config.ts docs instances, and data/redirects.js"
   - date: "2026-08-19"
     against: "v1 (ported, not yet re-checked against v2)"
 ---
-* The documentation uses [Docusaurus](https://docusaurus.io/) and lives in the `freemocap-docs/` directory of the [FreeMoCap repository](https://github.com/freemocap/freemocap).
-* The docs are plain Markdown and can be written and edited with any text editor, no special IDE plugin required.
-* These instructions ensure a reliable workflow using that specific toolset.
-* Because the documentation site deploys automatically from a GitHub Actions workflow whenever changes under `freemocap-docs/` land on `main`, pull requests are required for all changes.  
+The docs are plain Markdown in the [freemocap.github.io repository](https://github.com/freemocap/freemocap.github.io), built with [Docusaurus](https://docusaurus.io/). Any text editor works. Every page has an **Edit this page** link that opens its file on GitHub.
 
-> For more about this workflow, refer to [Contributing to the FreeMoCap Project](/build/contributing).
+## Where pages live
 
-# If you **ARE NOT** a member of the FreeMoCap organization
+| Section | Folder |
+|---|---|
+| Start, tutorials, guides, reference, about | `docs/` |
+| Concepts | `concepts/` |
+| Build (developer docs) | `build-docs/` |
+| SkellyCam | fetched from the `skellycam` repo at build time |
 
-1. Fork the repository and clone the forked repository's URL.
-    * URL: https://github.com/[YOUR USERNAME]/FreeMoCap/
-> For more information about forking, refer to [Fork a Repository](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) on GitHub Docs.
-2. Edit the documentation under `freemocap-docs/docs/`. To preview your changes locally, run `npm install` followed by `npm run start` inside the `freemocap-docs/` folder (this requires Node.js 20 or newer).
-3. Use standard Markdown as supported by Docusaurus: [markdown Features - Docusaurus Documentation](https://docusaurus.io/docs/markdown-features)
-4. Once you've finished making your updates to documentation, submit a PR onto `main`.
+## Make a change
 
-# If you **ARE** a member of the FreeMoCap organization
+1. Fork the repository (outside the FreeMoCap organization) or create a branch (inside it).
+2. Edit the Markdown. To preview, run `npm install`, `npm run fetch`, then `npm start` (Node.js 22 recommended). See [Docusaurus Markdown features](https://docusaurus.io/docs/markdown-features).
+3. Keep each page's frontmatter current: `provenance`, plus a `history` entry with today's date and what you checked the page against.
+4. Open a pull request into `main`. The build runs on the PR, and a broken internal link fails it.
+5. Once merged, the site updates by itself within a few minutes.
 
-1. Select `Git` → `Clone` from the top menu.
-    * URL: [https://github.com/freemocap/freemocap/](https://github.com/freemocap/freemocap/)
-2. Create a branch. 
-    * This can be done in your IDE by clicking `main` in the top left and selecting `+ New Branch`.
-3. Edit the documentation under `freemocap-docs/docs/`. To preview your changes locally, run `npm install` followed by `npm run start` inside the `freemocap-docs/` folder (this requires Node.js 20 or newer).
-4. Use standard Markdown as supported by Docusaurus: [markdown Features - Docusaurus Documentation](https://docusaurus.io/docs/markdown-features)
-5. Once you've finished making your updates to documentation, submit a PR onto `main`.
+For the Git workflow itself, see [Contributing to FreeMoCap](/build/contributing).
+
+## Moving or renaming a page
+
+Add the old URL to `data/redirects.js` so existing links keep working.

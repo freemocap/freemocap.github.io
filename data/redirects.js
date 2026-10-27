@@ -1,16 +1,10 @@
 /**
- * V1 to V2 URL map.
+ * Old URL to current page map. These URLs are in papers, Discord and YouTube
+ * descriptions, so every one must resolve. They point at the current page, not
+ * the frozen 1.x one; the version switcher goes back to 1.x.
  *
- * Every one of these URLs exists in published papers, Discord history, and
- * YouTube descriptions. All of them must resolve. They redirect to the LIVE V2
- * equivalent rather than to the frozen 1.x version, because the live page is
- * what the reader wants; the version switcher takes them back to 1.x if they
- * are running old software.
- *
- * The legacy site served Writerside HTML at /documentation/<slug>.html. The
- * .html suffix is handled here (client-side), so it works anywhere. The server
- * is nginx, so real 301s for the most-linked pages would be nginx rules set in
- * Plesk at cutover (see DEPLOY-PLAN.md), not an .htaccess file.
+ * Entries ship as client-side redirect pages. For real 301s, regenerate the
+ * nginx rules with scripts/gen-nginx-redirects.js (see the README).
  */
 
 const v1 = (slug) => `/documentation/${slug}.html`;
