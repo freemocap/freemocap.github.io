@@ -83,10 +83,11 @@ runs only when:
 
 - someone triggers **Run workflow** on the Actions tab (the workflow file must be
   on `main`), or
-- a push lands on `docs-v2` while the repo variable `PREVIEW_DEPLOY` is `true`
-  (pre-merge testing; leave it unset otherwise).
+- a push lands on `main` or `docs-v2` while the repo variable `DEPLOY_ON_PUSH` is
+  `true`. Leave it unset to make pushes build only.
 
-Merging never deploys by itself. The job first runs a dry run (aborting if it
+With `DEPLOY_ON_PUSH` unset, merging never deploys by itself; with it `true`, a
+merge to `main` deploys. The job first runs a dry run (aborting if it
 would delete more than 400 files), then the real sync. Set the repo variable
 `DOCS_DEPLOY_DRY_RUN` to `true` to skip the real sync and only see what would
 change.
