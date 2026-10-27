@@ -50,6 +50,8 @@ const config: Config = {
   url: 'https://docs.freemocap.org',
   baseUrl: '/',
 
+  clientModules: ['./src/clientModules/smoothHashScroll.ts'],
+
   organizationName: 'freemocap',
   projectName: 'freemocap.github.io',
 
