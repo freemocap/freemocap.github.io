@@ -14,9 +14,14 @@ current one.
 
 ## Cutover
 
-1. **Disable GitHub Pages** for `freemocap/freemocap.github.io` (Settings -> Pages
-   -> Source -> None). Required before merging: otherwise Pages tries to Jekyll
-   build the Docusaurus source on merge and breaks the live placeholder.
+1. **Switch GitHub Pages to a redirect-only stub. Do not disable it.** Publish
+   `github-pages-stub/` as the root of an orphan `gh-pages` branch, then Settings
+   -> Pages -> Source -> `gh-pages` (keep the custom domain `docs.freemocap.org`).
+   This still stops Pages from Jekyll-building the Docusaurus source on merge,
+   and it keeps `freemocap.github.io/*` and every org project site
+   (`freemocap.github.io/<repo>/`) redirecting to `docs.freemocap.org`. If Pages
+   is disabled outright, github.io root 404s and the project sites start serving
+   their old content directly on github.io.
 2. **Merge** PR #3. The workflow's manual trigger only appears once `deploy.yml`
    is on `main`.
 3. **Run workflow** on `main` (Actions -> "Build and deploy docs").
@@ -30,9 +35,13 @@ current one.
 The placeholder links to legacy `/documentation/*` pages. Today these already
 work through the client-side redirect pages in `data/redirects.js`, which ship
 with the build. The server is nginx, so `.htaccess` does nothing here. For real
-301s on the ten most-linked pages, add this in Plesk (Websites & Domains ->
-docs.freemocap.org -> Apache & nginx Settings -> Additional nginx directives)
-and test it with the hosts file before DNS moves:
+301s on every entry in `data/redirects.js`, paste the generated
+`nginx-legacy-redirects.conf` (regenerate it with
+`node scripts/gen-nginx-redirects.js`) into Plesk (Websites & Domains ->
+docs.freemocap.org -> Apache & nginx Settings -> Additional nginx directives),
+plus `error_page 404 /404.html;` so a miss shows the site's own 404 page with
+search instead of the bare nginx one. Test with the hosts file before DNS moves.
+The ten most-linked pages, for reference:
 
 ```nginx
 location = /documentation/index_md.html { return 301 /; }

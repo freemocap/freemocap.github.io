@@ -8,3 +8,15 @@ HANDOFF.md
 # Fetched by `vale sync` per .vale.ini's Packages config; CI's vale-action
 # manages its own copy and doesn't read this one.
 .vale/styles/Google/
+
+# Never commit credentials or server notes.
+server*notes*
+*password*
+*credential*
+.env
+.env.*
+!.env.sample
+*.pem
+*.key
+id_rsa*
+id_ed25519*

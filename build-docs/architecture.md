@@ -35,8 +35,8 @@ FreeMoCap is a polyrepo project. Three repositories compose the running app:
 | `skellytracker` | Pose estimation: the unified `Tracker` API and the detectors (MediaPipe, RTMPose, YOLOX, ArUco, ChArUco), with batched multi-camera inference | Imported as a Python library by the pipeline nodes |
 
 Each of those sibling projects has its own documentation site:
-[SkellyCam](https://freemocap.github.io/skellycam/) and
-[SkellyTracker](https://freemocap.github.io/skellytracker/).
+[SkellyCam](/skellycam/intro) and
+[SkellyTracker](/skellytracker/).
 
 Other organization repos show up as smaller dependencies rather than
 architectural pillars. The backend imports `skellyforge` (skeleton model

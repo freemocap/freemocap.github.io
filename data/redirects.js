@@ -15,7 +15,34 @@
 
 const v1 = (slug) => `/documentation/${slug}.html`;
 
+// SkellyCam's old standalone site (freemocap/skellycam, served under
+// docs.freemocap.org/skellycam/) kept its docs under /docs/ and also had
+// Spanish and Arabic copies. The README in that repo, and anything shared
+// since, links to those URLs. The docs now live aggregated at /skellycam/<slug>
+// (English only), so every old URL redirects there. The translations are not
+// served here; they stay in skellycam-docs/i18n in that repo.
+const skellycamSlugs = [
+  'intro', 'community',
+  'core', 'core/frame-perfect-sync', 'core/generic-usb-cameras', 'core/precise-timestamps', 'core/real-time-streaming',
+  'development', 'development/contributing', 'development/design-philosophy', 'development/translating',
+  'getting-started', 'getting-started/advanced-tutorial', 'getting-started/beginner-tutorial',
+  'getting-started/installation', 'getting-started/quick-start',
+  'technical', 'technical/api-reference', 'technical/architecture', 'technical/frame-synchronization',
+  'technical/logging', 'technical/telemetry', 'technical/websocket-protocol',
+];
+const skellycamLangs = ['', '/es', '/ar'];
+const skellycamBlog = ['blog', 'blog/archive', 'blog/tags', 'blog/tags/welcome', 'blog/welcome'];
+const skellycamLegacy = skellycamLangs.flatMap((lang) => [
+  ...skellycamSlugs.map((slug) => ({ from: `/skellycam${lang}/docs/${slug}`, to: `/skellycam/${slug}` })),
+  { from: [`/skellycam${lang}/docs`, ...(lang ? [`/skellycam${lang}`] : [])], to: '/skellycam/intro' },
+  { from: skellycamBlog.map((p) => `/skellycam${lang}/${p}`), to: '/skellycam/intro' },
+  { from: `/skellycam${lang}/download`, to: 'https://github.com/freemocap/skellycam/releases/latest' },
+  { from: `/skellycam${lang}/roadmap`, to: 'https://github.com/orgs/freemocap/projects/34/views/6' },
+]);
+
 module.exports = [
+  ...skellycamLegacy,
+
   // No V2 page covers V1's "Max Number of Processes" setting, so it goes home.
   { from: [v1('index_md'), '/documentation', v1('multiprocessing')], to: '/' },
 
@@ -73,6 +100,16 @@ module.exports = [
   { from: '/freemocap/docs/development/testing', to: '/build/testing' },
   { from: '/freemocap/roadmap', to: '/about/roadmap' },
   { from: '/freemocap/blog', to: '/blog' },
+
+  // Bare roots that exist as folders on disk but have no page of their own, so
+  // nginx answers 403 instead of 404. Each was a live URL on the old site (the
+  // old /skellycam/ and /freemocap/ were separate GitHub Pages project sites).
+  { from: '/skellycam', to: '/skellycam/intro' },
+  { from: '/freemocap', to: '/' },
+  { from: '/1.x', to: '/1.x/start/' },
+  { from: ['/freemocap/docs', '/freemocap/docs/development'], to: '/build/' },
+  { from: '/freemocap/docs/architecture', to: '/build/architecture' },
+  { from: '/freemocap/docs/guides', to: '/guides/' },
 
   // Writerside template pages that were deleted before the migration. They had
   // redirect rules in the V1 redirection-rules.xml, so they are still reachable.
