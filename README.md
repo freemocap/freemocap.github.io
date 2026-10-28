@@ -1,8 +1,6 @@
 # FreeMoCap docs
 
-Source for [docs.freemocap.org](https://docs.freemocap.org): one Docusaurus site
-composed from several doc sources, so the whole project shares one shell, one
-search index and one version switcher. Written against FreeMoCap v2.0.0-alpha.
+This uses Docusaurus to build [docs.freemocap.org](https://docs.freemocap.org). 
 
 ## Edit the docs
 
