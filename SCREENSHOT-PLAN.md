@@ -76,14 +76,14 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 
 ## Clips
 
-Only `tutorials/ground-plane` has `<Video>` tags today, and the two files it points at (`groundplane_example.mp4`, `groundplane_calibration.mp4`) are not in the repo. The originals are in `freemocap/documentation` (`docs/Writerside/images/assets/images/calibration/`) and show the v1 app, so don't copy them in. Until the v2 clips exist, `<Video>` shows a "not available right now" note.
+Only `tutorials/ground-plane` has `<Video>` tags today, and the two files it points at (`groundplane_example.mp4`, `groundplane_calibration.mp4`) are not in the repo. The originals are in `freemocap/documentation` (`docs/Writerside/images/assets/images/calibration/`) and show the v1 app. The calibration clip only shows the board on the floor, which is the same in v2, so it stays. Clips that show the app UI need re-recording. Until a missing clip exists, `<Video>` shows a "not available right now" note.
 
 Clips are screen recordings of the v2 app. Where the Needs tag is S, the footage is the sample recording replayed through the app, so one capture session covers them all once callout 26 is fixed. Put the files in `static/img/v2/` and use `<Video src="..." caption="..." />`.
 
 | ID | Page | Show | Needs |
 |---|---|---|---|
 | `groundplane-example` | tutorials/ground-plane | Playback of the 3D output standing upright on the grid, no extra rotation (replaces `groundplane_example.mp4`) | S (check alignment, else B, C, D) |
-| `groundplane-calibration` | tutorials/ground-plane | Calibration that starts with the ChArUco board flat on the floor in view of all cameras, then lifted (replaces `groundplane_calibration.mp4`) | B, C: the sample has no calibration videos. The v1 clip is in the docs for now (`static/img/v1/groundplane_calibration.mp4`, 20 MB); re-record on v2 when a board session happens |
+| ~~`groundplane-calibration`~~ | tutorials/ground-plane | Done: the v1 clip (`static/img/v1/groundplane_calibration.mp4`) shows the board-on-the-floor setup, which is the same in v2, so it stays | none |
 | `import-to-playback` | start/see-your-results | Import videos, process, open in Playback, scrub the timeline | S |
 | `posthoc-walkthrough` | guides/posthoc-mocap | Import with sync options, Continue to Mocap Setup, Process Mocap | S |
 | `playback-orbit` | start/see-your-results | Orbit and scrub the skeleton in the 3D viewport | S |
