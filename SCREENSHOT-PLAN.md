@@ -82,7 +82,7 @@ Clips are screen recordings of the v2 app. Where the Needs tag is S, the footage
 
 | ID | Page | Show | Needs |
 |---|---|---|---|
-| `groundplane-example` | tutorials/ground-plane | Playback of the 3D output standing upright on the grid, no extra rotation (replaces `groundplane_example.mp4`, the v1 clip now in the docs) | S (check alignment, else B, C, D) |
+| `groundplane-example` | tutorials/ground-plane | Playback of the 3D output standing upright on the grid, no extra rotation (replaces `groundplane_example.mp4`, a v1-only clip that stays in `static/img/v1/` for the 1.x docs; save the new one as `static/img/v2/groundplane_example.mp4`, where the page already points) | S (check alignment, else B, C, D) |
 | ~~`groundplane-calibration`~~ | tutorials/ground-plane | Done: the v1 clip (`static/img/v1/groundplane_calibration.mp4`) shows the board-on-the-floor setup, which is the same in v2, so it stays | none |
 | `import-to-playback` | start/see-your-results | Import videos, process, open in Playback, scrub the timeline | S |
 | `posthoc-walkthrough` | guides/posthoc-mocap | Import with sync options, Continue to Mocap Setup, Process Mocap | S |
