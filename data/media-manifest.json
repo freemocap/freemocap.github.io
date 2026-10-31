@@ -36,6 +36,18 @@
     "bytes": 4308
   },
   {
+    "id": "connect-cameras",
+    "page": "docs/tutorials/single-camera.md",
+    "file": "docs/tutorials/img/connect-cameras.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-31",
+    "width": 615,
+    "height": 110,
+    "bytes": 2934
+  },
+  {
     "id": "detector-choice",
     "page": "docs/tutorials/choose-a-tracker.md",
     "file": "docs/tutorials/img/detector-choice.webp",
@@ -72,6 +84,18 @@
     "bytes": 18198
   },
   {
+    "id": "ground-plane-toggle",
+    "page": "docs/tutorials/ground-plane.md",
+    "file": "docs/tutorials/img/ground-plane-toggle.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-31",
+    "width": 620,
+    "height": 145,
+    "bytes": 3968
+  },
+  {
     "id": "import-videos",
     "page": "docs/guides/posthoc-mocap.md",
     "file": "docs/guides/img/import-videos.webp",
@@ -84,6 +108,42 @@
     "bytes": 14032
   },
   {
+    "id": "mocap-setup-directory",
+    "page": "docs/guides/posthoc-mocap.md",
+    "file": "docs/guides/img/mocap-setup-directory.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-31",
+    "width": 620,
+    "height": 670,
+    "bytes": 23268
+  },
+  {
+    "id": "playback-skeleton",
+    "page": "docs/start/see-your-results.md",
+    "file": "docs/start/img/playback-skeleton.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-31",
+    "width": 1600,
+    "height": 881,
+    "bytes": 55066
+  },
+  {
+    "id": "record-controls",
+    "page": "docs/tutorials/single-camera.md",
+    "file": "docs/tutorials/img/record-controls.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-31",
+    "width": 620,
+    "height": 180,
+    "bytes": 3836
+  },
+  {
     "id": "recording-folder",
     "page": "docs/tutorials/find-your-data.md",
     "file": "docs/tutorials/img/recording-folder.webp",
@@ -94,6 +154,18 @@
     "width": 740,
     "height": 385,
     "bytes": 8414
+  },
+  {
+    "id": "recording-stages",
+    "page": "docs/start/see-your-results.md",
+    "file": "docs/start/img/recording-stages.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-31",
+    "width": 620,
+    "height": 640,
+    "bytes": 15730
   },
   {
     "id": "sync-options",

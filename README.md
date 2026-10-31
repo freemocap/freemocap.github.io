@@ -120,9 +120,11 @@ CI runs it on `docs`, `concepts`, `build-docs` and `stub-docs`, and never blocks
    rewrites them and logs the count; the durable fix is relative links in that repo.
 3. **`/build/` lives here.** When the core repo owns developer docs, set `docs_path`
    for `freemocap` in `repos.yml` and delete `build-docs/`.
-4. **Ground-plane videos are missing.** `docs/tutorials/ground-plane.md` has two
-   `<video>` tags for `static/img/v1/*.mp4` (about 24MB). Source:
-   `freemocap/documentation`, `docs/Writerside/images/assets/images/calibration/`.
+4. **The v2 ground-plane example video is not recorded yet.** `docs/tutorials/ground-plane.md`
+   points at `static/img/v2/groundplane_example.mp4`, which doesn't exist, so `<Video>` shows a
+   "not yet recorded" note. The v1 clip stays in `static/img/v1/` for the 1.x docs only.
+   `groundplane_calibration.mp4` shows the board on the floor, which is the same in v2, so the
+   v2 page uses it.
 5. **Five old project sites 404** on this domain (`/skellybot/`, `/bs/`,
    `/2025-nsf-pose/`, `/skellybot-analysis/`, `/skellyspeak/`) by choice. Their
    content stays in their own repos.
