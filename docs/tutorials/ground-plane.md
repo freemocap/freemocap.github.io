@@ -17,8 +17,7 @@ Instead of using a camera’s perspective to define the world (which can lead to
 This helps the triangulated data come in with the subject’s feet on the ground and their body standing tall - as opposed to having to rotate the subject onto the floor in post-processing. Below is an example of the output 3D data that was reconstructed using 
 the ground plane calibration feature - with no additional rotations applied. 
 
-<video src="/img/v1/groundplane_example.mp4" controls muted loop playsInline />
-
+<Video src="/img/v1/groundplane_example.mp4" />
 ## Quick overview: recording a ground plane calibration
 Overall, the process is relatively similar to how you record a default calibration. There are two key differences:
 1. You'll **enable the `Align to initial Charuco ground plane` toggle** in the calibration settings of the FreeMoCap GUI before you record or process your calibration
@@ -43,8 +42,7 @@ check the same `Align to initial Charuco ground plane` toggle, then use `Import 
 Leave it on the ground for a **few seconds**, and then proceed with calibration as normal.
 Here's an example below.
 
-<video src="/img/v1/groundplane_calibration.mp4" controls muted loop playsInline /> 
-
+<Video src="/img/v1/groundplane_calibration.mp4" />
 ### 3. Processing your ground plane calibration 
 
 After recording your calibration videos through the software, or calibrating an existing recording, your calibration begins to process 

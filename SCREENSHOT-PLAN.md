@@ -1,12 +1,12 @@
 # Screenshot plan
 
-Shot list for the V2 UI screenshots. Not published: this file sits outside the folders the docs site builds from. The image script, `<Screenshot>` component and zoom plugin are in place (see the README's Screenshots section).
+Shot list for the V2 UI screenshots and demo clips. Not published: this file sits outside the folders the docs site builds from. The image script, `<Screenshot>` component and zoom plugin are in place (see the README's Screenshots section).
 
 ## Status
 
 Captured and in the docs (10): `welcome-screen`, `calibrate-import-menu`, `import-videos`, `sync-options`, `detector-choice` (plus a MediaPipe version, `detector-choice-mediapipe`), `filter-settings`, `blender-export-options`, `blender-scene`, `recording-folder`. Raw originals are in `~/Documents/FMC/App Captures and Tutorials/raw/`.
 
-Source recording: the official `skellysamples` sample data, converted to H.264 (see ENGINEER-CALLOUTS 23 and 25) and processed with MediaPipe. Held back until the 3D viewport shows the skeleton (callout 26): `playback-skeleton`, `open-in-playback`, `ground-plane-axes`, `default-calibration-axes`.
+Source recording: the official `skellysamples` sample data, converted to H.264 (see ENGINEER-CALLOUTS 23 and 25) and processed with MediaPipe. Held back until the 3D viewport shows the skeleton (callout 26): `playback-skeleton`, `open-in-playback`, `ground-plane-axes`, `default-calibration-axes`, and every clip tagged S.
 
 Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tells the reader to click.
 
@@ -26,6 +26,7 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 | B | Needs three cameras |
 | C | Needs a printed ChArUco board in view |
 | D | Needs a recording that has been processed |
+| S | Can be captured from the official sample data (3 cameras, with a finished calibration `.toml`), no live camera or board needed |
 | X | Needs a different OS or app, not capturable on this Mac |
 
 ## Phase 1: first recording
@@ -39,10 +40,10 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 | `detector-choice` | tutorials/choose-a-tracker | **Mocap Settings > Detector** with MediaPipe and RTMPose options | Settings panel | A |
 | `record-controls` | tutorials/single-camera | **Start Recording**, Delay Start, **Auto Process Mocap**, **Mocap Settings** | Left panel bottom | A |
 | `recording-in-progress` | tutorials/single-camera | The **Stop Recording** state while recording | Left panel + preview | A |
-| `open-in-playback` | tutorials/single-camera | The **Open in Playback** prompt after processing | Whole window | A, D |
-| `playback-skeleton` | start/see-your-results | The **Playback** tab with the skeleton visible | Whole window | A, D |
+| `open-in-playback` | tutorials/single-camera | The **Open in Playback** prompt after processing | Whole window | S |
+| `playback-skeleton` | start/see-your-results | The **Playback** tab with the skeleton visible | Whole window | S |
 | `recording-folder` | tutorials/find-your-data | The recording folder open in Finder: `synchronized_videos`, `output_data`, `annotated_videos`, `3d_models` | Finder window | D |
-| `open-folder-button` | start/see-your-results | **Open folder in file explorer** | Playback panel | D |
+| `open-folder-button` | start/see-your-results | **Open folder in file explorer** | Playback panel | S |
 
 ## Phase 2: calibration and cameras
 
@@ -54,8 +55,8 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 | `board-in-all-cameras` | tutorials/calibrate | Board visible and detected in each camera view | Preview grid | B, C |
 | `calibrated-state` | tutorials/calibrate | The **Calibrated** confirmation and **Continue to Mocap Setup** | Left panel | B, C |
 | `ground-plane-toggle` | tutorials/ground-plane | **Align to initial Charuco ground plane** toggle | Left panel | A |
-| `ground-plane-axes` | tutorials/ground-plane | 3D view with axes aligned to the board (replaces `charuco_as_groundplane`) | 3D viewport | B, C, D |
-| `default-calibration-axes` | tutorials/ground-plane | 3D view with Camera 0 as origin (replaces `cam0_as_origin_v2`) | 3D viewport | B, C, D |
+| `ground-plane-axes` | tutorials/ground-plane | 3D view with axes aligned to the board (replaces `charuco_as_groundplane`) | 3D viewport | S (check the sample calibration is ground-plane aligned, else B, C, D) |
+| `default-calibration-axes` | tutorials/ground-plane | 3D view with Camera 0 as origin (replaces `cam0_as_origin_v2`) | 3D viewport | S |
 | `camera-settings` | guides/camera-setup | Per-camera settings: exposure, resolution, rotation | Settings panel | A |
 | `exposure-setting` | tutorials/capture-environment | The exposure control for one camera | Settings panel | A |
 
@@ -67,11 +68,29 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 | `filter-settings` | tutorials/post-processing | **Butterworth Low-Pass Filter** and gap-filling options | Settings panel | A |
 | `tracker-model-options` | tutorials/choose-a-tracker | Model complexity options (Lite/Full/Heavy, Fast/Default/High Res) | Settings panel | A |
 | `blender-export-options` | tutorials/blender | **Export to Blender after mocap processing**, **Select Blender executable**, auto-open, foot locking, hand range | Settings panel | A |
-| `process-with-blender` | tutorials/blender | **Process Recording with Blender** in Playback | Playback panel | A, D |
-| `blender-scene` | tutorials/blender | The exported scene open in Blender | Blender window | D, X |
+| `process-with-blender` | tutorials/blender | **Process Recording with Blender** in Playback | Playback panel | S |
+| `blender-scene` | tutorials/blender | The exported scene open in Blender | Blender window | S, X |
 | `import-videos` | guides/posthoc-mocap | **Import Videos** with **Choose Video Files** and the synchronize option | Dialog | A |
 | `sync-options` | guides/posthoc-mocap | Audio and brightness-flash synchronization options and **Sampling Rate** | Dialog | A |
-| `process-mocap-button` | guides/posthoc-mocap | **Continue to Mocap Setup** and **Process Mocap** | Left panel | A, D |
+| `process-mocap-button` | guides/posthoc-mocap | **Continue to Mocap Setup** and **Process Mocap** | Left panel | S |
+
+## Clips
+
+Only `tutorials/ground-plane` has `<Video>` tags today, and the two files it points at (`groundplane_example.mp4`, `groundplane_calibration.mp4`) are not in the repo. The originals are in `freemocap/documentation` (`docs/Writerside/images/assets/images/calibration/`) and show the v1 app, so don't copy them in. Until the v2 clips exist, `<Video>` shows a "not available right now" note.
+
+Clips are screen recordings of the v2 app. Where the Needs tag is S, the footage is the sample recording replayed through the app, so one capture session covers them all once callout 26 is fixed. Put the files in `static/img/v2/` and use `<Video src="..." caption="..." />`.
+
+| ID | Page | Show | Needs |
+|---|---|---|---|
+| `groundplane-example` | tutorials/ground-plane | Playback of the 3D output standing upright on the grid, no extra rotation (replaces `groundplane_example.mp4`) | S (check alignment, else B, C, D) |
+| `groundplane-calibration` | tutorials/ground-plane | Calibration that starts with the ChArUco board flat on the floor in view of all cameras, then lifted (replaces `groundplane_calibration.mp4`) | B, C: the sample has no calibration videos |
+| `import-to-playback` | start/see-your-results | Import videos, process, open in Playback, scrub the timeline | S |
+| `posthoc-walkthrough` | guides/posthoc-mocap | Import with sync options, Continue to Mocap Setup, Process Mocap | S |
+| `playback-orbit` | start/see-your-results | Orbit and scrub the skeleton in the 3D viewport | S |
+| `blender-export` | tutorials/blender | Process Recording with Blender, then the scene opening | S, X |
+| `record-single-camera` | tutorials/single-camera | Connect, Start Recording, Stop, Open in Playback | A |
+
+Keep each under about 10 MB (H.264, muted, 15 to 30 seconds).
 
 ## Not capturable here
 
@@ -88,5 +107,5 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 ## Open decisions
 
 1. Window size and theme for the batch.
-2. Stand-in subject: sample data, a video, or a camera on a plain background.
+2. Stand-in subject: decided. Use the sample data wherever the Needs tag allows (S).
 3. Which shots to do first. My suggestion is everything tagged A in Phase 1 (nine shots on one camera), then the three-camera session for the rest.
