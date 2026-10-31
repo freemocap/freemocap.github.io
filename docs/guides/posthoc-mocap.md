@@ -15,6 +15,7 @@ history:
 
 import sync_options from './img/sync-options.webp';
 import import_videos from './img/import-videos.webp';
+import mocap_setup_directory from './img/mocap-setup-directory.webp';
 
 # Process a recording after the fact
 
@@ -51,6 +52,8 @@ install it and restart FreeMoCap.
 5. Under **Blender**, choose whether to make a Blender scene. See
    [open your recording in Blender](/tutorials/blender).
 6. Click **Process Mocap** and keep FreeMoCap open until it finishes.
+
+<Screenshot src={mocap_setup_directory} width={520} alt="The Mocap setup dialog open on Processing Directory, with a list of sections on the left (Processing Directory, Calibration, Detector, 3D Triangulation, Post Processing, Blender) and Cancel and Process Mocap buttons at the bottom" caption="The Mocap setup dialog. Process Mocap is at the bottom right." version="2.0.0-alpha.25" />
 
 For imported videos, also set the **Sampling Rate** under **Post Processing** to your videos' frame
 rate. See [filter and fill your data](/tutorials/post-processing).

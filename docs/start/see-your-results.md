@@ -13,12 +13,19 @@ history:
     against: "this site's own find-your-data.md and blender.md"
 ---
 
+import playback_skeleton from './img/playback-skeleton.webp';
+import recording_stages from './img/recording-stages.webp';
+
 # See what you made
 
 ## Watch it back
 
 Open the **Playback** tab and select your recording. Check the tracked skeleton against your
 movement: points should sit on your joints and move smoothly.
+
+<Screenshot src={playback_skeleton} alt="The Playback tab with a recording selected: three annotated camera views with the tracked skeleton drawn on a person, the 3D viewport on the right, and the playback controls along the bottom" caption="The Playback tab, showing a sample recording." version="2.0.0-alpha.25" />
+
+<Video src="/img/v2/playback-watch.mp4" caption="Playback of the sample recording: the annotated camera views and the 3D viewport." />
 
 ## Open it in Blender
 
@@ -39,6 +46,10 @@ Inside each recording folder:
 - `annotated_videos/` holds copies with the tracked points drawn on top.
 - `output_data/` holds the motion capture data.
 - `<recording name>.blend` is the Blender scene, if one was made.
+
+In the **Playback** tab, open a recording's folder detail to see which of these were made.
+
+<Screenshot src={recording_stages} width={480} alt="The Playback list with the sample recording expanded: Synchronized videos, Calibration, Blender input data, Annotated videos and Blender scene, each with a green tick" caption="A fully processed recording, with each output ticked off." version="2.0.0-alpha.25" />
 
 See [find and read your output](/tutorials/find-your-data) for the full layout.
 

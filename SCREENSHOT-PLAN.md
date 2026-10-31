@@ -35,13 +35,13 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 |---|---|---|---|---|
 | `app-overview` | start/first-recording | Whole window while streaming, with all cameras and the 3D view | Full window | B |
 | `welcome-screen` | start/install | The welcome screen on first launch | Full window | A |
-| `connect-cameras` | tutorials/single-camera | The **Connect Cameras** control before connecting | Left panel | A |
+| ~~`connect-cameras`~~ (done) | tutorials/single-camera | The **Connect Cameras** control before connecting | Left panel | A |
 | `camera-connected` | tutorials/single-camera | **Connected** status and the camera card with resolution and fps | Left panel top | A |
 | `detector-choice` | tutorials/choose-a-tracker | **Mocap Settings > Detector** with MediaPipe and RTMPose options | Settings panel | A |
-| `record-controls` | tutorials/single-camera | **Start Recording**, Delay Start, **Auto Process Mocap**, **Mocap Settings** | Left panel bottom | A |
+| ~~`record-controls`~~ (done) | tutorials/single-camera | **Start Recording**, Delay Start, **Auto Process Mocap**, **Mocap Settings** | Left panel bottom | A |
 | `recording-in-progress` | tutorials/single-camera | The **Stop Recording** state while recording | Left panel + preview | A |
 | `open-in-playback` | tutorials/single-camera | The **Open in Playback** prompt after processing | Whole window | S |
-| `playback-skeleton` | start/see-your-results | The **Playback** tab with the skeleton visible | Whole window | S |
+| ~~`playback-skeleton`~~ (done) | start/see-your-results | The **Playback** tab with the skeleton visible | Whole window | S |
 | `recording-folder` | tutorials/find-your-data | The recording folder open in Finder: `synchronized_videos`, `output_data`, `annotated_videos`, `3d_models` | Finder window | D |
 | `open-folder-button` | start/see-your-results | **Open folder in file explorer** | Playback panel | S |
 
@@ -72,7 +72,7 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 | `blender-scene` | tutorials/blender | The exported scene open in Blender | Blender window | S, X |
 | `import-videos` | guides/posthoc-mocap | **Import Videos** with **Choose Video Files** and the synchronize option | Dialog | A |
 | `sync-options` | guides/posthoc-mocap | Audio and brightness-flash synchronization options and **Sampling Rate** | Dialog | A |
-| `process-mocap-button` | guides/posthoc-mocap | **Continue to Mocap Setup** and **Process Mocap** | Left panel | S |
+| ~~`process-mocap-button`~~ (done, as `mocap-setup-directory`) | guides/posthoc-mocap | **Continue to Mocap Setup** and **Process Mocap** | Left panel | S |
 
 ## Clips
 
@@ -91,6 +91,18 @@ Clips are screen recordings of the v2 app. Where the Needs tag is S, the footage
 | `record-single-camera` | tutorials/single-camera | Connect, Start Recording, Stop, Open in Playback | A |
 
 Keep each under about 10 MB (H.264, muted, 15 to 30 seconds).
+
+## Captured 2026-10-31 from the running alpha.25 app
+
+Done: `ground-plane-toggle`, `connect-cameras`, `record-controls`, `playback-skeleton`, `recording-stages` (replaces `open-folder-button`; the app's open-folder control has no label to point at), `mocap-setup-directory` (for `process-mocap-button`), plus the `playback-watch` clip on start/see-your-results.
+
+Still open, and why:
+- `camera-connected`, `recording-in-progress`, `camera-settings`, `exposure-setting`, `app-overview`: the app finds 0 cameras on this Mac, so there is no live view to show. `app-overview` also shows the home folder path in the folder box.
+- `process-with-blender`: only appears for a recording with no Blender scene yet; the sample is already processed.
+- `calibrated-state`: the panel prints a home folder path.
+- `calibration-panel`, `record-and-calibrate`, `board-in-all-cameras`: need cameras and a board.
+- `ground-plane-axes`, `default-calibration-axes`: the 3D viewport has no skeleton yet, and the sample calibration may not be ground-plane aligned.
+- Clips `import-to-playback`, `posthoc-walkthrough`, `blender-export`, `record-single-camera`.
 
 ## Not capturable here
 

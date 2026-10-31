@@ -12,6 +12,8 @@ history:
 ---
 
 import welcome from './img/welcome-screen.webp';
+import connect_cameras from './img/connect-cameras.webp';
+import record_controls from './img/record-controls.webp';
 
 Start with one camera. It's the quickest way to check that FreeMoCap works on your computer
 before you set up several cameras. One camera gives you 2D tracking, not reliable 3D.
@@ -30,6 +32,8 @@ quick tour. You can close it and carry on.
 
 Plug in a webcam (or use your laptop's built-in camera) and click **Connect Cameras**. Your
 camera's live view appears in the middle of the window.
+
+<Screenshot src={connect_cameras} width={560} alt="The camera panel before connecting, reading 0 Cameras and No cameras detected, with a Connect Cameras button at the top right" caption="The camera panel before you connect." version="2.0.0-alpha.25" />
 
 If your camera doesn't show up, click the refresh button in the camera panel to scan again.
 
@@ -53,6 +57,8 @@ You don't need to calibrate for a single camera.
 
 **Auto Process Mocap** is on by default, so FreeMoCap processes the recording as soon as you
 stop. The first time, it downloads the tracking model, so stay online.
+
+<Screenshot src={record_controls} width={560} alt="The recording controls: the Start Recording button, a Delay Start switch, Auto Process Mocap switched on, a Mocap Settings row and a microphone selector" caption="The recording controls, with Auto Process Mocap on." version="2.0.0-alpha.25" />
 
 ## 5. See your results
 
