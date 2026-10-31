@@ -72,6 +72,18 @@
     "bytes": 18198
   },
   {
+    "id": "ground-plane-toggle",
+    "page": "docs/tutorials/ground-plane.md",
+    "file": "docs/tutorials/img/ground-plane-toggle.webp",
+    "app": "2.0.0-alpha.25",
+    "os": "macOS",
+    "theme": "dark",
+    "captured": "2026-10-31",
+    "width": 620,
+    "height": 145,
+    "bytes": 3968
+  },
+  {
     "id": "import-videos",
     "page": "docs/guides/posthoc-mocap.md",
     "file": "docs/guides/img/import-videos.webp",
