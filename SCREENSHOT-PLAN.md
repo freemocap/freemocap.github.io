@@ -55,8 +55,8 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 | `board-in-all-cameras` | tutorials/calibrate | Board visible and detected in each camera view | Preview grid | B, C |
 | `calibrated-state` | tutorials/calibrate | The **Calibrated** confirmation and **Continue to Mocap Setup** | Left panel | B, C |
 | `ground-plane-toggle` | tutorials/ground-plane | **Align to initial Charuco ground plane** toggle | Left panel | A |
-| `ground-plane-axes` | tutorials/ground-plane | 3D view with axes aligned to the board (replaces `charuco_as_groundplane`) | 3D viewport | S (check the sample calibration is ground-plane aligned, else B, C, D) |
-| `default-calibration-axes` | tutorials/ground-plane | 3D view with Camera 0 as origin (replaces `cam0_as_origin_v2`) | 3D viewport | S |
+| `ground-plane-axes` | tutorials/ground-plane | 3D view with axes aligned to the board (replaces `charuco_as_groundplane`, removed from the page because it showed the v1 app) | 3D viewport | S (check the sample calibration is ground-plane aligned, else B, C, D) |
+| `default-calibration-axes` | tutorials/ground-plane | 3D view with Camera 0 as origin (replaces `cam0_as_origin_v2`, removed from the page because it showed the v1 app) | 3D viewport | S |
 | `camera-settings` | guides/camera-setup | Per-camera settings: exposure, resolution, rotation | Settings panel | A |
 | `exposure-setting` | tutorials/capture-environment | The exposure control for one camera | Settings panel | A |
 

@@ -57,19 +57,14 @@ If a suitable stretch of frames is found, the board detections in it are average
 #### How ground plane calibration works
 Ground plane calibration redefines the world coordinate system using the orientation of the **ChArUco board**. The known board geometry (each corner's position on the board, in millimeters) is rigidly fitted to the triangulated corner positions using a Kabsch (orthogonal Procrustes) fit over all well-observed corners, rather than relying on specific individual markers:
 
-- The origin `(0, 0, 0)` is set to **corner 0** of the ChArUco board (the location of marker 0 on a 7x5 and 5x3 board is shown in the figure below)
+- The origin `(0, 0, 0)` is set to **corner 0** of the ChArUco board
 - The **X** and **Y** axes come from the fitted board pose itself. X runs along the board edge in the `squares_x` direction and Y along the edge in the `squares_y` direction, so they always follow the printed board regardless of which corners happened to be visible
 - The **Z** axis is the board's normal vector, oriented to point toward the cameras (and therefore up out of the floor)
-
-![image](/img/v1/charuco_as_groundplane.png)
 
 ### 4. Ground plane calibration results
 
 With a successful ground plane calibration, the origin of the world is set to marker 0 of the ChArUco board, 
-and the subject comes in standing upright in the +Z direction, with their feet at Z=0. This is most evident
-in looking at the data viewer in the FreeMoCap GUI - as you can see in the example below. 
-
-![groundplane_oriented_data.png](/img/v1/groundplane_oriented_data.png)
+and the subject comes in standing upright in the +Z direction, with their feet at Z=0.
 
 The output calibration TOML also records whether a ground plane calibration succeeded. When it did, a `groundplane_applied = true` entry is written in the `[metadata]` section of the file.
 
@@ -94,10 +89,6 @@ By default, the world coordinate system is defined by the location and orientati
 - The origin `(0, 0, 0)` is placed at the optical center of Camera 0
 - The world axes align with Camera 0’s coordinate frame: +Z points outward from the lens, +X to the right, and +Y downward in the image
 
-![image](/img/v1/cam0_as_origin_v2.png) 
-
-As a result, reconstructed 3D data (for example skeletons) often comes in aligned to the camera's perspective rather than to the physical environment, which means subjects may come in lying sideways instead of standing upright (see image below for an example).
-
-![default_oriented_data.png](/img/v1/default_oriented_data.png)
+As a result, reconstructed 3D data (for example skeletons) often comes in aligned to the camera's perspective rather than to the physical environment, which means subjects may come in lying sideways instead of standing upright.
 
 While FreeMoCap rotates the reconstructed 3D data to make it appear upright and place the feet on the ground before exporting to Blender, it’s far more reliable to ensure the data is aligned correctly from the start.
