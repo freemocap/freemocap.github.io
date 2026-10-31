@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Layout from '@theme/Layout';
 import {
   FiActivity,
@@ -133,23 +132,6 @@ import {
  * cover, not a claim that it exists yet.
  */
 export default function Home() {
-  // TierPicker's four boxes (see HomeSections.tsx) link to in-page hash
-  // anchors on the Tier sections below. Docusaurus's own hash-scroll
-  // already lands correctly (scroll-margin-top on .section handles the
-  // sticky navbar), it just jumps instantly. Scoped to this page only,
-  // via the html element's own scroll-behavior while Home is mounted,
-  // rather than a sitewide custom.css rule that would also change how
-  // every doc page's TOC/footnote anchors behave.
-  useEffect(() => {
-    const root = document.documentElement;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const previous = root.style.scrollBehavior;
-    root.style.scrollBehavior = 'smooth';
-    return () => {
-      root.style.scrollBehavior = previous;
-    };
-  }, []);
-
   return (
     <Layout
       title="FreeMoCap documentation"

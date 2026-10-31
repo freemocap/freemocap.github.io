@@ -2,7 +2,7 @@ name: Build and deploy docs
 
 on:
   push:
-    branches: [main, docs-v2]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -78,12 +78,13 @@ jobs:
         run: |
           echo "::error title=The site did not build. Nothing was deployed::Check the Build step log for the first line containing Error. The usual cause is a broken internal link or a typo in a page header (Docusaurus is set to stop on broken links on purpose). If the failure is in Fetch external docs, a sub-repo docs folder could not be downloaded. Fix it and push again, or re-run the job if it looks like a network blip."
 
-  # Merging never deploys by itself. Deploying is a deliberate "Run workflow"
-  # click from the Actions tab, or a push to docs-v2 while PREVIEW_DEPLOY is
-  # 'true' (pre-merge testing; unset otherwise).
+  # Deploying is a deliberate "Run workflow"
+  # click from the Actions tab, or a push to main while the repo
+  # variable DEPLOY_ON_PUSH is 'true' (unset or anything else means pushes
+  # only build).
   deploy:
     needs: build
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/docs-v2' && vars.PREVIEW_DEPLOY == 'true')
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && vars.DEPLOY_ON_PUSH == 'true')
     runs-on: ubuntu-latest
     environment: production
     steps:
