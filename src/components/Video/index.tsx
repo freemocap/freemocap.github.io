@@ -28,7 +28,7 @@ export default function Video({ src, caption }: Props): ReactNode {
     <figure className={styles.figure}>
       {failed ? (
         <div className={styles.missing} role="note">
-          This video isn't available right now. We're working on getting it back.
+          This demo video has not yet been recorded for version 2.0 (alpha).
         </div>
       ) : (
         <video

@@ -76,7 +76,7 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 
 ## Clips
 
-Only `tutorials/ground-plane` has `<Video>` tags today. Its two files (`groundplane_example.mp4`, `groundplane_calibration.mp4`) are the v1 originals, now in the repo. They came from `freemocap/documentation` (`docs/Writerside/images/assets/images/calibration/`) and show the v1 app. The calibration clip only shows the board on the floor, which is the same in v2, so it stays. Clips that show the app UI need re-recording. Until a missing clip exists, `<Video>` shows a "not available right now" note.
+Only `tutorials/ground-plane` has `<Video>` tags today. Its two files (`groundplane_example.mp4`, `groundplane_calibration.mp4`) are the v1 originals, now in the repo. They came from `freemocap/documentation` (`docs/Writerside/images/assets/images/calibration/`) and show the v1 app. The calibration clip only shows the board on the floor, which is the same in v2, so it stays. Clips that show the app UI need re-recording. Until a missing clip exists, `<Video>` shows a "not yet recorded for version 2.0" note.
 
 Clips are screen recordings of the v2 app. Where the Needs tag is S, the footage is the sample recording replayed through the app, so one capture session covers them all once callout 26 is fixed. Put the files in `static/img/v2/` and use `<Video src="..." caption="..." />`.
 

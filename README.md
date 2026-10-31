@@ -146,7 +146,7 @@ Clicking an image zooms it. Never commit the raw originals.
    floor, which is the same in v2, so it stays. `groundplane_example.mp4` shows the v1
    app's 3D view, so it stays in `static/img/v1/` for the 1.x docs only. The v2 page
    points at `static/img/v2/groundplane_example.mp4`, which doesn't exist yet, so it
-   shows a "not available" note. See "Clips" in [SCREENSHOT-PLAN.md](SCREENSHOT-PLAN.md).
+   shows a "not yet recorded" note. See "Clips" in [SCREENSHOT-PLAN.md](SCREENSHOT-PLAN.md).
 
 Items that need an engineer to change the app or another repo are tracked in
 [ENGINEER-CALLOUTS.md](ENGINEER-CALLOUTS.md).
