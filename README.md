@@ -141,12 +141,12 @@ Clicking an image zooms it. Never commit the raw originals.
    count. The durable fix is relative links in the sub-repo.
 4. **`/build/` lives in this repo.** Once the core repo owns the developer docs,
    set `docs_path` for `freemocap` in `repos.yml` and delete `build-docs/`.
-5. **`groundplane_example.mp4` needs re-recording on v2.** `docs/tutorials/ground-plane.md`
-   plays `groundplane_calibration.mp4` from `static/img/v1/`; it shows the board on the
-   floor, which is the same in v2, so it stays. `groundplane_example.mp4` shows the v1
-   app's 3D view, so it stays in `static/img/v1/` for the 1.x docs only. The v2 page
-   points at `static/img/v2/groundplane_example.mp4`, which doesn't exist yet, so it
-   shows a "not yet recorded" note. See "Clips" in [SCREENSHOT-PLAN.md](SCREENSHOT-PLAN.md).
+5. **The ground-plane example clip is a playback recording, not a ground-plane result.**
+   `static/img/v2/groundplane_example.mp4` is a screen recording of the sample recording in
+   Playback (alpha.25). The 3D viewport shows no skeleton yet (callout 26), so re-record it
+   when it does. `static/img/v1/groundplane_calibration.mp4` shows the board on the floor,
+   which is the same in v2, so it stays. `static/img/v1/groundplane_example.mp4` is v1-only
+   and is kept for the 1.x docs.
 
 Items that need an engineer to change the app or another repo are tracked in
 [ENGINEER-CALLOUTS.md](ENGINEER-CALLOUTS.md).

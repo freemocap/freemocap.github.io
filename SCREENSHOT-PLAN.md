@@ -54,7 +54,7 @@ Written against FreeMoCap v2.0.0-alpha.25. Each shot comes from what a page tell
 | `record-and-calibrate` | tutorials/calibrate | The **Record and Calibrate** and **Stop Recording & Calibrate** states | Left panel | B, C |
 | `board-in-all-cameras` | tutorials/calibrate | Board visible and detected in each camera view | Preview grid | B, C |
 | `calibrated-state` | tutorials/calibrate | The **Calibrated** confirmation and **Continue to Mocap Setup** | Left panel | B, C |
-| `ground-plane-toggle` | tutorials/ground-plane | **Align to initial Charuco ground plane** toggle | Left panel | A |
+| ~~`ground-plane-toggle`~~ (done) | tutorials/ground-plane | **Align to initial Charuco ground plane** toggle | Left panel | A |
 | `ground-plane-axes` | tutorials/ground-plane | 3D view with axes aligned to the board (replaces `charuco_as_groundplane`, removed from the page because it showed the v1 app) | 3D viewport | S (check the sample calibration is ground-plane aligned, else B, C, D) |
 | `default-calibration-axes` | tutorials/ground-plane | 3D view with Camera 0 as origin (replaces `cam0_as_origin_v2`, removed from the page because it showed the v1 app) | 3D viewport | S |
 | `camera-settings` | guides/camera-setup | Per-camera settings: exposure, resolution, rotation | Settings panel | A |
@@ -82,7 +82,7 @@ Clips are screen recordings of the v2 app. Where the Needs tag is S, the footage
 
 | ID | Page | Show | Needs |
 |---|---|---|---|
-| `groundplane-example` | tutorials/ground-plane | Playback of the 3D output standing upright on the grid, no extra rotation (replaces `groundplane_example.mp4`, a v1-only clip that stays in `static/img/v1/` for the 1.x docs; save the new one as `static/img/v2/groundplane_example.mp4`, where the page already points) | S (check alignment, else B, C, D) |
+| `groundplane-example` (first version recorded: Playback of the sample, no skeleton in the viewport yet; redo after callout 26) | tutorials/ground-plane | Playback of the 3D output standing upright on the grid, no extra rotation (replaces `groundplane_example.mp4`, a v1-only clip that stays in `static/img/v1/` for the 1.x docs; save the new one as `static/img/v2/groundplane_example.mp4`, where the page already points) | S (check alignment, else B, C, D) |
 | ~~`groundplane-calibration`~~ | tutorials/ground-plane | Done: the v1 clip (`static/img/v1/groundplane_calibration.mp4`) shows the board-on-the-floor setup, which is the same in v2, so it stays | none |
 | `import-to-playback` | start/see-your-results | Import videos, process, open in Playback, scrub the timeline | S |
 | `posthoc-walkthrough` | guides/posthoc-mocap | Import with sync options, Continue to Mocap Setup, Process Mocap | S |
