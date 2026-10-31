@@ -83,7 +83,7 @@ Clips are screen recordings of the v2 app. Where the Needs tag is S, the footage
 | ID | Page | Show | Needs |
 |---|---|---|---|
 | `groundplane-example` | tutorials/ground-plane | Playback of the 3D output standing upright on the grid, no extra rotation (replaces `groundplane_example.mp4`) | S (check alignment, else B, C, D) |
-| `groundplane-calibration` | tutorials/ground-plane | Calibration that starts with the ChArUco board flat on the floor in view of all cameras, then lifted (replaces `groundplane_calibration.mp4`) | B, C: the sample has no calibration videos |
+| `groundplane-calibration` | tutorials/ground-plane | Calibration that starts with the ChArUco board flat on the floor in view of all cameras, then lifted (replaces `groundplane_calibration.mp4`) | B, C: the sample has no calibration videos. The v1 clip is in the docs for now (`static/img/v1/groundplane_calibration.mp4`, 20 MB); re-record on v2 when a board session happens |
 | `import-to-playback` | start/see-your-results | Import videos, process, open in Playback, scrub the timeline | S |
 | `posthoc-walkthrough` | guides/posthoc-mocap | Import with sync options, Continue to Mocap Setup, Process Mocap | S |
 | `playback-orbit` | start/see-your-results | Orbit and scrub the skeleton in the 3D viewport | S |

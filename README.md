@@ -141,12 +141,11 @@ Clicking an image zooms it. Never commit the raw originals.
    count. The durable fix is relative links in the sub-repo.
 4. **`/build/` lives in this repo.** Once the core repo owns the developer docs,
    set `docs_path` for `freemocap` in `repos.yml` and delete `build-docs/`.
-5. **The ground-plane calibration videos need re-recording on v2.**
-   `docs/tutorials/ground-plane.md` has two `<Video>` tags pointing at
-   `static/img/v1/*.mp4`, which don't exist. The old ones (in
-   `freemocap/documentation`) show the v1 app, so don't copy them in. See
-   "Videos to record" in [SCREENSHOT-PLAN.md](SCREENSHOT-PLAN.md). Until then the
-   page shows a "not available" note.
+5. **The ground-plane videos are partly v1.** `docs/tutorials/ground-plane.md` has two
+   `<Video>` tags. `groundplane_calibration.mp4` is in `static/img/v1/` (the v1 clip,
+   used for now). `groundplane_example.mp4` is missing, so that tag shows a "not
+   available" note. Both should be re-recorded on v2; see "Clips" in
+   [SCREENSHOT-PLAN.md](SCREENSHOT-PLAN.md).
 
 Items that need an engineer to change the app or another repo are tracked in
 [ENGINEER-CALLOUTS.md](ENGINEER-CALLOUTS.md).
