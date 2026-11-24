@@ -14,10 +14,7 @@ export default function NewsletterSignup(): ReactNode {
       <h2 id="newsletter-signup-title" className={styles.title}>
         Get the monthly newsletter
       </h2>
-      <p className={styles.blurb}>
-        One email a month from the FreeMoCap team: what&apos;s new, what we&apos;ve been working on, and the
-        month&apos;s blog posts. Unsubscribe any time.
-      </p>
+      <p className={styles.blurb}>A monthly-ish update on the FreeMoCap project.</p>
       <form
         className={styles.form}
         action={`https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_NEWSLETTER}`}
