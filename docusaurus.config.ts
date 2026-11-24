@@ -264,7 +264,9 @@ const config: Config = {
 
   themeConfig: {
     image: 'img/og-image.png',
-    colorMode: { defaultMode: 'dark', respectPrefersColorScheme: true },
+    // Two-way dark/light switch, no "system" step. Like freemocap.org,
+    // everyone starts in dark until they pick light.
+    colorMode: { defaultMode: 'dark', respectPrefersColorScheme: false },
     // Expanding one sidebar category collapses its sibling categories, so
     // moving from Tutorials to How-to (or between tutorial tiers) doesn't
     // leave every previously-visited section expanded at once.
