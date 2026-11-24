@@ -12,7 +12,7 @@ export default function NewsletterSignup(): ReactNode {
   return (
     <section className={styles.box} aria-labelledby="newsletter-signup-title">
       <h2 id="newsletter-signup-title" className={styles.title}>
-        Get the monthly newsletter
+        Get the newsletter
       </h2>
       <p className={styles.blurb}>A monthly-ish update on the FreeMoCap project.</p>
       <form
