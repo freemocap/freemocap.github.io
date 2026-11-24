@@ -101,6 +101,9 @@ export function buildDocsTree(activeInstance: Instance) {
     // Docs (the polyrepo tree's core box, plus "Architecture docs"), and
     // stays out of this mirror rather than growing it to cover every
     // present and future per-repo instance too.
+    // The blog is its own plugin with its own route, so a plain link
+    // like Developer Docs below, not a pageItem.
+    { type: 'link' as const, label: 'Blog', href: '/blog' },
     { type: 'link' as const, label: 'Developer Docs', href: '/developers' },
   ];
 }

@@ -300,6 +300,9 @@ const config: Config = {
         // Docs below, which is already its front door (the polyrepo tree's
         // core box, plus the "Architecture docs" link).
         sectionDropdown(aboutSection),
+        // The blog (classic preset's blog plugin, posts in blog/). A plain
+        // link, not a dropdown: there is only one blog index to go to.
+        { to: '/blog', label: 'Blog', position: 'left' },
         // Custom, not sectionDropdown, like Tutorials: Core/Pantheon/
         // Utility/More is a grouped, headered list, which Docusaurus's
         // stock flat dropdown can't render; see
