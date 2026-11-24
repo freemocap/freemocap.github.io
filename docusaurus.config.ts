@@ -12,7 +12,7 @@ const mathPlugins = { remarkPlugins: [remarkMath], rehypePlugins: [rehypeKatex] 
 
 const repos = loadRepos(__dirname);
 
-const UMAMI_WEBSITE_ID = '';
+const UMAMI_WEBSITE_ID = 'da6d04c1-fb75-44f9-8891-368744806237';
 
 // Only repos with real fetched docs get an externalRepos instance. Today
 // that is skellycam. A repo joins this set by setting docs_path in
@@ -54,8 +54,10 @@ const config: Config = {
 
   clientModules: ['./src/clientModules/smoothHashScroll.ts'],
 
-  // Umami: cookieless visit statistics, shared with freemocap.org and the
-  // shop. The website id is public; leave it empty to turn Umami off.
+  // Umami: cookieless visit statistics. One Umami website ("FMC Umami TLD",
+  // Hobby plan: 1 website, 100K events/month shared by all three) covers
+  // freemocap.org, docs.freemocap.org and shop.freemocap.org; its dashboard
+  // filters by hostname. The id is public; empty it to turn Umami off.
   // data-domains keeps local and preview builds out of the live numbers.
   // Elements marked data-umami-event="..." are counted as clicks.
   scripts: UMAMI_WEBSITE_ID
