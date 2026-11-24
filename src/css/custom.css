@@ -268,3 +268,36 @@ article {
   font-weight: 600;
   color: var(--ifm-menu-color);
 }
+
+/* Mobile menu on the right: the menu button sits at the far right of the
+   navbar, after search (src/theme/Navbar/Content), so the menu opens from
+   the right edge to meet it.
+   - Docusaurus pins the search box to the right edge on phones, which would
+     cover the button; here it flows in the row instead.
+   - A closed menu parked off-screen to the right would make the whole page
+     scroll sideways, so it stays in place and is revealed with a clip that
+     wipes in from the right edge.
+   The open state is repeated because this file can outrank Infima's rules. */
+@media (max-width: 996px) {
+  .navbar__toggle {
+    margin-right: 0;
+    margin-left: 0.5rem;
+  }
+
+  .navbar__items--right > [class*='navbarSearchContainer'] {
+    position: static;
+  }
+
+  .navbar-sidebar {
+    left: auto;
+    right: 0;
+    transform: none;
+    clip-path: inset(0 0 0 100%);
+    transition-property: opacity, visibility, clip-path;
+  }
+
+  .navbar-sidebar--show .navbar-sidebar {
+    transform: none;
+    clip-path: inset(0);
+  }
+}
