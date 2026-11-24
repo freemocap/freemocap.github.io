@@ -3,6 +3,8 @@ title: Privacy policy
 type: explanation
 provenance: ai-generated
 history:
+  - date: "2026-11-24"
+    against: "The websites, not the app: freemocap.org's js/nav.js and this site's src/clientModules/visitTracking.ts (page views and marked link clicks to shop.freemocap.org/api/events), Umami on both sites, the Buttondown sign-up forms, and the shop's daily-salted visitor hash (skelly-shop src/lib/analytics/visitor.ts). Added the \"These websites\" section; the app sections are unchanged."
   - date: "2026-10-14"
     against: "freemocap main at v2.0.0-alpha.25 (75c8acc2): telemetry.py system fields, telemetry_config.py, SettingsModal.tsx (Privacy section, full checkbox label), welcome screen checkbox ticked by default (seen in the installed app), telemetry_uid and telemetry_config.json created in freemocap_data on first launch (seen on disk). No changes needed."
   - date: "2026-08-25"
@@ -43,6 +45,19 @@ The data we currently collect includes:
 You can view the code that collects this data in the [FreeMoCap repository](https://github.com/freemocap/freemocap/blob/main/freemocap/system/telemetry/telemetry.py), and the SkellyPings client and server code in the [SkellyPings repository](https://github.com/freemocap/skellypings).
 
 If you do not wish to share your data, you may turn off "pings" at any point in time. To turn off user pings, clear the "Send anonymous usage pings to help improve FreeMoCap" box in the Privacy section of the Settings menu (or on the welcome screen), and restart FreeMoCap so the backend picks up your choice.
+
+## These websites
+
+This section covers this documentation site (docs.freemocap.org) and freemocap.org. The shop (shop.freemocap.org) has [its own privacy policy](https://shop.freemocap.org/privacy).
+
+To see how the sites are used, both record the pages visitors view and clicks on a few links (for example, to the shop or the blog). Each is recorded twice: with [Umami](https://umami.is/privacy), a privacy-focused statistics service, and in the FreeMoCap shop's own database, which also holds the shop's statistics.
+
+- **No cookies, no local storage.** Neither one stores anything on your device to recognize you.
+- **No IP addresses.** To put one visitor's page views in order, your IP address and browser type are combined with a secret that changes every day, and only the scrambled result is kept. It can't be turned back into your IP address, and a new one is made the next day, so visits on different days can't be linked. On one day, the same browser gets the same scrambled code on freemocap.org, this site, and the shop, so we can see, for example, how many people go from the docs to the shop. It never follows you to any other website.
+- **What is kept:** the page, the time, the referring site's name (for example, google.com, never the full address), any campaign tag in the link you followed, and the device type (phone, tablet, or computer). Nothing about who you are.
+- **How long:** 13 months in the shop's database, then deleted. Umami keeps its copy for 6 months.
+- **Server logs.** Like nearly every website, the web servers keep a standard log of requests (IP address, time, page, referring page, browser type) for a limited time, to keep the sites running and secure and to count visits the same way, with IP addresses scrambled as above.
+- **Newsletter.** If you sign up for the newsletter, your email address goes to [Buttondown](https://buttondown.com/legal/privacy), which sends it. You can unsubscribe from any newsletter email.
 
 ## Protection of user data
 

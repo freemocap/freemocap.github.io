@@ -52,7 +52,7 @@ const config: Config = {
   url: 'https://docs.freemocap.org',
   baseUrl: '/',
 
-  clientModules: ['./src/clientModules/smoothHashScroll.ts'],
+  clientModules: ['./src/clientModules/smoothHashScroll.ts', './src/clientModules/visitTracking.ts'],
 
   // Umami: cookieless visit statistics. One Umami website ("FMC Umami TLD",
   // Hobby plan: 1 website, 100K events/month shared by all three) covers
