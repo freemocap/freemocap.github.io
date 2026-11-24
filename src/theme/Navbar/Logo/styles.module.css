@@ -1,0 +1,61 @@
+.switcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 1rem;
+}
+
+/* Never cut "FreeMoCap" short; the nav items beside it wrap instead. */
+.switcher :global(.navbar__title) {
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* The brand's own right margin moves to the wrapper, so the chevron sits
+   right against the title. */
+.switcher :global(.navbar__brand) {
+  margin-right: 0.25rem;
+}
+
+.chevron {
+  font-size: 0.7rem;
+  color: var(--ifm-navbar-link-color);
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 11rem;
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  background: var(--ifm-dropdown-background-color);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: var(--ifm-global-shadow-md);
+  z-index: var(--ifm-z-index-dropdown);
+}
+
+.switcher:hover .menu,
+.switcher:focus-within .menu {
+  display: block;
+}
+
+.switcher:hover .chevron,
+.switcher:focus-within .chevron {
+  transform: rotate(180deg);
+}
+
+/* Phones and tablets (Docusaurus's mobile navbar): no hover menu. */
+@media (max-width: 996px) {
+  .chevron,
+  .menu,
+  .switcher:hover .menu,
+  .switcher:focus-within .menu {
+    display: none;
+  }
+}

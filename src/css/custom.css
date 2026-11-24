@@ -251,3 +251,20 @@ article {
   color: var(--ifm-color-emphasis-800);
   font-weight: 500;
 }
+
+/* The three FreeMoCap sites at the top of the mobile menu
+   (src/theme/NavbarItem/SiteLinksNavbarItem.tsx). */
+.site-links-mobile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  padding: 0.25rem 0.75rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.site-links-mobile__link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ifm-menu-color);
+}

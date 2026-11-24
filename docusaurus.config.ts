@@ -290,6 +290,10 @@ const config: Config = {
         // the footer sitemap reads, so there is one list to update per
         // section instead of three. Docusaurus dropdown navbar items expand
         // on hover on desktop by default; no custom JS needed.
+        // The three FreeMoCap sites, at the top of the mobile menu only
+        // (renders nothing on desktop, where the logo's hover menu lists
+        // them). See src/theme/NavbarItem/SiteLinksNavbarItem.tsx.
+        { type: 'custom-siteLinks', position: 'left' },
         sectionDropdown(sectionById('start')),
         // The one two-level menu on the site: tiers as the first level,
         // flyout-on-hover to each tier's pages as the second, matching the
