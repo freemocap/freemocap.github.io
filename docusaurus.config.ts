@@ -12,6 +12,8 @@ const mathPlugins = { remarkPlugins: [remarkMath], rehypePlugins: [rehypeKatex] 
 
 const repos = loadRepos(__dirname);
 
+const UMAMI_WEBSITE_ID = 'da6d04c1-fb75-44f9-8891-368744806237';
+
 // Only repos with real fetched docs get an externalRepos instance. Today
 // that is skellycam. A repo joins this set by setting docs_path in
 // repos.yml; nothing else needs to change, see the stubRepos comment below.
@@ -50,7 +52,24 @@ const config: Config = {
   url: 'https://docs.freemocap.org',
   baseUrl: '/',
 
-  clientModules: ['./src/clientModules/smoothHashScroll.ts'],
+  clientModules: ['./src/clientModules/smoothHashScroll.ts', './src/clientModules/visitTracking.ts'],
+
+  // Umami: cookieless visit statistics. One Umami website ("FMC Umami TLD",
+  // Hobby plan: 1 website, 100K events/month shared by all three) covers
+  // freemocap.org, docs.freemocap.org and shop.freemocap.org; its dashboard
+  // filters by hostname. The id is public; empty it to turn Umami off.
+  // data-domains keeps local and preview builds out of the live numbers.
+  // Elements marked data-umami-event="..." are counted as clicks.
+  scripts: UMAMI_WEBSITE_ID
+    ? [
+        {
+          src: 'https://cloud.umami.is/script.js',
+          defer: true,
+          'data-website-id': UMAMI_WEBSITE_ID,
+          'data-domains': 'docs.freemocap.org',
+        },
+      ]
+    : [],
 
   organizationName: 'freemocap',
   projectName: 'freemocap.github.io',
@@ -245,7 +264,9 @@ const config: Config = {
 
   themeConfig: {
     image: 'img/og-image.png',
-    colorMode: { defaultMode: 'dark', respectPrefersColorScheme: true },
+    // Two-way dark/light switch, no "system" step. Like freemocap.org,
+    // everyone starts in dark until they pick light.
+    colorMode: { defaultMode: 'dark', respectPrefersColorScheme: false },
     // Expanding one sidebar category collapses its sibling categories, so
     // moving from Tutorials to How-to (or between tutorial tiers) doesn't
     // leave every previously-visited section expanded at once.
@@ -271,6 +292,10 @@ const config: Config = {
         // the footer sitemap reads, so there is one list to update per
         // section instead of three. Docusaurus dropdown navbar items expand
         // on hover on desktop by default; no custom JS needed.
+        // The three FreeMoCap sites, at the top of the mobile menu only
+        // (renders nothing on desktop, where the logo's hover menu lists
+        // them). See src/theme/NavbarItem/SiteLinksNavbarItem.tsx.
+        { type: 'custom-siteLinks', position: 'left' },
         sectionDropdown(sectionById('start')),
         // The one two-level menu on the site: tiers as the first level,
         // flyout-on-hover to each tier's pages as the second, matching the
@@ -300,6 +325,9 @@ const config: Config = {
         // Docs below, which is already its front door (the polyrepo tree's
         // core box, plus the "Architecture docs" link).
         sectionDropdown(aboutSection),
+        // The blog (classic preset's blog plugin, posts in blog/). A plain
+        // link, not a dropdown: there is only one blog index to go to.
+        { to: '/blog', label: 'Blog', position: 'left' },
         // Custom, not sectionDropdown, like Tutorials: Core/Pantheon/
         // Utility/More is a grouped, headered list, which Docusaurus's
         // stock flat dropdown can't render; see

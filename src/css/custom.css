@@ -251,3 +251,53 @@ article {
   color: var(--ifm-color-emphasis-800);
   font-weight: 500;
 }
+
+/* The three FreeMoCap sites at the top of the mobile menu
+   (src/theme/NavbarItem/SiteLinksNavbarItem.tsx). */
+.site-links-mobile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  padding: 0.25rem 0.75rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.site-links-mobile__link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ifm-menu-color);
+}
+
+/* Mobile menu on the right: the menu button sits at the far right of the
+   navbar, after search (src/theme/Navbar/Content), so the menu opens from
+   the right edge to meet it.
+   - Docusaurus pins the search box to the right edge on phones, which would
+     cover the button; here it flows in the row instead.
+   - A closed menu parked off-screen to the right would make the whole page
+     scroll sideways, so it stays in place and is revealed with a clip that
+     wipes in from the right edge.
+   The open state is repeated because this file can outrank Infima's rules. */
+@media (max-width: 996px) {
+  .navbar__toggle {
+    margin-right: 0;
+    margin-left: 0.5rem;
+  }
+
+  .navbar__items--right > [class*='navbarSearchContainer'] {
+    position: static;
+  }
+
+  .navbar-sidebar {
+    left: auto;
+    right: 0;
+    transform: none;
+    clip-path: inset(0 0 0 100%);
+    transition-property: opacity, visibility, clip-path;
+  }
+
+  .navbar-sidebar--show .navbar-sidebar {
+    transform: none;
+    clip-path: inset(0);
+  }
+}
