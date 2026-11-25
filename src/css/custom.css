@@ -301,3 +301,62 @@ article {
     clip-path: inset(0);
   }
 }
+
+/* Fitting the desktop menu on mid-size screens (997px, where Docusaurus
+   switches from the phone menu, up to 1479px; from 1480px the full menu has
+   room to breathe). At full width the menu is untouched. In this range only:
+   - menu items sit a little closer, in slightly smaller text, on one line;
+   - "Get started" reads "Start" and "Developer Docs" reads "Developers".
+     The full label stays in the page (screen readers still announce it);
+     it's just drawn at zero size, with the short one drawn in its place
+     (and hidden from screen readers by the "/ ''" alt text);
+   - the small "opens elsewhere" icons on Download and Code are dropped.
+   Below 1180px only the logo shows (no "FreeMoCap" name), and below
+   1100px the search box is narrower, like freemocap.org's header. */
+@media (min-width: 997px) and (max-width: 1479px) {
+  .navbar__inner .navbar__item {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .navbar__inner .navbar-developer-docs-item {
+    margin: 0 0.2rem;
+  }
+
+  .navbar__inner [class*='navbarSearchContainer'] {
+    padding: 0 0.25rem;
+  }
+
+  .navbar__inner .navbar__items--right a.navbar__item[href^='http'] svg {
+    display: none;
+  }
+
+  .navbar__inner a.navbar__link[href='/start/'],
+  .navbar__inner .navbar-developer-docs-item > a.navbar__link {
+    font-size: 0;
+  }
+
+  .navbar__inner a.navbar__link[href='/start/']::before {
+    content: 'Start' / '';
+    font-size: 0.875rem;
+  }
+
+  .navbar__inner .navbar-developer-docs-item > a.navbar__link::before {
+    content: 'Developers' / '';
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 997px) and (max-width: 1179px) {
+  .navbar__inner .navbar__title {
+    display: none;
+  }
+}
+
+@media (min-width: 997px) and (max-width: 1099px) {
+  .navbar__inner [class*='navbarSearchContainer'] input {
+    width: 7.5rem;
+  }
+}
