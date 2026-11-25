@@ -141,7 +141,8 @@ const config: Config = {
         blog: {
           showReadingTime: true,
           feedOptions: { type: ['rss', 'atom'], xslt: true },
-          editUrl: 'https://github.com/freemocap/freemocap.github.io/tree/main/',
+          // No editUrl: blog posts are the team's own writing, not pages for
+          // readers to propose edits to, so no "Edit this page" link.
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
